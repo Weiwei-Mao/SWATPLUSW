@@ -12,3 +12,7 @@ A strong input note answers:
 
 Use an end-to-end record in [`../../traces/`](../../traces/README.md) when proving a specific input-to-output path.
 
+## Current notes
+
+- [`file.cio` master input file](file-cio.md) — on-disk format, section→filename map, reader entry point (status: partial).
+

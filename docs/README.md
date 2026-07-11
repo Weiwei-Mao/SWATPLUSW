@@ -42,7 +42,7 @@ Canonical knowledge is organized by stable concepts rather than the order in whi
 
 ### Next high-value traces
 
-1. Trace `file.cio` through its reader and the files it activates.
+1. Trace `file.cio` through its reader and the files it activates. — **started 2026-07-11**: format and reader located ([knowledge/inputs/file-cio.md](knowledge/inputs/file-cio.md), partial); next is the parse loop and storage type.
 2. Trace `object.cnt` and connection inputs into the `command` object sequence.
 3. Trace one daily precipitation value from weather input through HRU water balance to output.
 4. Map the internal HRU process order called by `hru_control`.

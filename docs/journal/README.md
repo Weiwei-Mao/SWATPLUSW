@@ -9,4 +9,5 @@ Use the [journal template](../templates/journal-entry.md).
 ## 2026
 
 - [2026-07-10 - Workspace and knowledge-base foundation](2026/2026-07-10-workspace-foundation.md)
+- [2026-07-11 - file.cio trace, first step](2026/2026-07-11-file-cio-trace.md)
 
