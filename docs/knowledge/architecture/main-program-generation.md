@@ -13,7 +13,7 @@ tags: [architecture, build, entry-point, cmake]
 
 ## Summary
 
-The maintained SWAT+ program entry is [`src/main.f90.in`](../../../SRC_GitHub_Repository/src/main.f90.in). It contains `program main`, initialization calls, simulation control, and shutdown logic. CMake generates [`src/main.f90`](../../../SRC_GitHub_Repository/src/main.f90) from that template and substitutes build-specific values.
+The maintained SWAT+ program entry is [`src/main.f90.in`](../../../SWATPLUS/swatplus/src/main.f90.in). It contains `program main`, initialization calls, simulation control, and shutdown logic. CMake generates [`src/main.f90`](../../../SWATPLUS/swatplus/src/main.f90) from that template and substitutes build-specific values.
 
 Git tracks the template and ignores the generated file. A durable main-program change therefore belongs in `main.f90.in`, followed by regeneration.
 
@@ -27,7 +27,7 @@ src/main.f90.in
     -> compiler
 ```
 
-[`CMakeLists.txt`](../../../SRC_GitHub_Repository/CMakeLists.txt) sets the SWAT+ version from Git, gathers timestamp/compiler/platform values, and runs `configure_file(...)`. The resulting program text contains resolved values for placeholders such as:
+[`CMakeLists.txt`](../../../SWATPLUS/swatplus/CMakeLists.txt) sets the SWAT+ version from Git, gathers timestamp/compiler/platform values, and runs `configure_file(...)`. The resulting program text contains resolved values for placeholders such as:
 
 - `@SWAT_VERSION@`
 - `@TODAY@`
@@ -37,16 +37,17 @@ src/main.f90.in
 - `@CMAKE_Fortran_COMPILER_VERSION@`
 - `@CMAKE_HOST_SYSTEM_NAME@`
 
-[`SRC_GitHub_Repository/.gitignore`](../../../SRC_GitHub_Repository/.gitignore) explicitly ignores `src/main.f90`.
+[`SWATPLUS/swatplus/.gitignore`](../../../SWATPLUS/swatplus/.gitignore) explicitly ignores `src/main.f90`.
 
 ## Visual Studio relationship
 
-[`SWAT.vfproj`](../../../VSProj/SWAT/SWAT/SWAT.vfproj) references `..\..\..\SRC_GitHub_Repository\src\main.f90`, not the `.in` template. The generated file must exist before that project builds.
+[`SWAT.vfproj`](../../../VSProj/SWAT/SWAT.vfproj) references `..\..\SWATPLUS\swatplus\src\main.f90`, not the `.in` template. The generated file must exist before that project builds.
 
 Copying or renaming `main.f90.in` exposes valid Fortran entry logic, but it is not equivalent to CMake generation while `@...@` placeholders remain. The reproducible workflow is:
 
 ```powershell
-Set-Location D:\SWAT\SRC_GitHub_Repository
+# Run from the workspace root (the folder that contains the SWATPLUS/ directory).
+Set-Location SWATPLUS/swatplus
 cmake -B build -D CMAKE_Fortran_COMPILER=ifx -D CMAKE_BUILD_TYPE=Debug
 ```
 
@@ -62,10 +63,10 @@ cmake -B build -D CMAKE_Fortran_COMPILER=ifx -D CMAKE_BUILD_TYPE=Debug
 
 | Claim | Evidence |
 | --- | --- |
-| The template contains the program entry | [`src/main.f90.in`](../../../SRC_GitHub_Repository/src/main.f90.in) begins with `program main`. |
-| CMake generates `main.f90` | [`CMakeLists.txt`](../../../SRC_GitHub_Repository/CMakeLists.txt) calls `configure_file` for the template and output. |
-| Generated main is not tracked | [`.gitignore`](../../../SRC_GitHub_Repository/.gitignore) ignores `src/main.f90`; Git tracks only `src/main.f90.in`. |
-| Visual Studio compiles the generated file | [`SWAT.vfproj`](../../../VSProj/SWAT/SWAT/SWAT.vfproj) includes the generated path. |
+| The template contains the program entry | [`src/main.f90.in`](../../../SWATPLUS/swatplus/src/main.f90.in) begins with `program main`. |
+| CMake generates `main.f90` | [`CMakeLists.txt`](../../../SWATPLUS/swatplus/CMakeLists.txt) calls `configure_file` for the template and output. |
+| Generated main is not tracked | [`.gitignore`](../../../SWATPLUS/swatplus/.gitignore) ignores `src/main.f90`; Git tracks only `src/main.f90.in`. |
+| Visual Studio compiles the generated file | [`SWAT.vfproj`](../../../VSProj/SWAT/SWAT.vfproj) includes the generated path. |
 
 ## Related notes
 

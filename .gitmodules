@@ -1,0 +1,3 @@
+[submodule "SWATPLUS/swatplus"]
+	path = SWATPLUS/swatplus
+	url = https://github.com/Weiwei-Mao/swatplus.git

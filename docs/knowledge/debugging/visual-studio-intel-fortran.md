@@ -23,15 +23,15 @@ Set **Configuration Properties > Debugging > Working Directory** to:
 $(SolutionDir)Osu_1hru
 ```
 
-Equivalent absolute path:
+Equivalent path relative to the workspace root:
 
 ```text
-D:\SWAT\VSProj\SWAT\Osu_1hru
+VSProj\SWAT\Osu_1hru
 ```
 
 SWAT+ opens many inputs by relative filename. The working directory lets the executable find `file.cio` and the rest of the scenario without copying them beside the project or executable.
 
-The setting is user-specific and is not present in the shared [`SWAT.vfproj`](../../../VSProj/SWAT/SWAT/SWAT.vfproj) XML. Recheck it after moving the workspace or changing scenarios.
+The setting is user-specific and is not present in the shared [`SWAT.vfproj`](../../../VSProj/SWAT/SWAT.vfproj) XML. Recheck it after moving the workspace or changing scenarios.
 
 ## Verified `Debug|x64` settings
 
@@ -54,8 +54,8 @@ The current Release configurations use the multithreaded DLL runtime. Keep the r
 
 The source contains `#if`, `#ifdef`, `#elif`, and `#endif` blocks in files including:
 
-- [`utils.f90`](../../../SRC_GitHub_Repository/src/utils.f90)
-- [`swift_output.f90`](../../../SRC_GitHub_Repository/src/swift_output.f90)
+- [`utils.f90`](../../../SWATPLUS/swatplus/src/utils.f90)
+- [`swift_output.f90`](../../../SWATPLUS/swatplus/src/swift_output.f90)
 
 On Windows, Intel does not automatically preprocess ordinary lowercase `.f90` files by default, so the Visual Studio **Preprocess Source File: Yes** setting is functionally important.
 
@@ -67,8 +67,8 @@ For Release builds, preprocessing should be confirmed because it affects source 
 
 ## Primary evidence
 
-- Local project: [`SWAT.vfproj`](../../../VSProj/SWAT/SWAT/SWAT.vfproj)
-- Upstream SWAT+ guide: [`doc/VS-Win.md`](../../../SRC_GitHub_Repository/doc/VS-Win.md)
+- Local project: [`SWAT.vfproj`](../../../VSProj/SWAT/SWAT.vfproj)
+- Upstream SWAT+ guide: [`doc/VS-Win.md`](../../../SWATPLUS/swatplus/doc/VS-Win.md)
 - Intel: [fpp preprocessing](https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2024-2/fpp-preprocessing.html)
 - Intel: [multiple compiler processes (`/MP`)](https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2023-0/multiple-processes-mp.html)
 - Intel: [multithreaded runtime options](https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2025-1/threads.html)

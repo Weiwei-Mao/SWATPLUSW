@@ -6,7 +6,7 @@ Date: 2026-07-10
 
 Create two root-level documents that make this workspace easier for both AI agents and human learners to use safely:
 
-- `AGENTS.md` will be the authoritative operating guide for AI agents working anywhere under `D:\SWAT`.
+- `AGENTS.md` will be the authoritative operating guide for AI agents working anywhere under the workspace root.
 - `README.md` will be the human-facing introduction, setup guide, architecture map, and verified learning record.
 
 The documentation should help the user learn SWAT+ step by step, understand the model's control flow, and identify the exact source location for a future change before editing scientific code.
@@ -15,11 +15,11 @@ The documentation should help the user learn SWAT+ step by step, understand the 
 
 The documents will describe the actual on-disk names and roles:
 
-- `SRC_GitHub_Repository/` is the downloaded SWAT+ Git repository and source of truth.
-- `SRC_GitHub_Repository/src/` contains the maintained Fortran sources.
-- `VSProj/SWAT/SWAT/SWAT.vfproj` is the Intel Fortran project. Its source entries point to `SRC_GitHub_Repository/src` using relative paths.
+- `SWATPLUS/swatplus/` is the downloaded SWAT+ Git repository and source of truth.
+- `SWATPLUS/swatplus/src/` contains the maintained Fortran sources.
+- `VSProj/SWAT/SWAT.vfproj` is the Intel Fortran project. Its source entries point to `SWATPLUS/swatplus/src` using relative paths.
 - `VSProj/SWAT/Osu_1hru/` is the one-HRU demonstration input dataset used for step-by-step debugging.
-- `VSProj/SWAT/SWAT/x64/Debug/` contains generated build artifacts and is not a source directory.
+- `VSProj/SWAT/x64/Debug/` contains generated build artifacts and is not a source directory.
 
 Existing `GEMINI.md` files will be left unchanged. No Fortran source, project setting, demo input, or generated file is changed by this documentation task.
 
@@ -29,7 +29,7 @@ The documents must preserve the following distinctions.
 
 ### Generated main program
 
-- Git tracks `SRC_GitHub_Repository/src/main.f90.in` and ignores `SRC_GitHub_Repository/src/main.f90`.
+- Git tracks `SWATPLUS/swatplus/src/main.f90.in` and ignores `SWATPLUS/swatplus/src/main.f90`.
 - The top-level `CMakeLists.txt` uses `configure_file(...)` to create `src/main.f90` from `src/main.f90.in` and substitute values such as the version, compiler, platform, and timestamp.
 - `main.f90.in` already contains the `program main` entry and model initialization logic.
 - Copying or renaming the template can expose the entry code for a manual project, but it is not equivalent to CMake generation while `@...@` placeholders remain unresolved.
@@ -38,7 +38,7 @@ The documents must preserve the following distinctions.
 
 ### Intel Fortran and Visual Studio settings
 
-- The debugger working directory should be the selected SWAT+ input dataset, currently `D:\SWAT\VSProj\SWAT\Osu_1hru`, so relative input-file opens resolve correctly.
+- The debugger working directory should be the selected SWAT+ input dataset, currently `VSProj\SWAT\Osu_1hru` (relative to the workspace root), so relative input-file opens resolve correctly.
 - This working-directory choice is a debugger/user setting and is not currently represented in the shared `SWAT.vfproj` XML.
 - In the current project, `Debug|x64` uses Intel `ifx`, enables multi-processor compilation, enables preprocessing, disables optimization, generates debugging information, and enables diagnostic checks.
 - Multi-processor compilation allows independent source files to compile concurrently. It improves build speed but does not make model execution multithreaded.
@@ -52,7 +52,7 @@ The documents must preserve the following distinctions.
 
 1. **Mission and scope** — learn and modify SWAT+ carefully, with evidence for every claimed call path or source location.
 2. **Workspace map** — identify source, Visual Studio project, demo data, and generated artifacts.
-3. **Source-of-truth rules** — edit maintained files in `SRC_GitHub_Repository/src`; account for generated `main.f90`; preserve user changes; do not edit compiler outputs.
+3. **Source-of-truth rules** — edit maintained files in `SWATPLUS/swatplus/src`; account for generated `main.f90`; preserve user changes; do not edit compiler outputs.
 4. **Required investigation workflow** — trace input/configuration, data structures, orchestration, process equations, and outputs before recommending a change.
 5. **Visual Studio guidance** — check the active configuration, working directory, preprocessing, multi-processor compilation, diagnostics, and runtime-library compatibility.
 6. **Change workflow** — explain the observed behavior, identify callers and consumers, make the smallest scoped edit, and state assumptions.
@@ -79,12 +79,12 @@ The file will not duplicate a complete model reference manual. It will tell futu
 
 Claims will be backed by local evidence, especially:
 
-- `SRC_GitHub_Repository/CMakeLists.txt`
-- `SRC_GitHub_Repository/.gitignore`
-- `SRC_GitHub_Repository/src/main.f90.in`
-- `SRC_GitHub_Repository/doc/Tagging.md`
-- `SRC_GitHub_Repository/doc/VS-Win.md`
-- `VSProj/SWAT/SWAT/SWAT.vfproj`
+- `SWATPLUS/swatplus/CMakeLists.txt`
+- `SWATPLUS/swatplus/.gitignore`
+- `SWATPLUS/swatplus/src/main.f90.in`
+- `SWATPLUS/swatplus/doc/Tagging.md`
+- `SWATPLUS/swatplus/doc/VS-Win.md`
+- `VSProj/SWAT/SWAT.vfproj`
 - Compiler-condition directives in `utils.f90` and `swift_output.f90`
 
 Links in the Markdown documents will use repository-relative paths so they continue to work if the workspace is moved.

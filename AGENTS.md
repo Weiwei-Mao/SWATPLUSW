@@ -4,30 +4,31 @@
 
 Use this workspace to learn the SWAT+ Fortran model, document its structure, trace model behavior, and make changes in the exact maintained source location. Treat scientific-code changes as evidence-driven work: identify the input, state, callers, calculation, and outputs before editing.
 
-This file applies to the entire `D:\SWAT` workspace.
+This file applies to the entire workspace root (the directory that contains this `AGENTS.md`).
 
 ## Workspace map
 
 | Path | Role | Edit policy |
 | --- | --- | --- |
-| `SRC_GitHub_Repository/` | Downloaded SWAT+ Git repository | Treat as the upstream source repository. |
-| `SRC_GitHub_Repository/src/` | Maintained Fortran source | Make model-code changes here. |
+| `SWATPLUS/swatplus/` | SWAT+ source, tracked as a git submodule (see `.gitmodules`) | Read-only object of study. On a new machine run `git submodule update --init`, then generate `src/main.f90` (upstream ships only the `.in` template). |
+| `SWATPLUS/swatplus/src/` | Maintained Fortran source | Make model-code changes here. |
 | `VSProj/SWAT/SWAT.slnx` | Visual Studio solution | Use for Intel Fortran debugging. |
-| `VSProj/SWAT/SWAT/SWAT.vfproj` | Intel Fortran project | Its source entries link to `SRC_GitHub_Repository/src`; do not assume it contains copies. |
+| `VSProj/SWAT/SWAT.vfproj` | Intel Fortran project | Its source entries link to `SWATPLUS/swatplus/src`; do not assume it contains copies. |
 | `VSProj/SWAT/Osu_1hru/` | One-HRU SWAT+ input dataset | Use as the default small debug case. Preserve its inputs unless a task explicitly changes the scenario. |
-| `VSProj/SWAT/SWAT/x64/` | Compiler and linker output | Generated artifacts; do not edit. |
+| `VSProj/SWAT/x64/` | Compiler and linker output | Generated artifacts; do not edit. |
 | `docs/` | Workspace designs and future learning records | Keep durable, verified project knowledge here. |
 
-`D:\SWAT` itself is not currently a Git repository. `SRC_GitHub_Repository` is a nested Git repository; do not claim that root-level documents or `VSProj` changes were committed there.
+The workspace root itself is not currently a Git repository. `SWATPLUS/swatplus` is a nested Git repository; do not claim that root-level documents or `VSProj` changes were committed there.
 
 ## Source-of-truth rules
 
-1. Use the actual folder names `SRC_GitHub_Repository` and `VSProj`.
-2. The Visual Studio project references source files with paths such as `..\..\..\SRC_GitHub_Repository\src\*.f90`. Editing a linked file in Visual Studio normally edits the authoritative source file.
+1. Use the actual folder names `SWATPLUS/swatplus` and `VSProj`.
+2. The Visual Studio project references source files with paths such as `..\..\SWATPLUS\swatplus\src\*.f90`. Editing a linked file in Visual Studio normally edits the authoritative source file.
 3. Git tracks `src/main.f90.in`, not `src/main.f90`. CMake generates `src/main.f90` with version, compiler, platform, and timestamp substitutions.
 4. For durable main-program changes, edit `src/main.f90.in` and regenerate `src/main.f90`. Do not maintain the generated file independently.
 5. Do not edit `.obj`, `.mod`, `__genmod.f90`, executables, or other files under build-output directories.
 6. Preserve unrelated user changes and untracked files. Inspect repository status before modifying source.
+7. Keep temporary experiments, throwaway scripts, and bug reproductions outside `SWATPLUS/swatplus/` (the upstream source stays a clean read-only reference) and outside `docs/` (durable notes only). Put anything disposable in a separate scratch folder.
 
 ## Required investigation workflow
 
@@ -60,10 +61,10 @@ main.f90.in -> generated main.f90
 
 Important entry files include:
 
-- `SRC_GitHub_Repository/src/main.f90.in`
-- `SRC_GitHub_Repository/src/time_control.f90`
-- `SRC_GitHub_Repository/src/command.f90`
-- `SRC_GitHub_Repository/src/hru_control.f90`
+- `SWATPLUS/swatplus/src/main.f90.in`
+- `SWATPLUS/swatplus/src/time_control.f90`
+- `SWATPLUS/swatplus/src/command.f90`
+- `SWATPLUS/swatplus/src/hru_control.f90`
 
 The actual object path depends on `object.cnt`, connection files, object types, and simulation options.
 
@@ -87,6 +88,7 @@ The current `SWAT.vfproj` already records multi-processor compilation and prepro
 - Do not modify an equation based only on a filename or variable name. Check units, indexing, initialization, reset timing, mass balance, and downstream use.
 - Prefer `Osu_1hru` for fast step-by-step verification when it exercises the relevant path. Use a different scenario when the feature is absent from the one-HRU configuration.
 - Build the configuration that will be debugged. A successful compile is necessary but not sufficient; run the relevant scenario and inspect its output or watched state.
+- For regression after a source change, build the upstream CMake project under `SWATPLUS/swatplus/` and run its built-in scenario tests; this confirms the change does not break existing SWAT+ behavior beyond the one-HRU case.
 - Report exact paths and routine names, what was verified, what remains uncertain, and any output differences.
 - Record every durable finding in the knowledge system under `docs/`; do not rely only on chat history or keep expanding the root `README.md`.
 

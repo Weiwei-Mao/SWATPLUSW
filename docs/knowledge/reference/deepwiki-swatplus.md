@@ -17,7 +17,7 @@ external_checked: 2026-07-10
 
 Record a curated map to the [SWAT+ DeepWiki](https://deepwiki.com/swat-model/swatplus) rather than downloading a full copy.
 
-DeepWiki is useful for discovering subsystems, diagrams, related source files, and possible call paths. A local mirror would duplicate a dynamic generated site, lose refresh context, and become stale. Our authoritative evidence remains the checked-out source in [`SRC_GitHub_Repository`](../../../SRC_GitHub_Repository).
+DeepWiki is useful for discovering subsystems, diagrams, related source files, and possible call paths. A local mirror would duplicate a dynamic generated site, lose refresh context, and become stale. Our authoritative evidence remains the checked-out source in [`SWATPLUS/swatplus`](../../../SWATPLUS/swatplus).
 
 ## Trust level
 
@@ -27,7 +27,7 @@ Before promoting a DeepWiki statement into canonical knowledge:
 
 1. Check the **Last indexed** date and commit on the specific DeepWiki page.
 2. Compare that commit with the local source revision.
-3. Open every important cited file in `SRC_GitHub_Repository/src`.
+3. Open every important cited file in `SWATPLUS/swatplus/src`.
 4. Confirm exact routines, branches, data fields, units, and indices locally.
 5. For scenario-dependent behavior, confirm the path with `Osu_1hru` inputs or a debugger trace.
 6. Cite local files and traces in our canonical note; retain DeepWiki only as a related external reference.

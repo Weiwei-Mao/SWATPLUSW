@@ -18,7 +18,7 @@ Establish the SWAT+ learning workspace, verify the relationship among the downlo
 ## Actions
 
 - Mapped the actual workspace folder names and project paths.
-- Confirmed that the Intel project source entries point into `SRC_GitHub_Repository/src`.
+- Confirmed that the Intel project source entries point into `SWATPLUS/swatplus/src`.
 - Verified Git tracking and CMake generation of the main program.
 - Inspected `main.f90.in`, `time_control.f90`, and `command.f90` for the high-level execution route.
 - Checked the current Intel project configurations and compiler properties.
@@ -30,7 +30,7 @@ Establish the SWAT+ learning workspace, verify the relationship among the downlo
 
 ## Verified observations
 
-- `SRC_GitHub_Repository` is the source Git repository; the root workspace is not a Git repository.
+- `SWATPLUS/swatplus` is the source Git repository; the root workspace is not a Git repository.
 - `src/main.f90.in` is tracked and contains `program main`; CMake generates ignored `src/main.f90`.
 - The Intel project compiles linked files from the source repository and references generated `main.f90`.
 - A normal simulation enters `time_control`, which invokes `command` in the daily loop.

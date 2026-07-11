@@ -6,39 +6,52 @@ The working method combines the downloaded SWAT+ repository with an Intel Fortra
 
 ## Workspace structure
 
+Paths below are relative to the workspace root (the directory that contains this `README.md`). They stay valid when the workspace is copied to another machine or drive.
+
 ```text
-D:\SWAT
+<workspace-root>
 |-- AGENTS.md                       AI-agent operating rules
 |-- README.md                       Human-facing project guide
 |-- docs\                           Indexed SWAT+ knowledge base
-|-- SRC_GitHub_Repository\          Downloaded SWAT+ Git repository
+|-- SWATPLUS\swatplus\              Downloaded SWAT+ Git repository
 |   |-- CMakeLists.txt              Official build configuration
 |   |-- doc\                        Upstream build/development documentation
 |   `-- src\                        Authoritative Fortran source
 `-- VSProj\SWAT\
     |-- SWAT.slnx                   Visual Studio solution
-    |-- SWAT\SWAT.vfproj            Intel Fortran project
+    |-- SWAT.vfproj                 Intel Fortran project
     `-- Osu_1hru\                   One-HRU input/debug scenario
 ```
 
-The source entries in [`SWAT.vfproj`](VSProj/SWAT/SWAT/SWAT.vfproj) point back to [`SRC_GitHub_Repository/src`](SRC_GitHub_Repository/src). They are linked source files, not a second maintained copy.
+The source entries in [`SWAT.vfproj`](VSProj/SWAT/SWAT.vfproj) point back to [`SWATPLUS/swatplus/src`](SWATPLUS/swatplus/src). They are linked source files, not a second maintained copy.
 
 Our accumulated SWAT+ knowledge is indexed separately in the [`docs` knowledge base](docs/README.md). The root README remains a concise workspace and startup guide.
 
-Only [`SRC_GitHub_Repository`](SRC_GitHub_Repository) is currently a Git repository. The root workspace, Visual Studio project, demo, and root documentation are not currently version-controlled together.
+The [`SWATPLUS/swatplus`](SWATPLUS/swatplus) directory is a **git submodule** (see [`.gitmodules`](.gitmodules)) pointing at a fork of the upstream [swatplus](https://github.com/swat-model/swatplus) source. It is the read-only object of study and is pinned to the exact commit our notes are written against (each note's `source_revision`). On a new machine, fetch it with the rest of the workspace so the source links in `docs/` resolve:
+
+```text
+git clone --recursive <this-workspace-url>
+# or, after a plain clone:
+git submodule update --init --recursive
+```
+
+To follow upstream changes, pull from inside `SWATPLUS/swatplus/` and commit the new pointer in this repo.
+
+Note: upstream ships only `src/main.f90.in`; `src/main.f90` is **generated** by CMake (it substitutes the `@...@` placeholders) and is not in the submodule. After fetching the submodule on a new machine, generate it before the Visual Studio project can build — see [Quick start, step 1](#1-confirm-that-the-generated-main-program-exists).
 
 ## Quick start with Visual Studio
 
 ### 1. Confirm that the generated main program exists
 
-The Intel project references [`src/main.f90`](SRC_GitHub_Repository/src/main.f90), but Git tracks only [`src/main.f90.in`](SRC_GitHub_Repository/src/main.f90.in). Configure the CMake project once when `main.f90` is missing or the template/version context has changed:
+The Intel project references [`src/main.f90`](SWATPLUS/swatplus/src/main.f90), but Git tracks only [`src/main.f90.in`](SWATPLUS/swatplus/src/main.f90.in). Configure the CMake project once when `main.f90` is missing or the template/version context has changed:
 
 ```powershell
-Set-Location D:\SWAT\SRC_GitHub_Repository
+# Run from the workspace root (the folder that contains this README.md).
+Set-Location SWATPLUS/swatplus
 cmake -B build -D CMAKE_Fortran_COMPILER=ifx -D CMAKE_BUILD_TYPE=Debug
 ```
 
-This runs CMake's `configure_file(...)` step and substitutes the template placeholders. See [`CMakeLists.txt`](SRC_GitHub_Repository/CMakeLists.txt) and the upstream [`Tagging.md`](SRC_GitHub_Repository/doc/Tagging.md).
+This runs CMake's `configure_file(...)` step and substitutes the template placeholders. See [`CMakeLists.txt`](SWATPLUS/swatplus/CMakeLists.txt) and the upstream [`Tagging.md`](SWATPLUS/swatplus/doc/Tagging.md).
 
 Do not make durable edits in generated `main.f90`; a later CMake configure can overwrite it. Modify `main.f90.in`, then regenerate.
 
@@ -58,10 +71,10 @@ Open the project Property Pages and select the intended `Debug|x64` configuratio
 $(SolutionDir)Osu_1hru
 ```
 
-For this workspace, the equivalent absolute path is:
+Equivalent path relative to the workspace root:
 
 ```text
-D:\SWAT\VSProj\SWAT\Osu_1hru
+VSProj\SWAT\Osu_1hru
 ```
 
 This is essential because SWAT+ opens input files such as `file.cio` using relative paths. Setting the working directory avoids copying all scenario inputs beside the project or executable.
@@ -88,10 +101,10 @@ Intel documents the relevant behavior in [fpp Preprocessing](https://www.intel.c
 
 Build the solution, then begin with breakpoints in:
 
-- [`main.f90.in`](SRC_GitHub_Repository/src/main.f90.in) to learn initialization (place the executable breakpoint in generated `main.f90` if needed).
-- [`time_control.f90`](SRC_GitHub_Repository/src/time_control.f90) to observe year/day progression, climate, and the daily command call.
-- [`command.f90`](SRC_GitHub_Repository/src/command.f90) to see how configured objects are dispatched.
-- [`hru_control.f90`](SRC_GitHub_Repository/src/hru_control.f90) to enter the detailed land-phase path for a full HRU.
+- [`main.f90.in`](SWATPLUS/swatplus/src/main.f90.in) to learn initialization (place the executable breakpoint in generated `main.f90` if needed).
+- [`time_control.f90`](SWATPLUS/swatplus/src/time_control.f90) to observe year/day progression, climate, and the daily command call.
+- [`command.f90`](SWATPLUS/swatplus/src/command.f90) to see how configured objects are dispatched.
+- [`hru_control.f90`](SWATPLUS/swatplus/src/hru_control.f90) to enter the detailed land-phase path for a full HRU.
 
 Use call stacks and watches to confirm the path for the active one-HRU inputs rather than stepping indiscriminately through every initialization routine.
 
@@ -105,7 +118,7 @@ The original observation was mostly correct but needs one important qualificatio
 4. Copying or renaming the template makes the Fortran entry visible, but it is only a manual workaround unless the placeholders are replaced. CMake generation is the reproducible method.
 5. The Visual Studio project currently references generated `main.f90`, so that file must exist to build the project.
 
-The generated file is ignored by Git as documented in [`SRC_GitHub_Repository/.gitignore`](SRC_GitHub_Repository/.gitignore).
+The generated file is ignored by Git as documented in [`SWATPLUS/swatplus/.gitignore`](SWATPLUS/swatplus/.gitignore).
 
 ## High-level execution path
 
@@ -130,7 +143,7 @@ main.f90.in / generated main.f90
               `-- collect/write object outputs
 ```
 
-In [`main.f90.in`](SRC_GitHub_Repository/src/main.f90.in), a normal time-stepped run calls `time_control`; a negative `time%step` takes the average-annual export-coefficient path directly through `command`. During the normal daily loop, [`time_control.f90`](SRC_GitHub_Repository/src/time_control.f90) initializes the day, handles climate and scheduled actions, and calls `command`. [`command.f90`](SRC_GitHub_Repository/src/command.f90) then dispatches the object type configured in the watershed command sequence.
+In [`main.f90.in`](SWATPLUS/swatplus/src/main.f90.in), a normal time-stepped run calls `time_control`; a negative `time%step` takes the average-annual export-coefficient path directly through `command`. During the normal daily loop, [`time_control.f90`](SWATPLUS/swatplus/src/time_control.f90) initializes the day, handles climate and scheduled actions, and calls `command`. [`command.f90`](SWATPLUS/swatplus/src/command.f90) then dispatches the object type configured in the watershed command sequence.
 
 The exact active path is controlled by the scenario's object and connection inputs. A filename-based architecture guess is not enough; confirm object types and indices in the debugger.
 
@@ -199,11 +212,11 @@ The full maintained notes now live in the [knowledge base](docs/README.md). This
 
 ## Primary local references
 
-- [SWAT+ repository README](SRC_GitHub_Repository/README.md)
-- [Building SWAT+](SRC_GitHub_Repository/doc/Building.md)
-- [Developing with Visual Studio on Windows](SRC_GitHub_Repository/doc/VS-Win.md)
-- [Version tagging and generated `main.f90`](SRC_GitHub_Repository/doc/Tagging.md)
-- [SWAT+ coding conventions](SRC_GitHub_Repository/doc/coding_conventions.md)
+- [SWAT+ repository README](SWATPLUS/swatplus/README.md)
+- [Building SWAT+](SWATPLUS/swatplus/doc/Building.md)
+- [Developing with Visual Studio on Windows](SWATPLUS/swatplus/doc/VS-Win.md)
+- [Version tagging and generated `main.f90`](SWATPLUS/swatplus/doc/Tagging.md)
+- [SWAT+ coding conventions](SWATPLUS/swatplus/doc/coding_conventions.md)
 - [Workspace agent guide](AGENTS.md)
 - [SWAT+ learning knowledge base](docs/README.md)
 - [DeepWiki SWAT+ source-explorer record](docs/knowledge/reference/deepwiki-swatplus.md)

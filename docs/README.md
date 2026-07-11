@@ -33,10 +33,10 @@ Canonical knowledge is organized by stable concepts rather than the order in whi
 
 ### Verified foundation
 
-- The maintained main program is [`src/main.f90.in`](../SRC_GitHub_Repository/src/main.f90.in); CMake generates ignored `src/main.f90`.
+- The maintained main program is [`src/main.f90.in`](../SWATPLUS/swatplus/src/main.f90.in); CMake generates ignored `src/main.f90`.
 - A normal simulation enters `time_control`, which calls `command` during the daily loop.
 - `command` dispatches configured simulation objects, including full HRUs through `hru_control`.
-- The Intel project links to authoritative sources under `SRC_GitHub_Repository/src`.
+- The Intel project links to authoritative sources under `SWATPLUS/swatplus/src`.
 - `Debug|x64` is configured for Intel `ifx`, debugging checks, preprocessing, and parallel source compilation.
 - `Osu_1hru` is the default small scenario for step-by-step learning.
 

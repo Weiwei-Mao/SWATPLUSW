@@ -1,0 +1,42 @@
+# ===========================================================================
+# This repository holds our SWAT+ learning product only:
+#   docs/, README.md, AGENTS.md, and workspace config.
+# Everything ignored below is an upstream copy, a build artifact, or
+# machine-specific state.
+# ===========================================================================
+
+# --- Upstream SWAT+ source tree -------------------------------------------
+# Tracked as a git submodule (see .gitmodules). Do NOT ignore it.
+
+# --- Visual Studio / Intel Fortran build output and IDE state -------------
+/VSProj/**/x64/
+/VSProj/**/.vs/
+*.user
+*.suo
+*.aps
+*.opensdf
+*.sdf
+
+# --- Fortran compiler intermediates ---------------------------------------
+# Normally produced under x64/; listed here as a safety net.
+*.mod
+*.obj
+*__genmod.f90
+
+# --- CMake build directories ----------------------------------------------
+build/
+
+# --- OS / editor cruft ----------------------------------------------------
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp
+*~
+
+# --- SWAT+ run outputs inside scenarios -----------------------------------
+# Scenario inputs (file.cio, *.bsn, *.lum, *.pcp, ...) stay tracked.
+# Uncomment below to also ignore files the model regenerates each run.
+# /VSProj/SWAT/Osu_1hru/*.out
+# /VSProj/SWAT/Ames_sub1/*.out
+# /VSProj/SWAT/*/_aa.txt
+# /VSProj/SWAT/*/_yr.txt
