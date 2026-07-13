@@ -20,7 +20,7 @@ This file applies to the workspace root that contains this `AGENTS.md`.
 | `docs/model-structure.md` | Code-structure guide | Keep as the current orientation map. |
 | `docs/input-output.md` | Input/output tracing guide | Keep as the current tracing map. |
 | `docs/topics/` | Detailed technical notes | Store durable topic evidence here. |
-| `docs/internal/` | Journals, designs, templates, drafts | Internal project memory; not the normal reader path. |
+| `docs/internal/debug-inbox.md` | Raw debugger observations | Working inbox for step-by-step notes before promotion into guides or topics. |
 
 The workspace root is the Git repository. Inspect `git status` before modifying files, and preserve unrelated user changes and untracked generated outputs.
 
@@ -28,8 +28,8 @@ The workspace root is the Git repository. Inspect `git status` before modifying 
 
 1. Use the actual folder names `SWATPLUS/swatplus` and `VSProj`.
 2. Visual Studio source entries point to `SWATPLUS/swatplus/src`. Editing a linked file in Visual Studio normally edits the authoritative source.
-3. Git tracks `src/main.f90.in`, not generated `src/main.f90`. CMake generates `src/main.f90` with version, compiler, platform, and timestamp substitutions.
-4. For durable main-program changes, edit `src/main.f90.in` and regenerate `src/main.f90`. Do not maintain the generated file independently.
+3. Git tracks `SWATPLUS/swatplus/src/main.f90.in`, not generated `main.f90`. Upstream CMake generates `SWATPLUS/swatplus/src/main.f90`; this workspace keeps Visual Studio's generated copy at `VSProj/SWAT/generated/main.f90`.
+4. For durable main-program changes, edit `src/main.f90.in` and regenerate the local Visual Studio copy with `VSProj/SWAT/generated/generate-main.ps1`. Do not maintain generated `main.f90` independently.
 5. Do not edit `.obj`, `.mod`, `__genmod.f90`, executables, or other build outputs.
 6. Keep disposable experiments outside `SWATPLUS/swatplus/` and outside `docs/`. `docs/` is for durable notes only.
 
@@ -52,7 +52,7 @@ Use code evidence for call paths. Label unverified interpretations as inference.
 Use this only as a starting map:
 
 ```text
-main.f90.in -> generated main.f90
+main.f90.in -> generated Visual Studio main.f90
     -> input reading and object initialization
     -> time_control
         -> daily initialization and climate
@@ -98,7 +98,7 @@ Use `docs/README.md` as the single reader entrance.
 
 1. Put stable orientation in `docs/model-structure.md` or `docs/input-output.md`.
 2. Put detailed technical evidence in one topic note under `docs/topics/`.
-3. Put journals, design records, templates, and drafts under `docs/internal/`.
+3. Put raw live-debug observations in `docs/internal/debug-inbox.md`.
 4. Do not add category README files unless the documentation grows enough to justify a new approved structure.
 5. Keep root `README.md` short: purpose, workspace map, setup, and essential rules.
 

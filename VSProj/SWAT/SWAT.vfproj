@@ -356,7 +356,7 @@
 			<File RelativePath="..\..\SWATPLUS\swatplus\src\lsu_carbon_output.f90"/>
 			<File RelativePath="..\..\SWATPLUS\swatplus\src\lsu_output.f90"/>
 			<File RelativePath="..\..\SWATPLUS\swatplus\src\lsu_read_elements.f90"/>
-			<File RelativePath="..\..\SWATPLUS\swatplus\src\main.f90"/>
+			<File RelativePath=".\generated\main.f90"/>
 			<File RelativePath="..\..\SWATPLUS\swatplus\src\mallo_control.f90"/>
 			<File RelativePath="..\..\SWATPLUS\swatplus\src\manure_allocation_module.f90"/>
 			<File RelativePath="..\..\SWATPLUS\swatplus\src\manure_allocation_read.f90"/>

@@ -32,7 +32,13 @@ The first scenario is [`VSProj/SWAT/Osu_1hru`](../VSProj/SWAT/Osu_1hru/). It is 
 | Stage | Current understanding | Status |
 | --- | --- | --- |
 | Master input manifest | `file.cio` lists the scenario input files by section. | Partial: format and reader identified. |
-| Reader identity | `readcio_read.f90` opens `file.cio`; `input_file_module.f90` is expected to hold related structures. | Partial: parse loop and fields not fully traced. |
+| Reader identity | `readcio_read.f90` opens `file.cio`; `input_file_module.f90` stores filenames such as `in_basin%codes_bas`. | Partial: some downstream consumers still need tracing. |
+| Basin control codes | `codes.bsn` is read by `basin_read_cc.f90` into `bsn_cc`, setting basin-wide model switches. | Partial: field meanings mapped; not every consumer traced. |
+| Basin numeric parameters | `parameters.bsn` is read by `basin_read_prm.f90` into `bsn_prm`, then adjusted by `basin_prm_default.f90`. | Partial: field meanings mapped; not every consumer traced. |
+| Output controls | `print.prt` is read by `basin_print_codes_read.f90` into `pco`, setting output frequencies and file-format flags. | Partial: main fields mapped; exact file writers still need deeper tracing. |
+| CO2 and carbon setup | `co2_read.f90` resolves annual CO2 values; `carbon_bsn_read.f90` reads dynamic carbon parameters only when `codes.bsn` has `carbon = 2`; `carbon_layers_read.f90` optionally controls per-layer carbon output depth. | Partial: reader functions and input-file formats mapped; downstream carbon calculations still need tracing. |
+| Object inventory | `object.cnt` is read by `basin_read_objs.f90` into `bsn` and `sp_ob`, setting object counts for allocation, connection reading, and command dispatch. | Partial: object concepts mapped; exact `Osu_1hru` command order still needs final trace. |
+| QSWAT-generated HRU routing | In the Robin/QSWAT workflow, each HRU is effectively wrapped by one routing unit. `hru.con` has no direct outputs; `rout_unit.ele` and `rout_unit.def` map HRUs to routing units; `rout_unit.con` stores downstream routing. | Partial: verified for Robin; do not generalize to all hand-written SWAT+ inputs. |
 | Program control | `main` initializes input/object state, then normal runs enter `time_control` and daily `command` dispatch. | Verified orientation map. |
 | Object dispatch | `command` dispatches configured object types, including full HRUs through `hru_control`. | Verified orientation map; scenario-specific object sequence still needs tracing. |
 | Outputs | Output production and column-level mappings are not yet traced. | Not yet mapped. |
@@ -42,6 +48,12 @@ The first scenario is [`VSProj/SWAT/Osu_1hru`](../VSProj/SWAT/Osu_1hru/). It is 
 The active trace is `file.cio`:
 
 - Detailed note: [`topics/file-cio.md`](topics/file-cio.md)
+- Basin control note: [`topics/codes-bsn.md`](topics/codes-bsn.md)
+- Basin parameter note: [`topics/parameters-bsn.md`](topics/parameters-bsn.md)
+- Output control note: [`topics/print-prt.md`](topics/print-prt.md)
+- CO2/carbon input note: [`topics/co2-carbon-inputs.md`](topics/co2-carbon-inputs.md)
+- Object inventory note: [`topics/object-cnt.md`](topics/object-cnt.md)
+- QSWAT-generated HRU/routing-unit note: [`topics/qswat-hru-routing-unit.md`](topics/qswat-hru-routing-unit.md)
 - Scenario note: [`topics/osu-1hru-scenario.md`](topics/osu-1hru-scenario.md)
 - Related control map: [`topics/simulation-control-flow.md`](topics/simulation-control-flow.md)
 

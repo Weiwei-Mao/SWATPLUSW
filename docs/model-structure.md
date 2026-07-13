@@ -16,7 +16,7 @@ This guide is the short map of which part of the code does what. It is an orient
 ## Top-Level Shape
 
 ```text
-main.f90.in -> generated main.f90
+main.f90.in -> generated Visual Studio main.f90
     -> input and object initialization
     -> time_control
         -> daily calendar and climate work
@@ -25,7 +25,9 @@ main.f90.in -> generated main.f90
             -> object/process outputs
 ```
 
-The maintained program entry is [`main.f90.in`](../SWATPLUS/swatplus/src/main.f90.in). The generated [`main.f90`](../SWATPLUS/swatplus/src/main.f90) is needed by the Visual Studio project, but it is not the durable edit target.
+The maintained program entry is [`main.f90.in`](../SWATPLUS/swatplus/src/main.f90.in). The Visual Studio project compiles ignored local output `VSProj/SWAT/generated/main.f90`, generated from the template by [`generate-main.ps1`](../VSProj/SWAT/generated/generate-main.ps1). The generated file is not the durable edit target.
+
+At startup, `main` writes the program banner to the console and `simulation.out`, opens `erosion.txt`, then calls `proc_bsn`, which begins the `file.cio` input-selection path.
 
 ## Major Responsibilities
 

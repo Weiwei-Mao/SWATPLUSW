@@ -5,7 +5,9 @@ This is the main entrance for understanding the SWAT+ code in this workspace. Re
 1. [`model-structure.md`](model-structure.md) - how the code is organized and which controller does what.
 2. [`input-output.md`](input-output.md) - how scenario inputs move through readers, state, calculations, and outputs.
 
-Detailed evidence and narrower technical notes live in [`topics/`](topics/). Internal journals, designs, templates, and drafts live in [`internal/`](internal/) and are not part of the normal reading path.
+Detailed evidence and narrower technical notes live in [`topics/`](topics/). Raw live-debug notes live in [`internal/debug-inbox.md`](internal/debug-inbox.md).
+
+During live debugging, write raw step-by-step observations in [`internal/debug-inbox.md`](internal/debug-inbox.md). Codex can later read that inbox and promote stable understanding into the suitable guide or topic files.
 
 ## Mental Model
 
@@ -28,6 +30,12 @@ The important habit is to follow one value end to end. Do not infer behavior fro
 | Main-program generation | Verified | [`topics/main-program-generation.md`](topics/main-program-generation.md) |
 | `time_control` and `command` dispatch | Verified orientation map | [`topics/simulation-control-flow.md`](topics/simulation-control-flow.md) |
 | `file.cio` input manifest | Partial | [`topics/file-cio.md`](topics/file-cio.md) |
+| `codes.bsn` basin control codes | Partial | [`topics/codes-bsn.md`](topics/codes-bsn.md) |
+| `parameters.bsn` basin parameters | Partial | [`topics/parameters-bsn.md`](topics/parameters-bsn.md) |
+| `print.prt` output controls | Partial | [`topics/print-prt.md`](topics/print-prt.md) |
+| CO2 and carbon input readers | Partial | [`topics/co2-carbon-inputs.md`](topics/co2-carbon-inputs.md) |
+| `object.cnt` and object concepts | Partial | [`topics/object-cnt.md`](topics/object-cnt.md) |
+| QSWAT+ HRU to routing-unit generated structure | Partial | [`topics/qswat-hru-routing-unit.md`](topics/qswat-hru-routing-unit.md) |
 | Visual Studio / Intel Fortran setup | Verified | [`topics/visual-studio-intel-fortran.md`](topics/visual-studio-intel-fortran.md) |
 | `Osu_1hru` debug scenario | Partial | [`topics/osu-1hru-scenario.md`](topics/osu-1hru-scenario.md) |
 | DeepWiki as an external source explorer | Verified usage rule | [`topics/deepwiki-swatplus.md`](topics/deepwiki-swatplus.md) |
@@ -45,7 +53,7 @@ Use the topic notes only when you need detailed evidence, source paths, or unres
 ## Next Learning Targets
 
 1. Finish tracing `file.cio`: parse loop, storage type, and one filename consumer such as `time.sim`.
-2. Trace `object.cnt` and connection inputs into the `command` object sequence.
+2. Continue tracing `object.cnt` connection inputs into the exact `command` object sequence for `Osu_1hru`.
 3. Trace one daily precipitation value from weather input through HRU water balance to output.
 4. Map the internal process order called by `hru_control` for the configured full HRU.
 
@@ -63,5 +71,5 @@ Use the topic notes only when you need detailed evidence, source paths, or unres
 - Keep this file as the single learning entrance.
 - Keep root [`README.md`](../README.md) short and focused on workspace setup.
 - Put durable detailed notes directly under [`topics/`](topics/).
-- Put journals, design records, templates, and drafts under [`internal/`](internal/).
+- Put live debugger observations in [`internal/debug-inbox.md`](internal/debug-inbox.md).
 - Keep one clear topic per note and include `status`, `source_revision`, and `scenario` metadata in substantive notes.

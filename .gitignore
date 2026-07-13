@@ -23,6 +23,9 @@
 *.obj
 *__genmod.f90
 
+# Local Visual Studio generated source copied from upstream templates.
+/VSProj/SWAT/generated/main.f90
+
 # --- CMake build directories ----------------------------------------------
 build/
 

@@ -52,5 +52,4 @@ Each completed investigation belongs in [`../input-output.md`](../input-output.m
 
 - [Visual Studio and Intel Fortran](visual-studio-intel-fortran.md)
 - [Simulation control flow](simulation-control-flow.md)
-- [Learning journal](../internal/journal-2026-07-10-workspace-foundation.md)
 
