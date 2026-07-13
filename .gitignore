@@ -11,6 +11,7 @@
 # --- Visual Studio / Intel Fortran build output and IDE state -------------
 /VSProj/**/x64/
 /VSProj/**/.vs/
+/VSProj/SWAT/enc_temp_folder/
 *.user
 *.suo
 *.aps
@@ -38,8 +39,9 @@ desktop.ini
 
 # --- SWAT+ run outputs inside scenarios -----------------------------------
 # Scenario inputs (file.cio, *.bsn, *.lum, *.pcp, ...) stay tracked.
-# Uncomment below to also ignore files the model regenerates each run.
-# /VSProj/SWAT/Osu_1hru/*.out
-# /VSProj/SWAT/Ames_sub1/*.out
-# /VSProj/SWAT/*/_aa.txt
-# /VSProj/SWAT/*/_yr.txt
+/VSProj/SWAT/*.out
+/VSProj/SWAT/erosion.txt
+/VSProj/SWAT/Osu_1hru/*.out
+/VSProj/SWAT/Osu_1hru/cs_*.ini
+# Existing sample outputs in other scenarios may stay tracked as fixtures.
+# Do not add new run outputs unless they are intentionally curated examples.
