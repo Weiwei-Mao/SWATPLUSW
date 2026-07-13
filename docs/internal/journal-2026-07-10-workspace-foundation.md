@@ -30,7 +30,7 @@ Establish the SWAT+ learning workspace, verify the relationship among the downlo
 
 ## Verified observations
 
-- `SWATPLUS/swatplus` is the source Git repository; the root workspace is not a Git repository.
+- Historical note: at the time of this session, the source repository was treated as `SWATPLUS/swatplus`. The current workspace root is now the Git repository, with `SWATPLUS/swatplus` recorded as the source submodule.
 - `src/main.f90.in` is tracked and contains `program main`; CMake generates ignored `src/main.f90`.
 - The Intel project compiles linked files from the source repository and references generated `main.f90`.
 - A normal simulation enters `time_control`, which invokes `command` in the daily loop.
@@ -48,12 +48,12 @@ Establish the SWAT+ learning workspace, verify the relationship among the downlo
 
 ## Promoted records
 
-- [Main-program template and generation](../../knowledge/architecture/main-program-generation.md)
-- [High-level simulation control flow](../../knowledge/architecture/simulation-control-flow.md)
-- [Visual Studio and Intel Fortran configuration](../../knowledge/debugging/visual-studio-intel-fortran.md)
-- [`Osu_1hru` learning scenario](../../knowledge/debugging/osu-1hru-scenario.md)
-- [DeepWiki SWAT+ source explorer](../../knowledge/reference/deepwiki-swatplus.md)
-- [Knowledge-base design](../../superpowers/specs/2026-07-10-swat-knowledge-base-design.md)
+- [Main-program template and generation](../topics/main-program-generation.md)
+- [High-level simulation control flow](../topics/simulation-control-flow.md)
+- [Visual Studio and Intel Fortran configuration](../topics/visual-studio-intel-fortran.md)
+- [`Osu_1hru` learning scenario](../topics/osu-1hru-scenario.md)
+- [DeepWiki SWAT+ source explorer](../topics/deepwiki-swatplus.md)
+- [Knowledge-base design](design-2026-07-10-swat-knowledge-base.md)
 
 ## Next session
 

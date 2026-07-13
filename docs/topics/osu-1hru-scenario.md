@@ -13,13 +13,13 @@ tags: [debugging, scenario, hru]
 
 ## Summary
 
-[`VSProj/SWAT/Osu_1hru`](../../../VSProj/SWAT/Osu_1hru) is the default small input dataset for learning SWAT+ through the Intel Visual Studio debugger. Its small object count makes call stacks, indices, watches, and output comparisons more manageable than a large watershed.
+[`VSProj/SWAT/Osu_1hru`](../../VSProj/SWAT/Osu_1hru) is the default small input dataset for learning SWAT+ through the Intel Visual Studio debugger. Its small object count makes call stacks, indices, watches, and output comparisons more manageable than a large watershed.
 
 This note is `partial` because the complete object graph and active process options have not yet been traced from the inputs into runtime state.
 
 ## Verified role
 
-- It contains a complete SWAT+ input set headed by [`file.cio`](../../../VSProj/SWAT/Osu_1hru/file.cio).
+- It contains a complete SWAT+ input set headed by [`file.cio`](../../VSProj/SWAT/Osu_1hru/file.cio).
 - It includes key configuration files such as `object.cnt`, `time.sim`, `codes.bsn`, `weather-sta.cli`, `hru.con`, and `hru-data.hru`.
 - It should be the Visual Studio debugger working directory.
 - It is intended as the first scenario for full-HRU step-by-step learning.
@@ -46,11 +46,11 @@ Do not generalize a runtime observation from this scenario to every SWAT+ config
 3. One weather precipitation value -> HRU water state -> runoff/output.
 4. `hru_control` -> ordered land-phase process calls for the configured HRU.
 
-Each completed investigation belongs in [`../../traces/`](../../traces/README.md), with stable conclusions promoted to the input, object, process, or output knowledge areas.
+Each completed investigation belongs in [`../input-output.md`](../input-output.md), with stable conclusions promoted to the input, object, process, or output knowledge areas.
 
 ## Related notes
 
 - [Visual Studio and Intel Fortran](visual-studio-intel-fortran.md)
-- [Simulation control flow](../architecture/simulation-control-flow.md)
-- [Learning journal](../../journal/README.md)
+- [Simulation control flow](simulation-control-flow.md)
+- [Learning journal](../internal/journal-2026-07-10-workspace-foundation.md)
 

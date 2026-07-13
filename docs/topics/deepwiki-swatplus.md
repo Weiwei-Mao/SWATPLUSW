@@ -17,7 +17,7 @@ external_checked: 2026-07-10
 
 Record a curated map to the [SWAT+ DeepWiki](https://deepwiki.com/swat-model/swatplus) rather than downloading a full copy.
 
-DeepWiki is useful for discovering subsystems, diagrams, related source files, and possible call paths. A local mirror would duplicate a dynamic generated site, lose refresh context, and become stale. Our authoritative evidence remains the checked-out source in [`SWATPLUS/swatplus`](../../../SWATPLUS/swatplus).
+DeepWiki is useful for discovering subsystems, diagrams, related source files, and possible call paths. A local mirror would duplicate a dynamic generated site, lose refresh context, and become stale. Our authoritative evidence remains the checked-out source in [`SWATPLUS/swatplus`](../../SWATPLUS/swatplus).
 
 ## Trust level
 
@@ -125,13 +125,13 @@ This mixed revision state is the main reason not to save the website as a frozen
 - Copying equations, units, defaults, or control-code meanings without checking the current local files.
 - Assuming the parent overview's index revision applies to every child page.
 - Assuming a cited routine is active in `Osu_1hru` without tracing object and option selection.
-- Copying the entire website into `docs/knowledge/` and allowing it to compete with verified canonical notes.
+- Copying the entire website into `docs/topics/` and allowing it to compete with verified local notes.
 
 ## Local related records
 
 - [Knowledge-base home](../../README.md)
-- [High-level simulation control flow](../architecture/simulation-control-flow.md)
-- [Main-program generation](../architecture/main-program-generation.md)
-- [`Osu_1hru` scenario](../debugging/osu-1hru-scenario.md)
-- [End-to-end trace method](../../traces/README.md)
+- [High-level simulation control flow](simulation-control-flow.md)
+- [Main-program generation](main-program-generation.md)
+- [`Osu_1hru` scenario](osu-1hru-scenario.md)
+- [End-to-end trace method](../input-output.md)
 

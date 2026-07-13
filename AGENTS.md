@@ -2,51 +2,54 @@
 
 ## Mission
 
-Use this workspace to learn the SWAT+ Fortran model, document its structure, trace model behavior, and make changes in the exact maintained source location. Treat scientific-code changes as evidence-driven work: identify the input, state, callers, calculation, and outputs before editing.
+Use this workspace to learn the SWAT+ Fortran model, document verified structure and behavior, and make changes in the maintained source location when explicitly requested. Treat scientific-code work as evidence driven: identify the input, reader, stored state, controller, calculation, consumers, and outputs before editing.
 
-This file applies to the entire workspace root (the directory that contains this `AGENTS.md`).
+This file applies to the workspace root that contains this `AGENTS.md`.
 
-## Workspace map
+## Workspace Map
 
 | Path | Role | Edit policy |
 | --- | --- | --- |
-| `SWATPLUS/swatplus/` | SWAT+ source, tracked as a git submodule (see `.gitmodules`) | Read-only object of study. On a new machine run `git submodule update --init`, then generate `src/main.f90` (upstream ships only the `.in` template). |
-| `SWATPLUS/swatplus/src/` | Maintained Fortran source | Make model-code changes here. |
+| `SWATPLUS/swatplus/` | SWAT+ source, tracked as a git submodule | Usually read-only object of study. Make model-source edits only when the task explicitly asks for code changes. |
+| `SWATPLUS/swatplus/src/` | Maintained Fortran source | Durable source changes belong here. |
 | `VSProj/SWAT/SWAT.slnx` | Visual Studio solution | Use for Intel Fortran debugging. |
-| `VSProj/SWAT/SWAT.vfproj` | Intel Fortran project | Its source entries link to `SWATPLUS/swatplus/src`; do not assume it contains copies. |
-| `VSProj/SWAT/Osu_1hru/` | One-HRU SWAT+ input dataset | Use as the default small debug case. Preserve its inputs unless a task explicitly changes the scenario. |
+| `VSProj/SWAT/SWAT.vfproj` | Intel Fortran project | Its source entries link to `SWATPLUS/swatplus/src`; do not assume it contains copied source. |
+| `VSProj/SWAT/Osu_1hru/` | Small one-HRU SWAT+ scenario | Default debug case. Preserve inputs unless a task explicitly changes the scenario. |
 | `VSProj/SWAT/x64/` | Compiler and linker output | Generated artifacts; do not edit. |
-| `docs/` | Workspace designs and future learning records | Keep durable, verified project knowledge here. |
+| `docs/README.md` | Main learning entrance | Keep concise and reader-facing. |
+| `docs/model-structure.md` | Code-structure guide | Keep as the current orientation map. |
+| `docs/input-output.md` | Input/output tracing guide | Keep as the current tracing map. |
+| `docs/topics/` | Detailed technical notes | Store durable topic evidence here. |
+| `docs/internal/` | Journals, designs, templates, drafts | Internal project memory; not the normal reader path. |
 
-The workspace root itself is not currently a Git repository. `SWATPLUS/swatplus` is a nested Git repository; do not claim that root-level documents or `VSProj` changes were committed there.
+The workspace root is the Git repository. Inspect `git status` before modifying files, and preserve unrelated user changes and untracked generated outputs.
 
-## Source-of-truth rules
+## Source-Of-Truth Rules
 
 1. Use the actual folder names `SWATPLUS/swatplus` and `VSProj`.
-2. The Visual Studio project references source files with paths such as `..\..\SWATPLUS\swatplus\src\*.f90`. Editing a linked file in Visual Studio normally edits the authoritative source file.
-3. Git tracks `src/main.f90.in`, not `src/main.f90`. CMake generates `src/main.f90` with version, compiler, platform, and timestamp substitutions.
+2. Visual Studio source entries point to `SWATPLUS/swatplus/src`. Editing a linked file in Visual Studio normally edits the authoritative source.
+3. Git tracks `src/main.f90.in`, not generated `src/main.f90`. CMake generates `src/main.f90` with version, compiler, platform, and timestamp substitutions.
 4. For durable main-program changes, edit `src/main.f90.in` and regenerate `src/main.f90`. Do not maintain the generated file independently.
-5. Do not edit `.obj`, `.mod`, `__genmod.f90`, executables, or other files under build-output directories.
-6. Preserve unrelated user changes and untracked files. Inspect repository status before modifying source.
-7. Keep temporary experiments, throwaway scripts, and bug reproductions outside `SWATPLUS/swatplus/` (the upstream source stays a clean read-only reference) and outside `docs/` (durable notes only). Put anything disposable in a separate scratch folder.
+5. Do not edit `.obj`, `.mod`, `__genmod.f90`, executables, or other build outputs.
+6. Keep disposable experiments outside `SWATPLUS/swatplus/` and outside `docs/`. `docs/` is for durable notes only.
 
-## Required investigation workflow
+## Required Investigation Workflow
 
-Before recommending or making a model change, trace the behavior through these layers:
+Before recommending or making a model change, trace behavior through these layers:
 
-1. **Input or configuration** - identify the controlling file in `Osu_1hru` or another scenario and the relevant field/value.
-2. **Reader** - locate the routine that opens and parses that file.
-3. **Data structure** - identify the module, derived type, array, and object index that store the value.
-4. **Orchestration** - trace how `main`, `time_control`, `command`, or another controller reaches the calculation.
-5. **Process calculation** - identify the smallest routine containing the scientific equation or state transition.
-6. **Consumers and outputs** - locate downstream routing, mass-balance, aggregation, and output routines.
-7. **Verification** - choose an input/output signal or breakpoint that can prove the explanation or change.
+1. Input or configuration: controlling file, field, value, and scenario.
+2. Reader: routine that opens and parses the file.
+3. Data structure: module, derived type, array, field, and object index.
+4. Orchestration: how `main`, `time_control`, `command`, or another controller reaches the calculation.
+5. Process calculation: smallest routine containing the scientific equation or state transition.
+6. Consumers and outputs: routing, mass balance, aggregation, writer, and output column.
+7. Verification: breakpoint, watched value, output signal, or regression check.
 
-Use code evidence for call paths. Label an unverified interpretation as an inference. If similarly named legacy, LTE, channel, reservoir, or aquifer implementations exist, determine which one the active object configuration selects.
+Use code evidence for call paths. Label unverified interpretations as inference. If similarly named legacy, LTE, channel, reservoir, aquifer, or groundwater implementations exist, determine which path the active configuration selects.
 
-## Model orientation
+## Model Orientation
 
-Use this only as a starting map, not as a substitute for tracing the active configuration:
+Use this only as a starting map:
 
 ```text
 main.f90.in -> generated main.f90
@@ -54,71 +57,57 @@ main.f90.in -> generated main.f90
     -> time_control
         -> daily initialization and climate
         -> command
-            -> object dispatch (HRU, routing unit, aquifer,
-               reservoir, channel, recall, and others)
+            -> object dispatch
             -> object/process outputs
 ```
 
-Important entry files include:
+Important entry files:
 
 - `SWATPLUS/swatplus/src/main.f90.in`
 - `SWATPLUS/swatplus/src/time_control.f90`
 - `SWATPLUS/swatplus/src/command.f90`
 - `SWATPLUS/swatplus/src/hru_control.f90`
 
-The actual object path depends on `object.cnt`, connection files, object types, and simulation options.
+The active object path depends on `object.cnt`, connection files, object types, and simulation options.
 
-## Visual Studio and Intel Fortran
+## Visual Studio And Intel Fortran
 
 The default learning/debug configuration is `Debug|x64` with Intel `ifx`.
 
-- Set **Configuration Properties > Debugging > Working Directory** to `$(SolutionDir)Osu_1hru` (or the equivalent absolute path). SWAT+ opens most inputs by relative filename.
-- Under **Fortran > General**, enable **Multi-processor Compilation** to compile independent source files concurrently. This speeds the build; it does not make a SWAT+ simulation multithreaded.
-- Under **Fortran > Preprocessor**, enable **Preprocess Source File**. Current `.f90` files contain `#if`, `#ifdef`, and related compiler-condition directives.
-- Keep Debug builds unoptimized and retain debug information, traceback, interface warnings, bounds checks, and stack-frame checks when diagnosing behavior.
-- Under **Fortran > Libraries**, keep the runtime library compatible with the configuration and all linked objects. The current project uses the multithreaded Debug DLL runtime for Debug and the multithreaded DLL runtime for Release.
-- Property changes are configuration- and platform-specific. Confirm the property-page selectors before applying or evaluating a setting.
+- Set the debugger working directory to `$(SolutionDir)Osu_1hru`.
+- Keep source preprocessing enabled for `.f90` files containing compiler-condition directives.
+- Multi-processor compilation speeds compilation; it does not make a SWAT+ simulation multithreaded.
+- Keep Debug builds unoptimized with debug information, traceback, interface warnings, bounds checks, and stack-frame checks when diagnosing behavior.
+- Visual Studio property changes are configuration- and platform-specific. Confirm selectors before applying or evaluating a setting.
 
-The current `SWAT.vfproj` already records multi-processor compilation and preprocessing for `Debug|x64`; do not assume those settings are present in every configuration. The debugger working directory is user-specific and is not stored in the shared project XML.
+The current `SWAT.vfproj` records multi-processor compilation and preprocessing for `Debug|x64`; do not assume those settings are present in every configuration. The debugger working directory is user-specific and is not stored in the shared project XML.
 
-## Change and verification rules
+## Change And Verification Rules
 
-- For an explanation or diagnosis, inspect and report; do not change model behavior unless requested.
-- For an implementation request, make the smallest change that addresses the traced behavior.
+- For explanation or diagnosis, inspect and report; do not change model behavior unless requested.
+- For implementation, make the smallest change that addresses the traced behavior.
 - Do not modify an equation based only on a filename or variable name. Check units, indexing, initialization, reset timing, mass balance, and downstream use.
-- Prefer `Osu_1hru` for fast step-by-step verification when it exercises the relevant path. Use a different scenario when the feature is absent from the one-HRU configuration.
-- Build the configuration that will be debugged. A successful compile is necessary but not sufficient; run the relevant scenario and inspect its output or watched state.
-- For regression after a source change, build the upstream CMake project under `SWATPLUS/swatplus/` and run its built-in scenario tests; this confirms the change does not break existing SWAT+ behavior beyond the one-HRU case.
-- Report exact paths and routine names, what was verified, what remains uncertain, and any output differences.
-- Record every durable finding in the knowledge system under `docs/`; do not rely only on chat history or keep expanding the root `README.md`.
+- Prefer `Osu_1hru` for fast step-by-step verification when it exercises the relevant path.
+- Build the configuration that will be debugged. A successful compile is necessary but not sufficient; run the relevant scenario and inspect output or watched state.
+- For regression after source changes, build the upstream CMake project under `SWATPLUS/swatplus/` and run its scenario tests when practical.
+- Report exact paths and routine names, what was verified, what remains uncertain, and output differences.
 
-## Knowledge recording workflow
+## Documentation Workflow
 
-Use [`docs/README.md`](docs/README.md) as the knowledge catalog. Place information according to its maturity and purpose:
+Use `docs/README.md` as the single reader entrance.
 
-1. Record the learning session in `docs/journal/YYYY/`, including failed paths and clearly labeled hypotheses.
-2. When proving an input-to-output or controller-to-process path, create a reproducible record in `docs/traces/` with scenario, source revision, breakpoints, indices, and watched values.
-3. Promote stable conclusions into one maintained topic note under `docs/knowledge/`.
-4. When selecting a code/configuration approach, create a record under `docs/decisions/` with alternatives and verification.
-5. Update `docs/README.md` and the relevant category `README.md` whenever a substantive record is added.
+1. Put stable orientation in `docs/model-structure.md` or `docs/input-output.md`.
+2. Put detailed technical evidence in one topic note under `docs/topics/`.
+3. Put journals, design records, templates, and drafts under `docs/internal/`.
+4. Do not add category README files unless the documentation grows enough to justify a new approved structure.
+5. Keep root `README.md` short: purpose, workspace map, setup, and essential rules.
 
-Canonical knowledge is organized under:
+Substantive notes must state `status`, `source_revision`, and `scenario`. Use `verified`, `partial`, `hypothesis`, or `superseded` consistently.
 
-- `knowledge/architecture/` for entry, initialization, time loops, and dispatch.
-- `knowledge/inputs/` for files, readers, fields, validation, and defaults.
-- `knowledge/processes/` for equations, units, and state transitions.
-- `knowledge/objects/` for HRU, routing unit, aquifer, channel, reservoir, and other object behavior.
-- `knowledge/outputs/` for aggregation, print controls, files, and balances.
-- `knowledge/reference/` for crosswalks, glossary, units, and indexes.
-- `knowledge/debugging/` for durable build and debugging techniques.
+## Documentation Standards
 
-Use the templates in `docs/templates/`. Substantive notes must state `status`, `source_revision`, and `scenario`. Use `verified`, `partial`, `hypothesis`, or `superseded` consistently.
-
-## Documentation standards
-
-- Keep `README.md` human-facing and `AGENTS.md` operational.
-- Keep `docs/README.md` as the central knowledge index; the root `README.md` is only the workspace guide.
 - Link to maintained source and local evidence with relative paths.
 - Distinguish verified facts, partial paths, hypotheses, and superseded history.
-- Keep one durable topic per canonical note and link it to supporting traces or source evidence.
-- Do not copy large sections of upstream documentation. Summarize them and link to the local upstream document.
+- Keep one durable topic per note.
+- Do not copy large sections of upstream documentation. Summarize and link to the local upstream document.
+- Update `docs/README.md` when a topic becomes part of the required reading path or changes the current learning status.

@@ -59,13 +59,13 @@ The `Osu_1hru` file was written by SWAT+ editor v2.2.0 for rev.60.5.4; the input
 
 ## Data structures
 
-**Not yet verified.** The parsed section->filename map is expected to live in a derived type defined in [`input_file_module.f90`](../../../SWATPLUS/swatplus/src/input_file_module.f90) (its header comment at line 5 says `!! file.cio input file`). Confirm by reading `readcio_read.f90`'s parse loop and the module's type definitions.
+**Not yet verified.** The parsed section->filename map is expected to live in a derived type defined in [`input_file_module.f90`](../../SWATPLUS/swatplus/src/input_file_module.f90) (its header comment at line 5 says `!! file.cio input file`). Confirm by reading `readcio_read.f90`'s parse loop and the module's type definitions.
 
 ## Control and calculation path
 
-- `program main` calls `proc_read` (see [`main.f90.in`](../../../SWATPLUS/swatplus/src/main.f90.in), the `call proc_read` line).
+- `program main` calls `proc_read` (see [`main.f90.in`](../../SWATPLUS/swatplus/src/main.f90.in), the `call proc_read` line).
 - `proc_read` is expected to call the `file.cio` reader early, since every other input file depends on the filenames it supplies.
-- Reader: subroutine in [`readcio_read.f90`](../../../SWATPLUS/swatplus/src/readcio_read.f90):
+- Reader: subroutine in [`readcio_read.f90`](../../SWATPLUS/swatplus/src/readcio_read.f90):
   - L19 `!! read file.cio`
   - L20 `inquire(file="file.cio", exist=i_exist)`
   - L22 `open(107, file="file.cio")`
@@ -74,13 +74,13 @@ The exact call edge from `proc_read` and the per-section dispatch that follows a
 
 ## Outputs and downstream effects
 
-`file.cio` has no direct physical output; its effect is to **gate which other input files are opened**. Every section reader downstream consumes the filename it was handed here. [`swift_output.f90`](../../../SWATPLUS/swatplus/src/swift_output.f90) can also write a new `file.cio` (L75-77) for SWIFT coupling.
+`file.cio` has no direct physical output; its effect is to **gate which other input files are opened**. Every section reader downstream consumes the filename it was handed here. [`swift_output.f90`](../../SWATPLUS/swatplus/src/swift_output.f90) can also write a new `file.cio` (L75-77) for SWIFT coupling.
 
 ## Evidence
 
-- [`Osu_1hru/file.cio`](../../../VSProj/SWAT/Osu_1hru/file.cio): the 32-line manifest inspected directly.
-- [`readcio_read.f90`](../../../SWATPLUS/swatplus/src/readcio_read.f90) L19-22: reader identification (inquire + open).
-- [`input_file_module.f90`](../../../SWATPLUS/swatplus/src/input_file_module.f90) L5: header comment marking the file.cio input module (structure not yet read).
+- [`Osu_1hru/file.cio`](../../VSProj/SWAT/Osu_1hru/file.cio): the 32-line manifest inspected directly.
+- [`readcio_read.f90`](../../SWATPLUS/swatplus/src/readcio_read.f90) L19-22: reader identification (inquire + open).
+- [`input_file_module.f90`](../../SWATPLUS/swatplus/src/input_file_module.f90) L5: header comment marking the file.cio input module (structure not yet read).
 
 ## Unresolved boundaries
 
@@ -98,6 +98,6 @@ Status stays `partial` until the reader -> structure -> consumer chain is confir
 
 ## Related notes
 
-- [Main-program generation](../architecture/main-program-generation.md)
-- [Simulation control flow](../architecture/simulation-control-flow.md)
-- Journal: [2026-07-11 file.cio trace start](../../journal/2026/2026-07-11-file-cio-trace.md)
+- [Main-program generation](main-program-generation.md)
+- [Simulation control flow](simulation-control-flow.md)
+- Journal: [2026-07-11 file.cio trace start](../internal/journal-2026-07-11-file-cio-trace.md)

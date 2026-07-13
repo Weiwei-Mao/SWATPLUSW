@@ -19,7 +19,7 @@ This note is a verified orientation map, not a complete call graph of every SWAT
 
 ## Top-level branch
 
-In [`main.f90.in`](../../../SWATPLUS/swatplus/src/main.f90.in), the simulation branch is:
+In [`main.f90.in`](../../SWATPLUS/swatplus/src/main.f90.in), the simulation branch is:
 
 ```text
 if time%step < 0
@@ -46,11 +46,11 @@ program main
             -> object/process output
 ```
 
-[`time_control.f90`](../../../SWATPLUS/swatplus/src/time_control.f90) calls `sim_initday` when full HRUs exist, calls `climate_control`, applies scheduled conditions/actions and allocations, and then calls `command` in the daily loop.
+[`time_control.f90`](../../SWATPLUS/swatplus/src/time_control.f90) calls `sim_initday` when full HRUs exist, calls `climate_control`, applies scheduled conditions/actions and allocations, and then calls `command` in the daily loop.
 
 ## Object dispatch
 
-[`command.f90`](../../../SWATPLUS/swatplus/src/command.f90) uses the configured command/object sequence. Its dispatch includes, among others:
+[`command.f90`](../../SWATPLUS/swatplus/src/command.f90) uses the configured command/object sequence. Its dispatch includes, among others:
 
 - Full HRU -> `hru_control`
 - HRU-LTE -> `hru_lte_control`
@@ -86,14 +86,14 @@ For `Osu_1hru`, watching the full-HRU object index before entering `hru_control`
 
 ## Evidence
 
-- [`main.f90.in`](../../../SWATPLUS/swatplus/src/main.f90.in): `program main`, initialization sequence, and `time%step` branch.
-- [`time_control.f90`](../../../SWATPLUS/swatplus/src/time_control.f90): daily initialization, climate/actions, and `call command`.
-- [`command.f90`](../../../SWATPLUS/swatplus/src/command.f90): object dispatch and output calls.
-- [`hru_control.f90`](../../../SWATPLUS/swatplus/src/hru_control.f90): full-HRU controller entry.
+- [`main.f90.in`](../../SWATPLUS/swatplus/src/main.f90.in): `program main`, initialization sequence, and `time%step` branch.
+- [`time_control.f90`](../../SWATPLUS/swatplus/src/time_control.f90): daily initialization, climate/actions, and `call command`.
+- [`command.f90`](../../SWATPLUS/swatplus/src/command.f90): object dispatch and output calls.
+- [`hru_control.f90`](../../SWATPLUS/swatplus/src/hru_control.f90): full-HRU controller entry.
 
 ## Related notes
 
 - [Main-program generation](main-program-generation.md)
-- [`Osu_1hru` debug scenario](../debugging/osu-1hru-scenario.md)
-- [End-to-end trace method](../../traces/README.md)
+- [`Osu_1hru` debug scenario](osu-1hru-scenario.md)
+- [End-to-end trace method](../input-output.md)
 
