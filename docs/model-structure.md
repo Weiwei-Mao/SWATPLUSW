@@ -46,6 +46,18 @@ In a normal time-stepped run, `main` calls `time_control`. If `time%step < 0`, `
 
 Inside `command`, the active route depends on scenario object definitions, connection files, object types, command order, and model options. Seeing a routine in `command.f90` does not prove a scenario executes it.
 
+## Alternative Object Representations
+
+Some object types represent the same broad physical system with different model detail:
+
+| Physical system | Simpler / lumped representation | Detailed / stronger representation |
+| --- | --- | --- |
+| Land unit | `hru_lte` / `hlt` | `hru` |
+| Stream channel | `cha` | `sdc` / SWAT-DEG channel |
+| Groundwater / aquifer | `aqu` | `gwflow` |
+
+The first two pairs are strong direct comparisons. The groundwater pair is useful but less exact because `gwflow` is not always a direct one-to-one replacement for every `aqu` setup. Details and caveats are in [`topics/alternative-object-representations.md`](topics/alternative-object-representations.md).
+
 ## How To Read A Code Path
 
 For a new behavior, start broad and then narrow:

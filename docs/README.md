@@ -35,6 +35,7 @@ The important habit is to follow one value end to end. Do not infer behavior fro
 | `print.prt` output controls | Partial | [`topics/print-prt.md`](topics/print-prt.md) |
 | CO2 and carbon input readers | Partial | [`topics/co2-carbon-inputs.md`](topics/co2-carbon-inputs.md) |
 | `object.cnt` and object concepts | Partial | [`topics/object-cnt.md`](topics/object-cnt.md) |
+| Alternative object representations | Partial | [`topics/alternative-object-representations.md`](topics/alternative-object-representations.md) |
 | QSWAT+ HRU to routing-unit generated structure | Partial | [`topics/qswat-hru-routing-unit.md`](topics/qswat-hru-routing-unit.md) |
 | Visual Studio / Intel Fortran setup | Verified | [`topics/visual-studio-intel-fortran.md`](topics/visual-studio-intel-fortran.md) |
 | `Osu_1hru` debug scenario | Partial | [`topics/osu-1hru-scenario.md`](topics/osu-1hru-scenario.md) |
