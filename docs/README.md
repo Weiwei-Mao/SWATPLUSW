@@ -51,6 +51,7 @@ The important habit is to follow one value end to end. Do not infer behavior fro
 | QSWAT+ HRU to routing-unit generated structure | Partial | [`topics/qswat-hru-routing-unit.md`](topics/qswat-hru-routing-unit.md) |
 | Visual Studio / Intel Fortran setup | Verified | [`topics/visual-studio-intel-fortran.md`](topics/visual-studio-intel-fortran.md) |
 | `Osu_1hru` debug scenario | Partial | [`topics/osu-1hru-scenario.md`](topics/osu-1hru-scenario.md) |
+| `Osu_1hru` file classification | Partial | [`topics/osu-1hru-file-classification.md`](topics/osu-1hru-file-classification.md) |
 | DeepWiki as an external source explorer | Verified usage rule | [`topics/deepwiki-swatplus.md`](topics/deepwiki-swatplus.md) |
 
 ## Required Reading Path

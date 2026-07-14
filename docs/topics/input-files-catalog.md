@@ -19,6 +19,8 @@ This is an orientation catalog, not a field-by-field specification. Detailed not
 
 Use this file when you need to answer “what is this input file for?” Use the individual topic notes when you need reader paths, code fields, or detailed parameter meanings.
 
+For the broader distinction between active inputs, optional files, generated outputs, and local artifacts in the same folder, see [`osu-1hru-file-classification.md`](osu-1hru-file-classification.md).
+
 ## How To Read This Catalog
 
 | Term | Meaning |
@@ -223,6 +225,7 @@ Still partial:
 ## Related Notes
 
 - [`file.cio` master input file](file-cio.md)
+- [`Osu_1hru` file classification](osu-1hru-file-classification.md)
 - [`codes.bsn` basin control codes](codes-bsn.md)
 - [`parameters.bsn` basin parameters](parameters-bsn.md)
 - [`print.prt` output control file](print-prt.md)

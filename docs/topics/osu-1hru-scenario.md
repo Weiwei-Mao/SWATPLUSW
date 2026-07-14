@@ -3,7 +3,7 @@ title: Osu_1hru learning and debug scenario
 kind: knowledge
 status: partial
 created: 2026-07-10
-updated: 2026-07-10
+updated: 2026-07-14
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
 scenario: Osu_1hru
 tags: [debugging, scenario, hru]
@@ -23,6 +23,7 @@ This note is `partial` because the complete object graph and active process opti
 - It includes key configuration files such as `object.cnt`, `time.sim`, `codes.bsn`, `weather-sta.cli`, `hru.con`, and `hru-data.hru`.
 - It should be the Visual Studio debugger working directory.
 - It is intended as the first scenario for full-HRU step-by-step learning.
+- The folder also contains generated outputs and support files; use [`osu-1hru-file-classification.md`](osu-1hru-file-classification.md) before assuming a file is an active input.
 
 ## Appropriate uses
 
@@ -52,4 +53,5 @@ Each completed investigation belongs in [`../input-output.md`](../input-output.m
 
 - [Visual Studio and Intel Fortran](visual-studio-intel-fortran.md)
 - [Simulation control flow](simulation-control-flow.md)
+- [`Osu_1hru` file classification](osu-1hru-file-classification.md)
 
