@@ -30,6 +30,7 @@ The important habit is to follow one value end to end. Do not infer behavior fro
 | Main-program generation | Verified | [`topics/main-program-generation.md`](topics/main-program-generation.md) |
 | `time_control` and `command` dispatch | Verified orientation map | [`topics/simulation-control-flow.md`](topics/simulation-control-flow.md) |
 | `file.cio` input manifest | Partial | [`topics/file-cio.md`](topics/file-cio.md) |
+| Input files catalog | Partial | [`topics/input-files-catalog.md`](topics/input-files-catalog.md) |
 | `codes.bsn` basin control codes | Partial | [`topics/codes-bsn.md`](topics/codes-bsn.md) |
 | `parameters.bsn` basin parameters | Partial | [`topics/parameters-bsn.md`](topics/parameters-bsn.md) |
 | `print.prt` output controls | Partial | [`topics/print-prt.md`](topics/print-prt.md) |

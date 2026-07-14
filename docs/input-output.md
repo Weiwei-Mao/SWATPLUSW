@@ -49,6 +49,7 @@ The first scenario is [`VSProj/SWAT/Osu_1hru`](../VSProj/SWAT/Osu_1hru/). It is 
 The active trace is `file.cio`:
 
 - Detailed note: [`topics/file-cio.md`](topics/file-cio.md)
+- Input files catalog: [`topics/input-files-catalog.md`](topics/input-files-catalog.md)
 - Basin control note: [`topics/codes-bsn.md`](topics/codes-bsn.md)
 - Basin parameter note: [`topics/parameters-bsn.md`](topics/parameters-bsn.md)
 - Output control note: [`topics/print-prt.md`](topics/print-prt.md)
