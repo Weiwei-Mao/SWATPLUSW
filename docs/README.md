@@ -9,6 +9,17 @@ Detailed evidence and narrower technical notes live in [`topics/`](topics/). Raw
 
 During live debugging, write raw step-by-step observations in [`internal/debug-inbox.md`](internal/debug-inbox.md). Codex can later read that inbox and promote stable understanding into the suitable guide or topic files.
 
+## Document Boundaries
+
+| File | Role | Avoid putting here |
+| --- | --- | --- |
+| `README.md` | Main entrance, reading path, and current topic index. | Detailed code traces or field-by-field input definitions. |
+| `model-structure.md` | Stable code/object/control-flow orientation. | Long input-file catalogs or raw debugger notes. |
+| `input-output.md` | End-to-end tracing method and current input/output knowledge map. | Complete per-file reference tables. |
+| `topics/input-files-catalog.md` | One-line introductions for scenario input files. | Deep reader logic or every column meaning. |
+| `topics/*.md` | Durable detailed evidence for one focused topic. | Unverified step-by-step debugging scratch notes. |
+| `internal/debug-inbox.md` | Raw live-debug observations waiting for promotion. | Stable documentation that readers should depend on. |
+
 ## Mental Model
 
 ```text

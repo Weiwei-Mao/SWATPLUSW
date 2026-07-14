@@ -140,3 +140,9 @@ Useful source entry points:
 | `gwflow` | `gwflow_read` and GWFLOW channel/connectivity paths |
 
 Do not assume a file exists just because the object type exists in the source. Confirm the active scenario uses that object count and connection file.
+
+## Related Notes
+
+- [`object.cnt` and SWAT+ object concepts](object-cnt.md)
+- [QSWAT+ HRU and routing-unit relationship](qswat-hru-routing-unit.md)
+- [SWAT+ model structure](../model-structure.md)

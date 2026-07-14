@@ -3,7 +3,7 @@ title: SWAT+ input to output path
 kind: guide
 status: partial
 created: 2026-07-13
-updated: 2026-07-13
+updated: 2026-07-14
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
 scenario: Osu_1hru
 tags: [guide, inputs, outputs, tracing]
@@ -12,6 +12,8 @@ tags: [guide, inputs, outputs, tracing]
 # SWAT+ Input To Output Path
 
 This guide explains the learning path we use for SWAT+: start with a concrete scenario input, trace it through source and state, then connect it to watched values or output files.
+
+For a one-line introduction to each active scenario input file, use [`topics/input-files-catalog.md`](topics/input-files-catalog.md). This guide stays focused on the tracing method and current evidence status.
 
 ## The Practical Chain
 

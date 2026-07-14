@@ -3,7 +3,7 @@ title: SWAT+ model structure
 kind: guide
 status: partial
 created: 2026-07-13
-updated: 2026-07-13
+updated: 2026-07-14
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
 scenario: general
 tags: [guide, architecture, control-flow]

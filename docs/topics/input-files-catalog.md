@@ -4,7 +4,7 @@ kind: reference
 status: partial
 created: 2026-07-14
 updated: 2026-07-14
-source_revision: 30283a4
+source_revision: 5b3705b300d95ebe4914119f056548446bdc208f
 scenario: Osu_1hru
 tags: [inputs, file-cio, catalog]
 ---
@@ -16,6 +16,8 @@ tags: [inputs, file-cio, catalog]
 This catalog gives a short introduction for the input files used by the `Osu_1hru` debug scenario. The main source of truth is `file.cio`, whose section order is defined in `input_file_module.f90`.
 
 This is an orientation catalog, not a field-by-field specification. Detailed notes should stay in separate topic files.
+
+Use this file when you need to answer “what is this input file for?” Use the individual topic notes when you need reader paths, code fields, or detailed parameter meanings.
 
 ## How To Read This Catalog
 
@@ -217,3 +219,13 @@ Still partial:
 - This catalog does not define every column in every input file.
 - Some optional module-specific files are listed as extra input-like files because their exact reader path has not been fully traced in this scenario.
 - Output/generated files in the scenario folder need separate classification if they become relevant to debugging.
+
+## Related Notes
+
+- [`file.cio` master input file](file-cio.md)
+- [`codes.bsn` basin control codes](codes-bsn.md)
+- [`parameters.bsn` basin parameters](parameters-bsn.md)
+- [`print.prt` output control file](print-prt.md)
+- [`object.cnt` and SWAT+ object concepts](object-cnt.md)
+- [`om_water.ini` initial organic-mineral water state](om-water-ini.md)
+- [Input to output path](../input-output.md)

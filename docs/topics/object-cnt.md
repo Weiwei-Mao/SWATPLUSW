@@ -17,6 +17,8 @@ tags: [inputs, object-cnt, objects, routing]
 
 It does not define the detailed physical properties or all routing links. Those details are mostly in connection and definition files such as `hru.con`, `rout_unit.con`, `rout_unit.def`, `rout_unit.ele`, `aquifer.con`, `recall.con`, and `chandeg.con`.
 
+For object types that represent the same broad physical system at different complexity levels, see [`alternative-object-representations.md`](alternative-object-representations.md).
+
 ## Reader Path
 
 ```text
@@ -209,4 +211,5 @@ When stepping through `command.f90`, first identify `ob(icmd)%typ`. That tells y
 
 - [`file.cio` master input file](file-cio.md)
 - [`codes.bsn` basin control codes](codes-bsn.md)
+- [Alternative object representations](alternative-object-representations.md)
 - [Input to output path](../input-output.md)

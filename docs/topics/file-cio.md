@@ -55,6 +55,8 @@ Sections observed in `Osu_1hru/file.cio` and representative files they activate:
 | `decision_table` | `lum.dtl`, `res_rel.dtl` |
 | `regions` | `ls_unit.ele`, `ls_unit.def`, `aqu_catunit.ele` |
 
+For a fuller one-line catalog of the active scenario input files, see [`input-files-catalog.md`](input-files-catalog.md).
+
 ## Data Structures
 
 `file.cio` filenames are stored in module-level derived-type instances defined in [`input_file_module.f90`](../../SWATPLUS/swatplus/src/input_file_module.f90). Examples:
@@ -113,6 +115,7 @@ Status stays `partial` until at least one stored filename is followed into its d
 
 - [Main-program generation](main-program-generation.md)
 - [Simulation control flow](simulation-control-flow.md)
+- [Input files catalog](input-files-catalog.md)
 - [`codes.bsn` basin control codes](codes-bsn.md)
 - [CO2 and carbon input readers](co2-carbon-inputs.md)
 - [`print.prt` output control file](print-prt.md)
