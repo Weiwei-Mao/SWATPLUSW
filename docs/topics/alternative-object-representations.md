@@ -143,6 +143,6 @@ Do not assume a file exists just because the object type exists in the source. C
 
 ## Related Notes
 
-- [`object.cnt` and SWAT+ object concepts](object-cnt.md)
+- [`object.cnt` and SWAT+ object concepts](../inputs/object-cnt.md)
 - [QSWAT+ HRU and routing-unit relationship](qswat-hru-routing-unit.md)
 - [SWAT+ model structure](../model-structure.md)

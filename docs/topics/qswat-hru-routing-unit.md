@@ -283,5 +283,5 @@ They are not required by the Fortran engine to contain exactly one HRU.
 
 ## Related Notes
 
-- [`object.cnt` and SWAT+ object concepts](object-cnt.md)
+- [`object.cnt` and SWAT+ object concepts](../inputs/object-cnt.md)
 - [Input to output path](../input-output.md)

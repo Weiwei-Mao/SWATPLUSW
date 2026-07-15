@@ -1,9 +1,9 @@
 ---
 title: codes.bsn basin control codes
-kind: knowledge
+kind: input-reference
 status: partial
 created: 2026-07-13
-updated: 2026-07-13
+updated: 2026-07-15
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
 scenario: Osu_1hru
 tags: [inputs, basin, control-codes, codes-bsn]
@@ -119,7 +119,7 @@ Useful breakpoints:
 ## Related Notes
 
 - [`parameters.bsn` basin parameters](parameters-bsn.md)
-- [CO2 and carbon input readers](co2-carbon-inputs.md)
+- [CO2 and carbon input readers](../topics/co2-carbon-inputs.md)
 - [`file.cio` master input file](file-cio.md)
 - [`object.cnt` and object concepts](object-cnt.md)
 - [Input to output path](../input-output.md)

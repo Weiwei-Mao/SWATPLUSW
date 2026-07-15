@@ -1,9 +1,9 @@
 ---
 title: om_water.ini initial organic-mineral water state
-kind: knowledge
+kind: input-reference
 status: partial
 created: 2026-07-14
-updated: 2026-07-14
+updated: 2026-07-15
 source_revision: 5b3705b300d95ebe4914119f056548446bdc208f
 scenario: Osu_1hru
 tags: [inputs, initialization, water-quality, channels, wetlands]

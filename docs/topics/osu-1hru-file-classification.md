@@ -21,7 +21,7 @@ Use this note to answer:
 Is this file an active input, optional input, generated output, support file, or local artifact?
 ```
 
-Use [`input-files-catalog.md`](input-files-catalog.md) for one-line introductions to active input files.
+Use [`input-files.md`](../input-files.md) for one-line introductions and reference links for input files.
 
 ## Classification Rules
 
@@ -161,6 +161,6 @@ Still partial:
 ## Related Notes
 
 - [`Osu_1hru` learning and debug scenario](osu-1hru-scenario.md)
-- [SWAT+ input files catalog](input-files-catalog.md)
-- [`file.cio` master input file](file-cio.md)
+- [SWAT+ input files map](../input-files.md)
+- [`file.cio` master input file](../inputs/file-cio.md)
 - [Input to output path](../input-output.md)

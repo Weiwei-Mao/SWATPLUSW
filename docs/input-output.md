@@ -13,7 +13,7 @@ tags: [guide, inputs, outputs, tracing]
 
 This guide explains the learning path we use for SWAT+: start with a concrete scenario input, trace it through source and state, then connect it to watched values or output files.
 
-For a one-line introduction to each active scenario input file, use [`topics/input-files-catalog.md`](topics/input-files-catalog.md). This guide stays focused on the tracing method and current evidence status.
+For the input-file map and per-file reference links, use [`input-files.md`](input-files.md). This guide stays focused on the tracing method and current evidence status.
 
 ## The Practical Chain
 
@@ -50,14 +50,14 @@ The first scenario is [`VSProj/SWAT/Osu_1hru`](../VSProj/SWAT/Osu_1hru/). It is 
 
 The active trace is `file.cio`:
 
-- Detailed note: [`topics/file-cio.md`](topics/file-cio.md)
-- Input files catalog: [`topics/input-files-catalog.md`](topics/input-files-catalog.md)
-- Basin control note: [`topics/codes-bsn.md`](topics/codes-bsn.md)
-- Basin parameter note: [`topics/parameters-bsn.md`](topics/parameters-bsn.md)
-- Output control note: [`topics/print-prt.md`](topics/print-prt.md)
+- Detailed note: [`inputs/file-cio.md`](inputs/file-cio.md)
+- Input files map: [`input-files.md`](input-files.md)
+- Basin control note: [`inputs/codes-bsn.md`](inputs/codes-bsn.md)
+- Basin parameter note: [`inputs/parameters-bsn.md`](inputs/parameters-bsn.md)
+- Output control note: [`inputs/print-prt.md`](inputs/print-prt.md)
 - CO2/carbon input note: [`topics/co2-carbon-inputs.md`](topics/co2-carbon-inputs.md)
-- Initial organic-mineral water note: [`topics/om-water-ini.md`](topics/om-water-ini.md)
-- Object inventory note: [`topics/object-cnt.md`](topics/object-cnt.md)
+- Initial organic-mineral water note: [`inputs/om-water-ini.md`](inputs/om-water-ini.md)
+- Object inventory note: [`inputs/object-cnt.md`](inputs/object-cnt.md)
 - QSWAT-generated HRU/routing-unit note: [`topics/qswat-hru-routing-unit.md`](topics/qswat-hru-routing-unit.md)
 - Scenario note: [`topics/osu-1hru-scenario.md`](topics/osu-1hru-scenario.md)
 - Related control map: [`topics/simulation-control-flow.md`](topics/simulation-control-flow.md)

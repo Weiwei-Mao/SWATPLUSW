@@ -40,7 +40,7 @@ Source revision: `cb442f7c05fc3bfc34349c446010f452d2737ca0`
 - `proc_bsn.f90` line 12: call `readcio_read`.
 - `readcio_read.f90` lines 2-16: module use and local variable declarations.
 - `readcio_read.f90` lines 19-109: check, open, read, and close `file.cio`; `file.cio` uses file unit `107`.
-- Stable `file.cio` understanding was promoted into `docs/topics/file-cio.md`.
+- Stable `file.cio` understanding was promoted into `docs/inputs/file-cio.md`.
 
 ### 2026-07-13 - <short topic>
 

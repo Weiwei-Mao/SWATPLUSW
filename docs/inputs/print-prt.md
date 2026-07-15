@@ -1,9 +1,9 @@
 ---
 title: print.prt output control file
-kind: knowledge
+kind: input-reference
 status: partial
 created: 2026-07-13
-updated: 2026-07-13
+updated: 2026-07-15
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
 scenario: Osu_1hru
 tags: [inputs, output, print-prt]

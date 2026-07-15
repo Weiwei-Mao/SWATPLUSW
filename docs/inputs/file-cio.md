@@ -1,9 +1,9 @@
 ---
 title: file.cio master input file
-kind: knowledge
+kind: input-reference
 status: partial
 created: 2026-07-11
-updated: 2026-07-13
+updated: 2026-07-15
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
 scenario: Osu_1hru
 tags: [inputs, file-cio, reader, input-dispatch]
@@ -55,7 +55,7 @@ Sections observed in `Osu_1hru/file.cio` and representative files they activate:
 | `decision_table` | `lum.dtl`, `res_rel.dtl` |
 | `regions` | `ls_unit.ele`, `ls_unit.def`, `aqu_catunit.ele` |
 
-For a fuller one-line catalog of the active scenario input files, see [`input-files-catalog.md`](input-files-catalog.md).
+For the full input-file map, including optional files not active in this scenario, see [`../input-files.md`](../input-files.md).
 
 ## Data Structures
 
@@ -113,9 +113,9 @@ Status stays `partial` until at least one stored filename is followed into its d
 
 ## Related Notes
 
-- [Main-program generation](main-program-generation.md)
-- [Simulation control flow](simulation-control-flow.md)
-- [Input files catalog](input-files-catalog.md)
+- [Main-program generation](../topics/main-program-generation.md)
+- [Simulation control flow](../topics/simulation-control-flow.md)
+- [Input files catalog](../input-files.md)
 - [`codes.bsn` basin control codes](codes-bsn.md)
-- [CO2 and carbon input readers](co2-carbon-inputs.md)
+- [CO2 and carbon input readers](../topics/co2-carbon-inputs.md)
 - [`print.prt` output control file](print-prt.md)
