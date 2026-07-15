@@ -3,7 +3,7 @@ title: SWAT+ model structure
 kind: guide
 status: partial
 created: 2026-07-13
-updated: 2026-07-14
+updated: 2026-07-15
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
 scenario: general
 tags: [guide, architecture, control-flow]
@@ -28,6 +28,37 @@ main.f90.in -> generated Visual Studio main.f90
 The maintained program entry is [`main.f90.in`](../SWATPLUS/swatplus/src/main.f90.in). The Visual Studio project compiles ignored local output `VSProj/SWAT/generated/main.f90`, generated from the template by [`generate-main.ps1`](../VSProj/SWAT/generated/generate-main.ps1). The generated file is not the durable edit target.
 
 At startup, `main` writes the program banner to the console and `simulation.out`, opens `erosion.txt`, then calls `proc_bsn`, which begins the `file.cio` input-selection path.
+
+## Demo Procedure Diagram
+
+Use this procedure for the small [`Osu_1hru`](topics/osu-1hru-scenario.md) demo when learning the runtime structure in the Visual Studio debugger.
+
+```mermaid
+flowchart TD
+    A["Set debugger working directory<br/>VSProj/SWAT/Osu_1hru"] --> B["Start generated main.f90<br/>built from main.f90.in"]
+    B --> C["main startup<br/>banner, simulation.out, erosion.txt"]
+    C --> D["proc_bsn reads file.cio<br/>and selects active input filenames"]
+    D --> E["Read simulation-control inputs<br/>time.sim, print.prt, object.cnt"]
+    E --> F["Read object, connection, climate, soil,<br/>landuse, and management inputs"]
+    F --> G["Initialize runtime objects<br/>and state arrays"]
+    G --> H{"time%step mode"}
+    H -->|"normal daily run"| I["time_control"]
+    H -->|"average annual / export coefficient"| J["command directly"]
+    I --> K["Advance date, load weather,<br/>apply scheduled operations"]
+    K --> L["command walks configured<br/>object sequence"]
+    J --> L
+    L --> M{"active object type"}
+    M -->|"full HRU in Osu_1hru"| N["hru_control<br/>land-phase processes"]
+    M -->|"other configured object"| O["matching object controller<br/>channel, reservoir, aquifer, recall"]
+    N --> P["Route water, sediment,<br/>nutrients, and constituents"]
+    O --> P
+    P --> Q["Aggregate and write requested outputs"]
+    Q --> R{"more simulation days?"}
+    R -->|"yes"| I
+    R -->|"no"| S["finalize files and stop"]
+```
+
+The demo is useful because its object count is small enough to watch the transition from `file.cio` selection into `time_control`, `command`, and the active HRU controller. It does not prove optional object paths unless the selecting inputs enable those objects in the scenario.
 
 ## Major Responsibilities
 
