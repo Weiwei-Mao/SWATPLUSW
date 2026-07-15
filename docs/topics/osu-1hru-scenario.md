@@ -47,11 +47,10 @@ Do not generalize a runtime observation from this scenario to every SWAT+ config
 3. One weather precipitation value -> HRU water state -> runoff/output.
 4. `hru_control` -> ordered land-phase process calls for the configured HRU.
 
-Each completed investigation belongs in [`../input-output.md`](../input-output.md), with stable conclusions promoted to the input, object, process, or output knowledge areas.
+Each completed investigation belongs in the [tracing guide](../tracing-guide.md), with stable conclusions promoted to the input, object, process, or output knowledge areas.
 
 ## Related notes
 
 - [Visual Studio and Intel Fortran](visual-studio-intel-fortran.md)
 - [Simulation control flow](simulation-control-flow.md)
 - [`Osu_1hru` file classification](osu-1hru-file-classification.md)
-

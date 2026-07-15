@@ -133,5 +133,4 @@ This mixed revision state is the main reason not to save the website as a frozen
 - [High-level simulation control flow](simulation-control-flow.md)
 - [Main-program generation](main-program-generation.md)
 - [`Osu_1hru` scenario](osu-1hru-scenario.md)
-- [End-to-end trace method](../input-output.md)
-
+- [End-to-end trace method](../tracing-guide.md)

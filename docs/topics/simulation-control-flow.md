@@ -95,5 +95,4 @@ For `Osu_1hru`, watching the full-HRU object index before entering `hru_control`
 
 - [Main-program generation](main-program-generation.md)
 - [`Osu_1hru` debug scenario](osu-1hru-scenario.md)
-- [End-to-end trace method](../input-output.md)
-
+- [End-to-end trace method](../tracing-guide.md)

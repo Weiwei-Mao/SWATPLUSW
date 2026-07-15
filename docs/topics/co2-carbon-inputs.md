@@ -182,7 +182,7 @@ Useful breakpoints:
 
 ## Related Notes
 
-- [`codes.bsn` basin control codes](../inputs/codes-bsn.md)
-- [`parameters.bsn` basin parameters](../inputs/parameters-bsn.md)
-- [`print.prt` output controls](../inputs/print-prt.md)
-- [Input to output path](../input-output.md)
+- [`codes.bsn` basin control codes](../inputs/basin/codes-bsn.md)
+- [`parameters.bsn` basin parameters](../inputs/basin/parameters-bsn.md)
+- [`print.prt` output controls](../inputs/simulation/print-prt.md)
+- [Input to output path](../tracing-guide.md)

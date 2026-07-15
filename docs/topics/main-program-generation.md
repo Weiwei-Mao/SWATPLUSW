@@ -72,4 +72,3 @@ PowerShell -ExecutionPolicy Bypass -File VSProj\SWAT\generated\generate-main.ps1
 
 - [Simulation control flow](simulation-control-flow.md)
 - [Visual Studio and Intel Fortran](visual-studio-intel-fortran.md)
-

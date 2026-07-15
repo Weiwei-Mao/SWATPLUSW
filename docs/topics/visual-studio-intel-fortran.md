@@ -77,4 +77,3 @@ For Release builds, preprocessing should be confirmed because it affects source 
 
 - [`Osu_1hru` debug scenario](osu-1hru-scenario.md)
 - [Main-program generation](main-program-generation.md)
-

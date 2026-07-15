@@ -5,7 +5,7 @@ Use this file while debugging SWAT+ step by step. Write raw observations here; t
 Later, Codex can read this file and move stable knowledge into the right place:
 
 - broad code structure -> `docs/model-structure.md`
-- input/read/state/output paths -> `docs/input-output.md`
+- input/read/state/output paths -> `docs/tracing-guide.md`
 - detailed verified topic -> `docs/topics/*.md`
 - unfinished session notes -> keep them in this debug inbox until they are ready to promote
 
@@ -40,7 +40,7 @@ Source revision: `cb442f7c05fc3bfc34349c446010f452d2737ca0`
 - `proc_bsn.f90` line 12: call `readcio_read`.
 - `readcio_read.f90` lines 2-16: module use and local variable declarations.
 - `readcio_read.f90` lines 19-109: check, open, read, and close `file.cio`; `file.cio` uses file unit `107`.
-- Stable `file.cio` understanding was promoted into `docs/inputs/file-cio.md`.
+- Stable `file.cio` understanding was promoted into `docs/inputs/simulation/file-cio.md`.
 
 ### 2026-07-13 - <short topic>
 

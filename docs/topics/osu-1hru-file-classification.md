@@ -162,5 +162,5 @@ Still partial:
 
 - [`Osu_1hru` learning and debug scenario](osu-1hru-scenario.md)
 - [SWAT+ input files map](../input-files.md)
-- [`file.cio` master input file](../inputs/file-cio.md)
-- [Input to output path](../input-output.md)
+- [`file.cio` master input file](../inputs/simulation/file-cio.md)
+- [Input to output path](../tracing-guide.md)
