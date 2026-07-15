@@ -29,49 +29,98 @@ The maintained program entry is [`main.f90.in`](../SWATPLUS/swatplus/src/main.f9
 
 At startup, `main` writes the program banner to the console and `simulation.out`, opens `erosion.txt`, then calls `proc_bsn`, which begins the `file.cio` input-selection path.
 
-## Demo Structural Levels Figure
+## Demo Level Figures
 
-This figure is a static level map for the [`Osu_1hru`](topics/osu-1hru-scenario.md) demo. It is not a procedure or call-order diagram; read it as "what level contains or configures what."
+These are static hierarchy sketches for the [`Osu_1hru`](topics/osu-1hru-scenario.md) demo. They are meant to show model levels, not procedure order.
 
-```mermaid
-flowchart TB
-    L0["Level 0: Code and run target<br/>main.f90.in -> generated main.f90"]
-    L1["Level 1: Demo scenario folder<br/>VSProj/SWAT/Osu_1hru"]
-    L2["Level 2: Core run controls<br/>file.cio, time.sim, print.prt,<br/>object.cnt, codes.bsn, parameters.bsn"]
+### Model Organization Levels
 
-    subgraph L3["Level 3: Scenario input families"]
-        C1["Climate<br/>weather-sta.cli, pcp.cli, tmp.cli,<br/>slr.cli, wnd.cli, time-series files"]
-        C2["Connectivity and routing<br/>hru.con, rout_unit.con, aquifer.con,<br/>recall.con, chandeg.con"]
-        C3["Spatial objects<br/>hru-data.hru, rout_unit.*, channel-lte.cha,<br/>aquifer.aqu, wetland.wet, recall.rec"]
-        C4["Physical parameters<br/>soils.sol, hydrology.hyd, topography.hyd,<br/>plants.plt, fertilizer.frt, tillage.til"]
-        C5["Management and conditions<br/>landuse.lum, management.sch, operations,<br/>plant.ini, soil_plant.ini, initial.*"]
-    end
-
-    subgraph L4["Level 4: Runtime object graph"]
-        R1["Landscape side<br/>routing unit -> HRU -> soil/plant state"]
-        R2["Water side<br/>channel, reservoir, wetland,<br/>aquifer, recall objects"]
-        R3["Network side<br/>receivers, fractions,<br/>object order, output requests"]
-    end
-
-    L5["Level 5: Reported results<br/>requested output tables and runtime logs"]
-
-    L0 --> L1 --> L2
-    L2 --> C1
-    L2 --> C2
-    L2 --> C3
-    L2 --> C4
-    L2 --> C5
-    C2 --> R3
-    C3 --> R1
-    C3 --> R2
-    C4 --> R1
-    C5 --> R1
-    R1 --> L5
-    R2 --> L5
-    R3 --> L5
+```text
+SWAT+ codebase
+    -> run target
+        -> main.f90.in
+            -> generated Visual Studio main.f90
+    -> scenario folder
+        -> VSProj/SWAT/Osu_1hru
+            -> master file list
+                -> file.cio
+            -> core run controls
+                -> time.sim
+                -> print.prt
+                -> object.cnt
+                -> codes.bsn
+                -> parameters.bsn
+            -> scenario input families
+                -> climate inputs
+                -> connectivity inputs
+                -> spatial-object inputs
+                -> soil, plant, operation, and database inputs
+                -> initial-condition inputs
+                -> calibration and decision-table inputs
+            -> runtime object graph
+                -> command object list
+                -> object state arrays
+                -> routed water, sediment, nutrients, and constituents
+            -> reported results
+                -> requested output tables
+                -> runtime logs and diagnostics
 ```
 
-Use this hierarchy when you need to decide whether a file defines the whole run, selects an input family, defines an object, supplies parameters for an object, initializes state, or controls reported results.
+### Spatial Object Levels
+
+```text
+basin / simulation
+    -> landscape side
+        -> landscape or routing units
+            -> HRUs
+                -> soil layers
+                -> plant/community state
+                -> management operations
+    -> water side
+        -> channels or SWAT-DEG channels
+        -> reservoirs and wetlands
+        -> aquifers / groundwater objects
+        -> recall or point-source objects
+    -> routing network
+        -> connection files
+            -> receiving object type and index
+            -> fractions and delivery paths
+```
+
+### Input File Levels
+
+```text
+file.cio
+    -> core simulation controls
+        -> time.sim
+        -> print.prt
+        -> object.cnt
+    -> basin-wide switches and defaults
+        -> codes.bsn
+        -> parameters.bsn
+    -> object and network definitions
+        -> *.con
+        -> hru-data.hru
+        -> rout_unit.*
+        -> channel, reservoir, wetland, aquifer, and recall files
+    -> climate inputs
+        -> weather-sta.cli and weather-wgn.cli
+            -> pcp.cli, tmp.cli, slr.cli, wnd.cli
+                -> *.pcp, *.tmp, *.slr, *.wnd
+    -> reusable parameter databases
+        -> plants.plt
+        -> fertilizer.frt
+        -> tillage.til
+        -> pesticide.pes
+        -> urban.urb
+    -> state and management inputs
+        -> initial-condition files
+        -> landuse and management schedules
+        -> operation files
+        -> decision tables
+```
+
+Use these hierarchy figures when deciding whether a file or routine belongs to the run target, scenario definition, object definition, parameter database, runtime state, routing network, or output/reporting layer.
 
 ## Demo Procedure Diagram
 
