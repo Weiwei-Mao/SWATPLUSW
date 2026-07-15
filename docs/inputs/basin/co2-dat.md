@@ -1,12 +1,12 @@
 ---
 title: co2.dat input file
 kind: input-reference
-status: not traced
+status: partial
 created: 2026-07-15
 updated: 2026-07-15
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
-scenario: source-default
-tags: [inputs, stub]
+scenario: Osu_1hru
+tags: [inputs, reference, demo-context]
 ---
 
 # `co2.dat`
@@ -17,43 +17,60 @@ Optional annual CO2 input series; otherwise the model can use basin defaults.
 
 ## Role In SWAT+
 
-This page is a source-aligned input-reference stub for `co2.dat`. It exists so `docs/inputs/` has a durable categorized page for each known SWAT+ input file or input-file family.
-
-Scenario status: Not selected by the current `Osu_1hru` `file.cio`; treat as optional or source-default until traced in a scenario.
+- Category: Basin.
+- Usage class: `fixed-name companion`.
+- Activation: fixed-name or derived reader.
+- `Osu_1hru` status: `fixed-name/conditional`.
+- Source inventory: no direct default slot was found in `input_file_module.f90`; trace fixed-name or derived readers before treating the filename as mandatory.
 
 ## File Format
 
-Not yet traced. Add the header lines, data layout, column meanings, units, and required/optional fields after the reader path is inspected.
+SWAT+ input files use a plain-text, free-format layout with space-delimited values. GitBook documents the general convention as a title line first, then usually a header line, with exceptions such as `file.cio` and files that add count or block-header lines.
+This file is a fixed-name or derived companion rather than a primary `file.cio` selection. The reader may open it by convention when its parent workflow is active.
 
-## Reader Path
-
-- Source inventory: co2_read.f90 optional file.
-- Source slot: not an `input_file_module.f90` field or not yet mapped
-- Reader routine: not yet traced in this page.
+Local demo evidence: the `Osu_1hru` scenario does not include a concrete `co2.dat` file, or the file family is inactive there. Use another scenario or the reader routine for field-level confirmation.
 
 ## Fields And Parameters
 
-Not yet documented. Do not infer parameter meanings from names alone; trace the reader and storage type first.
+No local demo header is available for this file. The page currently documents role, activation, and source inventory only; field names, units, and storage should be added after tracing the reader or adding an active demo file.
 
 ## Defaults And Conversions
 
-Not yet traced.
+- Defaults: use the source inventory filename and the `file.cio` slot state as the first default/activation check.
+- Missing-file behavior: if the master file or upstream manifest uses `null`, SWAT+ treats that slot as inactive for the scenario.
+- Numeric conversions: not yet traced for this page; inspect the reader for unit conversions, bounds checks, and derived runtime fields.
+
+## Reader Path
+
+- Source inventory: `SWATPLUS/swatplus/src/input_file_module.f90`.
+- Source slot: not found as a direct default filename in the source inventory.
+- Candidate reader/source files: not found by a simple source-slot or literal-filename search; use `rg` from the source inventory slot, parent module, or filename stem as the next tracing step.
 
 ## Downstream Consumers
 
-Not yet traced.
+Basin-scale process switches, model coefficients, and global companion setup.
 
 ## Scenario Evidence
 
-Not selected by the current `Osu_1hru` `file.cio`; treat as optional or source-default until traced in a scenario.
+- Scenario: `VSProj/SWAT/Osu_1hru`.
+- Scenario state: `fixed-name/conditional`.
+- Activation evidence: fixed-name or derived reader.
+- Local file evidence: no concrete file found in the demo scenario.
 
 ## Open Questions
 
-- Which reader opens this file in the current source revision?
-- Which module, derived type, or array stores each parsed field?
-- Which calculations or output writers consume the parsed values?
+- Which exact reader routine stores each field, and in which derived type or module variable?
+- Which units, valid ranges, and default substitutions are enforced in that reader?
+- Which routines consume each parsed value after initialization?
+
+## External References
+
+- [SWAT+ Input File Format](https://swatplus.gitbook.io/io-docs/introduction-1/input-file-format)
+- [SWAT+ master file `file.cio`](https://swatplus.gitbook.io/io-docs/introduction-1/master-file-file.cio)
+- [SWAT+ simulation settings](https://swatplus.gitbook.io/io-docs/introduction-1/simulation-settings)
 
 ## Related Files
 
 - [SWAT+ input files map](../../input-files.md)
 - [SWAT+ tracing guide](../../tracing-guide.md)
+- [Master input manifest](../simulation/file-cio.md)

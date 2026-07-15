@@ -1,12 +1,12 @@
 ---
 title: chandeg.con input file
 kind: input-reference
-status: not traced
+status: partial
 created: 2026-07-15
 updated: 2026-07-15
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
-scenario: source-default
-tags: [inputs, stub]
+scenario: Osu_1hru
+tags: [inputs, reference, demo-context]
 ---
 
 # `chandeg.con`
@@ -17,43 +17,85 @@ SWAT-DEG channel connection file; defines routing for `sdc` / `chandeg` objects.
 
 ## Role In SWAT+
 
-This page is a source-aligned input-reference stub for `chandeg.con`. It exists so `docs/inputs/` has a durable categorized page for each known SWAT+ input file or input-file family.
-
-Scenario status: Active in `Osu_1hru` through `file.cio`.
+- Category: Connectivity.
+- Usage class: `active scenario input`.
+- Activation: `file.cio`.
+- `Osu_1hru` status: `active`.
+- Source inventory slot(s): `in_con%chandeg_con = "chandeg.con"`.
 
 ## File Format
 
-Not yet traced. Add the header lines, data layout, column meanings, units, and required/optional fields after the reader path is inspected.
+SWAT+ input files use a plain-text, free-format layout with space-delimited values. GitBook documents the general convention as a title line first, then usually a header line, with exceptions such as `file.cio` and files that add count or block-header lines.
+This file is controlled by the master `file.cio` manifest in normal runs. A non-`null` entry activates the selected filename; `null` means the file slot is intentionally unused for that scenario.
 
-## Reader Path
+Local demo evidence from `VSProj/SWAT/Osu_1hru/chandeg.con`:
 
-- Source inventory: input_file_module.f90 default slot.
-- Source slot: chandeg_con
-- Reader routine: not yet traced in this page.
+- Title/comment line: `chandeg.con: written by SWAT+ editor v2.2.0 on 2023-03-22 04:25 for SWAT+ rev.60.5.4`.
+- Observed header line: `id  name                gis_id          area           lat           lon          elev      lcha               wst       cst      ovfl      rule   out_tot       obj_typ    obj_id       hyd_typ          frac`.
+- Nonblank records after the header: 1.
+- First demo data record: `1  cha01                    1       10.40000      35.52632     127.32895             0         1    s35610n127290e         0         0         0         0`.
 
 ## Fields And Parameters
 
-Not yet documented. Do not infer parameter meanings from names alone; trace the reader and storage type first.
+The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+
+| Field | Working meaning | Demo value |
+| --- | --- | --- |
+| `id` | Numeric record identifier. | `1` |
+| `name` | Record name used by other input files to reference this parameter set. | `cha01` |
+| `gis_id` | GIS/source-project identifier retained for the object. | `1` |
+| `area` | Area represented by the object or record. | `10.40000` |
+| `lat` | Latitude of the station or object. | `35.52632` |
+| `lon` | Longitude of the station or object. | `127.32895` |
+| `elev` | Elevation of the station or object. | `0` |
+| `lcha` | Channel-related parameter or object reference. | `1` |
+| `wst` | Field named in the demo/source header; trace the reader for exact units and storage. | `s35610n127290e` |
+| `cst` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
+| `ovfl` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
+| `rule` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
+| `out_tot` | Number of output or receiving commands listed for the object. | `0` |
+| `obj_typ` | SWAT+ object type for a routing, connection, or update target. | - |
+| `obj_id` | SWAT+ object identifier for a routing, connection, or update target. | - |
+| `hyd_typ` | Hydrologic routing type or command for a connection. | - |
+| `frac` | Fraction of flow/load routed through this command. | - |
 
 ## Defaults And Conversions
 
-Not yet traced.
+- Defaults: use the source inventory filename and the `file.cio` slot state as the first default/activation check.
+- Missing-file behavior: if the master file or upstream manifest uses `null`, SWAT+ treats that slot as inactive for the scenario.
+- Numeric conversions: not yet traced for this page; inspect the reader for unit conversions, bounds checks, and derived runtime fields.
+
+## Reader Path
+
+- Source inventory: `SWATPLUS/swatplus/src/input_file_module.f90`.
+- Source slot: `in_con%chandeg_con` defaulting to `chandeg.con`.
+- Candidate reader/source files: `SWATPLUS/swatplus/src/hyd_connect.f90`, `SWATPLUS/swatplus/src/swift_output.f90`.
 
 ## Downstream Consumers
 
-Not yet traced.
+Object routing and connection setup for moving water and constituent loads between SWAT+ objects.
 
 ## Scenario Evidence
 
-Active in `Osu_1hru` through `file.cio`.
+- Scenario: `VSProj/SWAT/Osu_1hru`.
+- Scenario state: `active`.
+- Activation evidence: `file.cio`.
+- Local file evidence: `VSProj/SWAT/Osu_1hru/chandeg.con`.
 
 ## Open Questions
 
-- Which reader opens this file in the current source revision?
-- Which module, derived type, or array stores each parsed field?
-- Which calculations or output writers consume the parsed values?
+- Which exact reader routine stores each field, and in which derived type or module variable?
+- Which units, valid ranges, and default substitutions are enforced in that reader?
+- Which routines consume each parsed value after initialization?
+
+## External References
+
+- [SWAT+ Input File Format](https://swatplus.gitbook.io/io-docs/introduction-1/input-file-format)
+- [SWAT+ master file `file.cio`](https://swatplus.gitbook.io/io-docs/introduction-1/master-file-file.cio)
+- [SWAT+ simulation settings](https://swatplus.gitbook.io/io-docs/introduction-1/simulation-settings)
 
 ## Related Files
 
 - [SWAT+ input files map](../../input-files.md)
 - [SWAT+ tracing guide](../../tracing-guide.md)
+- [Master input manifest](../simulation/file-cio.md)
