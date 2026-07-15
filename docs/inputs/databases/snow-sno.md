@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Snow parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [snow.sno](https://swatplus.gitbook.io/io-docs/introduction-1/hydrology/snow.sno).
+- Official index note: This file controls the simulation of snowfall and snowmelt processes.
+- Official field metadata available: 9 field row(s); matched to 9 of 9 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Databases.
@@ -37,19 +45,19 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/snow.sno`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `snow001` |
-| `fall_tmp` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `melt_tmp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `melt_max` | Maximum value or upper bound, depending on the reader. | `4.50000` |
-| `melt_min` | Minimum value or lower bound, depending on the reader. | `4.50000` |
-| `tmp_lag` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `snow_h2o` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `cov50` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `snow_init` | Initial value/state used at model startup. | `0.00000` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the snow record. | - | - | - | - | `snow001` | official GitBook |
+| `fall_tmp` | Snowfall temperature. | - | - | - | - | `1.00000` | official GitBook |
+| `melt_tmp` | Snow melt base temperature. | - | - | - | - | `0.50000` | official GitBook |
+| `melt_max` | Melt factor for snow on June 21. | - | - | - | - | `4.50000` | official GitBook |
+| `melt_min` | Melt factor for snow on December 21. | - | - | - | - | `4.50000` | official GitBook |
+| `tmp_lag` | Snowpack temperature lag factor. | - | - | - | - | `1.00000` | official GitBook |
+| `snow_h2o` | Minimum snow water content that corresponds to 100% snow cover. | - | - | - | - | `1.00000` | official GitBook |
+| `cov50` | Fraction of snow volume corresponding to 50% snow cover. | - | - | - | - | `0.50000` | official GitBook |
+| `snow_init` | Initial snow water content at start of simulation. | - | - | - | - | `0.00000` | official GitBook |
 
 ## Defaults And Conversions
 

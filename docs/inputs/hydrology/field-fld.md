@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Field geometry and field-related parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [field.fld](https://swatplus.gitbook.io/io-docs/introduction-1/hydrology/field.fld).
+- Official index note: This file specifies the properties of representative fields.
+- Official field metadata available: 3 field row(s); matched to 3 of 4 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Hydrology.
@@ -37,14 +45,14 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/field.fld`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `fld011` |
-| `len` | Field named in the demo/source header; trace the reader for exact units and storage. | `500.00000` |
-| `wd` | Field named in the demo/source header; trace the reader for exact units and storage. | `100.00000` |
-| `ang` | Field named in the demo/source header; trace the reader for exact units and storage. | `30.00000` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the field. | - | - | - | - | `fld011` | official GitBook |
+| `len` | Length of the field. | - | - | - | - | `500.00000` | official GitBook |
+| `wd` | Width of the field. | - | - | - | - | `100.00000` | official GitBook |
+| `ang` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `30.00000` | demo/source inferred |
 
 ## Defaults And Conversions
 

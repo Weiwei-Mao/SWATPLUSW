@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Chemical application operation definitions.
 
+
+## Official SWAT+ Reference
+
+- Official page: [chem_app.ops](https://swatplus.gitbook.io/io-docs/introduction-1/management-practices/chem_app.ops).
+- Official index note: This file contains pre-defined fertilizer, manure, and pesticide application operations.
+- Official field metadata available: 4 field row(s); matched to 4 of 10 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Operations.
@@ -37,20 +45,20 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/chem_app.ops`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `broadcast` |
-| `chem_form` | Field named in the demo/source header; trace the reader for exact units and storage. | `solid` |
-| `app_typ` | Field named in the demo/source header; trace the reader for exact units and storage. | `spread` |
-| `app_eff` | Removal efficiency or effect fraction/percent used by a practice or treatment. | `0.90000` |
-| `foliar_eff` | Removal efficiency or effect fraction/percent used by a practice or treatment. | `0.00000` |
-| `inject_dp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `surf_frac` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `drift_pot` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `aerial_unif` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `description` | Free-text description retained for reader/user context. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Chemical application name. | - | - | - | - | `broadcast` | official GitBook |
+| `chem_form` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `solid` | demo/source inferred |
+| `app_typ` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `spread` | demo/source inferred |
+| `app_eff` | Application efficiency. | - | - | - | - | `0.90000` | official GitBook |
+| `foliar_eff` | Removal efficiency or effect fraction/percent. | - | - | - | - | `0.00000` | demo/source inferred |
+| `inject_dp` | Injection depth. | - | - | - | - | `0.00000` | official GitBook |
+| `surf_frac` | Surface fraction. | - | - | - | - | `1.00000` | official GitBook |
+| `drift_pot` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0.00000` | demo/source inferred |
+| `aerial_unif` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1.00000` | demo/source inferred |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | - | demo/source inferred |
 
 ## Defaults And Conversions
 

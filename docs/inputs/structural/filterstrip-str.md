@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Filter-strip structural parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [filterstrip.str](https://swatplus.gitbook.io/io-docs/introduction-1/structural-practices/filterstrip.str).
+- Official index note: This file contains the filter strip parameters.
+- Official field metadata available: 4 field row(s); matched to 4 of 6 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Structural.
@@ -37,16 +45,16 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/filterstrip.str`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `field_border` |
-| `flag` | Switch or flag controlling how the record is interpreted. | `0` |
-| `fld_vfs` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.10000` |
-| `con_vfs` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00300` |
-| `cha_q` | Channel-related parameter or object reference. | `0.20000` |
-| `description` | Free-text description retained for reader/user context. | `Field_border` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of filter strip record. | - | - | - | - | `field_border` | official GitBook |
+| `flag` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `fld_vfs` | Ratio of field area to filter strip area. | - | - | - | - | `0.10000` | official GitBook |
+| `con_vfs` | Fraction of flow entering the most concentrated 10% of the filter strip. | - | - | - | - | `0.00300` | official GitBook |
+| `cha_q` | Fraction of fully channelized flow. | - | - | - | - | `0.20000` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `Field_border` | demo/source inferred |
 
 ## Defaults And Conversions
 

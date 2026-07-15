@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Reservoir nutrient and water-quality parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [nutrients.res](https://swatplus.gitbook.io/io-docs/introduction-1/reservoirs/nutrients.res).
+- Official index note: This file contains the reservoir and wetland nutrient parameters.
+- Official field metadata available: 13 field row(s); matched to 13 of 13 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Reservoirs Wetlands.
@@ -37,23 +45,23 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/nutrients.res`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `nutwet1` |
-| `mid_start` | Field named in the demo/source header; trace the reader for exact units and storage. | `5` |
-| `mid_end` | Field named in the demo/source header; trace the reader for exact units and storage. | `10` |
-| `mid_n_stl` | Field named in the demo/source header; trace the reader for exact units and storage. | `5.50000` |
-| `n_stl` | Field named in the demo/source header; trace the reader for exact units and storage. | `5.50000` |
-| `mid_p_stl` | Field named in the demo/source header; trace the reader for exact units and storage. | `10.00000` |
-| `p_stl` | Field named in the demo/source header; trace the reader for exact units and storage. | `10.00000` |
-| `chla_co` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `secchi_co` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `theta_n` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `theta_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `n_min_stl` | Minimum value or lower bound, depending on the reader. | `0.10000` |
-| `p_min_stl` | Minimum value or lower bound, depending on the reader. | `0.01000` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the reservoir and wetland nutrient record. | - | - | - | - | `nutwet1` | official GitBook |
+| `mid_start` | Beginning month of the mid-year nutrient settling period. | - | - | - | - | `5` | official GitBook |
+| `mid_end` | Ending month of the mid-year nutrient settling period. | - | - | - | - | `10` | official GitBook |
+| `mid_n_stl` | Nitrogen settling rate during the mid-year nutrient settling period. | - | - | - | - | `5.50000` | official GitBook |
+| `n_stl` | Nitrogen settling rate outside the mid-year nutrient settling period. | - | - | - | - | `5.50000` | official GitBook |
+| `mid_p_stl` | Phosphorus settling rate during the mid-year nutrient settling period. | - | - | - | - | `10.00000` | official GitBook |
+| `p_stl` | Phosphorus settling rate outside the mid-year nutrient settling period. | - | - | - | - | `10.00000` | official GitBook |
+| `chla_co` | Chlorophyll-a production coefficient for the reservoir. | - | - | - | - | `1.00000` | official GitBook |
+| `secchi_co` | Water clarity coefficient for the reservoir. | - | - | - | - | `1.00000` | official GitBook |
+| `theta_n` | Temperature adjustment for nitrogen loss (settling). | - | - | - | - | `1.00000` | official GitBook |
+| `theta_p` | Temperature adjustment for phosphorus loss (settling). | - | - | - | - | `1.00000` | official GitBook |
+| `n_min_stl` | Minimum nitrogen concentration for settling. | - | - | - | - | `0.10000` | official GitBook |
+| `p_min_stl` | Minimum phosphorus concentration for settling. | - | - | - | - | `0.01000` | official GitBook |
 
 ## Defaults And Conversions
 

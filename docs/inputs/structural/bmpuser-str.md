@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 User-defined BMP structural parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [bmpuser.str](https://swatplus.gitbook.io/io-docs/introduction-1/structural-practices/bmpuser.str).
+- Official index note: This file contains the user Best Management Practice parameters.
+- Official field metadata available: 7 field row(s); matched to 7 of 9 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Structural.
@@ -37,19 +45,19 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/bmpuser.str`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `bmpusr1` |
-| `flag` | Switch or flag controlling how the record is interpreted. | `1` |
-| `sed_eff` | Sediment-related value, efficiency, or parameter; verify units in the reader. | `0.20000` |
-| `ptlp_eff` | Phosphorus-related component; verify units in the reader. | `0.20000` |
-| `solp_eff` | Phosphorus-related component; verify units in the reader. | `0.20000` |
-| `ptln_eff` | Removal efficiency or effect fraction/percent used by a practice or treatment. | `0.20000` |
-| `soln_eff` | Removal efficiency or effect fraction/percent used by a practice or treatment. | `0.20000` |
-| `bact_eff` | Pathogen/bacteria-related value or parameter; verify units in the reader. | `0.20000` |
-| `description` | Free-text description retained for reader/user context. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of user BMP record. | - | - | - | - | `bmpusr1` | official GitBook |
+| `flag` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1` | demo/source inferred |
+| `sed_eff` | Sediment removal by BMP. | - | - | - | - | `0.20000` | official GitBook |
+| `ptlp_eff` | Particulate P removal by BMP. | - | - | - | - | `0.20000` | official GitBook |
+| `solp_eff` | Soluble P removal by BMP. | - | - | - | - | `0.20000` | official GitBook |
+| `ptln_eff` | Particulate N removal by BMP. | - | - | - | - | `0.20000` | official GitBook |
+| `soln_eff` | Soluble N removal by BMP. | - | - | - | - | `0.20000` | official GitBook |
+| `bact_eff` | Bacteria removal by BMP. | - | - | - | - | `0.20000` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | - | demo/source inferred |
 
 ## Defaults And Conversions
 

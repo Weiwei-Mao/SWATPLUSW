@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Reservoir sediment parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [sediment.res](https://swatplus.gitbook.io/io-docs/introduction-1/reservoirs/sediment.res).
+- Official index note: This file contains the reservoir and wetland sediment parameters.
+- Official field metadata available: 7 field row(s); matched to 6 of 7 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Reservoirs Wetlands.
@@ -37,17 +45,23 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/sediment.res`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `sedwet1` |
-| `sed_amt` | Sediment-related value, efficiency, or parameter; verify units in the reader. | `10.00` |
-| `d50` | Field named in the demo/source header; trace the reader for exact units and storage. | `5.00` |
-| `carbon` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.04` |
-| `bd` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.8` |
-| `sed_stl` | Sediment-related value, efficiency, or parameter; verify units in the reader. | `0.15` |
-| `stl_vel` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.0002` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the reservoir and wetland sediment record. | - | - | - | - | `sedwet1` | official GitBook |
+| `sed_amt` | Sediment-related parameter or state value. | - | - | - | - | `10.00` | demo/source inferred |
+| `d50` | Median particle size of suspended and benthic sediment. | - | - | - | - | `5.00` | official GitBook |
+| `carbon` | Organic carbon in suspended and benthic sediment. | - | - | - | - | `0.04` | official GitBook |
+| `bd` | Bulk density of benthic sediment. | - | - | - | - | `0.8` | official GitBook |
+| `sed_stl` | Sediment settling rate. | - | - | - | - | `0.15` | official GitBook |
+| `stl_vel` | Sediment settling velocity. | - | - | - | - | `0.0002` | official GitBook |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `nsed` | Equilibrium sediment concentration in the reservoir. | - | - |
 
 ## Defaults And Conversions
 

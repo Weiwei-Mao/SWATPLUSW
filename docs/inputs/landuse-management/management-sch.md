@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Management schedules that sequence operations over time.
 
+
+## Official SWAT+ Reference
+
+- Official page: [management.sch](https://swatplus.gitbook.io/io-docs/introduction-1/landuse-and-management/management.sch).
+- Official index note: This file is used to schedule management operations.
+- Official field metadata available: 5 field row(s); matched to 5 of 10 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Landuse Management.
@@ -37,20 +45,20 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/management.sch`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `rice140_rot` |
-| `numb_ops` | Count of following records or related objects. | `1` |
-| `numb_auto` | Count of following records or related objects. | `7` |
-| `op_typ` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `mon` | Calendar month index or monthly value position. | - |
-| `day` | Day-of-month or Julian-day position, depending on the reader. | - |
-| `hu_sch` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `op_data1` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `op_data2` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `op_data3` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the management schedule. | - | - | - | - | `rice140_rot` | official GitBook |
+| `numb_ops` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1` | demo/source inferred |
+| `numb_auto` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `7` | demo/source inferred |
+| `op_typ` | Type of management operation. | - | - | - | - | - | official GitBook |
+| `mon` | Calendar month or monthly period value. | - | - | - | - | - | demo/source inferred |
+| `day` | Day-of-month or Julian-day value, depending on the reader. | - | - | - | - | - | demo/source inferred |
+| `hu_sch` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | - | demo/source inferred |
+| `op_data1` | Operation data 1. | - | - | - | - | - | official GitBook |
+| `op_data2` | Operation data 2. | - | - | - | - | - | official GitBook |
+| `op_data3` | Operation data 3. | - | - | - | - | - | official GitBook |
 
 ## Defaults And Conversions
 

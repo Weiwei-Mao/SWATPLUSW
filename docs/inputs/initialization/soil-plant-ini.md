@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Initial soil/plant nutrient, pesticide, pathogen, metal, salt, and constituent pointer records.
 
+
+## Official SWAT+ Reference
+
+- Official page: [soil_plant.ini](https://swatplus.gitbook.io/io-docs/introduction-1/initialization/soil_plant.ini).
+- Official index note: This file references several other files, which initialize nutrients and constituents in soils.
+- Official field metadata available: 5 field row(s); matched to 5 of 7 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Initialization.
@@ -37,17 +45,17 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/soil_plant.ini`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `soilplant1` |
-| `sw_frac` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `nutrients` | Field named in the demo/source header; trace the reader for exact units and storage. | `soilnut1` |
-| `pest` | Pesticide-related value or parameter; verify units in the reader. | `null` |
-| `path` | Pathogen/bacteria-related value or parameter; verify units in the reader. | `null` |
-| `hmet` | Heavy-metal related value or parameter; verify units in the reader. | `null` |
-| `salt` | Salt constituent value or parameter; verify units in the reader. | `null` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the soil and plant initialization. | - | - | - | - | `soilplant1` | official GitBook |
+| `sw_frac` | Soil water fraction at the beginning of the simulation. | - | - | - | - | `0.00000` | official GitBook |
+| `nutrients` | Pointer to the nutrient initialization file. | - | - | - | - | `soilnut1` | official GitBook |
+| `pest` | Pointer to the pesticide initialization file. | - | - | - | - | `null` | official GitBook |
+| `path` | Pathogen or bacteria-related value or parameter. | - | - | - | - | `null` | demo/source inferred |
+| `hmet` | Heavy-metal related value or parameter. | - | - | - | - | `null` | demo/source inferred |
+| `salt` | Pointer to the salt initialization file. | - | - | - | - | `null` | official GitBook |
 
 ## Defaults And Conversions
 

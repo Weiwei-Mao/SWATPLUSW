@@ -17,6 +17,14 @@ tags: [inputs, basin, control-codes, codes-bsn]
 
 The file is selected by `file.cio` under the `basin` section. In `Osu_1hru`, that section points to `codes.bsn`.
 
+
+## Official SWAT+ Reference
+
+- Official page: [codes.bsn](https://swatplus.gitbook.io/io-docs/introduction-1/basin-1/codes.bsn).
+- Official index note: This file contains control codes for the simulation of basin-level processes.
+- Official field metadata available: 14 field row(s); matched to 11 of 26 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Reader Path
 
 ```text

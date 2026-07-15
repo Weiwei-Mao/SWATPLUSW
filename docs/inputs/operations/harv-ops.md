@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Harvest operation definitions.
 
+
+## Official SWAT+ Reference
+
+- Official page: [harv.ops](https://swatplus.gitbook.io/io-docs/introduction-1/management-practices/harv.ops).
+- Official index note: This file contains pre-defined harvest operations.
+- Official field metadata available: 5 field row(s); matched to 5 of 6 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Operations.
@@ -37,16 +45,16 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/harv.ops`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `forest_cut` |
-| `harv_typ` | Field named in the demo/source header; trace the reader for exact units and storage. | `tree` |
-| `harv_idx` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.95000` |
-| `harv_eff` | Removal efficiency or effect fraction/percent used by a practice or treatment. | `0.99000` |
-| `harv_bm_min` | Minimum value or lower bound, depending on the reader. | `0.00000` |
-| `description` | Free-text description retained for reader/user context. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Harvest operation name. | - | - | - | - | `forest_cut` | official GitBook |
+| `harv_typ` | Harvest type. | - | - | - | - | `tree` | official GitBook |
+| `harv_idx` | Harvest index target specified at harvest. | - | - | - | - | `0.95000` | official GitBook |
+| `harv_eff` | Harvest efficiency. | - | - | - | - | `0.99000` | official GitBook |
+| `harv_bm_min` | Minimum biomass to allow harvest. | - | - | - | - | `0.00000` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | - | demo/source inferred |
 
 ## Defaults And Conversions
 

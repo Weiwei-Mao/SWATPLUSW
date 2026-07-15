@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Lumped aquifer parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [aquifer.aqu](https://swatplus.gitbook.io/io-docs/introduction-1/aquifers/aquifer.aqu).
+- Official index note: This file contains the general physical and chemical aquifer properties.
+- Official field metadata available: 18 field row(s); matched to 18 of 18 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Aquifers.
@@ -37,28 +45,28 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/aquifer.aqu`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `id` | Numeric record identifier. | `1` |
-| `name` | Record name used by other input files to reference this parameter set. | `aqu011` |
-| `init` | Initial value/state used at model startup. | `initaqu1` |
-| `gw_flo` | Flow-related value or routing parameter. | `0.05000` |
-| `dep_bot` | Depth, deposition, or dependency field; verify exact meaning in the reader. | `10.00000` |
-| `dep_wt` | Depth, deposition, or dependency field; verify exact meaning in the reader. | `6.00000` |
-| `no3_n` | Nitrate-nitrogen concentration, mass, or parameter component; verify units in the reader. | `0.00000` |
-| `sol_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `carbon` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `flo_dist` | Flow-related value or routing parameter. | `50.00000` |
-| `bf_max` | Maximum value or upper bound, depending on the reader. | `1.00000` |
-| `alpha_bf` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.95000` |
-| `revap` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.02000` |
-| `rchg_dp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.01000` |
-| `spec_yld` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.05000` |
-| `hl_no3n` | Nitrate-nitrogen concentration, mass, or parameter component; verify units in the reader. | `0.00000` |
-| `flo_min` | Flow-related value or routing parameter. | `5.00000` |
-| `revap_min` | Minimum value or lower bound, depending on the reader. | `5.00000` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `id` | ID of the aquifer. | `integer` | `n/a` | - | - | `1` | official GitBook |
+| `name` | Name of the aquifer. | `string` | `n/a` | `n/a` | `n/a` | `aqu011` | official GitBook |
+| `init` | Pointer to the aquifer initialization file. | `string` | `n/a` | `n/a` | `n/a` | `initaqu1` | official GitBook |
+| `gw_flo` | Initial groundwater flow. | `real` | `mm` | `0.05` | `0-2` | `0.05000` | official GitBook |
+| `dep_bot` | Depth from mid-slope surface to bottom of aquifer. | `real` | `m` | `10.0` | `0-10` | `10.00000` | official GitBook |
+| `dep_wt` | Depth from mid-slope surface to initial water table. | `real` | `m` | `10.0` | `0-10` | `6.00000` | official GitBook |
+| `no3_n` | NO3-N concentration in aquifer. | `real` | `ppm NO3-N` | `0` | `0-1000` | `0.00000` | official GitBook |
+| `sol_p` | Mineral P concentration in aquifer. | `real` | `mg P/L` | `0` | `0-1000` | `0.00000` | official GitBook |
+| `carbon` | Organic carbon in aquifer. | `real` | `percent` | `0.50` | `0-15` | `0.50000` | official GitBook |
+| `flo_dist` | Average flow distance to stream or object. | `real` | `m` | `50.0` | `0-1000` | `50.00000` | official GitBook |
+| `bf_max` | Baseflow rate at which all streams linked to an aquifer receive groundwater flow. | `real` | `mm` | `1.0` | `0-2` | `1.00000` | official GitBook |
+| `alpha_bf` | Alpha factor for groundwater recession curve. | `real` | `1/days` | `0.05` | `0-1` | `0.95000` | official GitBook |
+| `revap` | Groundwater revap coefficient. | `real` | `fraction` | `0` | `0-1` | `0.02000` | official GitBook |
+| `rchg_dp` | Recharge to deep aquifer. | `real` | `fraction` | `0` | `0-1` | `0.01000` | official GitBook |
+| `spec_yld` | Specific yield of the aquifer. | `real` | `m^3/m^3` | `0` | `0-0.40` | `0.05000` | official GitBook |
+| `hl_no3n` | Half-life of NO3-N in the aquifer. | `real` | `days` | `0` | `0-200` | `0.00000` | official GitBook |
+| `flo_min` | Threshold depth from surface to water table for groundwater flow to occur. | `real` | `m` | `3` | `0-10` | `5.00000` | official GitBook |
+| `revap_min` | Threshold depth from surface to water table for revap to occur. | `real` | `m` | `5` | `0-10` | `5.00000` | official GitBook |
 
 ## Defaults And Conversions
 

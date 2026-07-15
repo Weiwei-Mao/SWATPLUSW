@@ -15,6 +15,13 @@ tags: [inputs, reference, demo-context]
 
 Input file for water-rights; source slot transfer_wro.
 
+
+## Official SWAT+ Reference
+
+- Official page: [water_allocation.wro](https://swatplus.gitbook.io/io-docs/introduction-1/water-allocation/water_allocation.wro).
+- Official index note: This file contains water allocation tables.
+- Official field metadata available: 21 field row(s); matched to 0 of 0 observed demo header field(s).
+
 ## Role In SWAT+
 
 - Category: Water Allocation.
@@ -32,7 +39,31 @@ Local demo evidence: the `Osu_1hru` scenario does not include a concrete `water_
 
 ## Fields And Parameters
 
-No local demo header is available for this file. The page currently documents role, activation, and source inventory only; field names, units, and storage should be added after tracing the reader or adding an active demo file.
+No local demo header is available, but the official SWAT+ page provides field metadata. Demo value cells are therefore blank until an active scenario file is added.
+
+| Field | Meaning | Type | Unit | Default | Range |
+| --- | --- | --- | --- | --- | --- |
+| `name` | Name of the water allocation table. | `string` | - | - | - |
+| `rule_typ` | Rule type to allocate water. | `string` | - | - | - |
+| `src_obs` | Number of source objects. | `integer` | - | - | - |
+| `dmd_obs` | Number of demand objects. | `integer` | - | - | - |
+| `cha_ob` | Channel as source object. | `string` | - | - | - |
+| `num` | Source object number. | `integer` | - | - | - |
+| `ob_typ` | Object type of the source object. | `string` | - | - | - |
+| `ob_num` | ID of the source object. | `integer` | - | - | - |
+| `limit_mon` | Monthly limits. | `real` | - | - | - |
+| `withdr` | Withdrawal type. | `string` | - | - | - |
+| `amount` | Withdrawal amount. | `real` | - | - | - |
+| `right` | Water right. | `string` | - | - | - |
+| `treat_typ` | Currently not functional. | `string` | - | - | - |
+| `treatment` | Currently not functional. | `string` | - | - | - |
+| `rcv_ob` | Object type of the receiving object. | `string` | - | - | - |
+| `rcv_num` | ID of the receiving object. | `integer` | - | - | - |
+| `rcv_dtl` | Currently not used. | `string` | - | - | - |
+| `srcs` | Number of source objects available for the demand object. | `integer` | - | - | - |
+| `src` | Source object ID. | `integer` | - | - | - |
+| `frac` | Fraction of demand to be met by source object. | `real` | - | - | - |
+| `comp` | Compensation from source object. | `string` | - | - | - |
 
 ## Defaults And Conversions
 

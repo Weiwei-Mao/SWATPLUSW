@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 SWAT-DEG channel connection file; defines routing for `sdc` / `chandeg` objects.
 
+
+## Official SWAT+ Reference
+
+- Official page: ['object'.con](https://swatplus.gitbook.io/io-docs/introduction-1/connectivity/hru.con).
+- Official index note: This file defines the connectivity of spatial objects.
+- Official field metadata available: 17 field row(s); matched to 16 of 17 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Connectivity.
@@ -37,27 +45,33 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/chandeg.con`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `id` | Numeric record identifier. | `1` |
-| `name` | Record name used by other input files to reference this parameter set. | `cha01` |
-| `gis_id` | GIS/source-project identifier retained for the object. | `1` |
-| `area` | Area represented by the object or record. | `10.40000` |
-| `lat` | Latitude of the station or object. | `35.52632` |
-| `lon` | Longitude of the station or object. | `127.32895` |
-| `elev` | Elevation of the station or object. | `0` |
-| `lcha` | Channel-related parameter or object reference. | `1` |
-| `wst` | Field named in the demo/source header; trace the reader for exact units and storage. | `s35610n127290e` |
-| `cst` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `ovfl` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `rule` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `out_tot` | Number of output or receiving commands listed for the object. | `0` |
-| `obj_typ` | SWAT+ object type for a routing, connection, or update target. | - |
-| `obj_id` | SWAT+ object identifier for a routing, connection, or update target. | - |
-| `hyd_typ` | Hydrologic routing type or command for a connection. | - |
-| `frac` | Fraction of flow/load routed through this command. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `id` | Unique ID of the object. | - | - | - | - | `1` | official GitBook |
+| `name` | Name of the object. | - | - | - | - | `cha01` | official GitBook |
+| `gis_id` | Object ID in QSWAT+. | - | - | - | - | `1` | official GitBook |
+| `area` | Area of the object. | - | - | - | - | `10.40000` | official GitBook |
+| `lat` | Latitude of the object. | - | - | - | - | `35.52632` | official GitBook |
+| `lon` | Longitude of the object. | - | - | - | - | `127.32895` | official GitBook |
+| `elev` | Elevation of the object. | - | - | - | - | `0` | official GitBook |
+| `lcha` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1` | demo/source inferred |
+| `wst` | Pointer to the weather station file. | - | - | - | - | `s35610n127290e` | official GitBook |
+| `cst` | Pointer to the constituent file. | - | - | - | - | `0` | official GitBook |
+| `ovfl` | Pointer to the overbank flooding file. | - | - | - | - | `0` | official GitBook |
+| `rule` | Pointer to the decision table for hydrograph fractions. | - | - | - | - | `0` | official GitBook |
+| `out_tot` | Total number of outgoing hydrographs. | - | - | - | - | `0` | official GitBook |
+| `obj_typ` | Type of the receiving object. | - | - | - | - | - | official GitBook |
+| `obj_id` | ID of the receiving object. | - | - | - | - | - | official GitBook |
+| `hyd_typ` | Type of hydrograph that is sent to the receiving object. | - | - | - | - | - | official GitBook |
+| `frac` | Fraction of hydrograph sent to the receiving object. | - | - | - | - | - | official GitBook |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `'obj'` | Pointer to the object data file. | - | - |
 
 ## Defaults And Conversions
 

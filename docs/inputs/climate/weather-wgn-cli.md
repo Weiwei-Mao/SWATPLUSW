@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Weather generator station list.
 
+
+## Official SWAT+ Reference
+
+- Official page: [weather-wgn.cli](https://swatplus.gitbook.io/io-docs/introduction-1/climate/weather-wgn.cli).
+- Official index note: This file contains weather generator data to be used for a SWAT+ setup.
+- Official field metadata available: 19 field row(s); matched to 14 of 14 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Climate.
@@ -38,24 +46,34 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/weather-wgn.cli`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `tmp_max_ave` | Maximum value or upper bound, depending on the reader. | `3.79032` |
-| `tmp_min_ave` | Minimum value or lower bound, depending on the reader. | `-8.02376` |
-| `tmp_max_sd` | Maximum value or upper bound, depending on the reader. | `4.11179` |
-| `tmp_min_sd` | Minimum value or lower bound, depending on the reader. | `4.74641` |
-| `pcp_ave` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.92032` |
-| `pcp_sd` | Field named in the demo/source header; trace the reader for exact units and storage. | `2.93256` |
-| `pcp_skew` | Field named in the demo/source header; trace the reader for exact units and storage. | `6.86696` |
-| `wet_dry` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.15699` |
-| `wet_wet` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.13441` |
-| `pcp_days` | Field named in the demo/source header; trace the reader for exact units and storage. | `9.16667` |
-| `pcp_hhr` | Field named in the demo/source header; trace the reader for exact units and storage. | `3.95000` |
-| `slr_ave` | Field named in the demo/source header; trace the reader for exact units and storage. | `8.59081` |
-| `dew_ave` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.73338` |
-| `wnd_ave` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.20828` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `tmp_max_ave` | Average or mean daily maximum air temperature for month. | `real` | `deg C` | - | `-30 - 50` | `3.79032` | official GitBook |
+| `tmp_min_ave` | Average or mean daily minimum air temperature for month. | `real` | `deg C` | - | `-40 - 40` | `-8.02376` | official GitBook |
+| `tmp_max_sd` | Standard deviation for daily maximum air temperature in month. | `real` | `deg C` | - | `0.1 - 100` | `4.11179` | official GitBook |
+| `tmp_min_sd` | Standard deviation for daily minimum air temperature in month. | `real` | `deg C` | - | `0.1 - 30` | `4.74641` | official GitBook |
+| `pcp_ave` | Average or mean total monthly precipitation. | `real` | `mm` | - | `0 - 600` | `0.92032` | official GitBook |
+| `pcp_sd` | Standard deviation for daily precipitation in month. | `real` | `mm/day` | - | `0.1 - 50` | `2.93256` | official GitBook |
+| `pcp_skew` | Skew coefficient for daily precipitation in month. | `real` | `mm` | - | `-50 - 20` | `6.86696` | official GitBook |
+| `wet_dry` | Probability of a wet day following a dry day in the month. | `real` | `n/a` | - | `0 - 0.95` | `0.15699` | official GitBook |
+| `wet_wet` | Probability of a wet day following a wet day in the month. | `real` | `n/a` | - | `0 - 0.95` | `0.13441` | official GitBook |
+| `pcp_days` | Average number of days of precipitation in month. | `real` | `n/a` | - | `0 - 31` | `9.16667` | official GitBook |
+| `pcp_hhr` | Maximum 0.5-hour rainfall in month. | `real` | `mm` | - | `0 - 125` | `3.95000` | official GitBook |
+| `slr_ave` | Average daily solar radiation for month. | `real` | `MJ/m^2/day` | - | `0 - 750` | `8.59081` | official GitBook |
+| `dew_ave` | Average daily dew point temperature for each month (deg C) or relative humidity (fraction). | `real` | `deg C or fraction` | - | `-50 - 25` | `0.73338` | official GitBook |
+| `wnd_ave` | Average daily wind speed in month. | `real` | `m/s` | - | `0 - 100` | `1.20828` | official GitBook |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `name` | Name of weather generator station. | `string` | `n/a` |
+| `latitude` | Latitude of weather generator station. | `real` | `Decimal Degrees` |
+| `longitude` | Longitude of weather generator station. | `real` | `Decimal Degrees` |
+| `elevation` | Elevation of weather generator station. | `real` | `m` |
+| `yrs_pcp` | Number of years of maximum monthly 0.5 h rainfall data used to define values for pcp_hhr. | `integer` | `years` |
 
 ## Defaults And Conversions
 

@@ -15,6 +15,13 @@ tags: [inputs, reference, demo-context]
 
 Input file for reservoir; source slot res.
 
+
+## Official SWAT+ Reference
+
+- Official page: [reservoir.res](https://swatplus.gitbook.io/io-docs/introduction-1/reservoirs/reservoir.res).
+- Official index note: This file contains pointers referencing several files that specify the reservoir properties.
+- Official field metadata available: 7 field row(s); matched to 0 of 0 observed demo header field(s).
+
 ## Role In SWAT+
 
 - Category: Reservoirs Wetlands.
@@ -32,7 +39,17 @@ Local demo evidence: the `Osu_1hru` scenario does not include a concrete `reserv
 
 ## Fields And Parameters
 
-No local demo header is available for this file. The page currently documents role, activation, and source inventory only; field names, units, and storage should be added after tracing the reader or adding an active demo file.
+No local demo header is available, but the official SWAT+ page provides field metadata. Demo value cells are therefore blank until an active scenario file is added.
+
+| Field | Meaning | Type | Unit | Default | Range |
+| --- | --- | --- | --- | --- | --- |
+| `id` | ID of the reservoir. | - | - | - | - |
+| `name` | Name of the reservoir. | - | - | - | - |
+| `init` | Pointer to the reservoir and wetland initialization file. | - | - | - | - |
+| `hyd` | Pointer to the reservoir hydrology file. | - | - | - | - |
+| `rel` | Pointer to the reservoir and wetland release decision table file. | - | - | - | - |
+| `sed` | Pointer to the reservoir and wetland sediment file. | - | - | - | - |
+| `nut` | Pointer to the reservoir and wetland nutrient file. | - | - | - | - |
 
 ## Defaults And Conversions
 

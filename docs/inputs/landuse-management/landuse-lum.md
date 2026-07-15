@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Land-use-management database; links land-use names to plant cover, management schedule, curve-number table, and structural features.
 
+
+## Official SWAT+ Reference
+
+- Official page: [landuse.lum](https://swatplus.gitbook.io/io-docs/introduction-1/landuse-and-management/landuse.lum).
+- Official index note: This file summarizes the main land use information and references several other files that specify the details.
+- Official field metadata available: 14 field row(s); matched to 13 of 14 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Landuse Management.
@@ -36,24 +44,30 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/landuse.lum`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | - |
-| `cal_group` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `plnt_com` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `mgt` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `cn2` | Curve-number or conservation-practice related value; verify in reader. | - |
-| `cons_prac` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `urban` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `urb_ro` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `ov_mann` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `tile` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `sep` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `vfs` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `grww` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `bmp` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the land use and management record. | - | - | - | - | - | official GitBook |
+| `cal_group` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | - | demo/source inferred |
+| `plnt_com` | Pointer to the plant community file. | - | - | - | - | - | official GitBook |
+| `mgt` | Pointer to the management schedule file. | - | - | - | - | - | official GitBook |
+| `cn2` | Pointer to the Curve Number database. | - | - | - | - | - | official GitBook |
+| `cons_prac` | Pointer to the conservation practice database. | - | - | - | - | - | official GitBook |
+| `urban` | Pointer to the urban database. | - | - | - | - | - | official GitBook |
+| `urb_ro` | Urban runoff simulation option. | - | - | - | - | - | official GitBook |
+| `ov_mann` | Pointer to the overland Manning's n database. | - | - | - | - | - | official GitBook |
+| `tile` | Pointer to the tile drain file. | - | - | - | - | - | official GitBook |
+| `sep` | Pointer to the septic file. | - | - | - | - | - | official GitBook |
+| `vfs` | Pointer to the filter strip file. | - | - | - | - | - | official GitBook |
+| `grww` | Pointer to the grassed waterway file. | - | - | - | - | - | official GitBook |
+| `bmp` | Pointer to the user BMP file. | - | - | - | - | - | official GitBook |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `cal_grp` | Calibration group. | - | - |
 
 ## Defaults And Conversions
 

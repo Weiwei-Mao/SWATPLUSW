@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Structural septic-system setup file.
 
+
+## Official SWAT+ Reference
+
+- Official page: [septic.str](https://swatplus.gitbook.io/io-docs/introduction-1/structural-practices/septic.str).
+- Official index note: This file contains the septic system parameters.
+- Official field metadata available: 28 field row(s); matched to 28 of 28 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Structural.
@@ -37,38 +45,38 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/septic.str`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `standard` |
-| `typ` | Field named in the demo/source header; trace the reader for exact units and storage. | `1` |
-| `yr` | Calendar year or year range value. | `0` |
-| `operation` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `residents` | Reservoir-related parameter or object reference. | `2.50000` |
-| `area` | Area represented by the object or record. | `100.00000` |
-| `t_fail` | Field named in the demo/source header; trace the reader for exact units and storage. | `70` |
-| `dp_bioz` | Field named in the demo/source header; trace the reader for exact units and storage. | `500.00000` |
-| `thk_bioz` | Field named in the demo/source header; trace the reader for exact units and storage. | `50.00000` |
-| `cha_dist` | Channel-related parameter or object reference. | `0.50000` |
-| `sep_dens` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.50000` |
-| `bm_dens` | Field named in the demo/source header; trace the reader for exact units and storage. | `1000.00000` |
-| `bod_decay` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `bod_conv` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.32000` |
-| `fc_lin` | Field named in the demo/source header; trace the reader for exact units and storage. | `30.00000` |
-| `fc_exp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.80000` |
-| `fecal_decay` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.30000` |
-| `tds_conv` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.10000` |
-| `mort` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `resp` | Reservoir-related parameter or object reference. | `0.16000` |
-| `slough1` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.30000` |
-| `slough2` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `nit` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.50000` |
-| `denit` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.32000` |
-| `p_sorp` | Field named in the demo/source header; trace the reader for exact units and storage. | `128.00000` |
-| `p_sorp_max` | Maximum value or upper bound, depending on the reader. | `850.00000` |
-| `solp_slp` | Phosphorus-related component; verify units in the reader. | `0.04000` |
-| `solp_int` | Phosphorus-related component; verify units in the reader. | `3.10000` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of septic system record. | - | - | - | - | `standard` | official GitBook |
+| `typ` | Septic system type. | - | - | - | - | `1` | official GitBook |
+| `yr` | Year the septic system became operational. | - | - | - | - | `0` | official GitBook |
+| `operation` | Septic system operation flag. | - | - | - | - | `0` | official GitBook |
+| `residents` | Number of permanent residents in the house. | - | - | - | - | `2.50000` | official GitBook |
+| `area` | Average area of drainfield of individual septic systems. | - | - | - | - | `100.00000` | official GitBook |
+| `t_fail` | Time until failing systems gets fixed. | - | - | - | - | `70` | official GitBook |
+| `dp_bioz` | Depth to the top of the biozone layer from the ground surface. | - | - | - | - | `500.00000` | official GitBook |
+| `thk_bioz` | Thickness of biozone layer. | - | - | - | - | `50.00000` | official GitBook |
+| `cha_dist` | Distance from septic system to the stream. | - | - | - | - | `0.50000` | official GitBook |
+| `sep_dens` | Number of septic systems per square kilometer. | - | - | - | - | `1.50000` | official GitBook |
+| `bm_dens` | Density of biomass. | - | - | - | - | `1000.00000` | official GitBook |
+| `bod_decay` | BOD decay rate coefficient. | - | - | - | - | `0.50000` | official GitBook |
+| `bod_conv` | Conversion factor representing the proportion of mass bacterial growth and mass BOD degraded in the septic system. | - | - | - | - | `0.32000` | official GitBook |
+| `fc_lin` | Linear coefficient for calculation of field capacity in the biozone. | - | - | - | - | `30.00000` | official GitBook |
+| `fc_exp` | Exponential coefficient for calculation of field capacity in the biozone. | - | - | - | - | `0.80000` | official GitBook |
+| `fecal_decay` | Fecal coliform bacteria decay rate coefficient. | - | - | - | - | `1.30000` | official GitBook |
+| `tds_conv` | Conversion factor for plaque from Total Dissolved Solids. | - | - | - | - | `0.10000` | official GitBook |
+| `mort` | Mortality rate coefficient. | - | - | - | - | `0.50000` | official GitBook |
+| `resp` | Respiration rate coefficient. | - | - | - | - | `0.16000` | official GitBook |
+| `slough1` | Linear coefficient for calculating the rate of biomass sloughing. | - | - | - | - | `0.30000` | official GitBook |
+| `slough2` | Exponential coefficient for calculating the rate of biomass sloughing. | - | - | - | - | `0.50000` | official GitBook |
+| `nit` | Nitrification rate coefficient. | - | - | - | - | `1.50000` | official GitBook |
+| `denit` | Denitrification rate coefficient. | - | - | - | - | `0.32000` | official GitBook |
+| `p_sorp` | Linear P sorption distribution coefficient. | - | - | - | - | `128.00000` | official GitBook |
+| `p_sorp_max` | Maximum P sorption capacity. | - | - | - | - | `850.00000` | official GitBook |
+| `solp_slp` | Slope of the linear effluent soluble P equation. | - | - | - | - | `0.04000` | official GitBook |
+| `solp_int` | Intercept of the linear effluent soluble P equation. | - | - | - | - | `3.10000` | official GitBook |
 
 ## Defaults And Conversions
 

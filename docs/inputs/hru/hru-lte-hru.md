@@ -15,6 +15,12 @@ tags: [inputs, reference, demo-context]
 
 Input file for HRU; source slot hru_ez.
 
+
+## Official SWAT+ Reference
+
+- Official page: [hru-lte.hru](https://swatplus.gitbook.io/io-docs/introduction-1/hydrologic-response-units/hru-lte.hru).
+- Official field metadata available: 35 field row(s); matched to 0 of 0 observed demo header field(s).
+
 ## Role In SWAT+
 
 - Category: Hru.
@@ -32,7 +38,45 @@ Local demo evidence: the `Osu_1hru` scenario does not include a concrete `hru-lt
 
 ## Fields And Parameters
 
-No local demo header is available for this file. The page currently documents role, activation, and source inventory only; field names, units, and storage should be added after tracing the reader or adding an active demo file.
+No local demo header is available, but the official SWAT+ page provides field metadata. Demo value cells are therefore blank until an active scenario file is added.
+
+| Field | Meaning | Type | Unit | Default | Range |
+| --- | --- | --- | --- | --- | --- |
+| `id` | ID of the HRU-lte. | - | - | - | - |
+| `name` | Name of HRU-lte. | - | - | - | - |
+| `area` | HRU-lte drainage area. | - | - | - | - |
+| `cn2` | Condition II Curve Number. | - | - | - | - |
+| `cn3_swf` | Soil water factor for CN3. | - | - | - | - |
+| `t_conc` | Time of concentration. | - | - | - | - |
+| `soil_dp` | Soil profile depth. | - | - | - | - |
+| `perco_co` | Soil percolation coefficient. | - | - | - | - |
+| `slp` | Land surface slope. | - | - | - | - |
+| `slp_len` | Land surface slope length. | - | - | - | - |
+| `et_co` | ET coefficient. | - | - | - | - |
+| `aqu_sp_yld` | Specific yield of the shallow aquifer. | - | - | - | - |
+| `alpha_bf` | Baseflow alpha factor. | - | - | - | - |
+| `revap` | Revap coefficient. | - | - | - | - |
+| `rchg_dp` | Percolation coefficient from shallow to deep aquifer. | - | - | - | - |
+| `sw_init` | Initial soil water (fraction of available water capacity). | - | - | - | - |
+| `aqu_init` | Initial shallow aquifer storage. | - | - | - | - |
+| `aqu_sh_flo` | Initial shallow aquifer flow. | - | - | - | - |
+| `aqu_dp_flo` | Initial deep aquifer flow. | - | - | - | - |
+| `snow_h2o` | Initial snow water equivalent. | - | - | - | - |
+| `lat` | Latitude. | - | - | - | - |
+| `soil_text` | Soil texture. | - | - | - | - |
+| `trop_flag` | Tropical flag. | - | - | - | - |
+| `grow_start` | Start of growing season for non-tropical/start of monsoon initialization period for tropical. | - | - | - | - |
+| `grow_end` | End of growing season for non-tropical/start of monsoon initialization period for tropical. | - | - | - | - |
+| `plnt_typ` | Plant type. | - | - | - | - |
+| `stress` | Plant stress. | - | - | - | - |
+| `pet_flag` | Potential ET method. | - | - | - | - |
+| `irr_flag` | Irrigation code. | - | - | - | - |
+| `irr_src` | Irrigation source. | - | - | - | - |
+| `t_drain` | Design subsurface tile drain time. | - | - | - | - |
+| `usle_k` | USLE soil erodibility factor K. | - | - | - | - |
+| `usle_c` | USLE cover factor C. | - | - | - | - |
+| `usle_p` | USLE support practice factor P. | - | - | - | - |
+| `usle_ls` | USLE slope length and slope factor LS. | - | - | - | - |
 
 ## Defaults And Conversions
 

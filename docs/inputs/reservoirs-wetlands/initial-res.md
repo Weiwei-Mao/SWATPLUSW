@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Named initial reservoir/wetland water-quality setup.
 
+
+## Official SWAT+ Reference
+
+- Official page: [initial.res](https://swatplus.gitbook.io/io-docs/introduction-1/reservoirs/initial.res).
+- Official index note: This file contains pointers referencing several files that specify the reservoir and wetland initialization parameters.
+- Official field metadata available: 4 field row(s); matched to 4 of 7 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Reservoirs Wetlands.
@@ -36,17 +44,17 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/initial.res`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | - |
-| `org_min` | Minimum value or lower bound, depending on the reader. | - |
-| `pest` | Pesticide-related value or parameter; verify units in the reader. | - |
-| `path` | Pathogen/bacteria-related value or parameter; verify units in the reader. | - |
-| `hmet` | Heavy-metal related value or parameter; verify units in the reader. | - |
-| `salt` | Salt constituent value or parameter; verify units in the reader. | - |
-| `description` | Free-text description retained for reader/user context. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the reservoir and wetland initialization record. | - | - | - | - | - | official GitBook |
+| `org_min` | Pointer to the organic-mineral initialization file. | - | - | - | - | - | official GitBook |
+| `pest` | Pointer to the pesticide initialization file. | - | - | - | - | - | official GitBook |
+| `path` | Pathogen or bacteria-related value or parameter. | - | - | - | - | - | demo/source inferred |
+| `hmet` | Heavy-metal related value or parameter. | - | - | - | - | - | demo/source inferred |
+| `salt` | Pointer to the salt initialization file. | - | - | - | - | - | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | - | demo/source inferred |
 
 ## Defaults And Conversions
 

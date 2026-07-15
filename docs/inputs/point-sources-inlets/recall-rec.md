@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 External time-series hydrograph/input source data for recall objects.
 
+
+## Official SWAT+ Reference
+
+- Official page: [recall_db.rec](https://swatplus.gitbook.io/io-docs/introduction-1/point-sources-and-inlets/recall.rec).
+- Official index note: This file lists all recall records used in a simulation.
+- Official field metadata available: 20 field row(s); matched to 1 of 24 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Point Sources Inlets.
@@ -37,34 +45,58 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/recall.rec`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `NUM` | Count of following records or related objects. | `1` |
-| `NAME` | Record name or target name used by the calibration/update reader. | `PSTYR` |
-| `TYPE` | Field named in the demo/source header; trace the reader for exact units and storage. | `3` |
-| `FNAME` | Field named in the demo/source header; trace the reader for exact units and storage. | `RECYR.` |
-| `OBJ_TYP` | Field named in the demo/source header; trace the reader for exact units and storage. | `hru` |
-| `OBJ_NAME` | Field named in the demo/source header; trace the reader for exact units and storage. | `hru1` |
-| `flo` | Flow-related value or routing parameter. | `12120.5` |
-| `sed` | Sediment-related value, efficiency, or parameter; verify units in the reader. | `0` |
-| `orgn` | Organic nitrogen component; verify units in the reader. | `0` |
-| `sedp` | Sediment-related value, efficiency, or parameter; verify units in the reader. | `0` |
-| `no3` | Nitrate-nitrogen concentration, mass, or parameter component; verify units in the reader. | `0` |
-| `solp` | Phosphorus-related component; verify units in the reader. | `0` |
-| `chla` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `nh3` | Ammonia-nitrogen concentration, mass, or parameter component; verify units in the reader. | `0` |
-| `no2` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `cbod` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `dox` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `san` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `sil` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `cla` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `sag` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `lag` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `grv` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `temp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `NUM` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1` | demo/source inferred |
+| `NAME` | Name of the recall record. | `string` | - | - | - | `PSTYR` | official GitBook |
+| `TYPE` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `3` | demo/source inferred |
+| `FNAME` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `RECYR.` | demo/source inferred |
+| `OBJ_TYP` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `hru` | demo/source inferred |
+| `OBJ_NAME` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `hru1` | demo/source inferred |
+| `flo` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `12120.5` | demo/source inferred |
+| `sed` | Sediment-related parameter or state value. | - | - | - | - | `0` | demo/source inferred |
+| `orgn` | Organic nitrogen value; verify storage and units in the reader. | - | - | - | - | `0` | demo/source inferred |
+| `sedp` | Sediment-related parameter or state value. | - | - | - | - | `0` | demo/source inferred |
+| `no3` | Nitrate-nitrogen value; verify storage and units in the reader. | - | - | - | - | `0` | demo/source inferred |
+| `solp` | Phosphorus-related parameter or state value. | - | - | - | - | `0` | demo/source inferred |
+| `chla` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `nh3` | Ammonia-nitrogen value; verify storage and units in the reader. | - | - | - | - | `0` | demo/source inferred |
+| `no2` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `cbod` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `dox` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `san` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `sil` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `cla` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `sag` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `lag` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `grv` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `temp` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `id` | ID of the recall record. | `integer` | - |
+| `om_name` | Name of the organic and mineral data file. | `string` | - |
+| `om_unit` | Unit of the organic and mineral data. | `string` | - |
+| `om_tstep` | Time step of the organic and mineral data. | `string` | - |
+| `pest_name` | Official field row listed for this file. | - | - |
+| `pest_unit` | Official field row listed for this file. | - | - |
+| `pest_tstep` | Official field row listed for this file. | - | - |
+| `path_name` | Official field row listed for this file. | - | - |
+| `path_unit` | Official field row listed for this file. | - | - |
+| `path_tstep` | Official field row listed for this file. | - | - |
+| `hmet_name` | Official field row listed for this file. | - | - |
+| `hmet_unit` | Official field row listed for this file. | - | - |
+| `hmet_tstep` | Official field row listed for this file. | - | - |
+| `salt_name` | Official field row listed for this file. | - | - |
+| `salt_unit` | Official field row listed for this file. | - | - |
+| `salt_tstep` | Official field row listed for this file. | - | - |
+| `cst_name` | Official field row listed for this file. | - | - |
+| `cst_unit` | Official field row listed for this file. | - | - |
+| `cst_tstep` | Official field row listed for this file. | - | - |
 
 ## Defaults And Conversions
 

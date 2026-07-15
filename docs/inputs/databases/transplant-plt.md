@@ -15,6 +15,11 @@ tags: [inputs, reference, demo-context]
 
 Optional plant transplant data.
 
+
+## Official SWAT+ Reference
+
+No standalone official SWAT+ GitBook page was found for this exact filename in the current documentation index. Keep this page tied to the source inventory and local demo evidence until a reader-specific official page is identified.
+
 ## Role In SWAT+
 
 - Category: Databases.
@@ -37,16 +42,16 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/transplant.plt`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table is generated from the local demo header. Meanings are practical working descriptions and should be confirmed against the reader before final use.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `NAME` | Record name or target name used by the calibration/update reader. | `tr_rice140` |
-| `LAI_INI` | Leaf-area-index related value. | `0.1` |
-| `BM_INI` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.2` |
-| `PHU_ACC_INI` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.2` |
-| `FR_YRMAT` | Calendar year or year range value. | `1` |
-| `POP` | Field named in the demo/source header; trace the reader for exact units and storage. | `100` |
+| Field | Working meaning | Demo value | Basis |
+| --- | --- | --- | --- |
+| `NAME` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `tr_rice140` | demo/source inferred |
+| `LAI_INI` | Leaf-area-index related value. | `0.1` | demo/source inferred |
+| `BM_INI` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `0.2` | demo/source inferred |
+| `PHU_ACC_INI` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `0.2` | demo/source inferred |
+| `FR_YRMAT` | Calendar year or year-range value. | `1` | demo/source inferred |
+| `POP` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `100` | demo/source inferred |
 
 ## Defaults And Conversions
 

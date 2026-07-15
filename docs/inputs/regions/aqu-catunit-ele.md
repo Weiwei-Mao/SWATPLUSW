@@ -15,6 +15,11 @@ tags: [inputs, reference, demo-context]
 
 Aquifer calibration/category-unit element file.
 
+
+## Official SWAT+ Reference
+
+No standalone official SWAT+ GitBook page was found for this exact filename in the current documentation index. Keep this page tied to the source inventory and local demo evidence until a reader-specific official page is identified.
+
 ## Role In SWAT+
 
 - Category: Regions.
@@ -37,17 +42,17 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/aqu_catunit.ele`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table is generated from the local demo header. Meanings are practical working descriptions and should be confirmed against the reader before final use.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `id` | Numeric record identifier. | `1` |
-| `name` | Record name used by other input files to reference this parameter set. | `aqu011` |
-| `obj_typ` | SWAT+ object type for a routing, connection, or update target. | `aqu` |
-| `obj_typ_no` | Field named in the demo/source header; trace the reader for exact units and storage. | `1` |
-| `bsn_frac` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00241` |
-| `sub_frac` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `reg_frac` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
+| Field | Working meaning | Demo value | Basis |
+| --- | --- | --- | --- |
+| `id` | Numeric record identifier. | `1` | demo/source inferred |
+| `name` | Record name used by other SWAT+ inputs to reference this row. | `aqu011` | demo/source inferred |
+| `obj_typ` | SWAT+ object type. | `aqu` | demo/source inferred |
+| `obj_typ_no` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `1` | demo/source inferred |
+| `bsn_frac` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `0.00241` | demo/source inferred |
+| `sub_frac` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `0.00000` | demo/source inferred |
+| `reg_frac` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `0.00000` | demo/source inferred |
 
 ## Defaults And Conversions
 

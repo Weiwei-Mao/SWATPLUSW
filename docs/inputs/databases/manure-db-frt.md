@@ -15,6 +15,11 @@ tags: [inputs, reference, demo-context]
 
 Optional manure database with extended manure composition information.
 
+
+## Official SWAT+ Reference
+
+No standalone official SWAT+ GitBook page was found for this exact filename in the current documentation index. Keep this page tied to the source inventory and local demo evidence until a reader-specific official page is identified.
+
 ## Role In SWAT+
 
 - Category: Databases.
@@ -36,18 +41,18 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/manure_db.frt`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table is generated from the local demo header. Meanings are practical working descriptions and should be confirmed against the reader before final use.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | - |
-| `org_min` | Minimum value or lower bound, depending on the reader. | - |
-| `pests` | Pesticide-related value or parameter; verify units in the reader. | - |
-| `paths` | Pathogen/bacteria-related value or parameter; verify units in the reader. | - |
-| `hmets` | Heavy-metal related value or parameter; verify units in the reader. | - |
-| `salts` | Salt constituent value or parameter; verify units in the reader. | - |
-| `constit` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `description` | Free-text description retained for reader/user context. | - |
+| Field | Working meaning | Demo value | Basis |
+| --- | --- | --- | --- |
+| `name` | Record name used by other SWAT+ inputs to reference this row. | - | demo/source inferred |
+| `org_min` | Minimum value or lower bound, depending on the reader. | - | demo/source inferred |
+| `pests` | Pesticide-related value or parameter. | - | demo/source inferred |
+| `paths` | Pathogen or bacteria-related value or parameter. | - | demo/source inferred |
+| `hmets` | Heavy-metal related value or parameter. | - | demo/source inferred |
+| `salts` | Salt constituent value or parameter. | - | demo/source inferred |
+| `constit` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | demo/source inferred |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | demo/source inferred |
 
 ## Defaults And Conversions
 

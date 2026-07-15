@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Temperature gauge list; points to temperature time-series files.
 
+
+## Official SWAT+ Reference
+
+- Official page: [tmp.cli and tmp data files](https://swatplus.gitbook.io/io-docs/introduction-1/climate/tmp.cli-and-temperature-data-files).
+- Official index note: These files contain all information needed by the model about observed temperature data.
+- Official field metadata available: 9 field row(s); matched to 0 of 1 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Climate.
@@ -37,11 +45,25 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/tmp.cli`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `filename` | Referenced input file name, usually relative to the scenario folder. | `Imsiltmp.tmp` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `filename` | Referenced input file name, normally relative to the scenario folder. | - | - | - | - | `Imsiltmp.tmp` | demo/source inferred |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `nbyr` | Length of the temperature time series. | `integer` | `years` |
+| `tstep` | Time step of the temperature data. | `integer` | `n/a` |
+| `lat` | Latitude of the temperature station. | `real` | `Decimal Degrees` |
+| `lon` | Longitude of the temperature station. | `real` | `Decimal Degrees` |
+| `elev` | Elevation of the temperature station. | `real` | `m` |
+| `year` | Year of the observation. | `integer` | `n/a` |
+| `jday` | Julian day of the observation. | `integer` | `n/a` |
+| `tmpmax` | Observed maximum temperature. | `real` | `deg C` |
+| `tmpmin` | Observed minimum temperature. | `real` | `deg C` |
 
 ## Defaults And Conversions
 

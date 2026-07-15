@@ -15,6 +15,12 @@ tags: [inputs, reference, demo-context]
 
 Input file for calibration change; source slot water_balance_sft.
 
+
+## Official SWAT+ Reference
+
+- Official page: [water_balance.sft](https://swatplus.gitbook.io/io-docs/introduction-1/calibration/water_balance.sft).
+- Official field metadata: the page is linked, but this pass did not extract a field table from it. Use the linked page and source reader for canonical definitions.
+
 ## Role In SWAT+
 
 - Category: Calibration.
@@ -32,7 +38,7 @@ Local demo evidence: the `Osu_1hru` scenario does not include a concrete `water_
 
 ## Fields And Parameters
 
-No local demo header is available for this file. The page currently documents role, activation, and source inventory only; field names, units, and storage should be added after tracing the reader or adding an active demo file.
+No local demo header or standalone official field table is available for this exact file. This page currently documents role, activation, source inventory, and demo presence only; field names, units, and storage should be added after tracing the reader or finding a scenario that activates the file.
 
 ## Defaults And Conversions
 

@@ -15,6 +15,13 @@ tags: [inputs, file-cio, reader, input-dispatch]
 
 `file.cio` is the SWAT+ master input manifest: a flat text file that lists, section by section, the input files a scenario uses. The model reads it first so later readers know which files to open. A `null` value means that slot is unused.
 
+
+## Official SWAT+ Reference
+
+- Official page: [Master File (file.cio)](https://swatplus.gitbook.io/io-docs/introduction-1/master-file-file.cio).
+- Official field metadata: the page is linked, but this pass did not extract a field table from it. Use the linked page and source reader for canonical definitions.
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Scope
 
 This note covers the on-disk format of `file.cio`, the startup call path into its reader, the high-level read loop, and the module-level filename records that receive parsed values. It does not yet trace how every stored filename is later consumed by its own section reader.

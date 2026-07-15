@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 SWAT-DEG channel definition file; describes detailed channel objects used by `sdc` / `chandeg`.
 
+
+## Official SWAT+ Reference
+
+- Official page: [channel-lte.cha](https://swatplus.gitbook.io/io-docs/introduction-1/channels/channel-lte.cha).
+- Official index note: This file summarizes the main channel information and references several other files that specify the details.
+- Official field metadata available: 5 field row(s); matched to 2 of 6 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Channels.
@@ -37,16 +45,24 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/channel-lte.cha`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `id` | Numeric record identifier. | `1` |
-| `name` | Record name used by other input files to reference this parameter set. | `cha01` |
-| `cha_ini` | Channel-related parameter or object reference. | `initcha1` |
-| `cha_hyd` | Hydrology-related parameter or reference. | `hydcha01` |
-| `cha_sed` | Sediment-related value, efficiency, or parameter; verify units in the reader. | `null` |
-| `cha_nut` | Channel-related parameter or object reference. | `nutcha1` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `id` | ID of the channel. | - | - | - | - | `1` | official GitBook |
+| `name` | Name of the channel. | - | - | - | - | `cha01` | official GitBook |
+| `cha_ini` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `initcha1` | demo/source inferred |
+| `cha_hyd` | Hydrology-related parameter or record reference. | - | - | - | - | `hydcha01` | demo/source inferred |
+| `cha_sed` | Sediment-related parameter or state value. | - | - | - | - | `null` | demo/source inferred |
+| `cha_nut` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `nutcha1` | demo/source inferred |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `ini` | Pointer to the channel initialization file. | - | - |
+| `hyd` | Pointer to the channel hydrology and sediment file. | - | - |
+| `nut` | Pointer to the channel nutrient file. | - | - |
 
 ## Defaults And Conversions
 

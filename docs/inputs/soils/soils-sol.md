@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Soil profile database for full HRUs.
 
+
+## Official SWAT+ Reference
+
+- Official page: [soils.sol](https://swatplus.gitbook.io/io-docs/introduction-1/soils/soils.sol).
+- Official index note: This file contains the physical soil properties.
+- Official field metadata available: 19 field row(s); matched to 19 of 21 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Soils.
@@ -37,31 +45,31 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/soils.sol`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `SONGSAN` |
-| `nly` | Field named in the demo/source header; trace the reader for exact units and storage. | `5` |
-| `hyd_grp` | Hydrology-related parameter or reference. | `A` |
-| `dp_tot` | Count of following records or related objects. | `1200.00000` |
-| `anion_excl` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `perc_crk` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `texture` | Field named in the demo/source header; trace the reader for exact units and storage. | `LS` |
-| `dp` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `bd` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `awc` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `soil_k` | Soil-related parameter or record reference. | - |
-| `carbon` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `clay` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `silt` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `sand` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `rock` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `alb` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `usle_k` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `ec` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `caco3` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `ph` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the soil. | - | - | - | - | `SONGSAN` | official GitBook |
+| `nly` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `5` | demo/source inferred |
+| `hyd_grp` | Hydrologic soil group of the soil. | - | - | - | - | `A` | official GitBook |
+| `dp_tot` | Maximum rooting depth. | - | - | - | - | `1200.00000` | official GitBook |
+| `anion_excl` | Fraction of porosity (void space) from which anions are excluded. | - | - | - | - | `0.50000` | official GitBook |
+| `perc_crk` | Potential or maximum crack volume of the soil profile expressed as a fraction of the total soil volume. | - | - | - | - | `0.50000` | official GitBook |
+| `texture` | Texture of the soil layer. | - | - | - | - | `LS` | official GitBook |
+| `dp` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | - | demo/source inferred |
+| `bd` | Moist bulk density of the soil layer. | - | - | - | - | - | official GitBook |
+| `awc` | Available water capacity of the soil layer. | - | - | - | - | - | official GitBook |
+| `soil_k` | Saturated hydraulic conductivity of the soil layer. | - | - | - | - | - | official GitBook |
+| `carbon` | Organic carbon content of the soil layer. | - | - | - | - | - | official GitBook |
+| `clay` | Clay content of the soil layer. | - | - | - | - | - | official GitBook |
+| `silt` | Silt content of the soil layer. | - | - | - | - | - | official GitBook |
+| `sand` | Sand content of the soil layer. | - | - | - | - | - | official GitBook |
+| `rock` | Rock fragment content of the soil layer. | - | - | - | - | - | official GitBook |
+| `alb` | Moist soil albedo of the top layer. | - | - | - | - | - | official GitBook |
+| `usle_k` | USLE equation soil erodibility (K) factor of the top layer. | - | - | - | - | - | official GitBook |
+| `ec` | Electrical conductivity of the soil layer. | - | - | - | - | - | official GitBook |
+| `caco3` | Calcium carbonate (CaCO3) content of the soil layer. | - | - | - | - | - | official GitBook |
+| `ph` | pH value of the soil layer. | - | - | - | - | - | official GitBook |
 
 ## Defaults And Conversions
 

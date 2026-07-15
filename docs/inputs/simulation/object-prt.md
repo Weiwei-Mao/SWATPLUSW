@@ -15,6 +15,13 @@ tags: [inputs, reference, demo-context]
 
 Input file for simulation; source slot object_prt.
 
+
+## Official SWAT+ Reference
+
+- Official page: [object.prt](https://swatplus.gitbook.io/io-docs/introduction-1/simulation-settings/object.prt).
+- Official index note: This file allows the user to print selected output for individual spatial objects.
+- Official field metadata available: 3 field row(s); matched to 0 of 0 observed demo header field(s).
+
 ## Role In SWAT+
 
 - Category: Simulation.
@@ -32,7 +39,13 @@ Local demo evidence: the `Osu_1hru` scenario does not include a concrete `object
 
 ## Fields And Parameters
 
-No local demo header is available for this file. The page currently documents role, activation, and source inventory only; field names, units, and storage should be added after tracing the reader or adding an active demo file.
+No local demo header is available, but the official SWAT+ page provides field metadata. Demo value cells are therefore blank until an active scenario file is added.
+
+| Field | Meaning | Type | Unit | Default | Range |
+| --- | --- | --- | --- | --- | --- |
+| `obj_typ` | Type of object to print output for. | - | - | - | - |
+| `obj_typ_no` | Number of the object to print output for. | - | - | - | - |
+| `hyd_typ` | Type of hydrograph to print. | - | - | - | - |
 
 ## Defaults And Conversions
 

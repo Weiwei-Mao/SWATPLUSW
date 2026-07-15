@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 SWAT-DEG hydrology/sediment control parameters.
 
+
+## Official SWAT+ Reference
+
+- Official page: [hyd-sed-lte.cha](https://swatplus.gitbook.io/io-docs/introduction-1/channels/hyd-sed-lte.cha).
+- Official index note: This file controls the channel hydrology and sediment properties.
+- Official field metadata available: 22 field row(s); matched to 21 of 24 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Channels.
@@ -37,34 +45,40 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/hyd-sed-lte.cha`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `hydcha01` |
-| `order` | Field named in the demo/source header; trace the reader for exact units and storage. | `4` |
-| `wd` | Field named in the demo/source header; trace the reader for exact units and storage. | `27.17726` |
-| `dp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.99164` |
-| `slp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00146` |
-| `len` | Field named in the demo/source header; trace the reader for exact units and storage. | `3.42760` |
-| `mann` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.05000` |
-| `k` | Field named in the demo/source header; trace the reader for exact units and storage. | `5.00000` |
-| `erod_fact` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.01000` |
-| `cov_fact` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00500` |
-| `wd_rto` | Field named in the demo/source header; trace the reader for exact units and storage. | `27.40638` |
-| `eq_slp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00100` |
-| `d50` | Field named in the demo/source header; trace the reader for exact units and storage. | `12.00000` |
-| `clay` | Field named in the demo/source header; trace the reader for exact units and storage. | `50.00000` |
-| `carbon` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.04000` |
-| `dry_bd` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `side_slp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `bed_load` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `fps` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00001` |
-| `fpn` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.10000` |
-| `n_conc` | Concentration value; verify constituent and units in the reader. | `0.00000` |
-| `p_conc` | Concentration value; verify constituent and units in the reader. | `0.00000` |
-| `p_bio` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `description` | Free-text description retained for reader/user context. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the channel hydrology and sediment record. | - | - | - | - | `hydcha01` | official GitBook |
+| `order` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `4` | demo/source inferred |
+| `wd` | Channel width. | - | - | - | - | `27.17726` | official GitBook |
+| `dp` | Channel depth. | - | - | - | - | `0.99164` | official GitBook |
+| `slp` | Channel slope. | - | - | - | - | `0.00146` | official GitBook |
+| `len` | Channel length. | - | - | - | - | `3.42760` | official GitBook |
+| `mann` | Channel Manning's n value. | - | - | - | - | `0.05000` | official GitBook |
+| `k` | Effective hydraulic conductivity of the channel alluvium. | - | - | - | - | `5.00000` | official GitBook |
+| `erod_fact` | Channel erodibility factor. | - | - | - | - | `0.01000` | official GitBook |
+| `cov_fact` | Channel cover factor. | - | - | - | - | `0.00500` | official GitBook |
+| `wd_rto` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `27.40638` | demo/source inferred |
+| `eq_slp` | Equilibrium channel slope. | - | - | - | - | `0.00100` | official GitBook |
+| `d50` | Channel median sediment size. | - | - | - | - | `12.00000` | official GitBook |
+| `clay` | Clay content of channel bank and bed. | - | - | - | - | `50.00000` | official GitBook |
+| `carbon` | Carbon content of channel bank and bed. | - | - | - | - | `0.04000` | official GitBook |
+| `dry_bd` | Dry bulk density of the channel. | - | - | - | - | `1.00000` | official GitBook |
+| `side_slp` | Channel side slope. | - | - | - | - | `0.50000` | official GitBook |
+| `bed_load` | Percent of sediment entering the channel that is bed material. | - | - | - | - | `0.50000` | official GitBook |
+| `fps` | Floodplain slope. | - | - | - | - | `0.00001` | official GitBook |
+| `fpn` | Floodplain Manning's n. | - | - | - | - | `0.10000` | official GitBook |
+| `n_conc` | Nitrogen concentration in channel bank. | - | - | - | - | `0.00000` | official GitBook |
+| `p_conc` | Phosphorus concentration in channel bank. | - | - | - | - | `0.00000` | official GitBook |
+| `p_bio` | Fraction of phosphorus in bank that is bioavailable. | - | - | - | - | `0.00000` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | - | demo/source inferred |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `sinu` | Channel sinuosity. | - | - |
 
 ## Defaults And Conversions
 

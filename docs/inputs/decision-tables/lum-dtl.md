@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Land-use/management decision tables, including growth-start and growth-end rules used by some routines.
 
+
+## Official SWAT+ Reference
+
+- Official page: ["name".dtl](https://swatplus.gitbook.io/io-docs/introduction-1/decision-tables/lum.dtl).
+- Official index note: These files contain the Decision Tables.
+- Official field metadata available: 14 field row(s); matched to 1 of 4 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Decision Tables.
@@ -38,14 +46,32 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/lum.dtl`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `NAME` | Record name or target name used by the calibration/update reader. | `plow` |
-| `CONDS` | Number or flag for conditions attached to the update. | `2` |
-| `ALTS` | Field named in the demo/source header; trace the reader for exact units and storage. | `2` |
-| `ACTS` | Field named in the demo/source header; trace the reader for exact units and storage. | `2` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `NAME` | Name of the action. | - | - | - | - | `plow` | official GitBook |
+| `CONDS` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `2` | demo/source inferred |
+| `ALTS` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `2` | demo/source inferred |
+| `ACTS` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `2` | demo/source inferred |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `var` | Condition variable. | `string` | - |
+| `obj` | Object type. | `string` | - |
+| `obj_num` | Object ID. | `integer` | - |
+| `lim_var` | Limit variable. | `string` | - |
+| `lim_op` | Limit operator. | `string` | - |
+| `lim_const` | Limit constant. | `real` | - |
+| `alt` | Alternative. | `string` | - |
+| `act_typ` | Official field row listed for this file. | - | - |
+| `option` | Official field row listed for this file. | - | - |
+| `const` | Official field row listed for this file. | - | - |
+| `const2` | Official field row listed for this file. | - | - |
+| `fp` | File pointer. | - | - |
+| `outcome` | Outcome. | - | - |
 
 ## Defaults And Conversions
 

@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 HRU hydrology parameter database, including ET, lateral flow, percolation, and related coefficients.
 
+
+## Official SWAT+ Reference
+
+- Official page: [hydrology.hyd](https://swatplus.gitbook.io/io-docs/introduction-1/hydrology/hydrology.hyd).
+- Official index note: This file defines the hydrological characteristics of the HRUs.
+- Official field metadata available: 15 field row(s); matched to 13 of 15 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Hydrology.
@@ -37,25 +45,32 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/hydrology.hyd`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `hyd0001` |
-| `lat_ttime` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `lat_sed` | Sediment-related value, efficiency, or parameter; verify units in the reader. | `0.00000` |
-| `can_max` | Maximum value or upper bound, depending on the reader. | `1.00000` |
-| `esco` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.95000` |
-| `epco` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `orgn_enrich` | Organic nitrogen component; verify units in the reader. | `0.00000` |
-| `orgp_enrich` | Phosphorus-related component; verify units in the reader. | `0.00000` |
-| `cn3_swf` | Curve-number or conservation-practice related value; verify in reader. | `0.95000` |
-| `bio_mix` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.20000` |
-| `perco` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.90000` |
-| `lat_orgn` | Organic nitrogen component; verify units in the reader. | `0.00000` |
-| `lat_orgp` | Phosphorus-related component; verify units in the reader. | `0.00000` |
-| `harg_pet` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `latq_co` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.01000` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the hydrology record. | `string` | `n/a` | `n/a` | `n/a` | `hyd0001` | official GitBook |
+| `lat_ttime` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0.00000` | demo/source inferred |
+| `lat_sed` | Sediment concentration in lateral and groundwater flow. | `real` | `mg/L` | `0` | `0-5000` | `0.00000` | official GitBook |
+| `can_max` | Maximum canopy storage. | `real` | `mm` | `1` | `0-100` | `1.00000` | official GitBook |
+| `esco` | Soil evaporation compensation factor. | `real` | `none` | `0.5` | `0.01-1` | `0.95000` | official GitBook |
+| `epco` | Plant uptake compensation factor. | `real` | `none` | `0` | `0.01-1` | `0.50000` | official GitBook |
+| `orgn_enrich` | Organic nitrogen enrichment ratio for loading with sediment. | `real` | `none` | `0` | `0-1` | `0.00000` | official GitBook |
+| `orgp_enrich` | Phosphorus enrichment ratio for loading with sediment. | `real` | `none` | `0` | `0-1` | `0.00000` | official GitBook |
+| `cn3_swf` | Soil water adjustment factor for CN3. | `real` | `none` | - | `0-1` | `0.95000` | official GitBook |
+| `bio_mix` | Biological mixing efficiency. | `real` | - | `0.2` | - | `0.20000` | official GitBook |
+| `perco` | Percolation coefficient. | `real` | `none` | - | `0-1` | `0.90000` | official GitBook |
+| `lat_orgn` | Organic nitrogen concentration in lateral flow. | `real` | `mg/L` | - | `0-200` | `0.00000` | official GitBook |
+| `lat_orgp` | Organic phosphorus concentration in lateral flow. | `real` | `mg/L` | - | `0-200` | `0.00000` | official GitBook |
+| `harg_pet` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0.00000` | demo/source inferred |
+| `latq_co` | Lateral flow coefficient. | `real` | `none` | - | `0-1` | `0.01000` | official GitBook |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `lat_time` | Lateral flow travel time. | `real` | `days` |
+| `pet_co` | Linear adjustment factor for PET equations. | `real` | `none` |
 
 ## Defaults And Conversions
 

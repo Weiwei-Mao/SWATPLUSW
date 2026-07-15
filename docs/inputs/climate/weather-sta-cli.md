@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Weather station list and links to precipitation, temperature, solar radiation, wind, and generator records.
 
+
+## Official SWAT+ Reference
+
+- Official page: [weather-sta.cli](https://swatplus.gitbook.io/io-docs/introduction-1/climate/weather-sta.cli).
+- Official index note: This file lists the weather stations defined for a SWAT+ setup.
+- Official field metadata available: 10 field row(s); matched to 9 of 9 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Climate.
@@ -36,19 +44,25 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/weather-sta.cli`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | - |
-| `wgn` | Weather-generator station reference. | - |
-| `pcp` | Precipitation gauge or time-series reference. | - |
-| `tmp` | Temperature gauge or time-series reference. | - |
-| `slr` | Solar-radiation gauge or time-series reference. | - |
-| `hmd` | Relative-humidity gauge or time-series reference. | - |
-| `wnd` | Wind-speed gauge or time-series reference. | - |
-| `wnd_dir` | Wind-direction data reference. | - |
-| `atmo_dep` | Atmospheric-deposition data reference. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the weather station. | `string` | - | - | - | - | official GitBook |
+| `wgn` | Name of the weather generator station. | `string` | - | - | - | - | official GitBook |
+| `pcp` | Name of the precipitation station. | `string` | - | - | - | - | official GitBook |
+| `tmp` | Name of the temperature station. | `string` | - | - | - | - | official GitBook |
+| `slr` | Name of the solar radiation station. | `string` | - | - | - | - | official GitBook |
+| `hmd` | Name of the relative humidity station. | `string` | - | - | - | - | official GitBook |
+| `wnd` | Name of the wind speed station. | `string` | - | - | - | - | official GitBook |
+| `wnd_dir` | Name of the wind direction station (currently not used). | `string` | - | - | - | - | official GitBook |
+| `atmo_dep` | Name of the atmospheric deposition station. | `string` | - | - | - | - | official GitBook |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `pet` | Name of the PET station. | `string` | - |
 
 ## Defaults And Conversions
 

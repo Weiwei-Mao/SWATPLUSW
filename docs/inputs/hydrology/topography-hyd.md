@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 HRU topography parameter database, including slope, slope length, and related geometry.
 
+
+## Official SWAT+ Reference
+
+- Official page: [topography.hyd](https://swatplus.gitbook.io/io-docs/introduction-1/hydrology/topography.hyd).
+- Official index note: This file defines the topographic characteristics of the HRUs and Routing Units.
+- Official field metadata available: 5 field row(s); matched to 5 of 6 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Hydrology.
@@ -37,16 +45,16 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/topography.hyd`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `topohru0001` |
-| `slp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.01078` |
-| `slp_len` | Field named in the demo/source header; trace the reader for exact units and storage. | `10.00000` |
-| `lat_len` | Field named in the demo/source header; trace the reader for exact units and storage. | `10.00000` |
-| `dist_cha` | Channel-related parameter or object reference. | `121.00000` |
-| `depos` | Depth, deposition, or dependency field; verify exact meaning in the reader. | `0.00000` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the topography record. | - | - | - | - | `topohru0001` | official GitBook |
+| `slp` | Average slope steepness. | - | - | - | - | `0.01078` | official GitBook |
+| `slp_len` | Average slope length. | - | - | - | - | `10.00000` | official GitBook |
+| `lat_len` | Average slope length for lateral subsurface flow. | - | - | - | - | `10.00000` | official GitBook |
+| `dist_cha` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `121.00000` | demo/source inferred |
+| `depos` | Deposition coefficient. | - | - | - | - | `0.00000` | official GitBook |
 
 ## Defaults And Conversions
 

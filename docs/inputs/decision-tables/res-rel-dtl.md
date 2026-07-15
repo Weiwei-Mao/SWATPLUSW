@@ -15,6 +15,11 @@ tags: [inputs, reference, demo-context]
 
 Reservoir release decision tables.
 
+
+## Official SWAT+ Reference
+
+No standalone official SWAT+ GitBook page was found for this exact filename in the current documentation index. Keep this page tied to the source inventory and local demo evidence until a reader-specific official page is identified.
+
 ## Role In SWAT+
 
 - Category: Decision Tables.
@@ -38,14 +43,14 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/res_rel.dtl`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table is generated from the local demo header. Meanings are practical working descriptions and should be confirmed against the reader before final use.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `NAME` | Record name or target name used by the calibration/update reader. | `weir` |
-| `CONDS` | Number or flag for conditions attached to the update. | `2` |
-| `ALTS` | Field named in the demo/source header; trace the reader for exact units and storage. | `2` |
-| `ACTS` | Field named in the demo/source header; trace the reader for exact units and storage. | `2` |
+| Field | Working meaning | Demo value | Basis |
+| --- | --- | --- | --- |
+| `NAME` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `weir` | demo/source inferred |
+| `CONDS` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `2` | demo/source inferred |
+| `ALTS` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `2` | demo/source inferred |
+| `ACTS` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `2` | demo/source inferred |
 
 ## Defaults And Conversions
 

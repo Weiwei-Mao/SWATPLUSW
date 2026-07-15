@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Curve-number lookup table by land use and soil/hydrologic condition.
 
+
+## Official SWAT+ Reference
+
+- Official page: [cntable.lum](https://swatplus.gitbook.io/io-docs/introduction-1/landuse-and-management/cntable.lum).
+- Official index note: This file lists typical Curve Number values for different land use types.
+- Official field metadata available: 5 field row(s); matched to 5 of 8 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Landuse Management.
@@ -37,18 +45,18 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/cntable.lum`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `fal_bare` |
-| `cn_a` | Curve-number or conservation-practice related value; verify in reader. | `77.00000` |
-| `cn_b` | Curve-number or conservation-practice related value; verify in reader. | `86.00000` |
-| `cn_c` | Curve-number or conservation-practice related value; verify in reader. | `91.00000` |
-| `cn_d` | Curve-number or conservation-practice related value; verify in reader. | `94.00000` |
-| `description` | Free-text description retained for reader/user context. | `Fallow` |
-| `treat` | Field named in the demo/source header; trace the reader for exact units and storage. | `Bare_soil` |
-| `cond_cov` | Field named in the demo/source header; trace the reader for exact units and storage. | `----` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Curve Number class name. | - | - | - | - | `fal_bare` | official GitBook |
+| `cn_a` | Curve number for hydrologic soil group A. | - | - | - | - | `77.00000` | official GitBook |
+| `cn_b` | Curve number for hydrologic soil group B. | - | - | - | - | `86.00000` | official GitBook |
+| `cn_c` | Curve number for hydrologic soil group C. | - | - | - | - | `91.00000` | official GitBook |
+| `cn_d` | Curve number for hydrologic soil group D. | - | - | - | - | `94.00000` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `Fallow` | demo/source inferred |
+| `treat` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `Bare_soil` | demo/source inferred |
+| `cond_cov` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `----` | demo/source inferred |
 
 ## Defaults And Conversions
 

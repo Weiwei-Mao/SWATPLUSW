@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Temperature time-series file named by a temperature gauge manifest.
 
+
+## Official SWAT+ Reference
+
+- Official page: [tmp.cli and tmp data files](https://swatplus.gitbook.io/io-docs/introduction-1/climate/tmp.cli-and-temperature-data-files).
+- Official index note: These files contain all information needed by the model about observed temperature data.
+- Official field metadata available: 9 field row(s); matched to 5 of 5 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Climate Timeseries.
@@ -37,15 +45,24 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/Imsiltmp.tmp`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `nbyr` | Number of years represented in the time-series file. | `42` |
-| `tstep` | Time-step or aggregation code for the time-series values. | `0` |
-| `lat` | Latitude of the station or object. | `35.610` |
-| `lon` | Longitude of the station or object. | `127.290` |
-| `elev` | Elevation of the station or object. | `247.900` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `nbyr` | Length of the temperature time series. | `integer` | `years` | - | - | `42` | official GitBook |
+| `tstep` | Time step of the temperature data. | `integer` | `n/a` | - | - | `0` | official GitBook |
+| `lat` | Latitude of the temperature station. | `real` | `Decimal Degrees` | - | - | `35.610` | official GitBook |
+| `lon` | Longitude of the temperature station. | `real` | `Decimal Degrees` | - | - | `127.290` | official GitBook |
+| `elev` | Elevation of the temperature station. | `real` | `m` | - | - | `247.900` | official GitBook |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `year` | Year of the observation. | `integer` | `n/a` |
+| `jday` | Julian day of the observation. | `integer` | `n/a` |
+| `tmpmax` | Observed maximum temperature. | `real` | `deg C` |
+| `tmpmin` | Observed minimum temperature. | `real` | `deg C` |
 
 ## Defaults And Conversions
 

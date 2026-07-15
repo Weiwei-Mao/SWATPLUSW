@@ -15,6 +15,13 @@ tags: [inputs, reference, demo-context]
 
 Input file for reservoir; source slot hyd_res.
 
+
+## Official SWAT+ Reference
+
+- Official page: [hydrology.res](https://swatplus.gitbook.io/io-docs/introduction-1/reservoirs/hydrology.res).
+- Official index note: This file contains the reservoir hydrology parameters.
+- Official field metadata available: 11 field row(s); matched to 0 of 0 observed demo header field(s).
+
 ## Role In SWAT+
 
 - Category: Reservoirs Wetlands.
@@ -32,7 +39,21 @@ Local demo evidence: the `Osu_1hru` scenario does not include a concrete `hydrol
 
 ## Fields And Parameters
 
-No local demo header is available for this file. The page currently documents role, activation, and source inventory only; field names, units, and storage should be added after tracing the reader or adding an active demo file.
+No local demo header is available, but the official SWAT+ page provides field metadata. Demo value cells are therefore blank until an active scenario file is added.
+
+| Field | Meaning | Type | Unit | Default | Range |
+| --- | --- | --- | --- | --- | --- |
+| `name` | Name of the reservoir hydrology record. | - | - | - | - |
+| `yr_op` | The year of the simulation that the reservoir becomes operational. | - | - | - | - |
+| `mon_op` | The month of the simulation that the reservoir becomes operational. | - | - | - | - |
+| `area_ps` | Reservoir surface area when reservoir is filled to principal spillway. | - | - | - | - |
+| `vol_ps` | Volume of water needed to fill the reservoir to principal spillway. | - | - | - | - |
+| `area_es` | Reservoir surface area when reservoir is filled to emergency spillway. | - | - | - | - |
+| `vol_es` | Volume of water needed to fill the reservoir to emergency spillway. | - | - | - | - |
+| `k` | Hydraulic conductivity of the reservoir bottom. | - | - | - | - |
+| `evap_co` | Lake evaporation coefficient. | - | - | - | - |
+| `shp_co1` | Shape coefficient 1 for reservoirs. | - | - | - | - |
+| `shp_co2` | Shape coefficient 2 for reservoirs. | - | - | - | - |
 
 ## Defaults And Conversions
 

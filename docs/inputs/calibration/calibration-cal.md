@@ -15,6 +15,13 @@ tags: [inputs, reference, demo-context]
 
 Calibration change/update file.
 
+
+## Official SWAT+ Reference
+
+- Official page: [calibration.cal](https://swatplus.gitbook.io/io-docs/introduction-1/calibration/calibration.cal).
+- Official field metadata: the page is linked, but this pass did not extract a field table from it. Use the linked page and source reader for canonical definitions.
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Calibration.
@@ -38,21 +45,21 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/calibration.cal`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table is generated from the local demo header. Meanings are practical working descriptions and should be confirmed against the reader before final use.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `NAME` | Record name or target name used by the calibration/update reader. | `cn2` |
-| `CHG_TYP` | Change type applied by the calibration/update record. | `pctchg` |
-| `VAL` | Calibration/update value. | `7.714000E+00` |
-| `CONDS` | Number or flag for conditions attached to the update. | `0` |
-| `LYR1` | First affected layer index for layer-scoped updates. | `0` |
-| `LYR2` | Last affected layer index for layer-scoped updates. | `0` |
-| `YEAR1` | First affected year for time-scoped updates. | `0` |
-| `YEAR2` | Last affected year for time-scoped updates. | `0` |
-| `DAY1` | First affected day for time-scoped updates. | `0` |
-| `DAY2` | Last affected day for time-scoped updates. | `0` |
-| `OBJ_TOT` | Number of target objects affected by the change record. | `0` |
+| Field | Working meaning | Demo value | Basis |
+| --- | --- | --- | --- |
+| `NAME` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `cn2` | demo/source inferred |
+| `CHG_TYP` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `pctchg` | demo/source inferred |
+| `VAL` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `7.714000E+00` | demo/source inferred |
+| `CONDS` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `0` | demo/source inferred |
+| `LYR1` | Calendar year or year-range value. | `0` | demo/source inferred |
+| `LYR2` | Calendar year or year-range value. | `0` | demo/source inferred |
+| `YEAR1` | Calendar year or year-range value. | `0` | demo/source inferred |
+| `YEAR2` | Calendar year or year-range value. | `0` | demo/source inferred |
+| `DAY1` | Day-of-month or Julian-day value, depending on the reader. | `0` | demo/source inferred |
+| `DAY2` | Day-of-month or Julian-day value, depending on the reader. | `0` | demo/source inferred |
+| `OBJ_TOT` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `0` | demo/source inferred |
 
 ## Defaults And Conversions
 

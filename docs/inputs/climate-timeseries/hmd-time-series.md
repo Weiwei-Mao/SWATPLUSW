@@ -15,6 +15,13 @@ tags: [inputs, reference, demo-context]
 
 Relative-humidity time-series file named by a humidity gauge manifest.
 
+
+## Official SWAT+ Reference
+
+- Official page: [hmd.cli and hmd data files](https://swatplus.gitbook.io/io-docs/introduction-1/climate/hmd.cli-and-humidity-data-files).
+- Official index note: These files contain all information needed by the model about observed relative humidity data.
+- Official field metadata available: 8 field row(s); matched to 0 of 0 observed demo header field(s).
+
 ## Role In SWAT+
 
 - Category: Climate Timeseries.
@@ -32,7 +39,18 @@ Local demo evidence: the `Osu_1hru` scenario does not include a concrete `*.hmd`
 
 ## Fields And Parameters
 
-No local demo header is available for this file. The page currently documents role, activation, and source inventory only; field names, units, and storage should be added after tracing the reader or adding an active demo file.
+No local demo header is available, but the official SWAT+ page provides field metadata. Demo value cells are therefore blank until an active scenario file is added.
+
+| Field | Meaning | Type | Unit | Default | Range |
+| --- | --- | --- | --- | --- | --- |
+| `nbyr` | Length of the relative humidity time series. | `integer` | `years` | - | - |
+| `tstep` | Time step of the relative humidity data. | `integer` | `n/a` | - | - |
+| `lat` | Latitude of the relative humidity station. | `real` | `Decimal Degrees` | - | - |
+| `lon` | Longitude of the relative humidity station. | `real` | `Decimal Degrees` | - | - |
+| `elev` | Elevation of the relative humidity station. | `real` | `m` | - | - |
+| `year` | Year of the observation. | `integer` | `n/a` | - | - |
+| `jday` | Julian day of the observation. | `integer` | `n/a` | - | - |
+| `hmd` | Observed relative humidity. | `real` | `fraction` | - | - |
 
 ## Defaults And Conversions
 

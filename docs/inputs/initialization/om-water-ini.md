@@ -19,6 +19,13 @@ This file does not define object connections, routing, or process equations. It 
 
 For the `Osu_1hru` debug scenario, `om_water.ini` contains one all-zero record named `no_init`. That name is referenced by `initial.cha`, so the channel initialization can resolve its `org_min` field without an unresolved-name error.
 
+
+## Official SWAT+ Reference
+
+- Official page: [om_water.ini](https://swatplus.gitbook.io/io-docs/introduction-1/initialization/om_water.ini).
+- Official field metadata available: 19 field row(s); matched to 10 of 20 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Where It Is Selected
 
 `file.cio` selects the file in the `init` section:

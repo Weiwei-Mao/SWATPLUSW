@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Recall-object connection file; defines routing for external time-series hydrographs.
 
+
+## Official SWAT+ Reference
+
+- Official page: ['object'.con](https://swatplus.gitbook.io/io-docs/introduction-1/connectivity/hru.con).
+- Official index note: This file defines the connectivity of spatial objects.
+- Official field metadata available: 17 field row(s); matched to 6 of 17 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Connectivity.
@@ -37,27 +45,43 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/recall.con`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `NUMB` | Count of following records or related objects. | `1` |
-| `NAME` | Record name or target name used by the calibration/update reader. | `inflow` |
-| `GIS_ID` | Field named in the demo/source header; trace the reader for exact units and storage. | `1` |
-| `AREA_HA` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.000` |
-| `LAT` | Field named in the demo/source header; trace the reader for exact units and storage. | `31.734` |
-| `LONG` | Field named in the demo/source header; trace the reader for exact units and storage. | `-83.720` |
-| `ELEV` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.000` |
-| `RECALL` | Field named in the demo/source header; trace the reader for exact units and storage. | `1` |
-| `WST` | Field named in the demo/source header; trace the reader for exact units and storage. | `wea1` |
-| `CONSTIT` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `OVERFLOW` | Flow-related value or routing parameter. | `0` |
-| `RULESET` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
-| `OUT_TOT` | Count of following records or related objects. | `1` |
-| `OBTYP_OUT1` | Field named in the demo/source header; trace the reader for exact units and storage. | `sdc` |
-| `HTYPNO_OUT1` | Field named in the demo/source header; trace the reader for exact units and storage. | `1` |
-| `HTYP_OUT1` | Field named in the demo/source header; trace the reader for exact units and storage. | `tot` |
-| `FRAC_OUT1` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.0000` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `NUMB` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1` | demo/source inferred |
+| `NAME` | Name of the object. | - | - | - | - | `inflow` | official GitBook |
+| `GIS_ID` | Object ID in QSWAT+. | - | - | - | - | `1` | official GitBook |
+| `AREA_HA` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0.000` | demo/source inferred |
+| `LAT` | Latitude of the object. | - | - | - | - | `31.734` | official GitBook |
+| `LONG` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `-83.720` | demo/source inferred |
+| `ELEV` | Elevation of the object. | - | - | - | - | `0.000` | official GitBook |
+| `RECALL` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1` | demo/source inferred |
+| `WST` | Pointer to the weather station file. | - | - | - | - | `wea1` | official GitBook |
+| `CONSTIT` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `OVERFLOW` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `RULESET` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `OUT_TOT` | Total number of outgoing hydrographs. | - | - | - | - | `1` | official GitBook |
+| `OBTYP_OUT1` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `sdc` | demo/source inferred |
+| `HTYPNO_OUT1` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1` | demo/source inferred |
+| `HTYP_OUT1` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `tot` | demo/source inferred |
+| `FRAC_OUT1` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1.0000` | demo/source inferred |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `id` | Unique ID of the object. | - | - |
+| `area` | Area of the object. | - | - |
+| `lon` | Longitude of the object. | - | - |
+| `'obj'` | Pointer to the object data file. | - | - |
+| `cst` | Pointer to the constituent file. | - | - |
+| `ovfl` | Pointer to the overbank flooding file. | - | - |
+| `rule` | Pointer to the decision table for hydrograph fractions. | - | - |
+| `obj_typ` | Type of the receiving object. | - | - |
+| `obj_id` | ID of the receiving object. | - | - |
+| `hyd_typ` | Type of hydrograph that is sent to the receiving object. | - | - |
+| `frac` | Fraction of hydrograph sent to the receiving object. | - | - |
 
 ## Defaults And Conversions
 

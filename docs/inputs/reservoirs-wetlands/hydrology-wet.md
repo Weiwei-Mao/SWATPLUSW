@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Wetland hydrology parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [hydrology.wet](https://swatplus.gitbook.io/io-docs/introduction-1/wetlands/hydrology.wet).
+- Official index note: This file contains the wetland hydrology parameters.
+- Official field metadata available: 11 field row(s); matched to 11 of 11 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Reservoirs Wetlands.
@@ -37,21 +45,21 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/hydrology.wet`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `paddy` |
-| `hru_ps` | HRU-related parameter or object reference. | `1.00` |
-| `dp_ps` | Field named in the demo/source header; trace the reader for exact units and storage. | `150.00` |
-| `hru_es` | HRU-related parameter or object reference. | `1.00` |
-| `dp_es` | Field named in the demo/source header; trace the reader for exact units and storage. | `150.00` |
-| `k` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.5` |
-| `evap` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.75` |
-| `vol_area_co` | Volume-related value or parameter. | `1.00` |
-| `vol_dp_a` | Volume-related value or parameter. | `1.00` |
-| `vol_dp_b` | Volume-related value or parameter. | `1.00` |
-| `hru_frac` | HRU-related parameter or object reference. | `1.0` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the wetland hydrology record. | - | - | - | - | `paddy` | official GitBook |
+| `hru_ps` | Fraction of HRU area at principal spillway. | - | - | - | - | `1.00` | official GitBook |
+| `dp_ps` | Average depth of water at principal spillway. | - | - | - | - | `150.00` | official GitBook |
+| `hru_es` | Fraction of HRU area at emergency spillway. | - | - | - | - | `1.00` | official GitBook |
+| `dp_es` | Average depth of water at emergency spillway. | - | - | - | - | `150.00` | official GitBook |
+| `k` | Hydraulic conductivity of the wetland bottom. | - | - | - | - | `0.5` | official GitBook |
+| `evap` | Wetland evaporation coefficient. | - | - | - | - | `0.75` | official GitBook |
+| `vol_area_co` | Volume surface area coefficient for HRU impoundment. | - | - | - | - | `1.00` | official GitBook |
+| `vol_dp_a` | Volume depth coefficient for HRU impoundment. | - | - | - | - | `1.00` | official GitBook |
+| `vol_dp_b` | Volume depth coefficient for HRU impoundment. | - | - | - | - | `1.00` | official GitBook |
+| `hru_frac` | Fraction of HRU that drains into wetland. | - | - | - | - | `1.0` | official GitBook |
 
 ## Defaults And Conversions
 

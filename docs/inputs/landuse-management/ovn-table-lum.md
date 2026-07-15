@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Overland Manning's `n` lookup table.
 
+
+## Official SWAT+ Reference
+
+- Official page: [ovn_table.lum](https://swatplus.gitbook.io/io-docs/introduction-1/landuse-and-management/ovn_table.lum).
+- Official index note: This file lists overland Manning's n values for different tillage and land cover types.
+- Official field metadata available: 4 field row(s); matched to 4 of 5 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Landuse Management.
@@ -37,15 +45,15 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/ovn_table.lum`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `fallow_nores` |
-| `ovn_mean` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.01000` |
-| `ovn_min` | Minimum value or lower bound, depending on the reader. | `0.00800` |
-| `ovn_max` | Maximum value or upper bound, depending on the reader. | `0.01200` |
-| `description` | Free-text description retained for reader/user context. | `Fallow_no_residue` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Overland flow Manning's n class name. | - | - | - | - | `fallow_nores` | official GitBook |
+| `ovn_mean` | Mean overland flow Manning's n value. | - | - | - | - | `0.01000` | official GitBook |
+| `ovn_min` | Overland flow Manning's N minimum. | - | - | - | - | `0.00800` | official GitBook |
+| `ovn_max` | Overland flow Manning's N maximum. | - | - | - | - | `0.01200` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `Fallow_no_residue` | demo/source inferred |
 
 ## Defaults And Conversions
 

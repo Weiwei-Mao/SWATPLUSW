@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Urban land-use parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [urban.urb](https://swatplus.gitbook.io/io-docs/introduction-1/databases/urban.urb).
+- Official index note: The urban database summarizes parameters used by the model to simulate different types of urban areas.
+- Official field metadata available: 11 field row(s); matched to 10 of 12 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Databases.
@@ -37,22 +45,28 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/urban.urb`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `urhd` |
-| `frac_imp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.60000` |
-| `frac_dc_imp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.44000` |
-| `curb_den` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.24000` |
-| `urb_wash` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.18000` |
-| `dirt_max` | Maximum value or upper bound, depending on the reader. | `225.00000` |
-| `t_halfmax` | Maximum value or upper bound, depending on the reader. | `0.75000` |
-| `conc_totn` | Concentration value; verify constituent and units in the reader. | `550.00000` |
-| `conc_totp` | Concentration value; verify constituent and units in the reader. | `223.00000` |
-| `conc_no3n` | Nitrate-nitrogen concentration, mass, or parameter component; verify units in the reader. | `7.20000` |
-| `urb_cn` | Curve-number or conservation-practice related value; verify in reader. | `98.00000` |
-| `description` | Free-text description retained for reader/user context. | `Residential-High` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the urban land type. | - | - | - | - | `urhd` | official GitBook |
+| `frac_imp` | Fraction of total impervious area in urban land type. | - | - | - | - | `0.60000` | official GitBook |
+| `frac_dc_imp` | Fraction of directly connected impervious area in urban land type. | - | - | - | - | `0.44000` | official GitBook |
+| `curb_den` | Curb length density. | - | - | - | - | `0.24000` | official GitBook |
+| `urb_wash` | Wash-off coefficient for removal of constituents from impervious surfaces. | - | - | - | - | `0.18000` | official GitBook |
+| `dirt_max` | Maximum amount of solids allowed to build up on impervious surfaces. | - | - | - | - | `225.00000` | official GitBook |
+| `t_halfmax` | Time for amount of solids on impervious areas to build up to 1/2 of maximum level. | - | - | - | - | `0.75000` | official GitBook |
+| `conc_totn` | Concentration of total N in suspended solid load from impervious areas. | - | - | - | - | `550.00000` | official GitBook |
+| `conc_totp` | Concentration of total P in suspended solid load from impervious areas. | - | - | - | - | `223.00000` | official GitBook |
+| `conc_no3n` | Nitrate-nitrogen value; verify storage and units in the reader. | - | - | - | - | `7.20000` | demo/source inferred |
+| `urb_cn` | Moisture condition II curve number for impermeable areas. | - | - | - | - | `98.00000` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `Residential-High` | demo/source inferred |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `conc_no3` | Concentration of NO3-N in suspended solid load from impervious areas. | - | - |
 
 ## Defaults And Conversions
 

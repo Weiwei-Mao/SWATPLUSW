@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Landscape-unit element membership file.
 
+
+## Official SWAT+ Reference
+
+- Official page: [ls_unit.ele](https://swatplus.gitbook.io/io-docs/introduction-1/landscape-units/ls_unit.ele).
+- Official index note: This file lists the HRUs that are elements in a Landscape Unit.
+- Official field metadata available: 5 field row(s); matched to 5 of 7 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Regions.
@@ -37,17 +45,17 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/ls_unit.ele`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `id` | Numeric record identifier. | `1` |
-| `name` | Record name used by other input files to reference this parameter set. | `hru0001` |
-| `obj_typ` | SWAT+ object type for a routing, connection, or update target. | `hru` |
-| `obj_typ_no` | Field named in the demo/source header; trace the reader for exact units and storage. | `1` |
-| `bsn_frac` | Field named in the demo/source header; trace the reader for exact units and storage. | `1` |
-| `sub_frac` | Field named in the demo/source header; trace the reader for exact units and storage. | `1` |
-| `reg_frac` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `id` | ID of the element. | - | - | - | - | `1` | official GitBook |
+| `name` | Name of the element. | - | - | - | - | `hru0001` | official GitBook |
+| `obj_typ` | Object type of the element. | - | - | - | - | `hru` | official GitBook |
+| `obj_typ_no` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1` | official GitBook |
+| `bsn_frac` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1` | official GitBook |
+| `sub_frac` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1` | demo/source inferred |
+| `reg_frac` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0.00000` | demo/source inferred |
 
 ## Defaults And Conversions
 

@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Wetland object parameter file.
 
+
+## Official SWAT+ Reference
+
+- Official page: [wetland.wet](https://swatplus.gitbook.io/io-docs/introduction-1/wetlands/wetland.wet).
+- Official index note: This file contains pointers referencing several files that specify the wetland properties.
+- Official field metadata available: 7 field row(s); matched to 7 of 8 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Reservoirs Wetlands.
@@ -37,18 +45,18 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/wetland.wet`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `id` | Numeric record identifier. | `1` |
-| `name` | Record name used by other input files to reference this parameter set. | `paddy0001` |
-| `init` | Initial value/state used at model startup. | `initwet1` |
-| `hyd` | Hydrology-related parameter or reference. | `paddy` |
-| `rel` | Field named in the demo/source header; trace the reader for exact units and storage. | `weir` |
-| `sed` | Sediment-related value, efficiency, or parameter; verify units in the reader. | `sedwet1` |
-| `nut` | Field named in the demo/source header; trace the reader for exact units and storage. | `nutwet1` |
-| `WEIR` | Field named in the demo/source header; trace the reader for exact units and storage. | `weir1` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `id` | ID of the wetland. | - | - | - | - | `1` | official GitBook |
+| `name` | Name of the wetland. | - | - | - | - | `paddy0001` | official GitBook |
+| `init` | Pointer to the reservoir and wetland initialization file. | - | - | - | - | `initwet1` | official GitBook |
+| `hyd` | Pointer to the wetland hydrology file. | - | - | - | - | `paddy` | official GitBook |
+| `rel` | Pointer to the reservoir and wetland release decision table file. | - | - | - | - | `weir` | official GitBook |
+| `sed` | Pointer to the reservoir and wetland sediment file. | - | - | - | - | `sedwet1` | official GitBook |
+| `nut` | Pointer to the reservoir and wetland nutrient file. | - | - | - | - | `nutwet1` | official GitBook |
+| `WEIR` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `weir1` | demo/source inferred |
 
 ## Defaults And Conversions
 

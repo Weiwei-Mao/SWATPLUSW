@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Soil nutrient/soil-test initialization database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [nutrients.sol](https://swatplus.gitbook.io/io-docs/introduction-1/soils/nutrients.sol).
+- Official index note: This file specifies the initial soil nutrient contents.
+- Official field metadata available: 7 field row(s); matched to 7 of 13 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Soils.
@@ -37,23 +45,23 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/nutrients.sol`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `soilnut1` |
-| `exp_co` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00050` |
-| `lab_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `5.00000` |
-| `nitrate` | Field named in the demo/source header; trace the reader for exact units and storage. | `7.00000` |
-| `fr_hum_act` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.02000` |
-| `hum_c_n` | Field named in the demo/source header; trace the reader for exact units and storage. | `10.00000` |
-| `hum_c_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `80.00000` |
-| `inorgp` | Phosphorus-related component; verify units in the reader. | `3.50000` |
-| `watersol_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.15000` |
-| `h3a_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.25000` |
-| `mehlich_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.20000` |
-| `bray_strong_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.85000` |
-| `description` | Free-text description retained for reader/user context. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the soil nutrient record. | - | - | - | - | `soilnut1` | official GitBook |
+| `exp_co` | Depth coefficient to adjust nutrient concentrations for depth. | - | - | - | - | `0.00050` | official GitBook |
+| `lab_p` | Labile P in soil surface. | - | - | - | - | `5.00000` | official GitBook |
+| `nitrate` | Nitrate N in soil surface. | - | - | - | - | `7.00000` | official GitBook |
+| `fr_hum_act` | Fraction of soil humus that is active. | - | - | - | - | `0.02000` | official GitBook |
+| `hum_c_n` | Humus C:N ratio. | - | - | - | - | `10.00000` | official GitBook |
+| `hum_c_p` | Humus C:N ratio. | - | - | - | - | `80.00000` | official GitBook |
+| `inorgp` | Phosphorus-related parameter or state value. | - | - | - | - | `3.50000` | demo/source inferred |
+| `watersol_p` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0.15000` | demo/source inferred |
+| `h3a_p` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0.25000` | demo/source inferred |
+| `mehlich_p` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1.20000` | demo/source inferred |
+| `bray_strong_p` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0.85000` | demo/source inferred |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | - | demo/source inferred |
 
 ## Defaults And Conversions
 

@@ -15,6 +15,11 @@ tags: [inputs, reference, demo-context]
 
 Optional puddling operation definitions.
 
+
+## Official SWAT+ Reference
+
+No standalone official SWAT+ GitBook page was found for this exact filename in the current documentation index. Keep this page tied to the source inventory and local demo evidence until a reader-specific official page is identified.
+
 ## Role In SWAT+
 
 - Category: Operations.
@@ -37,19 +42,19 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/puddle.ops`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table is generated from the local demo header. Meanings are practical working descriptions and should be confirmed against the reader before final use.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `high_eff` | Removal efficiency or effect fraction/percent used by a practice or treatment. | `med_eff` |
-| `0.00000` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `10000` | Field named in the demo/source header; trace the reader for exact units and storage. | `10000` |
-| `0.00000` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `800.00000` | Field named in the demo/source header; trace the reader for exact units and storage. | `500.00000` |
-| `10.00000` | Field named in the demo/source header; trace the reader for exact units and storage. | `10.00000` |
-| `20.00000` | Field named in the demo/source header; trace the reader for exact units and storage. | `20.00000` |
-| `1.00000` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `1.00000` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
+| Field | Working meaning | Demo value | Basis |
+| --- | --- | --- | --- |
+| `high_eff` | Removal efficiency or effect fraction/percent. | `med_eff` | demo/source inferred |
+| `0.00000` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `0.00000` | demo/source inferred |
+| `10000` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `10000` | demo/source inferred |
+| `0.00000` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `0.00000` | demo/source inferred |
+| `800.00000` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `500.00000` | demo/source inferred |
+| `10.00000` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `10.00000` | demo/source inferred |
+| `20.00000` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `20.00000` | demo/source inferred |
+| `1.00000` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `1.00000` | demo/source inferred |
+| `1.00000` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `1.00000` | demo/source inferred |
 
 ## Defaults And Conversions
 

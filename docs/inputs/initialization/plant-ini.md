@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Initial plant-community condition records.
 
+
+## Official SWAT+ Reference
+
+- Official page: [plant.ini](https://swatplus.gitbook.io/io-docs/introduction-1/landuse-and-management/plant.ini).
+- Official index note: This file stores information about the plants growing in a plant community.
+- Official field metadata available: 11 field row(s); matched to 8 of 11 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Initialization.
@@ -37,21 +45,29 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/plant.ini`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `pcom_name` | Field named in the demo/source header; trace the reader for exact units and storage. | `gras_comm` |
-| `plt_cnt` | Curve-number or conservation-practice related value; verify in reader. | `1` |
-| `rot_yr_ini` | Calendar year or year range value. | `1` |
-| `plt_name` | Plant-related parameter or record reference. | - |
-| `lc_status` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `lai_init` | Initial value/state used at model startup. | - |
-| `bm_init` | Initial value/state used at model startup. | - |
-| `phu_init` | Initial value/state used at model startup. | - |
-| `plnt_pop` | Field named in the demo/source header; trace the reader for exact units and storage. | - |
-| `yrs_init` | Initial value/state used at model startup. | - |
-| `rsd_init` | Initial value/state used at model startup. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `pcom_name` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `gras_comm` | demo/source inferred |
+| `plt_cnt` | Plant-related parameter or record reference. | - | - | - | - | `1` | demo/source inferred |
+| `rot_yr_ini` | Initial rotation year. | - | - | - | - | `1` | official GitBook |
+| `plt_name` | Plant-related parameter or record reference. | - | - | - | - | - | demo/source inferred |
+| `lc_status` | Land cover status at start of simulation. | - | - | - | - | - | official GitBook |
+| `lai_init` | Initial Leaf Area Index. | - | - | - | - | - | official GitBook |
+| `bm_init` | Initial plant biomass. | - | - | - | - | - | official GitBook |
+| `phu_init` | Initial fraction of plant heat units accumulated. | - | - | - | - | - | official GitBook |
+| `plnt_pop` | Plant population. | - | - | - | - | - | official GitBook |
+| `yrs_init` | Age of plant at start of simulation. | - | - | - | - | - | official GitBook |
+| `rsd_init` | Initial residue cover. | - | - | - | - | - | official GitBook |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `name` | Plant community name. | - | - |
+| `plnt_cnt` | Number of plants in the community. | - | - |
+| `plnt_name` | Plant name as in plant database. | - | - |
 
 ## Defaults And Conversions
 

@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Routing-unit parameter file.
 
+
+## Official SWAT+ Reference
+
+- Official page: [rout_unit.rtu](https://swatplus.gitbook.io/io-docs/introduction-1/routing-units/untitled).
+- Official index note: This file references other files specifying the elements that are part of a Routing Unit and its topographic and field properties.
+- Official field metadata available: 5 field row(s); matched to 5 of 6 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Routing Units.
@@ -37,16 +45,16 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/rout_unit.rtu`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `id` | Numeric record identifier. | `1` |
-| `name` | Record name used by other input files to reference this parameter set. | `rtu01` |
-| `define` | Field named in the demo/source header; trace the reader for exact units and storage. | `rtu001` |
-| `dlr` | Field named in the demo/source header; trace the reader for exact units and storage. | `null` |
-| `topo` | Field named in the demo/source header; trace the reader for exact units and storage. | `toportu011` |
-| `field` | Field named in the demo/source header; trace the reader for exact units and storage. | `fld011` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `id` | ID of the routing unit. | - | - | - | - | `1` | official GitBook |
+| `name` | Name of the routing unit. | - | - | - | - | `rtu01` | official GitBook |
+| `define` | Pointer to the routing unit definition file. | - | - | - | - | `rtu001` | official GitBook |
+| `dlr` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `null` | demo/source inferred |
+| `topo` | Pointer to the topography file. | - | - | - | - | `toportu011` | official GitBook |
+| `field` | Pointer to the field file. | - | - | - | - | `fld011` | official GitBook |
 
 ## Defaults And Conversions
 

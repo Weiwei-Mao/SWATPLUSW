@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Conservation-practice parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [cons_practice.lum](https://swatplus.gitbook.io/io-docs/introduction-1/landuse-and-management/cons_practice.lum).
+- Official index note: This file lists the USLE P values and slope lengths for various conservation practices.
+- Official field metadata available: 3 field row(s); matched to 3 of 4 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Landuse Management.
@@ -37,14 +45,14 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/cons_practice.lum`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `up_down_slope` |
-| `usle_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `slp_len_max` | Maximum value or upper bound, depending on the reader. | `121.00000` |
-| `description` | Free-text description retained for reader/user context. | `Up_and_down_slope` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the conservation practice. | - | - | - | - | `up_down_slope` | official GitBook |
+| `usle_p` | USLE P factor. | - | - | - | - | `1.00000` | official GitBook |
+| `slp_len_max` | Maximum slope length. | - | - | - | - | `121.00000` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `Up_and_down_slope` | demo/source inferred |
 
 ## Defaults And Conversions
 

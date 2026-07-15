@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Septic-system parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [septic.sep](https://swatplus.gitbook.io/io-docs/introduction-1/databases/septic.sep).
+- Official index note: The septic systems database summarizes parameters used by the model to simulate different types of Onsite Wastewater Systems.
+- Official field metadata available: 11 field row(s); matched to 11 of 12 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Databases.
@@ -37,22 +45,22 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/septic.sep`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `gcon` |
-| `q_rate` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.22700` |
-| `bod` | Field named in the demo/source header; trace the reader for exact units and storage. | `170.00000` |
-| `tss` | Field named in the demo/source header; trace the reader for exact units and storage. | `75.00000` |
-| `nh4_n` | Field named in the demo/source header; trace the reader for exact units and storage. | `42.40000` |
-| `no3_n` | Nitrate-nitrogen concentration, mass, or parameter component; verify units in the reader. | `0.00000` |
-| `no2_n` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `org_n` | Field named in the demo/source header; trace the reader for exact units and storage. | `10.00000` |
-| `min_p` | Minimum value or lower bound, depending on the reader. | `6.00000` |
-| `org_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `fcoli` | Field named in the demo/source header; trace the reader for exact units and storage. | `10000000.00000` |
-| `description` | Free-text description retained for reader/user context. | `1Generic` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the septic record. | - | - | - | - | `gcon` | official GitBook |
+| `q_rate` | Flow rate of the septic tank effluent (STE). | - | - | - | - | `0.22700` | official GitBook |
+| `bod` | 7-day Biological Oxygen Demand (BOD) of the septic tank effluent. | - | - | - | - | `170.00000` | official GitBook |
+| `tss` | Total suspended solids (TSS) in the septic tank effluent. | - | - | - | - | `75.00000` | official GitBook |
+| `nh4_n` | Ammonium nitrogen in the septic tank effluent. | - | - | - | - | `42.40000` | official GitBook |
+| `no3_n` | Nitrate nitrogen in the septic tank effluent. | - | - | - | - | `0.00000` | official GitBook |
+| `no2_n` | Nitrite nitrogen in the septic tank effluent. | - | - | - | - | `0.00000` | official GitBook |
+| `org_n` | Organic nitrogen in the septic tank effluent. | - | - | - | - | `10.00000` | official GitBook |
+| `min_p` | Mineral phosphorus in the septic tank effluent. | - | - | - | - | `6.00000` | official GitBook |
+| `org_p` | Organic phosphorus in the septic tank effluent. | - | - | - | - | `1.00000` | official GitBook |
+| `fcoli` | Number of fecal coliform in the septic tank effluent. | - | - | - | - | `10000000.00000` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1Generic` | demo/source inferred |
 
 ## Defaults And Conversions
 

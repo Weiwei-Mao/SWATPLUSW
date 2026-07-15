@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Pesticide parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [pesticide.pes](https://swatplus.gitbook.io/io-docs/introduction-1/databases/pesticide.pes).
+- Official index note: The pesticide database summarizes parameters used by the model to simulate the fate and transport of different types of pesticides.
+- Official field metadata available: 14 field row(s); matched to 12 of 15 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Databases.
@@ -37,25 +45,32 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/pesticide.pes`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `245-tp` |
-| `soil_ads` | Soil-related parameter or record reference. | `2600.00000` |
-| `frac_wash` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.40000` |
-| `hl_foliage` | Field named in the demo/source header; trace the reader for exact units and storage. | `5.00000` |
-| `hl_soil` | Soil-related parameter or record reference. | `20.00000` |
-| `solub` | Field named in the demo/source header; trace the reader for exact units and storage. | `2.50000` |
-| `aq_hlife` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00700` |
-| `aq_volat` | Volume-related value or parameter. | `0.00001` |
-| `mol_wt` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.10000` |
-| `aq_resus` | Reservoir-related parameter or object reference. | `0.00200` |
-| `aq_settle` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `ben_act_dep` | Depth, deposition, or dependency field; verify exact meaning in the reader. | `0.30000` |
-| `ben_bury` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00200` |
-| `ben_hlife` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.05000` |
-| `description` | Free-text description retained for reader/user context. | `Silvex_Amine` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the pesticide record. | - | - | - | - | `245-tp` | official GitBook |
+| `soil_ads` | Soil adsorption coefficient normalized for soil organic carbon content. | - | - | - | - | `2600.00000` | official GitBook |
+| `frac_wash` | Fraction of pesticide on foliage that is washed off by rainfall event. | - | - | - | - | `0.40000` | official GitBook |
+| `hl_foliage` | Half-life of the pesticide on the foliage. | - | - | - | - | `5.00000` | official GitBook |
+| `hl_soil` | Half-life of the pesticide in the soil. | - | - | - | - | `20.00000` | official GitBook |
+| `solub` | Solubility of the pesticide in water. | - | - | - | - | `2.50000` | official GitBook |
+| `aq_hlife` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0.00700` | demo/source inferred |
+| `aq_volat` | Aquatic volatilization coefficient. | - | - | - | - | `0.00001` | official GitBook |
+| `mol_wt` | Molecular weight to calculate mixing velocity. | - | - | - | - | `0.10000` | official GitBook |
+| `aq_resus` | Aquatic resuspension velocity for pesticide sorbed to sediment. | - | - | - | - | `0.00200` | official GitBook |
+| `aq_settle` | Aquatic settling velocity for pesticide sorbed to sediment. | - | - | - | - | `0.50000` | official GitBook |
+| `ben_act_dep` | Depth of the active benthic layer. | - | - | - | - | `0.30000` | official GitBook |
+| `ben_bury` | Burial velocity in the benthic sediment. | - | - | - | - | `0.00200` | official GitBook |
+| `ben_hlife` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0.05000` | demo/source inferred |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `Silvex_Amine` | demo/source inferred |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `aq_reac` | Aquatic pesticide reaction coefficient. | - | - |
+| `ben_reac` | Reaction coefficient in the benthic sediment. | - | - |
 
 ## Defaults And Conversions
 

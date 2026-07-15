@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Channel nutrient and water-quality parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [nutrients.cha](https://swatplus.gitbook.io/io-docs/introduction-1/channels/nutrients.cha).
+- Official index note: This file controls the channel nutrient properties.
+- Official field metadata available: 39 field row(s); matched to 38 of 40 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Channels.
@@ -37,50 +45,56 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/nutrients.cha`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `nutcha1` |
-| `plt_n` | Plant-related parameter or record reference. | `0.00000` |
-| `ptl_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `alg_stl` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `ben_disp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.05000` |
-| `ben_nh3n` | Ammonia-nitrogen concentration, mass, or parameter component; verify units in the reader. | `0.50000` |
-| `ptln_stl` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.05000` |
-| `ptlp_stl` | Phosphorus-related component; verify units in the reader. | `0.05000` |
-| `cst_stl` | Field named in the demo/source header; trace the reader for exact units and storage. | `2.50000` |
-| `ben_cst` | Field named in the demo/source header; trace the reader for exact units and storage. | `2.50000` |
-| `cbn_bod_co` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.71000` |
-| `air_rt` | Field named in the demo/source header; trace the reader for exact units and storage. | `50.00000` |
-| `cbn_bod_stl` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.36000` |
-| `ben_bod` | Field named in the demo/source header; trace the reader for exact units and storage. | `2.00000` |
-| `bact_die` | Pathogen/bacteria-related value or parameter; verify units in the reader. | `2.00000` |
-| `cst_decay` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.71000` |
-| `nh3n_no2n` | Ammonia-nitrogen concentration, mass, or parameter component; verify units in the reader. | `0.55000` |
-| `no2n_no3n` | Nitrate-nitrogen concentration, mass, or parameter component; verify units in the reader. | `1.10000` |
-| `ptln_nh3n` | Ammonia-nitrogen concentration, mass, or parameter component; verify units in the reader. | `0.21000` |
-| `ptlp_solp` | Phosphorus-related component; verify units in the reader. | `0.35000` |
-| `q2e_lt` | Field named in the demo/source header; trace the reader for exact units and storage. | `2` |
-| `q2e_alg` | Field named in the demo/source header; trace the reader for exact units and storage. | `2` |
-| `chla_alg` | Field named in the demo/source header; trace the reader for exact units and storage. | `50.00000` |
-| `alg_n` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.08000` |
-| `alg_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.01500` |
-| `alg_o2_prod` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.60000` |
-| `alg_o2_resp` | Reservoir-related parameter or object reference. | `2.00000` |
-| `o2_nh3n` | Ammonia-nitrogen concentration, mass, or parameter component; verify units in the reader. | `3.50000` |
-| `o2_no2n` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.07000` |
-| `alg_grow` | Field named in the demo/source header; trace the reader for exact units and storage. | `2.00000` |
-| `alg_resp` | Reservoir-related parameter or object reference. | `2.50000` |
-| `slr_act` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.30000` |
-| `lt_co` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.75000` |
-| `const_n` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.02000` |
-| `const_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.02500` |
-| `lt_nonalg` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `alg_shd_l` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.03000` |
-| `alg_shd_nl` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.05400` |
-| `nh3_pref` | Ammonia-nitrogen concentration, mass, or parameter component; verify units in the reader. | `0.50000` |
-| `description` | Free-text description retained for reader/user context. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the channel nutrient record. | - | - | - | - | `nutcha1` | official GitBook |
+| `plt_n` | Channel organic N concentration. | - | - | - | - | `0.00000` | official GitBook |
+| `ptl_p` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0.00000` | demo/source inferred |
+| `alg_stl` | Local algal settling rate in the channel at 20deg C. | - | - | - | - | `1.00000` | official GitBook |
+| `ben_disp` | Benthic source rate for dissolved P in the channel at 20deg C. | - | - | - | - | `0.05000` | official GitBook |
+| `ben_nh3n` | Benthic source rate for NH3-N in the channel at 20deg C. | - | - | - | - | `0.50000` | official GitBook |
+| `ptln_stl` | Organic N settling rate in the channel at 20deg C. | - | - | - | - | `0.05000` | official GitBook |
+| `ptlp_stl` | Organic P settling rate in the channel at 20deg C. | - | - | - | - | `0.05000` | official GitBook |
+| `cst_stl` | Arbitrary non-conservative constituent settling rate in the channel at 20deg C. | - | - | - | - | `2.50000` | official GitBook |
+| `ben_cst` | Benthic source rate for arbitrary non-conservative constituents in the channel at 20deg C. | - | - | - | - | `2.50000` | official GitBook |
+| `cbn_bod_co` | Carbonaceous biological oxygen demand deoxygenation rate in the channel at 20deg C. | - | - | - | - | `1.71000` | official GitBook |
+| `air_rt` | Reaeration rate in accordance with Fickian diffusion in the channel at 20deg C. | - | - | - | - | `50.00000` | official GitBook |
+| `cbn_bod_stl` | Rate of loss of carbonaceous biological oxygen demand due to settling in the reach at 20 deg C. | - | - | - | - | `0.36000` | official GitBook |
+| `ben_bod` | Benthic oxygen demand rate in the channel at 20deg C. | - | - | - | - | `2.00000` | official GitBook |
+| `bact_die` | Coliform die-off rate in the reach at 20deg C. | - | - | - | - | `2.00000` | official GitBook |
+| `cst_decay` | Decay rate for arbitrary non-conservative constituents in the channel at 20deg C. | - | - | - | - | `1.71000` | official GitBook |
+| `nh3n_no2n` | Biological oxidation rate of NH3 to NO2 in the channel at 20deg C in well-aerated conditions. | - | - | - | - | `0.55000` | official GitBook |
+| `no2n_no3n` | Biological oxidation rate of NO2 to NO3 in the channel at 20deg C in well-aerated conditions. | - | - | - | - | `1.10000` | official GitBook |
+| `ptln_nh3n` | Hydrolysis rate of organic N to ammonia in the channel at 20deg C. | - | - | - | - | `0.21000` | official GitBook |
+| `ptlp_solp` | Mineralization rate of organic P to dissolved P in the channel at 20deg C. | - | - | - | - | `0.35000` | official GitBook |
+| `q2e_lt` | Qual2E light averaging option. | - | - | - | - | `2` | official GitBook |
+| `q2e_alg` | Qual2E option for calculating the local specific growth rate of algae. | - | - | - | - | `2` | official GitBook |
+| `chla_alg` | Ratio of chlorophyll-a to algal biomass. | - | - | - | - | `50.00000` | official GitBook |
+| `alg_n` | Fraction of algal biomass that is N. | - | - | - | - | `0.08000` | official GitBook |
+| `alg_p` | Fraction of algal biomass that is P. | - | - | - | - | `0.01500` | official GitBook |
+| `alg_o2_prod` | Oxygen production rate per unit of algal photosynthesis. | - | - | - | - | `1.60000` | official GitBook |
+| `alg_o2_resp` | Oxygen uptake rate per unit of algae respiration. | - | - | - | - | `2.00000` | official GitBook |
+| `o2_nh3n` | Oxygen uptake rate per unit of NH3-N oxidation. | - | - | - | - | `3.50000` | official GitBook |
+| `o2_no2n` | Oxygen uptake rate per unit of NO2-N oxidation. | - | - | - | - | `1.07000` | official GitBook |
+| `alg_grow` | Maximum specific algal growth rate at 20deg C. | - | - | - | - | `2.00000` | official GitBook |
+| `alg_resp` | Algal respiration rate at 20deg C. | - | - | - | - | `2.50000` | official GitBook |
+| `slr_act` | Fraction of solar radiation computed in the temperature heat balance that is photosynthetically active. | - | - | - | - | `0.30000` | official GitBook |
+| `lt_co` | Half-saturation coefficient for light. | - | - | - | - | `0.75000` | official GitBook |
+| `const_n` | Michaelis-Menton half-saturation constant for N. | - | - | - | - | `0.02000` | official GitBook |
+| `const_p` | Michaelis-Menton half-saturation constant for P. | - | - | - | - | `0.02500` | official GitBook |
+| `lt_nonalg` | Non-algal portion of the light extinction coefficient. | - | - | - | - | `1.00000` | official GitBook |
+| `alg_shd_l` | Linear algal self-shading coefficient. | - | - | - | - | `0.03000` | official GitBook |
+| `alg_shd_nl` | Nonlinear algal self-shading coefficient. | - | - | - | - | `0.05400` | official GitBook |
+| `nh3_pref` | Algal preference factor for ammonia. | - | - | - | - | `0.50000` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | - | demo/source inferred |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `plt_p` | Channel organic P concentration. | - | - |
 
 ## Defaults And Conversions
 

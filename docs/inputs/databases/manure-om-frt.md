@@ -15,6 +15,11 @@ tags: [inputs, reference, demo-context]
 
 Optional organic/mineral manure database.
 
+
+## Official SWAT+ Reference
+
+No standalone official SWAT+ GitBook page was found for this exact filename in the current documentation index. Keep this page tied to the source inventory and local demo evidence until a reader-specific official page is identified.
+
 ## Role In SWAT+
 
 - Category: Databases.
@@ -37,19 +42,19 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/manure_om.frt`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table is generated from the local demo header. Meanings are practical working descriptions and should be confirmed against the reader before final use.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `mw_beef_liq` |
-| `frac_water` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.988` |
-| `fcbn` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.000780576` |
-| `fminn` | Minimum value or lower bound, depending on the reader. | `0.000311751` |
-| `fminp` | Minimum value or lower bound, depending on the reader. | `0.00081295` |
-| `forgn` | Organic nitrogen component; verify units in the reader. | `0.002110312` |
-| `forgp` | Phosphorus-related component; verify units in the reader. | `0.000365707` |
-| `fnh3n` | Ammonia-nitrogen concentration, mass, or parameter component; verify units in the reader. | `0.99` |
-| `description` | Free-text description retained for reader/user context. | `midwest_beef_liquid` |
+| Field | Working meaning | Demo value | Basis |
+| --- | --- | --- | --- |
+| `name` | Record name used by other SWAT+ inputs to reference this row. | `mw_beef_liq` | demo/source inferred |
+| `frac_water` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `0.988` | demo/source inferred |
+| `fcbn` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `0.000780576` | demo/source inferred |
+| `fminn` | Minimum value or lower bound, depending on the reader. | `0.000311751` | demo/source inferred |
+| `fminp` | Minimum value or lower bound, depending on the reader. | `0.00081295` | demo/source inferred |
+| `forgn` | Organic nitrogen value; verify storage and units in the reader. | `0.002110312` | demo/source inferred |
+| `forgp` | Phosphorus-related parameter or state value. | `0.000365707` | demo/source inferred |
+| `fnh3n` | Ammonia-nitrogen value; verify storage and units in the reader. | `0.99` | demo/source inferred |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `midwest_beef_liquid` | demo/source inferred |
 
 ## Defaults And Conversions
 

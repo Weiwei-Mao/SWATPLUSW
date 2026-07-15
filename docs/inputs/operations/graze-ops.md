@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Grazing operation definitions.
 
+
+## Official SWAT+ Reference
+
+- Official page: [graze.ops](https://swatplus.gitbook.io/io-docs/introduction-1/management-practices/graze.ops).
+- Official index note: This file contains pre-defined grazing operations.
+- Official field metadata available: 6 field row(s); matched to 5 of 7 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Operations.
@@ -37,17 +45,23 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/graze.ops`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `dairy_high` |
-| `fert` | Field named in the demo/source header; trace the reader for exact units and storage. | `dairy_fr` |
-| `bm_eat` | Field named in the demo/source header; trace the reader for exact units and storage. | `25.00000` |
-| `bm_tramp` | Field named in the demo/source header; trace the reader for exact units and storage. | `10.00000` |
-| `man_amt` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.95000` |
-| `grz_bm_min` | Minimum value or lower bound, depending on the reader. | `3000.00000` |
-| `description` | Free-text description retained for reader/user context. | `High_Prod_Dairy-Fresh_Manure` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Grazing operation name. | - | - | - | - | `dairy_high` | official GitBook |
+| `fert` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `dairy_fr` | demo/source inferred |
+| `bm_eat` | Dry weight of biomass removed by grazing daily. | - | - | - | - | `25.00000` | official GitBook |
+| `bm_tramp` | Dry weight of biomass removed by trampling daily. | - | - | - | - | `10.00000` | official GitBook |
+| `man_amt` | Dry weight of manure deposited daily. | - | - | - | - | `0.95000` | official GitBook |
+| `grz_bm_min` | Minimum plant biomass for grazing to occur. | - | - | - | - | `3000.00000` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `High_Prod_Dairy-Fresh_Manure` | demo/source inferred |
+
+Additional official field rows that are not part of the observed demo header:
+
+| Field | Meaning | Type | Unit |
+| --- | --- | --- | --- |
+| `fertname` | Fertilizer name for manure deposited during grazing. | - | - |
 
 ## Defaults And Conversions
 

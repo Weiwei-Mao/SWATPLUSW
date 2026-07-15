@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Initial aquifer condition records.
 
+
+## Official SWAT+ Reference
+
+- Official page: [initial.aqu](https://swatplus.gitbook.io/io-docs/introduction-1/aquifers/initial.aqu).
+- Official index note: This file contains pointers referencing several files that specify the initial aquifer properties.
+- Official field metadata available: 6 field row(s); matched to 6 of 7 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Aquifers.
@@ -36,17 +44,17 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/initial.aqu`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | - |
-| `org_min` | Minimum value or lower bound, depending on the reader. | - |
-| `pest` | Pesticide-related value or parameter; verify units in the reader. | - |
-| `path` | Pathogen/bacteria-related value or parameter; verify units in the reader. | - |
-| `hmet` | Heavy-metal related value or parameter; verify units in the reader. | - |
-| `salt` | Salt constituent value or parameter; verify units in the reader. | - |
-| `description` | Free-text description retained for reader/user context. | - |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the aquifer initialization record. | `string` | - | - | - | - | official GitBook |
+| `org_min` | Pointer to the organic and mineral initialization file. | `string` | - | - | - | - | official GitBook |
+| `pest` | Pointer to the pesticide initialization file. | `string` | - | - | - | - | official GitBook |
+| `path` | Currently not used. | `string` | - | - | - | - | official GitBook |
+| `hmet` | Currently not used. | `string` | - | - | - | - | official GitBook |
+| `salt` | Pointer to the salt initialization file. | `string` | - | - | - | - | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | - | demo/source inferred |
 
 ## Defaults And Conversions
 

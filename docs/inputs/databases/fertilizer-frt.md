@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Fertilizer/mineral nutrient database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [fertilizer.frt](https://swatplus.gitbook.io/io-docs/introduction-1/databases/fertilizer.frt).
+- Official index note: The fertilizer database summarizes parameters used by the model to simulate different types of fertilizer and manure.
+- Official field metadata available: 6 field row(s); matched to 6 of 8 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Databases.
@@ -37,18 +45,18 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/fertilizer.frt`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `elem_n` |
-| `min_n` | Minimum value or lower bound, depending on the reader. | `1.00000` |
-| `min_p` | Minimum value or lower bound, depending on the reader. | `0.00000` |
-| `org_n` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `org_p` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.00000` |
-| `nh3_n` | Ammonia-nitrogen concentration, mass, or parameter component; verify units in the reader. | `0.00000` |
-| `pathogens` | Pathogen/bacteria-related value or parameter; verify units in the reader. | `null` |
-| `description` | Free-text description retained for reader/user context. | `ElementalNitrogen` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the fertilizer or manure record. | - | - | - | - | `elem_n` | official GitBook |
+| `min_n` | Fraction of fertilizer that is mineral N (NO3+NH3). | - | - | - | - | `1.00000` | official GitBook |
+| `min_p` | Fraction of fertilizer that is mineral P. | - | - | - | - | `0.00000` | official GitBook |
+| `org_n` | Fraction of fertilizer that is organic N. | - | - | - | - | `0.00000` | official GitBook |
+| `org_p` | Fraction of fertilizer that is organic P. | - | - | - | - | `0.00000` | official GitBook |
+| `nh3_n` | Fraction of mineral N content of fertilizer that is NH3. | - | - | - | - | `0.00000` | official GitBook |
+| `pathogens` | Pathogen or bacteria-related value or parameter. | - | - | - | - | `null` | demo/source inferred |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `ElementalNitrogen` | demo/source inferred |
 
 ## Defaults And Conversions
 

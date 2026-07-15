@@ -15,6 +15,13 @@ tags: [inputs, reference, demo-context]
 
 Calibration parameter definition file.
 
+
+## Official SWAT+ Reference
+
+- Official page: [cal_parms.cal](https://swatplus.gitbook.io/io-docs/introduction-1/calibration/cal_parms.cal).
+- Official field metadata: the page is linked, but this pass did not extract a field table from it. Use the linked page and source reader for canonical definitions.
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Calibration.
@@ -38,15 +45,15 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/cal_parms.cal`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table is generated from the local demo header. Meanings are practical working descriptions and should be confirmed against the reader before final use.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `cn2` |
-| `obj_typ` | SWAT+ object type for a routing, connection, or update target. | `hru` |
-| `abs_min` | Absolute lower bound allowed for the parameter. | `35.00000` |
-| `abs_max` | Absolute upper bound allowed for the parameter. | `95.00000` |
-| `units` | Units used for the parameter value. | `null` |
+| Field | Working meaning | Demo value | Basis |
+| --- | --- | --- | --- |
+| `name` | Record name used by other SWAT+ inputs to reference this row. | `cn2` | demo/source inferred |
+| `obj_typ` | SWAT+ object type. | `hru` | demo/source inferred |
+| `abs_min` | Minimum value or lower bound, depending on the reader. | `35.00000` | demo/source inferred |
+| `abs_max` | Maximum value or upper bound, depending on the reader. | `95.00000` | demo/source inferred |
+| `units` | Header field observed in the demo file; trace the reader for exact storage and constraints. | `null` | demo/source inferred |
 
 ## Defaults And Conversions
 

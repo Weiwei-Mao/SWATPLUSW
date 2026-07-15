@@ -26,6 +26,14 @@ object.cnt       -> object counts
 print.prt        -> output/reporting controls
 ```
 
+
+## Official SWAT+ Reference
+
+- Official page: [print.prt](https://swatplus.gitbook.io/io-docs/introduction-1/simulation-settings/print.prt).
+- Official index note: This file controls which output files will be printed during the simulation.
+- Official field metadata available: 5 field row(s); matched to 2 of 6 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Reader Path
 
 ```text

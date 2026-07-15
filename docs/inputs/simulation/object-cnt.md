@@ -19,6 +19,14 @@ It does not define the detailed physical properties or all routing links. Those 
 
 For object types that represent the same broad physical system at different complexity levels, see [`alternative-object-representations.md`](../../topics/alternative-object-representations.md).
 
+
+## Official SWAT+ Reference
+
+- Official page: [object.cnt](https://swatplus.gitbook.io/io-docs/introduction-1/simulation-settings/object.cnt).
+- Official index note: This file specifies the land area and the total area (including ponds and reservoirs) of the watershed and the counts of all spatial objects in a simulation.
+- Official field metadata: the page is linked, but this pass did not extract a field table from it. Use the linked page and source reader for canonical definitions.
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Reader Path
 
 ```text
@@ -107,7 +115,7 @@ HRU 1
 
 ### `ihru`
 
-`ihru` is not a separate object type. It is a Fortran index variable meaning Ã¢â‚¬Å“current HRU number.Ã¢â‚¬Â In `command.f90`, when the active object is a full HRU, the code sets:
+`ihru` is not a separate object type. It is a Fortran index variable meaning "current HRU number." In `command.f90`, when the active object is a full HRU, the code sets:
 
 ```fortran
 ihru = ob(icmd)%num

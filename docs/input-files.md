@@ -34,8 +34,9 @@ Local source and the active scenario remain the authority for whether a file is 
 - Conditional usage-class entries: 48.
 - Optional/default usage-class entries: 35.
 - Fixed-name or companion usage-class entries: 14.
-- Detailed reader-traced references: 6.
-- Context-enriched reference pages awaiting full reader trace: 164.
+- Reader-traced deep-dive pages: 6 (full source-reader trace; not the number of edited input pages).
+- Context-enriched input reference pages awaiting full reader trace: 164.
+- Pages matched to dedicated or grouped official SWAT+ GitBook references: 100.
 
 ## Usage Classes
 

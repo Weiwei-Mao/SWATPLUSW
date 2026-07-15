@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Landscape-unit definition file.
 
+
+## Official SWAT+ Reference
+
+- Official page: [ls_unit.def](https://swatplus.gitbook.io/io-docs/introduction-1/landscape-units/ls_unit.def).
+- Official index note: This file defines which HRUs are elements of the Landscape Units in a SWAT+ setup.
+- Official field metadata available: 4 field row(s); matched to 4 of 5 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Regions.
@@ -38,15 +46,15 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/ls_unit.def`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `id` | Numeric record identifier. | `1` |
-| `name` | Record name used by other input files to reference this parameter set. | `rtu001` |
-| `area` | Area represented by the object or record. | `10.0000` |
-| `elem_tot` | Count of following records or related objects. | `1` |
-| `elements` | Field named in the demo/source header; trace the reader for exact units and storage. | `1` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `id` | Numeric record identifier. | - | - | - | - | `1` | official GitBook |
+| `name` | Name of the Landscape Unit. | - | - | - | - | `rtu001` | official GitBook |
+| `area` | Area represented by the object or record. | - | - | - | - | `10.0000` | demo/source inferred |
+| `elem_tot` | Number of columns to read for list of elements in the Landscape Unit. | - | - | - | - | `1` | official GitBook |
+| `elements` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `1` | official GitBook |
 
 ## Defaults And Conversions
 

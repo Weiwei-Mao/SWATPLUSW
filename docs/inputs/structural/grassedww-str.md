@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Grassed-waterway structural parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [grassedww.str](https://swatplus.gitbook.io/io-docs/introduction-1/structural-practices/grassedww.str).
+- Official index note: This file contains the grassed waterway parameters.
+- Official field metadata available: 7 field row(s); matched to 7 of 9 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Structural.
@@ -37,19 +45,19 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/grassedww.str`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `grwway_high` |
-| `flag` | Switch or flag controlling how the record is interpreted. | `0` |
-| `mann` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.05000` |
-| `sed_co` | Sediment-related value, efficiency, or parameter; verify units in the reader. | `0.02000` |
-| `dp` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `wd` | Field named in the demo/source header; trace the reader for exact units and storage. | `4.00000` |
-| `len` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.50000` |
-| `slp` | Field named in the demo/source header; trace the reader for exact units and storage. | `0.10000` |
-| `description` | Free-text description retained for reader/user context. | `Slope_>8` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the grassed waterway record. | - | - | - | - | `grwway_high` | official GitBook |
+| `flag` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `0` | demo/source inferred |
+| `mann` | Manning's n for grassed waterway. | - | - | - | - | `0.05000` | official GitBook |
+| `sed_co` | Sediment transport coefficient. | - | - | - | - | `0.02000` | official GitBook |
+| `dp` | Depth of grassed waterway. | - | - | - | - | `1.00000` | official GitBook |
+| `wd` | Width of grassed waterway. | - | - | - | - | `4.00000` | official GitBook |
+| `len` | Length of grassed waterway. | - | - | - | - | `0.50000` | official GitBook |
+| `slp` | Slope of grassed waterway. | - | - | - | - | `0.10000` | official GitBook |
+| `description` | Header field observed in the demo file; trace the reader for exact storage and constraints. | - | - | - | - | `Slope_>8` | demo/source inferred |
 
 ## Defaults And Conversions
 

@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Structural tile-drain parameter database.
 
+
+## Official SWAT+ Reference
+
+- Official page: [tiledrain.str](https://swatplus.gitbook.io/io-docs/introduction-1/structural-practices/tiledrain.str).
+- Official index note: This file contains the tile drainage parameters.
+- Official field metadata available: 9 field row(s); matched to 9 of 9 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Structural.
@@ -37,19 +45,19 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/tiledrain.str`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `name` | Record name used by other input files to reference this parameter set. | `mw24_1000` |
-| `dp` | Field named in the demo/source header; trace the reader for exact units and storage. | `1000.00000` |
-| `t_fc` | Field named in the demo/source header; trace the reader for exact units and storage. | `24.00000` |
-| `lag` | Field named in the demo/source header; trace the reader for exact units and storage. | `96.00000` |
-| `rad` | Field named in the demo/source header; trace the reader for exact units and storage. | `100.00000` |
-| `dist` | Field named in the demo/source header; trace the reader for exact units and storage. | `30.00000` |
-| `drain` | Field named in the demo/source header; trace the reader for exact units and storage. | `10.00000` |
-| `pump` | Field named in the demo/source header; trace the reader for exact units and storage. | `1.00000` |
-| `lat_ksat` | Field named in the demo/source header; trace the reader for exact units and storage. | `2.00000` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `name` | Name of the tile drain record. | - | - | - | - | `mw24_1000` | official GitBook |
+| `dp` | Depth of drain tube from the soil surface. | - | - | - | - | `1000.00000` | official GitBook |
+| `t_fc` | Time to drain soil to field capacity. | - | - | - | - | `24.00000` | official GitBook |
+| `lag` | Drain tile lag time. | - | - | - | - | `96.00000` | official GitBook |
+| `rad` | Effective radius of drains. | - | - | - | - | `100.00000` | official GitBook |
+| `dist` | Distance between two drain tubes or tiles. | - | - | - | - | `30.00000` | official GitBook |
+| `drain` | Drainage coefficient. | - | - | - | - | `10.00000` | official GitBook |
+| `pump` | Pump capacity. | - | - | - | - | `1.00000` | official GitBook |
+| `lat_ksat` | Multiplication factor to determine lateral saturated hydraulic conductivity. | - | - | - | - | `2.00000` | official GitBook |
 
 ## Defaults And Conversions
 

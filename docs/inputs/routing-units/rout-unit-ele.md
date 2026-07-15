@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Defines routing-unit member elements, such as HRUs, HRU-LTEs, or other spatial elements.
 
+
+## Official SWAT+ Reference
+
+- Official page: [rout_unit.ele](https://swatplus.gitbook.io/io-docs/introduction-1/routing-units/untitled-2).
+- Official index note: This file lists all elements that are part of a Routing Unit.
+- Official field metadata available: 6 field row(s); matched to 6 of 6 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Routing Units.
@@ -37,16 +45,16 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/rout_unit.ele`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `id` | Numeric record identifier. | `1` |
-| `name` | Record name used by other input files to reference this parameter set. | `hru0001` |
-| `obj_typ` | SWAT+ object type for a routing, connection, or update target. | `hru` |
-| `obj_id` | SWAT+ object identifier for a routing, connection, or update target. | `1` |
-| `frac` | Fraction of flow/load routed through this command. | `1` |
-| `dlr` | Field named in the demo/source header; trace the reader for exact units and storage. | `0` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `id` | ID of the element. | `integer` | - | - | - | `1` | official GitBook |
+| `name` | Name of the element. | `string` | - | - | - | `hru0001` | official GitBook |
+| `obj_typ` | Object type of the element. | `string` | - | - | - | `hru` | official GitBook |
+| `obj_id` | Object ID of the element. | `integer` | - | - | - | `1` | official GitBook |
+| `frac` | Fraction/ expansion factor of element in Routing Unit. | `real` | - | - | - | `1` | official GitBook |
+| `dlr` | Currently not used. | `real` | - | - | - | `0` | official GitBook |
 
 ## Defaults And Conversions
 

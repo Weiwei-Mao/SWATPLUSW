@@ -15,6 +15,11 @@ tags: [inputs, reference, demo-context]
 
 Input file for routing unit; source slot ru_dr.
 
+
+## Official SWAT+ Reference
+
+No standalone official SWAT+ GitBook page was found for this exact filename in the current documentation index. Keep this page tied to the source inventory and local demo evidence until a reader-specific official page is identified.
+
 ## Role In SWAT+
 
 - Category: Routing Units.
@@ -32,7 +37,7 @@ Local demo evidence: the `Osu_1hru` scenario does not include a concrete `rout_u
 
 ## Fields And Parameters
 
-No local demo header is available for this file. The page currently documents role, activation, and source inventory only; field names, units, and storage should be added after tracing the reader or adding an active demo file.
+No local demo header or standalone official field table is available for this exact file. This page currently documents role, activation, source inventory, and demo presence only; field names, units, and storage should be added after tracing the reader or finding a scenario that activates the file.
 
 ## Defaults And Conversions
 

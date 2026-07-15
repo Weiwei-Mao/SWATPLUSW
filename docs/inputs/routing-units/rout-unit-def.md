@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Defines each routing unit by listing which element records belong to it.
 
+
+## Official SWAT+ Reference
+
+- Official page: [rout_unit.def](https://swatplus.gitbook.io/io-docs/introduction-1/routing-units/untitled-1).
+- Official index note: This file specifies which elements a Routing Unit contains.
+- Official field metadata available: 4 field row(s); matched to 4 of 4 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Routing Units.
@@ -37,14 +45,14 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/rout_unit.def`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `id` | Numeric record identifier. | `1` |
-| `name` | Record name used by other input files to reference this parameter set. | `rtu001` |
-| `elem_tot` | Count of following records or related objects. | `1` |
-| `elements` | Field named in the demo/source header; trace the reader for exact units and storage. | `1` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `id` | Unique ID of the Routing Unit. | - | - | - | - | `1` | official GitBook |
+| `name` | Name of the Routing Unit. | - | - | - | - | `rtu001` | official GitBook |
+| `elem_tot` | Number of columns to read for list of elements in the Routing Unit. | - | - | - | - | `1` | official GitBook |
+| `elements` | First column listing elements in the Routing Unit. | - | - | - | - | `1` | official GitBook |
 
 ## Defaults And Conversions
 

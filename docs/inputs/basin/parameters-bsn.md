@@ -27,6 +27,14 @@ Examples:
 - `codes.bsn` chooses whether Green-Ampt runoff is active.
 - `parameters.bsn` gives numeric parameters used by hydrology, nutrients, erosion, routing, CO2, lapse rates, and other calculations.
 
+
+## Official SWAT+ Reference
+
+- Official page: [parameters.bsn](https://swatplus.gitbook.io/io-docs/introduction-1/basin-1/parameters.bsn).
+- Official index note: This file contains basin-level parameters.
+- Official field metadata available: 44 field row(s); matched to 43 of 44 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Reader Path
 
 ```text

@@ -15,6 +15,13 @@ tags: [inputs, reference, demo-context]
 
 Input file for climate; source slot atmo_cli.
 
+
+## Official SWAT+ Reference
+
+- Official page: [atmo.cli](https://swatplus.gitbook.io/io-docs/introduction-1/climate/atmo.cli).
+- Official index note: This file contains observed atmospheric deposition data.
+- Official field metadata available: 5 field row(s); matched to 0 of 0 observed demo header field(s).
+
 ## Role In SWAT+
 
 - Category: Climate.
@@ -32,7 +39,15 @@ Local demo evidence: the `Osu_1hru` scenario does not include a concrete `atmode
 
 ## Fields And Parameters
 
-No local demo header is available for this file. The page currently documents role, activation, and source inventory only; field names, units, and storage should be added after tracing the reader or adding an active demo file.
+No local demo header is available, but the official SWAT+ page provides field metadata. Demo value cells are therefore blank until an active scenario file is added.
+
+| Field | Meaning | Type | Unit | Default | Range |
+| --- | --- | --- | --- | --- | --- |
+| `num_sta` | Number of stations included in the file. | `integer` | - | - | - |
+| `timestep` | Time step of the atmospheric deposition data. | `integer` | - | - | - |
+| `mo_init` | First month data is available for (0 for yearly and average annual data). | `integer` | - | - | - |
+| `yr_init` | First year data is available for (0 for average annual data). | `integer` | - | - | - |
+| `num_aa` | Number of months or years data is available for. | `integer` | - | - | - |
 
 ## Defaults And Conversions
 

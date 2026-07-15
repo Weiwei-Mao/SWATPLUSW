@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Simulation dates, time step, and run period settings.
 
+
+## Official SWAT+ Reference
+
+- Official page: [time.sim](https://swatplus.gitbook.io/io-docs/introduction-1/simulation-settings/time.sim).
+- Official index note: This file controls the simulation time period and time step.
+- Official field metadata available: 5 field row(s); matched to 5 of 5 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Simulation.
@@ -37,15 +45,15 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/time.sim`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `day_start` | Julian day when the simulation starts. | `1` |
-| `yrc_start` | Calendar year when the simulation starts. | `2010` |
-| `day_end` | Julian day when the simulation ends. | `365` |
-| `yrc_end` | Calendar year when the simulation ends. | `2023` |
-| `step` | Simulation time-step control value read with the run period settings. | `0` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `day_start` | Beginning day of the simulation. | - | - | - | - | `1` | official GitBook |
+| `yrc_start` | Beginning year of the simulation. | - | - | - | - | `2010` | official GitBook |
+| `day_end` | Ending day of the simulation. | - | - | - | - | `365` | official GitBook |
+| `yrc_end` | Ending year of the simulation. | - | - | - | - | `2023` | official GitBook |
+| `step` | Time step of the simulation. | - | - | - | - | `0` | official GitBook |
 
 ## Defaults And Conversions
 

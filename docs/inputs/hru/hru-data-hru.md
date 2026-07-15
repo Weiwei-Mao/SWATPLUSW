@@ -15,6 +15,14 @@ tags: [inputs, reference, demo-context]
 
 Full HRU database file; links each HRU definition to land use, soil, hydrology, topography, snow, and field records.
 
+
+## Official SWAT+ Reference
+
+- Official page: [hru-data.hru](https://swatplus.gitbook.io/io-docs/introduction-1/hydrologic-response-units/hru-data.hru).
+- Official index note: This file contains pointers to several files that specify the HRU properties.
+- Official field metadata available: 10 field row(s); matched to 10 of 10 observed demo header field(s).
+- Demo cross-check: local header and first data row are still used below to show how this scenario instantiates the official format.
+
 ## Role In SWAT+
 
 - Category: Hru.
@@ -37,20 +45,20 @@ Local demo evidence from `VSProj/SWAT/Osu_1hru/hru-data.hru`:
 
 ## Fields And Parameters
 
-The table below is generated from the demo header. Meanings are practical working descriptions from the header name, local scenario context, and SWAT+ conventions; verify units and storage against the reader before citing them as final.
+The table merges the local demo header with official SWAT+ metadata when an official field definition is available. Rows marked `demo/source inferred` still need reader-level confirmation.
 
-| Field | Working meaning | Demo value |
-| --- | --- | --- |
-| `id` | Numeric record identifier. | `1` |
-| `name` | Record name used by other input files to reference this parameter set. | `hru0001` |
-| `topo` | Field named in the demo/source header; trace the reader for exact units and storage. | `topohru0001` |
-| `hydro` | Hydrology-related parameter or reference. | `hyd0001` |
-| `soil` | Soil-related parameter or record reference. | `PadHOEGOG` |
-| `lu_mgt` | Field named in the demo/source header; trace the reader for exact units and storage. | `rice140_lum` |
-| `soil_plant_init` | Initial value/state used at model startup. | `soilplant1` |
-| `surf_stor` | Field named in the demo/source header; trace the reader for exact units and storage. | `paddy0001` |
-| `snow` | Field named in the demo/source header; trace the reader for exact units and storage. | `snow001` |
-| `field` | Field named in the demo/source header; trace the reader for exact units and storage. | `null` |
+| Field | Meaning | Type | Unit | Default | Range | Demo value | Basis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `id` | ID of the HRU. | `integer` | - | - | - | `1` | official GitBook |
+| `name` | Name the of HRU. | `string` | - | - | - | `hru0001` | official GitBook |
+| `topo` | Pointer to the topography file. | `string` | - | - | - | `topohru0001` | official GitBook |
+| `hydro` | Pointer to the hydrology file. | `string` | - | - | - | `hyd0001` | official GitBook |
+| `soil` | Pointer to the soil file. | `string` | - | - | - | `PadHOEGOG` | official GitBook |
+| `lu_mgt` | Pointer to the land use and management file. | `string` | - | - | - | `rice140_lum` | official GitBook |
+| `soil_plant_init` | Pointer to the soil and plant initialization file. | `string` | - | - | - | `soilplant1` | official GitBook |
+| `surf_stor` | Pointer to the wetland file. | `string` | - | - | - | `paddy0001` | official GitBook |
+| `snow` | Pointer to the snow file. | `string` | - | - | - | `snow001` | official GitBook |
+| `field` | Pointer to the field file. | `string` | - | - | - | `null` | official GitBook |
 
 ## Defaults And Conversions
 
