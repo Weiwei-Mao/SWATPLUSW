@@ -6,7 +6,7 @@ This is the main entrance for understanding the SWAT+ code in this workspace. Re
 2. [`input-output.md`](input-output.md) - how scenario inputs move through readers, state, calculations, and outputs.
 3. [`input-files.md`](input-files.md) - the map of SWAT+ input files and links to detailed input references.
 
-Detailed per-input-file references live in [`inputs/`](inputs/). Broader conceptual notes live in [`topics/`](topics/). Raw live-debug notes live in [`internal/debug-inbox.md`](internal/debug-inbox.md).
+Per-input-file references and stubs live in [`inputs/`](inputs/). Broader conceptual notes live in [`topics/`](topics/). Raw live-debug notes live in [`internal/debug-inbox.md`](internal/debug-inbox.md).
 
 During live debugging, write raw step-by-step observations in [`internal/debug-inbox.md`](internal/debug-inbox.md). Codex can later read that inbox and promote stable understanding into the suitable guide or topic files.
 
@@ -18,7 +18,7 @@ During live debugging, write raw step-by-step observations in [`internal/debug-i
 | `model-structure.md` | Stable code/object/control-flow orientation. | Long input-file catalogs or raw debugger notes. |
 | `input-output.md` | End-to-end tracing method and current input/output knowledge map. | Complete per-file reference tables. |
 | `input-files.md` | Big map and classification of SWAT+ input files, including optional files. | Field-by-field details for one file. |
-| `inputs/*.md` | Detailed reference page for one SWAT+ input file. | Broad model concepts or multi-file debugging narratives. |
+| `inputs/*.md` | Detailed reference or stub page for one SWAT+ input file or file family. | Broad model concepts or multi-file debugging narratives. |
 | `topics/*.md` | Durable conceptual notes and scenario/workflow evidence for one focused topic. | Field-by-field input references or raw debugger notes. |
 | `internal/debug-inbox.md` | Raw live-debug observations waiting for promotion. | Stable documentation that readers should depend on. |
 
@@ -59,7 +59,7 @@ The important habit is to follow one value end to end. Do not infer behavior fro
 
 ## Required Reading Path
 
-Read these three files to get the major ideas without getting lost:
+Read these four files to get the major ideas without getting lost:
 
 1. This file.
 2. [`model-structure.md`](model-structure.md).
@@ -88,7 +88,7 @@ Use the topic notes only when you need detailed evidence, source paths, or unres
 
 - Keep this file as the single learning entrance.
 - Keep root [`README.md`](../README.md) short and focused on workspace setup.
-- Put detailed input-file references under [`inputs/`](inputs/).
+- Put detailed input-file references and explicit stubs under [`inputs/`](inputs/).
 - Put durable conceptual notes directly under [`topics/`](topics/).
 - Put live debugger observations in [`internal/debug-inbox.md`](internal/debug-inbox.md).
 - Keep one clear topic per note and include `status`, `source_revision`, and `scenario` metadata in substantive notes.

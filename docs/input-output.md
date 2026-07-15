@@ -3,7 +3,7 @@ title: SWAT+ input to output path
 kind: guide
 status: partial
 created: 2026-07-13
-updated: 2026-07-14
+updated: 2026-07-15
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
 scenario: Osu_1hru
 tags: [guide, inputs, outputs, tracing]
@@ -13,7 +13,7 @@ tags: [guide, inputs, outputs, tracing]
 
 This guide explains the learning path we use for SWAT+: start with a concrete scenario input, trace it through source and state, then connect it to watched values or output files.
 
-For the input-file map and per-file reference links, use [`input-files.md`](input-files.md). This guide stays focused on the tracing method and current evidence status.
+For the source-aligned input-file map and per-file reference or stub links, use [`input-files.md`](input-files.md). This guide stays focused on tracing how selected inputs move through readers, state, calculations, and outputs.
 
 ## The Practical Chain
 
@@ -46,7 +46,7 @@ The first scenario is [`VSProj/SWAT/Osu_1hru`](../VSProj/SWAT/Osu_1hru/). It is 
 | Object dispatch | `command` dispatches configured object types, including full HRUs through `hru_control`. | Verified orientation map; scenario-specific object sequence still needs tracing. |
 | Outputs | Output production and column-level mappings are not yet traced. | Not yet mapped. |
 
-## First Detailed Trace
+## Current Detailed Trace
 
 The active trace is `file.cio`:
 
@@ -62,7 +62,7 @@ The active trace is `file.cio`:
 - Scenario note: [`topics/osu-1hru-scenario.md`](topics/osu-1hru-scenario.md)
 - Related control map: [`topics/simulation-control-flow.md`](topics/simulation-control-flow.md)
 
-The next step is to read `readcio_read.f90` in full, identify the exact derived type and fields that receive filenames, then follow one filename such as `time.sim` into its own reader.
+The broader input inventory now lives in [`input-files.md`](input-files.md), with stub pages under [`inputs/`](inputs/) for files that have not been traced yet. The next detailed tracing target is to follow one selected filename such as [`time.sim`](inputs/time-sim.md) from `file.cio` into its own reader and storage fields.
 
 ## Output Caution
 
