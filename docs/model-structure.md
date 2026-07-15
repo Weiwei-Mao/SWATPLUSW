@@ -29,6 +29,50 @@ The maintained program entry is [`main.f90.in`](../SWATPLUS/swatplus/src/main.f9
 
 At startup, `main` writes the program banner to the console and `simulation.out`, opens `erosion.txt`, then calls `proc_bsn`, which begins the `file.cio` input-selection path.
 
+## Demo Structural Levels Figure
+
+This figure is a static level map for the [`Osu_1hru`](topics/osu-1hru-scenario.md) demo. It is not a procedure or call-order diagram; read it as "what level contains or configures what."
+
+```mermaid
+flowchart TB
+    L0["Level 0: Code and run target<br/>main.f90.in -> generated main.f90"]
+    L1["Level 1: Demo scenario folder<br/>VSProj/SWAT/Osu_1hru"]
+    L2["Level 2: Core run controls<br/>file.cio, time.sim, print.prt,<br/>object.cnt, codes.bsn, parameters.bsn"]
+
+    subgraph L3["Level 3: Scenario input families"]
+        C1["Climate<br/>weather-sta.cli, pcp.cli, tmp.cli,<br/>slr.cli, wnd.cli, time-series files"]
+        C2["Connectivity and routing<br/>hru.con, rout_unit.con, aquifer.con,<br/>recall.con, chandeg.con"]
+        C3["Spatial objects<br/>hru-data.hru, rout_unit.*, channel-lte.cha,<br/>aquifer.aqu, wetland.wet, recall.rec"]
+        C4["Physical parameters<br/>soils.sol, hydrology.hyd, topography.hyd,<br/>plants.plt, fertilizer.frt, tillage.til"]
+        C5["Management and conditions<br/>landuse.lum, management.sch, operations,<br/>plant.ini, soil_plant.ini, initial.*"]
+    end
+
+    subgraph L4["Level 4: Runtime object graph"]
+        R1["Landscape side<br/>routing unit -> HRU -> soil/plant state"]
+        R2["Water side<br/>channel, reservoir, wetland,<br/>aquifer, recall objects"]
+        R3["Network side<br/>receivers, fractions,<br/>object order, output requests"]
+    end
+
+    L5["Level 5: Reported results<br/>requested output tables and runtime logs"]
+
+    L0 --> L1 --> L2
+    L2 --> C1
+    L2 --> C2
+    L2 --> C3
+    L2 --> C4
+    L2 --> C5
+    C2 --> R3
+    C3 --> R1
+    C3 --> R2
+    C4 --> R1
+    C5 --> R1
+    R1 --> L5
+    R2 --> L5
+    R3 --> L5
+```
+
+Use this hierarchy when you need to decide whether a file defines the whole run, selects an input family, defines an object, supplies parameters for an object, initializes state, or controls reported results.
+
 ## Demo Procedure Diagram
 
 Use this procedure for the small [`Osu_1hru`](topics/osu-1hru-scenario.md) demo when learning the runtime structure in the Visual Studio debugger.
