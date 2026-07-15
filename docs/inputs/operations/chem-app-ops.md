@@ -56,4 +56,4 @@ Active in `Osu_1hru` through `file.cio`.
 ## Related Files
 
 - [SWAT+ input files map](../../input-files.md)
-- [SWAT+ input to output path](../../tracing-guide.md)
+- [SWAT+ tracing guide](../../tracing-guide.md)

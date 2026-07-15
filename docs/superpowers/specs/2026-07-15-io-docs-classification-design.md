@@ -18,7 +18,7 @@ Refine the SWAT+ documentation structure so readers can quickly answer:
 - where output-file knowledge belongs;
 - how to trace one value from input through runtime state to output.
 
-The current `docs/input-files.md` maps 170 input entries and every entry has a `docs/inputs/*.md` page. That is the right coverage level, but the flat `docs/inputs/` folder is too large, and the usage classes are not explicit enough. The current `docs/input-output.md` is also a tracing guide, not an output-file catalog.
+The current `docs/input-files.md` maps 170 input entries and every entry has a `docs/inputs/*.md` page. That is the right coverage level, but the flat `docs/inputs/` folder is too large, and the usage classes are not explicit enough. The tracing guide is also not an output-file catalog.
 
 ## External Reference Basis
 
@@ -89,7 +89,7 @@ docs/
 
 `docs/outputs/**/<file>.md` can be added incrementally for output files once output writers and units are traced. Do not generate hundreds of output stubs until there is a stable output inventory.
 
-`docs/tracing-guide.md` is the renamed `input-output.md`. It explains the chain from input to reader to storage to calculations to output. It should link to both `input-files.md` and `output-files.md`.
+`docs/tracing-guide.md` explains the chain from input to reader to storage to calculations to output. It should link to both `input-files.md` and `output-files.md`.
 
 `docs/topics/*.md` remains for conceptual notes, scenario notes, external-source notes, and workflow-specific observations.
 
@@ -159,15 +159,15 @@ Do not fully populate `docs/outputs/` yet. Output documentation should be eviden
 
 ## Migration Plan
 
-1. Rename `docs/input-output.md` to `docs/tracing-guide.md`.
-2. Update all links from `input-output.md` to `tracing-guide.md`.
+1. Use `docs/tracing-guide.md` as the input-to-output tracing guide.
+2. Update all live links to point to `tracing-guide.md`.
 3. Add `docs/output-files.md`.
 4. Create input category subfolders.
 5. Move every `docs/inputs/*.md` page into its category folder.
 6. Rewrite links in `docs/input-files.md` to the new paths.
 7. Rewrite links inside moved input pages back to `../../input-files.md` and `../../tracing-guide.md`.
 8. Update `docs/README.md` document boundaries and reading path.
-9. Validate there are no stale links to `input-output.md` or old flat `docs/inputs/*.md` paths.
+9. Validate there are no stale links to the old tracing-guide name or old flat `docs/inputs/*.md` paths.
 
 ## Validation
 
@@ -176,7 +176,7 @@ After implementation:
 - `docs/input-files.md` should reference every input page.
 - Every `docs/inputs/**/*.md` page should be referenced by `docs/input-files.md`.
 - Markdown relative-link existence check should pass.
-- `rg "input-output.md" docs` should find no live links, except historical design specs if intentionally excluded from link checks.
+- A repository scan for the old tracing-guide filename should find no live links.
 - `rg "docs/inputs/[A-Za-z0-9_-]+\\.md|\\]\\(inputs/[A-Za-z0-9_-]+\\.md\\)" docs` should find no stale flat input-page links outside historical specs.
 - `git status --short` should show only intended docs changes plus the existing unrelated `VSProj/SWAT/Osu_1hru/recall_db.rec` untracked artifact.
 

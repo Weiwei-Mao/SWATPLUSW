@@ -18,7 +18,11 @@ This file applies to the workspace root that contains this `AGENTS.md`.
 | `VSProj/SWAT/x64/` | Compiler and linker output | Generated artifacts; do not edit. |
 | `docs/README.md` | Main learning entrance | Keep concise and reader-facing. |
 | `docs/model-structure.md` | Code-structure guide | Keep as the current orientation map. |
-| `docs/input-output.md` | Input/output tracing guide | Keep as the current tracing map. |
+| `docs/tracing-guide.md` | Input-to-output tracing guide | Keep as the current tracing map. |
+| `docs/input-files.md` | SWAT+ input-file reference map | Keep as the big map for active, optional, indirect, and scenario-local input status. |
+| `docs/output-files.md` | SWAT+ output-file reference map | Keep focused on output controls, output classes, and writer evidence requirements. |
+| `docs/inputs/` | Per-input-file reference pages | One page per SWAT+ input file or file family, grouped by category. |
+| `docs/outputs/` | Per-output-file reference pages | Add pages only after writer routines, units, and reset timing are traced. |
 | `docs/topics/` | Detailed technical notes | Store durable topic evidence here. |
 | `docs/internal/debug-inbox.md` | Raw debugger observations | Working inbox for step-by-step notes before promotion into guides or topics. |
 
@@ -96,10 +100,10 @@ The current `SWAT.vfproj` records multi-processor compilation and preprocessing 
 
 Use `docs/README.md` as the single reader entrance.
 
-1. Put stable orientation in `docs/model-structure.md` or `docs/input-output.md`.
+1. Put stable orientation in `docs/model-structure.md`, input-to-output traces in `docs/tracing-guide.md`, input inventory in `docs/input-files.md`, and output inventory in `docs/output-files.md`.
 2. Put detailed technical evidence in one topic note under `docs/topics/`.
 3. Put raw live-debug observations in `docs/internal/debug-inbox.md`.
-4. Do not add category README files unless the documentation grows enough to justify a new approved structure.
+4. Do not add per-category README files under `docs/inputs/` or `docs/outputs/` unless the documentation grows enough to justify a new approved structure.
 5. Keep root `README.md` short: purpose, workspace map, setup, and essential rules.
 
 Substantive notes must state `status`, `source_revision`, and `scenario`. Use `verified`, `partial`, `hypothesis`, or `superseded` consistently.

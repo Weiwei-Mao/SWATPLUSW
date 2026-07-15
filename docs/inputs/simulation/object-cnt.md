@@ -107,7 +107,7 @@ HRU 1
 
 ### `ihru`
 
-`ihru` is not a separate object type. It is a Fortran index variable meaning â€œcurrent HRU number.â€ In `command.f90`, when the active object is a full HRU, the code sets:
+`ihru` is not a separate object type. It is a Fortran index variable meaning Ã¢â‚¬Å“current HRU number.Ã¢â‚¬Â In `command.f90`, when the active object is a full HRU, the code sets:
 
 ```fortran
 ihru = ob(icmd)%num
@@ -212,4 +212,4 @@ When stepping through `command.f90`, first identify `ob(icmd)%typ`. That tells y
 - [`file.cio` master input file](file-cio.md)
 - [`codes.bsn` basin control codes](../basin/codes-bsn.md)
 - [Alternative object representations](../../topics/alternative-object-representations.md)
-- [Input to output path](../../tracing-guide.md)
+- [Tracing guide](../../tracing-guide.md)

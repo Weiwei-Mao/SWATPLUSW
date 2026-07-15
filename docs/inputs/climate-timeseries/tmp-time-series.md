@@ -56,4 +56,4 @@ Reached indirectly through climate manifest files when those manifests name matc
 ## Related Files
 
 - [SWAT+ input files map](../../input-files.md)
-- [SWAT+ input to output path](../../tracing-guide.md)
+- [SWAT+ tracing guide](../../tracing-guide.md)

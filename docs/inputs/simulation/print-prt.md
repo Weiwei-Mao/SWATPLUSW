@@ -234,4 +234,4 @@ Useful breakpoints:
 - [`file.cio` master input file](file-cio.md)
 - [`codes.bsn` basin control codes](../basin/codes-bsn.md)
 - [`parameters.bsn` basin parameters](../basin/parameters-bsn.md)
-- [Input to output path](../../tracing-guide.md)
+- [Tracing guide](../../tracing-guide.md)

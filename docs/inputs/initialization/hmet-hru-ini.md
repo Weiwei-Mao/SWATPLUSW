@@ -56,4 +56,4 @@ Not selected by the current `Osu_1hru` `file.cio`; treat as optional or source-d
 ## Related Files
 
 - [SWAT+ input files map](../../input-files.md)
-- [SWAT+ input to output path](../../tracing-guide.md)
+- [SWAT+ tracing guide](../../tracing-guide.md)

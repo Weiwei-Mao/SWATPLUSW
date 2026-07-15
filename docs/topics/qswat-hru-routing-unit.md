@@ -3,7 +3,7 @@ title: QSWAT+ HRU and routing-unit relationship
 kind: knowledge
 status: partial
 created: 2026-07-13
-updated: 2026-07-13
+updated: 2026-07-15
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
 scenario: Robin
 tags: [qswat, hru, routing-unit, connections, gis-routing]
@@ -284,4 +284,4 @@ They are not required by the Fortran engine to contain exactly one HRU.
 ## Related Notes
 
 - [`object.cnt` and SWAT+ object concepts](../inputs/simulation/object-cnt.md)
-- [Input to output path](../tracing-guide.md)
+- [Tracing guide](../tracing-guide.md)

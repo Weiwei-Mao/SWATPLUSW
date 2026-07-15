@@ -43,5 +43,7 @@ desktop.ini
 /VSProj/SWAT/erosion.txt
 /VSProj/SWAT/Osu_1hru/*.out
 /VSProj/SWAT/Osu_1hru/cs_*.ini
+# Local zero-byte debug artifact documented in docs/input-files.md.
+/VSProj/SWAT/Osu_1hru/recall_db.rec
 # Existing sample outputs in other scenarios may stay tracked as fixtures.
 # Do not add new run outputs unless they are intentionally curated examples.

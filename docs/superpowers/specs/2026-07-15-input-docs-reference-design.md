@@ -1,8 +1,9 @@
 ---
 title: Input documentation reference structure
-status: approved-for-design
+status: superseded
 created: 2026-07-15
 scope: docs
+superseded_by: 2026-07-15-io-docs-classification-design.md
 ---
 
 # Input Documentation Reference Structure
@@ -19,7 +20,7 @@ The current `docs/topics/` folder mixes conceptual notes, scenario notes, setup 
 docs/
   README.md
   model-structure.md
-  input-output.md
+  tracing-guide.md
   input-files.md
   inputs/
     file-cio.md
@@ -47,7 +48,7 @@ docs/
 
 `docs/topics/*.md` remains for concepts and workflows that are not single input-file references, such as control flow, model architecture, QSWAT generation behavior, build setup, and scenario-specific debugging notes.
 
-`docs/input-output.md` remains the tracing guide. It should link to `docs/input-files.md` for the catalog and to specific `docs/inputs/*.md` pages when a traced input file is discussed.
+`docs/tracing-guide.md` remains the tracing guide. It should link to `docs/input-files.md` for the catalog and to specific `docs/inputs/*.md` pages when a traced input file is discussed.
 
 ## Per-Input Page Template
 
@@ -134,7 +135,7 @@ The map should include optional files even when they are not active in `Osu_1hru
    - `topics/object-cnt.md` to `inputs/object-cnt.md`
    - `topics/om-water-ini.md` to `inputs/om-water-ini.md`
 3. Promote `topics/input-files-catalog.md` into `docs/input-files.md` and expand its role from scenario catalog to full input-file map.
-4. Update links in `docs/README.md`, `docs/input-output.md`, and migrated files.
+4. Update links in `docs/README.md`, `docs/tracing-guide.md`, and migrated files.
 5. Leave scenario-specific and conceptual files in `docs/topics/`.
 6. Add stub pages only when they improve navigation. Stubs must be explicit about their status and avoid pretending untraced fields are known.
 

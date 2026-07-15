@@ -174,4 +174,4 @@ Useful breakpoints:
 - [CO2 and carbon input readers](../../topics/co2-carbon-inputs.md)
 - [`object.cnt` and object concepts](../simulation/object-cnt.md)
 - [`file.cio` master input file](../simulation/file-cio.md)
-- [Input to output path](../../tracing-guide.md)
+- [Tracing guide](../../tracing-guide.md)

@@ -3,7 +3,7 @@ title: CO2 and carbon input readers
 kind: knowledge
 status: partial
 created: 2026-07-13
-updated: 2026-07-13
+updated: 2026-07-15
 source_revision: cb442f7c05fc3bfc34349c446010f452d2737ca0
 scenario: Osu_1hru
 tags: [inputs, basin, co2, carbon]
@@ -185,4 +185,4 @@ Useful breakpoints:
 - [`codes.bsn` basin control codes](../inputs/basin/codes-bsn.md)
 - [`parameters.bsn` basin parameters](../inputs/basin/parameters-bsn.md)
 - [`print.prt` output controls](../inputs/simulation/print-prt.md)
-- [Input to output path](../tracing-guide.md)
+- [Tracing guide](../tracing-guide.md)
