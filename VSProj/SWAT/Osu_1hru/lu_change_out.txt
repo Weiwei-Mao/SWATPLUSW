@@ -1,0 +1,2 @@
+ Osu                       SWAT+ 2026-07-13        MODULAR Rev 2026.cb442f7c05fc3bfc34349c446010f452d2737c
+          hru       year         mon         day     operation   lu_before         lu_after
