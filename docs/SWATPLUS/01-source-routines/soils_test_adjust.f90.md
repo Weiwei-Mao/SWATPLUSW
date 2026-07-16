@@ -1,0 +1,43 @@
+---
+type: source
+subtype: subroutine
+tags:
+  - swat/source
+  - swat/to-read
+file: soils_test_adjust.f90
+note_file: soils_test_adjust.f90
+subroutine: soils_test_adjust
+module:
+  - soil_module
+  - soil_data_module
+calls: []
+reads: []
+writes: []
+purpose: ""
+---
+
+# soils_test_adjust
+
+> [!info] Summary
+> TBD
+
+## Basic Information
+- **Type**: `subroutine`
+- **Source file**: `soils_test_adjust.f90`
+- **Modules used**: [[soil_module.f90]], [[soil_data_module.f90]]
+- **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
+
+## Call Relationships
+(No call statements; leaf node.)
+
+**Called by** (live Dataview back-query):
+
+```dataview
+LIST file.link
+WHERE type = "source" AND contains(calls, this.subroutine)
+```
+
+<!-- USER-NOTES-START -->
+## Notes
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+<!-- USER-NOTES-END -->

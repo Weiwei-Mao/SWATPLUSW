@@ -1,144 +1,157 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-gen_swat_notes.py — 扫描本地 SWAT+ 源码，生成 Obsidian 笔记框架。
+Generate the SWAT+ source-study note skeleton.
 
-设计要点（见 00-总览与索引/00-SWATPLUS总览.md）：
-- 按类型分子目录：01-源码程序 / 02-模块与变量 / 03-输入文件 / 04-输出文件
-- 文件名 = 源文件名 + .md（去掉执行序号前缀）
-- frontmatter 丰富结构化：type/tags/file/subroutine/module/calls/reads/writes
-- 调用图反向查询交给 dataview 实时计算（不在 frontmatter 里存 called_by）
-
-重跑安全：已存在的笔记会保留正文（frontmatter 之后的内容），只更新结构化部分，
-已迁移的手写注解不会丢。重跑前如想全量刷新，删除对应 .md 即可。
+The generator scans the repository-local SWAT+ Fortran source and writes an
+English Obsidian-style note tree under docs/SWATPLUS. Existing content between
+USER-NOTES markers is preserved across reruns.
 """
+from __future__ import annotations
+
 import os
 import re
-import glob
 from collections import defaultdict
+from pathlib import Path
 
-# ----------------------------------------------------------------------------
-# 路径配置（含中文，硬编码避免 shell 转义问题）
-# ----------------------------------------------------------------------------
-SRC = r"D:\Acode\SWATPLUS\SWATPLUS\swatplus\src"
-DEST = r"D:\NoteBook\Obsdian\Obsidian-Vault\10-19 科研\00-课题\14 - SWAT\SWATPLUS"
 
-SRC_DIR = os.path.join(DEST, "01-源码程序")   # program + subroutine
-MOD_DIR = os.path.join(DEST, "02-模块与变量")  # *_module.f90
-IN_DIR  = os.path.join(DEST, "03-输入文件")    # file.cio / *.bsn / *.hru ...
-OUT_DIR = os.path.join(DEST, "04-输出文件")    # *.out / *.txt
-IDX_DIR = os.path.join(DEST, "00-总览与索引")
+SCRIPT_DIR = Path(__file__).resolve().parent
+DOCS_DIR = SCRIPT_DIR.parent
+REPO_ROOT = DOCS_DIR.parent
 
-# dataview FROM / dv.pages 用：库根相对路径（含空格/中文，dataview 需用引号包裹）
-BASE = "10-19 科研/00-课题/14 - SWAT/SWATPLUS"
+SRC = Path(os.environ.get("SWATPLUS_SRC", REPO_ROOT / "SWATPLUS" / "swatplus" / "src"))
+DEST = Path(os.environ.get("SWAT_NOTES_DEST", DOCS_DIR / "SWATPLUS"))
 
-# 迁移自旧笔记的手写注解种子（仅首次生成时填入「我的笔记」区，之后由用户维护）
-# key = 源文件名（r['fname']，含 .f90）
+# Dataview paths are relative to the Obsidian vault root. Override this when the
+# vault root is not the repository root.
+BASE = os.environ.get("SWAT_NOTES_BASE", "docs/SWATPLUS")
+
+SRC_DIR = DEST / "01-source-routines"
+MOD_DIR = DEST / "02-modules-and-variables"
+IN_DIR = DEST / "03-input-files"
+OUT_DIR = DEST / "04-output-files"
+IDX_DIR = DEST / "00-overview-and-index"
+
+
 SEED_SOURCE = {
-    'main.f90': (
-        '- Line 30: 打开文件 `simulation.out`（unit 9003）\n'
-        '- Line 38: 打开文件 `erosion.txt`（unit 888, recl 1500）\n'
-        '- 调用入口 [[proc_bsn.f90]]'
+    "main.f90": (
+        "- Line 30: Opens `simulation.out` (unit 9003)\n"
+        "- Line 38: Opens `erosion.txt` (unit 888, recl 1500)\n"
+        "- Entry call: [[proc_bsn.f90]]"
     ),
-    'proc_bsn.f90': (
-        '- use: `time_module`, `output_path_module`\n'
-        '- Line 12: call [[readcio_read.f90]]\n'
+    "proc_bsn.f90": (
+        "- use: `time_module`, `output_path_module`\n"
+        "- Line 12: call [[readcio_read.f90]]\n"
         '- Line 15: call `open_output_file(9000, "files_out.out")`\n'
-        '- Line 18: call `open_output_file(9001, "diagnostics.out", 8000)` —— unit 9001, recl 8000\n'
-        '- Line 21: call `open_output_file(9004, "area_calc.out", 80000)` —— unit 9004, recl 80000\n'
-        '- Line 23: call [[basin_read_cc.f90]]'
+        '- Line 18: call `open_output_file(9001, "diagnostics.out", 8000)` - unit 9001, recl 8000\n'
+        '- Line 21: call `open_output_file(9004, "area_calc.out", 80000)` - unit 9004, recl 80000\n'
+        "- Line 23: call [[basin_read_cc.f90]]"
     ),
-    'basin_read_cc.f90': (
-        '- use: `input_file_module`, [[basin_module.f90]]\n'
-        '- Line 13–28: 从 `codes.bsn` 读取 `bsn_cc`（basin control codes）\n'
-        '- Line 30–40: 若 `bsn_cc%pet == 3`（输入潜在蒸散发），则检查输入文件 `pet.cli` 是否存在'
+    "basin_read_cc.f90": (
+        "- use: `input_file_module`, [[basin_module.f90]]\n"
+        "- Lines 13-28: Reads `bsn_cc` from `codes.bsn` (basin control codes)\n"
+        "- Lines 30-40: If `bsn_cc%pet == 3` (input potential evapotranspiration), checks whether `pet.cli` exists"
     ),
-    'readcio_read.f90': (
-        '- use: `input_file_module`, `output_path_module`\n'
-        '- Line 17–109: 读取 [[file.cio]]\n'
-        '- Line 112: file.cio 第 32 行为输出路径；若有效则初始化输出路径（校验并按需创建目录）'
+    "readcio_read.f90": (
+        "- use: `input_file_module`, `output_path_module`\n"
+        "- Lines 17-109: Reads [[file.cio]]\n"
+        "- Line 112: line 32 of file.cio is the output path; if valid, initializes the output path by validating and creating directories as needed"
     ),
 }
 
-# ----------------------------------------------------------------------------
-# 正则
-# ----------------------------------------------------------------------------
-RE_PROGRAM  = re.compile(r'^\s*program\s+([a-z0-9_]+)', re.I)
-RE_MODULE   = re.compile(r'^\s*module\s+([a-z0-9_]+)\s*$', re.I)   # 模块定义（排除 module procedure）
-RE_SUBROUT  = re.compile(r'^\s*(?:recursive\s+|pure\s+|elemental\s+)*subroutine\s+([a-z0-9_]+)', re.I)
-RE_USE      = re.compile(r'^\s*use\s+([a-z0-9_]+)', re.I)
-RE_CALL     = re.compile(r'\bcall\s+([a-z0-9_]+)', re.I)
-RE_OPEN     = re.compile(r'\bopen\s*\(([^)]*)\)', re.I)
-RE_FILEARG  = re.compile(r'\bfile\s*=\s*([^,)]+)', re.I)
-RE_UNITARG  = re.compile(r'(?:^|,)\s*(?:unit\s*=\s*)?(\d+)\b')
-RE_TYPEDEF  = re.compile(r'^\s*type\s+(?!.*\()\s*([a-z0-9_]+)', re.I)          # type foo  （定义）
-RE_TYPEVAR  = re.compile(r'^\s*type\s*\(\s*([a-z0-9_]+)\s*\)\s*::\s*([a-z0-9_,\s]+)', re.I)  # type(t) :: 实例
-RE_SCALAR   = re.compile(r'^\s*(?:real|integer|logical|character[^:!]*)::\s*([a-z0-9_,\s]+)', re.I)
-RE_WRITE_U  = re.compile(r'\bwrite\s*\(\s*(\d+)\s*,', re.I)
-RE_READ_U   = re.compile(r'\bread\s*\(\s*(\d+)\s*,', re.I)
+
+RE_PROGRAM = re.compile(r"^\s*program\s+([a-z0-9_]+)", re.I)
+RE_MODULE = re.compile(r"^\s*module\s+([a-z0-9_]+)\s*$", re.I)
+RE_SUBROUT = re.compile(r"^\s*(?:recursive\s+|pure\s+|elemental\s+)*subroutine\s+([a-z0-9_]+)", re.I)
+RE_USE = re.compile(r"^\s*use\s+([a-z0-9_]+)", re.I)
+RE_CALL = re.compile(r"\bcall\s+([a-z0-9_]+)", re.I)
+RE_OPEN = re.compile(r"\bopen\s*\(([^)]*)\)", re.I)
+RE_FILEARG = re.compile(r"\bfile\s*=\s*([^,)]+)", re.I)
+RE_UNITARG = re.compile(r"(?:^|,)\s*(?:unit\s*=\s*)?(\d+)\b")
+RE_TYPEDEF = re.compile(r"^\s*type\s+(?!.*\()\s*([a-z0-9_]+)", re.I)
+RE_TYPEVAR = re.compile(r"^\s*type\s*\(\s*([a-z0-9_]+)\s*\)\s*::\s*([a-z0-9_,\s]+)", re.I)
+RE_SCALAR = re.compile(r"^\s*(?:real|integer|logical|character[^:!]*)::\s*([a-z0-9_,\s]+)", re.I)
+RE_WRITE_U = re.compile(r"\bwrite\s*\(\s*(\d+)\s*,", re.I)
+RE_READ_U = re.compile(r"\bread\s*\(\s*(\d+)\s*,", re.I)
 
 
-def strip_comment(line):
-    """去掉 Fortran 行内注释（! 之后）。字符串里的 ! 极少，可接受。"""
-    idx = line.find('!')
+NEW_BOILERPLATE = {
+    "## Notes",
+    "Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.",
+    "Use this section for type and variable meanings, units, and allowed values. This section is preserved when the generator is rerun.",
+}
+
+BOILERPLATE = NEW_BOILERPLATE
+
+
+def strip_comment(line: str) -> str:
+    idx = line.find("!")
     return line[:idx] if idx >= 0 else line
 
 
-def clean_target(raw):
-    """清理 open 的 file= 参数：去引号、去首尾空格。"""
-    t = raw.strip().strip().strip("'\"").strip()
-    return t
+def clean_target(raw: str) -> str:
+    return raw.strip().strip("'\"").strip()
 
 
-def is_literal_file(target):
-    """判断 target 是字面文件名还是变量/表达式。"""
+def is_literal_file(target: str) -> bool:
     t = target.strip()
     if t.startswith("'") or t.startswith('"'):
         return True
-    # 含 % 或 // 或 纯标识符（无点）视为变量/表达式
-    if '%' in t or '//' in t:
+    if "%" in t or "//" in t:
         return False
-    if '.' in t:
+    if "." in t:
         return True
-    return False  # 无点的标识符 -> 变量
+    return False
 
 
-def parse_source(path):
-    """解析单个 .f90，返回结构化字典。"""
-    with open(path, encoding='utf-8', errors='replace') as f:
-        text = f.read()
+def source_files() -> list[Path]:
+    files = sorted(SRC.glob("*.f90"))
+    main_template = SRC / "main.f90.in"
+    if main_template.exists() and not (SRC / "main.f90").exists():
+        files.append(main_template)
+    return sorted(files, key=lambda p: p.name.lower())
+
+
+def note_names(path: Path) -> tuple[str, str, str]:
+    fname = path.name
+    if fname.endswith(".f90.in"):
+        note_file = fname[:-3]
+        stem = note_file[:-4]
+    else:
+        note_file = fname
+        stem = fname[:-4]
+    return fname, note_file, stem
+
+
+def parse_source(path: Path) -> dict:
+    text = path.read_text(encoding="utf-8", errors="replace")
     raw_lines = text.splitlines()
     lines = [strip_comment(ln) for ln in raw_lines]
 
-    fname = os.path.basename(path)
-    stem = fname[:-4]
+    fname, note_file, stem = note_names(path)
 
-    # 1) 判定类型 + 主名
-    kind = 'subroutine'
+    kind = "subroutine"
     name = stem
-    module_end_contains = None
     for ln in lines:
         m = RE_PROGRAM.match(ln)
         if m:
-            kind, name = 'program', m.group(1)
+            kind, name = "program", m.group(1)
             break
         m = RE_MODULE.match(ln)
-        if m and 'procedure' not in ln.lower():
-            kind, name = 'module', m.group(1)
+        if m and "procedure" not in ln.lower():
+            kind, name = "module", m.group(1)
             break
         m = RE_SUBROUT.match(ln)
         if m:
-            kind, name = 'subroutine', m.group(1)
+            kind, name = "subroutine", m.group(1)
             break
 
-    # 2) 收集 use / call / open / type
     uses, calls, opens = [], [], []
     types, typevars, scalars = [], [], []
-    in_module_scope = (kind == 'module')
+    in_module_scope = kind == "module"
 
     for ln in lines:
-        stripped = ln.strip()
-        if not stripped:
+        if not ln.strip():
             continue
 
         m = RE_USE.match(ln)
@@ -159,12 +172,11 @@ def parse_source(path):
             um = RE_UNITARG.search(inner)
             if fm:
                 target = clean_target(fm.group(1))
-                unit = um.group(1) if um else ''
+                unit = um.group(1) if um else ""
                 opens.append((unit, target))
 
-        # 模块级类型/变量（仅在 module 作用域、contains 之前）
         if in_module_scope:
-            if re.match(r'^\s*contains\b', ln, re.I):
+            if re.match(r"^\s*contains\b", ln, re.I):
                 in_module_scope = False
             else:
                 tm = RE_TYPEDEF.match(ln)
@@ -172,18 +184,17 @@ def parse_source(path):
                     types.append(tm.group(1))
                 tvm = RE_TYPEVAR.match(ln)
                 if tvm:
-                    for v in re.split(r'[,\s]+', tvm.group(2).strip()):
+                    for v in re.split(r"[,\s]+", tvm.group(2).strip()):
                         v = v.strip()
                         if v and v.lower() not in [x.lower() for x in typevars]:
                             typevars.append(v)
                 sm = RE_SCALAR.match(ln)
                 if sm:
-                    for v in re.split(r'[,\s]+', sm.group(1).strip()):
-                        v = v.strip().split('=')[0].strip()
+                    for v in re.split(r"[,\s]+", sm.group(1).strip()):
+                        v = v.strip().split("=")[0].strip()
                         if v and v.lower() not in [x.lower() for x in scalars]:
                             scalars.append(v)
 
-    # 3) read/write 分类（按 unit 是否出现在 write()/read()）
     write_units = set(RE_WRITE_U.findall(text))
     read_units = set(RE_READ_U.findall(text))
     writes, reads = [], []
@@ -196,353 +207,323 @@ def parse_source(path):
             reads.append(target)
         elif u in write_units:
             writes.append(target)
+        elif literal and re.search(r"\.(out|txt|csv|prt|fin)$", target, re.I):
+            writes.append(target)
         else:
-            # 未知 unit：按扩展名兜底
-            if literal and re.search(r'\.(out|txt|csv|prt)$', target, re.I):
-                writes.append(target)
-            else:
-                reads.append(target)
-
-    # 4) 概要：取首个 !! 文档块（SWAT+ 用 !! 标注 PURPOSE，通常紧跟声明之后）
-    leading_comments = _extract_desc(raw_lines)
+            reads.append(target)
 
     return {
-        'path': path, 'fname': fname, 'stem': stem,
-        'kind': kind, 'name': name,
-        'uses': uses, 'calls': calls,
-        'opens': opens, 'writes': writes, 'reads': reads,
-        'types': types, 'typevars': typevars, 'scalars': scalars,
-        'desc': leading_comments,
+        "path": path,
+        "fname": fname,
+        "note_file": note_file,
+        "stem": stem,
+        "kind": kind,
+        "name": name,
+        "uses": uses,
+        "calls": calls,
+        "opens": opens,
+        "writes": writes,
+        "reads": reads,
+        "types": types,
+        "typevars": typevars,
+        "scalars": scalars,
+        "desc": extract_desc(raw_lines),
     }
 
 
-def _extract_desc(raw_lines, max_lines=3, scan=120):
-    """提取 `~ ~ ~ PURPOSE ~ ~ ~` 装饰行之后的 !! 文档作为概要。
-
-    SWAT+ 约定：文档块以 `!! ~ ~ ~ PURPOSE ~ ~ ~` 开头，其后几行是真正的用途说明。
-    找不到 PURPOSE 标记则返回 []（宁可留空，也不把变量文档当概要）。
-    """
+def extract_desc(raw_lines: list[str], max_lines: int = 3, scan: int = 120) -> list[str]:
     desc, collecting = [], False
     for ln in raw_lines[:scan]:
         s = ln.strip()
-        if s.startswith('!!'):
+        if s.startswith("!!"):
             c = s[2:].strip()
-            if c.startswith('~') and c.endswith('~') and 'PURPOSE' in c.upper():
+            if c.startswith("~") and c.endswith("~") and "PURPOSE" in c.upper():
                 collecting = True
                 continue
             if collecting:
-                if c.startswith('~') and c.endswith('~'):
-                    break  # 遇到下一个段落装饰（VARIABLES 等），结束
+                if c.startswith("~") and c.endswith("~"):
+                    break
                 if c:
                     desc.append(c)
                     if len(desc) >= max_lines:
                         break
-        elif collecting and s and not s.startswith('!'):
+        elif collecting and s and not s.startswith("!"):
             break
     return desc[:max_lines]
 
 
-# ----------------------------------------------------------------------------
-# 渲染辅助
-# ----------------------------------------------------------------------------
-def yaml_list(items, indent='  '):
-    """渲染 YAML 列表；空则 ' []'（前置空格，避免 key:[] 被解析成字符串）。"""
+def yaml_list(items: list[str], indent: str = "  ") -> str:
     items = [i for i in items if i]
     if not items:
-        return ' []'
-    return '\n' + '\n'.join(f'{indent}- {i}' for i in items)
+        return " []"
+    return "\n" + "\n".join(f"{indent}- {i}" for i in items)
 
 
-def yaml_str(s):
-    """安全地把字符串渲染为 YAML 双引号字符串。"""
-    s = (s or '').replace('\\', '\\\\').replace('"', '\\"')
-    s = ' '.join(s.split())   # 折叠空白/换行，避免 frontmatter 里出现裸换行
+def yaml_str(s: str) -> str:
+    s = (s or "").replace("\\", "\\\\").replace('"', '\\"')
+    s = " ".join(s.split())
     return f'"{s}"'
 
 
-def linkify_call(name, stems):
-    """call 目标 -> wikilink 或 code。stems 是不含 .f90 的文件名集合。"""
+def linkify_call(name: str, stems: set[str]) -> str:
     if name in stems:
-        return f'[[{name}.f90]]'
-    return f'`{name}`'
+        return f"[[{name}.f90]]"
+    return f"`{name}`"
 
 
-def linkify_module(mod, mod_stems):
-    """use 模块 -> wikilink（指向 02-模块与变量 中的 _module.f90）。"""
+def linkify_module(mod: str, mod_stems: set[str]) -> str:
     if mod in mod_stems:
-        return f'[[{mod}.f90]]'
-    return f'`{mod}`'
+        return f"[[{mod}.f90]]"
+    return f"`{mod}`"
 
 
-# 脚本自己写进「我的笔记」区的样板行；preserve 时剔除，保证重跑幂等
-_BOILERPLATE = {
-    '## 我的笔记',
-    '（在此自由记录：逐行注解、关键变量、个人理解。重跑生成脚本时本段会被保留。）',
-    '（在此记录类型/变量的含义、单位、取值。重跑生成脚本时本段会被保留。）',
-}
+def translate_preserved_note(text: str) -> str:
+    return text
 
 
-def preserve_user_body(target_path):
-    """提取已存在笔记中 USER-NOTES 标记之间的【用户手写】内容（重跑幂等）。
-
-    剔除脚本自己写入的样板行（标题/占位符），只留真正的用户笔记；
-    旧格式（无标记）返回空，避免结构化内容被重复追加。
-    """
-    if not os.path.exists(target_path):
-        return ''
-    with open(target_path, encoding='utf-8', errors='replace') as f:
-        content = f.read()
-    m = re.search(r'<!-- USER-NOTES-START -->(.*?)<!-- USER-NOTES-END -->', content, re.S)
+def preserve_user_body(target_path: Path) -> str:
+    if not target_path.exists():
+        return ""
+    content = target_path.read_text(encoding="utf-8", errors="replace")
+    m = re.search(r"<!-- USER-NOTES-START -->(.*?)<!-- USER-NOTES-END -->", content, re.S)
     if not m:
-        return ''
-    lines = [ln for ln in m.group(1).splitlines() if ln.strip() not in _BOILERPLATE]
-    return '\n'.join(lines).strip()
+        return ""
+    lines = [ln for ln in m.group(1).splitlines() if ln.strip() not in BOILERPLATE]
+    return translate_preserved_note("\n".join(lines).strip())
 
 
-def write_note(path, frontmatter, body):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, 'w', encoding='utf-8') as f:
+def write_note(path: Path, frontmatter: str, body: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="\n") as f:
         if frontmatter.strip():
-            f.write('---\n')
-            f.write(frontmatter.strip('\n'))
-            f.write('\n---\n\n')
-        f.write(body.rstrip() + '\n')
+            f.write("---\n")
+            f.write(frontmatter.strip("\n"))
+            f.write("\n---\n\n")
+        f.write(body.rstrip() + "\n")
 
 
-# ----------------------------------------------------------------------------
-# 主流程
-# ----------------------------------------------------------------------------
-def main():
+def main() -> None:
     for d in (SRC_DIR, MOD_DIR, IN_DIR, OUT_DIR, IDX_DIR):
-        os.makedirs(d, exist_ok=True)
+        d.mkdir(parents=True, exist_ok=True)
 
-    f90_files = sorted(glob.glob(os.path.join(SRC, '*.f90')))
-    records = [parse_source(p) for p in f90_files]
+    records = [parse_source(p) for p in source_files()]
 
-    stems = {r['stem'] for r in records}                 # 全部源文件 stem
-    mod_stems = {r['stem'] for r in records if r['kind'] == 'module'}
+    stems = {r["stem"] for r in records}
+    mod_stems = {r["stem"] for r in records if r["kind"] == "module"}
 
-    # 全局：输出文件 -> 写它的源码；输入变量/字面 -> 读它的源码
-    output_writers = defaultdict(set)   # filename -> set(source stem)
-    input_readers = defaultdict(set)    # target -> set(source stem)
+    output_writers = defaultdict(set)
+    input_readers = defaultdict(set)
 
     n_src = n_mod = 0
     for r in records:
-        # 汇总 IO 全局表
-        for w in r['writes']:
+        for w in r["writes"]:
             if is_literal_file(w):
-                output_writers[w].add(r['stem'])
-        for rr in r['reads']:
-            input_readers[rr].add(r['stem'])
+                output_writers[w].add(r["stem"])
+        for rr in r["reads"]:
+            input_readers[rr].add(r["stem"])
 
-        if r['kind'] == 'module':
-            _write_module_note(r, mod_stems, stems)
+        if r["kind"] == "module":
+            write_module_note(r, stems)
             n_mod += 1
         else:
-            _write_source_note(r, mod_stems, stems)
+            write_source_note(r, mod_stems, stems)
             n_src += 1
 
-    # 输出文件笔记
     n_out = 0
     for fname in sorted(output_writers.keys()):
         n_out += 1
-        _write_output_note(fname, sorted(output_writers[fname]), stems)
+        write_output_note(fname, sorted(output_writers[fname]))
 
-    # 输入文件笔记（从 file.cio 解析 + 全局 input_readers 补 read_by）
-    n_in = _write_input_notes_from_cio(stems, input_readers)
+    n_in = write_input_notes_from_cio(input_readers)
+    write_indexes(records, output_writers)
 
-    # 索引页
-    _write_indexes(records, stems, mod_stems, output_writers, input_readers)
-
-    print(f'生成完成：源码 {n_src} / 模块 {n_mod} / 输出 {n_out} / 输入 {n_in}')
+    print(f"Generated: source {n_src} / modules {n_mod} / outputs {n_out} / inputs {n_in}")
 
 
-# ----------------------------------------------------------------------------
-# 各类笔记渲染
-# ----------------------------------------------------------------------------
-def _write_source_note(r, mod_stems, stems):
-    target = os.path.join(SRC_DIR, f"{r['stem']}.f90.md")
-    subtype = 'program' if r['kind'] == 'program' else 'subroutine'
+def write_source_note(r: dict, mod_stems: set[str], stems: set[str]) -> None:
+    target = SRC_DIR / f"{r['note_file']}.md"
+    subtype = "program" if r["kind"] == "program" else "subroutine"
 
     fm = []
-    fm.append('type: source')
-    fm.append(f'subtype: {subtype}')
-    fm.append('tags:')
-    fm.append('  - swat/源码')
-    fm.append('  - swat/待读')
-    fm.append(f'file: {r["fname"]}')
-    fm.append(f'subroutine: {r["name"]}')
-    if r['uses']:
-        fm.append('module:')
-        for u in r['uses']:
-            fm.append(f'  - {u}')
+    fm.append("type: source")
+    fm.append(f"subtype: {subtype}")
+    fm.append("tags:")
+    fm.append("  - swat/source")
+    fm.append("  - swat/to-read")
+    fm.append(f"file: {r['fname']}")
+    fm.append(f"note_file: {r['note_file']}")
+    fm.append(f"subroutine: {r['name']}")
+    if r["uses"]:
+        fm.append("module:")
+        for u in r["uses"]:
+            fm.append(f"  - {u}")
     else:
-        fm.append('module: []')
-    if r['calls']:
-        fm.append('calls:')
-        for c in r['calls']:
-            fm.append(f'  - {c}')
+        fm.append("module: []")
+    if r["calls"]:
+        fm.append("calls:")
+        for c in r["calls"]:
+            fm.append(f"  - {c}")
     else:
-        fm.append('calls: []')
-    fm.append('reads:' + yaml_list(r['reads']))
-    fm.append('writes:' + yaml_list(r['writes']))
-    fm.append('purpose: ' + yaml_str('；'.join(r['desc'])))
+        fm.append("calls: []")
+    fm.append("reads:" + yaml_list(r["reads"]))
+    fm.append("writes:" + yaml_list(r["writes"]))
+    fm.append("purpose: " + yaml_str("; ".join(r["desc"])))
 
-    # 正文
+    desc = "; ".join(r["desc"]) if r["desc"] else "TBD"
+    use_links = ", ".join(linkify_module(u, mod_stems) for u in r["uses"]) or "-"
+
     b = []
-    b.append(f'# {r["name"]}')
-    b.append('')
-    desc = '；'.join(r['desc']) if r['desc'] else '待补充'
-    b.append(f'> [!info] 概要')
-    b.append(f'> {desc}')
-    b.append('')
-    b.append('## 基本信息')
-    b.append(f'- **类型**：`{subtype}`')
-    b.append(f'- **源文件**：`{r["fname"]}`')
-    use_links = '、'.join(linkify_module(u, mod_stems) for u in r['uses']) or '—'
-    b.append(f'- **使用模块**：{use_links}')
-    b.append(f'- **调用子程序**：{len(r["calls"])} 个 ｜ **读取文件**：{len(r["reads"])} ｜ **写入文件**：{len(r["writes"])}')
-    b.append('')
-    b.append('## 调用关系')
-    if r['calls']:
-        b.append('**本程序调用：**')
-        b.append('')
-        for c in r['calls']:
-            b.append(f'- {linkify_call(c, stems)}')
+    b.append(f"# {r['name']}")
+    b.append("")
+    b.append("> [!info] Summary")
+    b.append(f"> {desc}")
+    b.append("")
+    b.append("## Basic Information")
+    b.append(f"- **Type**: `{subtype}`")
+    b.append(f"- **Source file**: `{r['fname']}`")
+    b.append(f"- **Modules used**: {use_links}")
+    b.append(f"- **Subroutine calls**: {len(r['calls'])} | **Files read**: {len(r['reads'])} | **Files written**: {len(r['writes'])}")
+    b.append("")
+    b.append("## Call Relationships")
+    if r["calls"]:
+        b.append("**This routine calls:**")
+        b.append("")
+        for c in r["calls"]:
+            b.append(f"- {linkify_call(c, stems)}")
     else:
-        b.append('（无 call 语句，叶子节点）')
-    b.append('')
-    b.append('**被以下程序调用**（dataview 实时反查）：')
-    b.append('')
-    b.append('```dataview')
+        b.append("(No call statements; leaf node.)")
+    b.append("")
+    b.append("**Called by** (live Dataview back-query):")
+    b.append("")
+    b.append("```dataview")
     b.append('LIST file.link')
     b.append('WHERE type = "source" AND contains(calls, this.subroutine)')
-    b.append('```')
-    b.append('')
-    if r['reads'] or r['writes']:
-        b.append('## 文件读写')
-        if r['writes']:
-            b.append('- **写入**：' + '、'.join(f'`{w}`' for w in r['writes']))
-        if r['reads']:
+    b.append("```")
+    b.append("")
+    if r["reads"] or r["writes"]:
+        b.append("## File I/O")
+        if r["writes"]:
+            b.append("- **Writes**: " + ", ".join(f"`{w}`" for w in r["writes"]))
+        if r["reads"]:
             rd = []
-            for x in r['reads']:
+            for x in r["reads"]:
                 if is_literal_file(x):
-                    rd.append(f'`{x}`')
+                    rd.append(f"`{x}`")
                 else:
-                    rd.append(f'`{x}` _（变量，见 file.cio）_')
-            b.append('- **读取**：' + '、'.join(rd))
-        b.append('')
-    b.append('<!-- USER-NOTES-START -->')
-    b.append('## 我的笔记')
-    b.append('（在此自由记录：逐行注解、关键变量、个人理解。重跑生成脚本时本段会被保留。）')
-    user_body = preserve_user_body(target) or SEED_SOURCE.get(r['fname'], '')
+                    rd.append(f"`{x}` _(variable; see file.cio)_")
+            b.append("- **Reads**: " + ", ".join(rd))
+        b.append("")
+    b.append("<!-- USER-NOTES-START -->")
+    b.append("## Notes")
+    b.append("Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.")
+    user_body = preserve_user_body(target) or SEED_SOURCE.get(r["note_file"], "")
     if user_body.strip():
-        b.append('')
+        b.append("")
         b.append(user_body.strip())
-    b.append('<!-- USER-NOTES-END -->')
-    write_note(target, '\n'.join(fm), '\n'.join(b))
+    b.append("<!-- USER-NOTES-END -->")
+    write_note(target, "\n".join(fm), "\n".join(b))
 
 
-def _write_module_note(r, mod_stems, stems):
-    target = os.path.join(MOD_DIR, f"{r['stem']}.f90.md")
+def write_module_note(r: dict, stems: set[str]) -> None:
+    target = MOD_DIR / f"{r['note_file']}.md"
 
     fm = []
-    fm.append('type: module')
-    fm.append('tags:')
-    fm.append('  - swat/模块')
-    fm.append('  - swat/待读')
-    fm.append(f'file: {r["fname"]}')
-    fm.append(f'module_name: {r["name"]}')
-    fm.append('defines_types:' + yaml_list(r['types']))
-    fm.append('defines_vars:' + yaml_list(r['typevars'] + r['scalars']))
-    fm.append('purpose: ' + yaml_str('；'.join(r['desc'])))
+    fm.append("type: module")
+    fm.append("tags:")
+    fm.append("  - swat/module")
+    fm.append("  - swat/to-read")
+    fm.append(f"file: {r['fname']}")
+    fm.append(f"note_file: {r['note_file']}")
+    fm.append(f"module_name: {r['name']}")
+    fm.append("defines_types:" + yaml_list(r["types"]))
+    fm.append("defines_vars:" + yaml_list(r["typevars"] + r["scalars"]))
+    fm.append("purpose: " + yaml_str("; ".join(r["desc"])))
 
     b = []
-    b.append(f'# {r["name"]}')
-    b.append('')
-    b.append('> [!info] 模块')
-    b.append('> 定义派生类型与模块级变量（关键变量的归宿）。')
-    b.append('')
-    b.append('## 定义的类型')
-    if r['types']:
-        b.append('| 类型 | 说明 |')
-        b.append('|---|---|')
-        for t in r['types']:
-            b.append(f'| `{t}` |  |')
+    b.append(f"# {r['name']}")
+    b.append("")
+    b.append("> [!info] Module")
+    b.append("> Defines derived types and module-level variables.")
+    b.append("")
+    b.append("## Defined Types")
+    if r["types"]:
+        b.append("| Type | Notes |")
+        b.append("|---|---|")
+        for t in r["types"]:
+            b.append(f"| `{t}` |  |")
     else:
-        b.append('（未检测到 type 定义）')
-    b.append('')
-    b.append('## 模块级变量（关键变量）')
-    vars_all = r['typevars'] + r['scalars']
+        b.append("(No type definitions detected.)")
+    b.append("")
+    b.append("## Module-Level Variables")
+    vars_all = r["typevars"] + r["scalars"]
     if vars_all:
-        b.append('| 变量 | 类型 | 含义 |')
-        b.append('|---|---|---|')
+        b.append("| Variable | Type | Meaning |")
+        b.append("|---|---|---|")
         shown = vars_all[:40]
         for v in shown:
-            b.append(f'| `{v}` |  |  |')
+            b.append(f"| `{v}` |  |  |")
         if len(vars_all) > 40:
-            b.append(f'\n*（仅显示前 40 个，共 {len(vars_all)} 个）*')
+            b.append("")
+            b.append(f"*(Showing first 40 of {len(vars_all)} variables.)*")
     else:
-        b.append('（未检测到模块级变量）')
-    b.append('')
-    b.append('## 被以下源码使用（dataview 实时反查）')
-    b.append('')
-    b.append('```dataview')
-    b.append('LIST file.link')
+        b.append("(No module-level variables detected.)")
+    b.append("")
+    b.append("## Used By Source Routines")
+    b.append("")
+    b.append("```dataview")
+    b.append("LIST file.link")
     b.append('WHERE type = "source" AND contains(module, this.module_name)')
-    b.append('```')
-    b.append('')
-    b.append('<!-- USER-NOTES-START -->')
-    b.append('## 我的笔记')
-    b.append('（在此记录类型/变量的含义、单位、取值。重跑生成脚本时本段会被保留。）')
+    b.append("```")
+    b.append("")
+    b.append("<!-- USER-NOTES-START -->")
+    b.append("## Notes")
+    b.append("Use this section for type and variable meanings, units, and allowed values. This section is preserved when the generator is rerun.")
     user_body = preserve_user_body(target)
     if user_body.strip():
-        b.append('')
+        b.append("")
         b.append(user_body.strip())
-    b.append('<!-- USER-NOTES-END -->')
-    write_note(target, '\n'.join(fm), '\n'.join(b))
+    b.append("<!-- USER-NOTES-END -->")
+    write_note(target, "\n".join(fm), "\n".join(b))
 
 
-def _write_output_note(fname, writers, stems):
-    safe = re.sub(r'[\\/:*?"<>|]', '_', fname)
-    target = os.path.join(OUT_DIR, f'{safe}.md')
-    ext = fname.rsplit('.', 1)[-1] if '.' in fname else ''
-    unit_hint = ''
+def write_output_note(fname: str, writers: list[str]) -> None:
+    safe = re.sub(r'[\\/:*?"<>|]', "_", fname)
+    target = OUT_DIR / f"{safe}.md"
+    ext = fname.rsplit(".", 1)[-1] if "." in fname else ""
+
     fm = []
-    fm.append('type: output')
-    fm.append('tags:')
-    fm.append('  - swat/输出')
-    fm.append(f'file: {fname}')
-    fm.append(f'ext: {ext}')
-    fm.append('written_by:' + yaml_list([f'{w}.f90' for w in writers]))
+    fm.append("type: output")
+    fm.append("tags:")
+    fm.append("  - swat/output")
+    fm.append(f"file: {fname}")
+    fm.append(f"ext: {ext}")
+    fm.append("written_by:" + yaml_list([f"{w}.f90" for w in writers]))
     fm.append('purpose: ""')
 
     b = []
-    b.append(f'# {fname}')
-    b.append('')
-    b.append('> [!info] 输出文件')
-    b.append(f'> 由程序写入。扩展名 `.{ext}`。')
-    b.append('')
-    b.append('## 写入它的程序')
-    b.append('')
+    b.append(f"# {fname}")
+    b.append("")
+    b.append("> [!info] Output File")
+    b.append(f"> Written by SWAT+ routines. Extension: `.{ext}`.")
+    b.append("")
+    b.append("## Writer Routines")
+    b.append("")
     for w in writers:
-        b.append(f'- [[{w}.f90]]')
-    b.append('')
-    b.append('## 文件格式')
-    b.append('（读代码 / 看实际输出时补充：字段含义、列说明）')
+        b.append(f"- [[{w}.f90]]")
+    b.append("")
+    b.append("## File Format")
+    b.append("(Add field meanings and column notes after tracing the writer code or inspecting actual output.)")
 
-    write_note(target, '\n'.join(fm), '\n'.join(b))
+    write_note(target, "\n".join(fm), "\n".join(b))
 
 
-def _write_input_notes_from_cio(stems, input_readers):
-    """从 file.cio.md 的正文解析输入文件清单，生成轻量输入笔记。"""
-    cio_path = os.path.join(IN_DIR, 'file.cio.md')
-    if not os.path.exists(cio_path):
+def write_input_notes_from_cio(input_readers: dict[str, set[str]]) -> int:
+    cio_path = IN_DIR / "file.cio.md"
+    if not cio_path.exists():
         return 0
-    with open(cio_path, encoding='utf-8', errors='replace') as f:
-        cio = f.read()
-    # 匹配 **field**: filename.ext 形式
-    pairs = re.findall(r'\*\*([a-z0-9_]+)\*\*\s*:\s*([a-zA-Z0-9_./-]+\.[a-zA-Z0-9]+)', cio)
+
+    cio = cio_path.read_text(encoding="utf-8", errors="replace")
+    pairs = re.findall(r"\*\*([a-z0-9_.]+)\*\*\s*[:=]+\s*([a-zA-Z0-9_./-]+\.[a-zA-Z0-9]+)", cio)
     seen = {}
     for field, filename in pairs:
         filename = filename.strip()
@@ -551,126 +532,118 @@ def _write_input_notes_from_cio(stems, input_readers):
 
     n = 0
     for filename, field in sorted(seen.items()):
-        safe = re.sub(r'[\\/:*?"<>|]', '_', filename)
-        if safe == 'file.cio':
+        safe = re.sub(r'[\\/:*?"<>|]', "_", filename)
+        if safe == "file.cio":
             continue
-        target = os.path.join(IN_DIR, f'{safe}.md')
-        ext = filename.rsplit('.', 1)[-1]
-        # 反查读取它的程序：字面匹配 + 字段变量匹配
-        readers = set()
-        for stem in input_readers.get(filename, set()):
-            readers.add(stem)
-        # 变量形式：input_readers 的 key 可能是 in_xxx%field 或 field
+        target = IN_DIR / f"{safe}.md"
+        ext = filename.rsplit(".", 1)[-1]
+
+        readers = set(input_readers.get(filename, set()))
         for key, sts in input_readers.items():
-            if key.endswith('%' + field) or key == field:
+            if key.endswith("%" + field) or key == field:
                 readers |= sts
+
         fm = []
-        fm.append('type: input')
-        fm.append('tags:')
-        fm.append('  - swat/输入')
-        fm.append(f'file: {filename}')
-        fm.append(f'ext: {ext}')
-        fm.append(f'cio_field: {field}')
-        fm.append('read_by:' + yaml_list([f'{s}.f90' for s in sorted(readers)]))
+        fm.append("type: input")
+        fm.append("tags:")
+        fm.append("  - swat/input")
+        fm.append(f"file: {filename}")
+        fm.append(f"ext: {ext}")
+        fm.append(f"cio_field: {field}")
+        fm.append("read_by:" + yaml_list([f"{s}.f90" for s in sorted(readers)]))
         fm.append('purpose: ""')
 
         b = []
-        b.append(f'# {filename}')
-        b.append('')
-        b.append('> [!info] 输入文件')
-        b.append(f'> 在 `file.cio` 中以字段 `{field}` 声明。格式详见 [[file.cio]]。')
-        b.append('')
-        b.append('## 读取它的程序')
+        b.append(f"# {filename}")
+        b.append("")
+        b.append("> [!info] Input File")
+        b.append(f"> Declared in `file.cio` field `{field}`. See [[file.cio]] for the controlling file map.")
+        b.append("")
+        b.append("## Reader Routines")
         if readers:
             for s in sorted(readers):
-                b.append(f'- [[{s}.f90]]')
+                b.append(f"- [[{s}.f90]]")
         else:
-            b.append('（暂未自动定位，读代码时补充）')
-        b.append('')
-        b.append('## 文件格式')
-        b.append('（补充：各字段含义、单位、取值）')
-        write_note(target, '\n'.join(fm), '\n'.join(b))
+            b.append("(Reader routine not located automatically; add evidence after tracing the code.)")
+        b.append("")
+        b.append("## File Format")
+        b.append("(Add field meanings, units, and allowed values.)")
+        write_note(target, "\n".join(fm), "\n".join(b))
         n += 1
     return n
 
 
-# ----------------------------------------------------------------------------
-# 索引页
-# ----------------------------------------------------------------------------
-def _write_indexes(records, stems, mod_stems, output_writers, input_readers):
-    # 00-SWATPLUS总览
-    total = len(records)
-    n_src = sum(1 for r in records if r['kind'] != 'module')
-    n_mod = sum(1 for r in records if r['kind'] == 'module')
-    overview = f'''# SWAT+ 代码学习系统
+def write_indexes(records: list[dict], output_writers: dict[str, set[str]]) -> None:
+    n_src = sum(1 for r in records if r["kind"] != "module")
+    n_mod = sum(1 for r in records if r["kind"] == "module")
+    n_out = len(output_writers)
 
-> 本子系统用于理清 SWAT+ 源码：**程序相互调用**、**关键变量**、**输入输出文件**。
-> 笔记由 `_tools/gen_swat_notes.py` 自动生成骨架，手写内容在重跑时会被保留。
+    overview = f"""# SWAT+ Code Learning System
 
-## 统计
+> This subsystem maps the SWAT+ source code: routine call relationships, key variables, and input/output files.
+> `_tools/gen_swat_notes.py` generates the note skeleton. User-written note sections are preserved across reruns.
 
-- 源码文件（program + subroutine）：**{n_src}**
-- 模块文件（`*_module.f90`，关键变量归宿）：**{n_mod}**
-- 输出文件：见 [[输入输出文件索引]]
-- 输入文件：以 [[file.cio]] 为总纲
+## Statistics
 
-## 目录结构
+- Source routines (program + subroutine): **{n_src}**
+- Module files (`*_module.f90`): **{n_mod}**
+- Output files: **{n_out}**; see [[input-output-file-index]]
+- Input files: see [[file.cio]] as the controlling index
 
-| 文件夹 | 内容 | 笔记类型 |
+## Directory Structure
+
+| Folder | Contents | Note type |
 |---|---|---|
-| `01-源码程序/` | `program` + `subroutine`，每个 `.f90` 一篇 | `type: source` |
-| `02-模块与变量/` | `*_module.f90`，定义派生类型与全局变量 | `type: module` |
-| `03-输入文件/` | `file.cio` 为总纲，其余输入文件逐个成篇 | `type: input` |
-| `04-输出文件/` | `.out` / `.txt` 等输出文件 | `type: output` |
+| `01-source-routines/` | `program` and `subroutine` notes, one per source file | `type: source` |
+| `02-modules-and-variables/` | `*_module.f90` notes for derived types and global variables | `type: module` |
+| `03-input-files/` | `file.cio` plus one note per input file | `type: input` |
+| `04-output-files/` | `.out`, `.txt`, and other output file notes | `type: output` |
 
-## 索引页
+## Index Pages
 
-- [[调用关系图]] — 主调用树 + 调用热度排行
-- [[模块与变量索引]] — 全部模块及其类型/变量
-- [[输入输出文件索引]] — 输入输出文件清单与读写关系
+- [[call-graph]] - main call tree and call frequency table
+- [[module-variable-index]] - all modules and their type/variable definitions
+- [[input-output-file-index]] - input/output file lists and reader/writer relationships
 
-## 怎么用
+## How To Use
 
-1. **读某个子程序**：打开 `01-源码程序/xxx.f90.md`，看「调用关系」「文件读写」，在「逐行注解」里记笔记。
-2. **查谁调用了 X**：X 的笔记末尾 dataview 自动列出所有调用方；无需手工维护。
-3. **查关键变量**：去 `02-模块与变量/` 找定义它的模块；模块笔记末尾列出所有使用它的源码。
-4. **更新进度**：改 frontmatter 的 `tags`：`swat/待读` → `swat/进行中` → `swat/已读`；并补 `purpose`。
-5. **功能域归类**：按需加 `swat/域-水文` `swat/域-泥沙` 等标签（见 [[模块与变量索引]] 的域说明）。
+1. To read a routine, open `01-source-routines/xxx.f90.md` and review "Call Relationships" and "File I/O".
+2. To see who calls a routine, use the live Dataview back-query at the end of each routine note.
+3. To inspect key variables, open the defining module under `02-modules-and-variables/`.
+4. To update reading progress, change frontmatter tags from `swat/to-read` to `swat/in-progress` or `swat/read`, and fill in `purpose`.
+5. To classify a functional domain, add tags such as `swat/domain-hydrology`, `swat/domain-sediment`, or `swat/domain-reservoir`.
 
-## 重跑生成
+## Regenerate
 
-源码更新后，重跑 `_tools/gen_swat_notes.py` 即可刷新结构化字段；手写正文（frontmatter 之后）会被保留。
+After source updates, rerun the generator to refresh structured fields. Content between USER-NOTES markers is preserved.
 
 ```bash
-python "_tools/gen_swat_notes.py"
+python "docs/_tools/gen_swat_notes.py"
 ```
-'''
-    write_note(os.path.join(IDX_DIR, '00-SWATPLUS总览.md'), '', overview)
+"""
+    write_note(IDX_DIR / "00-SWATPLUS-overview.md", "", overview)
 
-    # 调用关系图
-    main_rec = next((r for r in records if r['kind'] == 'program'), None)
-    mermaid = ['```mermaid', 'graph LR']
+    main_rec = next((r for r in records if r["kind"] == "program"), None)
+    mermaid = ["```mermaid", "graph LR"]
     if main_rec:
         mermaid.append(f'  main["main<br/>{main_rec["fname"]}"]')
-        for c in main_rec['calls']:
-            if f'{c}.f90' in stems:
-                mermaid.append(f'  main --> {c}["{c}"]')
-            else:
-                mermaid.append(f'  main --> {c}["{c}"]')
-    mermaid.append('```')
+        for c in main_rec["calls"]:
+            mermaid.append(f'  main --> {c}["{c}"]')
+    mermaid.append("```")
     mermaid_str = "\n".join(mermaid)
-    call_graph = f'''# 调用关系图
 
-## 主程序 main 的直接调用
+    call_graph = f"""# Call Graph
+
+## Direct Calls From main
 
 {mermaid_str}
 
-> 完整调用关系：每篇源码笔记的「调用关系」section 都有正向调用列表 + dataview 实时反查「被谁调用」。
+> Full call relationships live in each source note under "Call Relationships".
 
-## 调用热度排行（被调用最多的子程序 = 核心枢纽）
+## Call Frequency
 
 ```dataviewjs
-const pages = dv.pages('"{BASE}/01-源码程序"').where(p => p.calls);
+const pages = dv.pages('"{BASE}/01-source-routines"').where(p => p.calls);
 const counter = {{}};
 for (const p of pages) {{
   for (const c of p.calls) {{ counter[c] = (counter[c] || 0) + 1; }}
@@ -679,79 +652,77 @@ const rows = Object.entries(counter)
   .sort((a,b) => b[1]-a[1])
   .slice(0, 30)
   .map(([name, n]) => [name + ".f90", n]);
-dv.table(["被调用子程序", "调用方数量"], rows);
+dv.table(["Called routine", "Caller count"], rows);
 ```
 
-## 按子程序查调用方
+## Find Callers For A Routine
 
-在任一源码笔记里，下面的查询会列出调用它的所有程序（`this.subroutine` 自动取当前笔记）：
+Use this query inside any source note to list all routines that call the current one:
 
-```
+````markdown
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
-``` ```
-'''
-    write_note(os.path.join(IDX_DIR, '调用关系图.md'), '', call_graph)
+```
+````
+"""
+    write_note(IDX_DIR / "call-graph.md", "", call_graph)
 
-    # 模块与变量索引
-    mod_index = f'''# 模块与变量索引
+    mod_index = f"""# Module And Variable Index
 
-## 全部模块（关键变量的归宿）
+## All Modules
 
 ```dataview
-TABLE defines_types AS "定义的类型", defines_vars AS "模块级变量"
-FROM "{BASE}/02-模块与变量"
+TABLE defines_types AS "Defined types", defines_vars AS "Module-level variables"
+FROM "{BASE}/02-modules-and-variables"
 SORT file ASC
 ```
 
-## 功能域标签（建议）
+## Functional Domain Tags
 
-阅读时给笔记打域标签，便于按学科浏览。可用值：
+Add domain tags while reading so modules can be browsed by process area. Suggested values:
 
-`swat/域-主控` `swat/域-水文` `swat/域-泥沙` `swat/域-营养盐` `swat/域-气候`
-`swat/域-渠道` `swat/域-水库` `swat/域-地下水` `swat/域-植物` `swat/域-校准` `swat/域-工具`
+`swat/domain-control` `swat/domain-hydrology` `swat/domain-sediment` `swat/domain-nutrients` `swat/domain-climate`
+`swat/domain-channel` `swat/domain-reservoir` `swat/domain-groundwater` `swat/domain-plant` `swat/domain-calibration` `swat/domain-utility`
 
-## 按域浏览模块
+## Browse Modules By Domain
 
 ```dataview
 TABLE file, defines_types
-FROM "{BASE}/02-模块与变量"
-WHERE contains(tags, "#swat/域-水文")
+FROM "{BASE}/02-modules-and-variables"
+WHERE contains(tags, "#swat/domain-hydrology")
 ```
-（把 `域-水文` 换成其它域即可。）
-'''
-    write_note(os.path.join(IDX_DIR, '模块与变量索引.md'), '', mod_index)
+"""
+    write_note(IDX_DIR / "module-variable-index.md", "", mod_index)
 
-    # 输入输出文件索引
-    io_index = f'''# 输入输出文件索引
+    io_index = f"""# Input/Output File Index
 
-## 输入文件
+## Input Files
 
-> [`file.cio`](file://file.cio) 是输入总纲，逐段声明所有输入文件。其余输入文件见 `03-输入文件/`。
+> [`file.cio`](file.cio.md) is the controlling input index. Other input-file notes live in `03-input-files/`.
 
 ```dataview
-TABLE ext AS "扩展名", read_by AS "读取程序", cio_field AS "file.cio 字段"
-FROM "{BASE}/03-输入文件"
+TABLE ext AS "Extension", read_by AS "Reader routines", cio_field AS "file.cio field"
+FROM "{BASE}/03-input-files"
 WHERE type = "input"
 SORT file ASC
 ```
 
-## 输出文件
+## Output Files
 
 ```dataview
-TABLE ext AS "扩展名", written_by AS "写入程序"
-FROM "{BASE}/04-输出文件"
+TABLE ext AS "Extension", written_by AS "Writer routines"
+FROM "{BASE}/04-output-files"
 WHERE type = "output"
 SORT file ASC
 ```
 
-## 输入文件总纲
+## Controlling Input File
 
-- [[file.cio]] — 控制文件，逐段列出全部输入文件
-'''
-    write_note(os.path.join(IDX_DIR, '输入输出文件索引.md'), '', io_index)
+- [[file.cio]] - control file that declares the input files and output path
+"""
+    write_note(IDX_DIR / "input-output-file-index.md", "", io_index)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

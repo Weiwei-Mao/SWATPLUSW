@@ -2,7 +2,7 @@
 
 This workspace is for learning the SWAT+ Fortran source, recording verified model knowledge, and locating the exact maintained source files for future changes.
 
-The durable learning entry is [`docs/README.md`](docs/README.md). Start there for the model structure, tracing guide, input/output maps, and detailed topic notes.
+The durable learning entry is [`docs/README.md`](docs/README.md). Start there for the generated SWAT+ source, module, input, and output note maps.
 
 ## Workspace Map
 

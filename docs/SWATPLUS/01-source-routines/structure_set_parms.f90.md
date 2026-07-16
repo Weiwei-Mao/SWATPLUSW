@@ -1,0 +1,47 @@
+---
+type: source
+subtype: subroutine
+tags:
+  - swat/source
+  - swat/to-read
+file: structure_set_parms.f90
+note_file: structure_set_parms.f90
+subroutine: structure_set_parms
+module:
+  - mgt_operations_module
+  - hru_module
+  - soil_module
+calls:
+  - ttcoef_wway
+reads: []
+writes: []
+purpose: "this subroutine controls the simulation of the land phase of the; hydrologic cycle"
+---
+
+# structure_set_parms
+
+> [!info] Summary
+> this subroutine controls the simulation of the land phase of the; hydrologic cycle
+
+## Basic Information
+- **Type**: `subroutine`
+- **Source file**: `structure_set_parms.f90`
+- **Modules used**: [[mgt_operations_module.f90]], [[hru_module.f90]], [[soil_module.f90]]
+- **Subroutine calls**: 1 | **Files read**: 0 | **Files written**: 0
+
+## Call Relationships
+**This routine calls:**
+
+- [[ttcoef_wway.f90]]
+
+**Called by** (live Dataview back-query):
+
+```dataview
+LIST file.link
+WHERE type = "source" AND contains(calls, this.subroutine)
+```
+
+<!-- USER-NOTES-START -->
+## Notes
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+<!-- USER-NOTES-END -->

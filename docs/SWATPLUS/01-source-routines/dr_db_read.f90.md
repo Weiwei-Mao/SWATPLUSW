@@ -1,0 +1,60 @@
+---
+type: source
+subtype: subroutine
+tags:
+  - swat/source
+  - swat/to-read
+file: dr_db_read.f90
+note_file: dr_db_read.f90
+subroutine: dr_db_read
+module:
+  - dr_module
+  - input_file_module
+  - constituent_mass_module
+  - maximum_data_module
+calls:
+  - dr_read_om
+  - dr_read_pest
+  - dr_path_read
+  - dr_read_hmet
+  - dr_read_salt
+reads:
+  - in_delr%del_ratio
+writes: []
+purpose: ""
+---
+
+# dr_db_read
+
+> [!info] Summary
+> TBD
+
+## Basic Information
+- **Type**: `subroutine`
+- **Source file**: `dr_db_read.f90`
+- **Modules used**: [[dr_module.f90]], [[input_file_module.f90]], [[constituent_mass_module.f90]], [[maximum_data_module.f90]]
+- **Subroutine calls**: 5 | **Files read**: 1 | **Files written**: 0
+
+## Call Relationships
+**This routine calls:**
+
+- [[dr_read_om.f90]]
+- [[dr_read_pest.f90]]
+- [[dr_path_read.f90]]
+- [[dr_read_hmet.f90]]
+- [[dr_read_salt.f90]]
+
+**Called by** (live Dataview back-query):
+
+```dataview
+LIST file.link
+WHERE type = "source" AND contains(calls, this.subroutine)
+```
+
+## File I/O
+- **Reads**: `in_delr%del_ratio` _(variable; see file.cio)_
+
+<!-- USER-NOTES-START -->
+## Notes
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+<!-- USER-NOTES-END -->
