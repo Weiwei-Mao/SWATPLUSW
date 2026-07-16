@@ -12,6 +12,12 @@ module:
   - maximum_data_module
   - mgt_operations_module
 calls: []
+uses_variables:
+  - input_file_module.f90#in_ops
+  - maximum_data_module.f90#db_mx
+  - mgt_operations_module.f90#fire_db
+input_variables:
+  - mgt_operations_module.f90#fire_db
 reads:
   - in_ops%fire_ops
 writes: []
@@ -26,21 +32,38 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `mgt_read_fireops.f90`
-- **Modules used**: [[input_file_module.f90]], [[maximum_data_module.f90]], [[mgt_operations_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[mgt_operations_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_db.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[input_file_module.f90#in_ops]] - `input_ops`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[mgt_operations_module.f90#fire_db]] - `fire_operation`
+
+**Populated by file reads:**
+
+- [[mgt_operations_module.f90#fire_db]]
+
 ## File I/O
-- **Reads**: `in_ops%fire_ops` _(variable; see file.cio)_
+- **Reads**:
+  - [[fire.ops]]
 
 <!-- USER-NOTES-START -->
 ## Notes

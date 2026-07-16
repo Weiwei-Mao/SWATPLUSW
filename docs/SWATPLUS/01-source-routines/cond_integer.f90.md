@@ -10,6 +10,9 @@ subroutine: cond_integer
 module:
   - conditional_module
 calls: []
+uses_variables:
+  - conditional_module.f90#d_tbl
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -23,18 +26,26 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cond_integer.f90`
-- **Modules used**: [[conditional_module.f90]]
+- **Modules used**:
+  - [[conditional_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[conditions.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[conditional_module.f90#d_tbl]] - `decision_table`
 
 <!-- USER-NOTES-START -->
 ## Notes

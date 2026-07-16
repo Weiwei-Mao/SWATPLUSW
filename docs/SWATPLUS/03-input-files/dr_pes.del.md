@@ -5,10 +5,7 @@ tags:
 file: dr_pes.del
 ext: del
 cio_field: pest
-read_by:
-  - dr_read_pest.f90
-  - exco_read_pest.f90
-  - pest_parm_read.f90
+read_by: []
 purpose: ""
 ---
 
@@ -17,10 +14,16 @@ purpose: ""
 > [!info] Input File
 > Declared in `file.cio` field `pest`. See [[file.cio]] for the controlling file map.
 
-## Reader Routines
-- [[dr_read_pest.f90]]
-- [[exco_read_pest.f90]]
-- [[pest_parm_read.f90]]
+## Overview
+- **Declared in `file.cio` field**: `pest`
+- **Format source**: generated from Fortran `open`/`read` statements and module/type comments.
+- **Format style**: SWAT+ text input; most readers use list-directed Fortran reads.
 
-## File Format
-(Add field meanings, units, and allowed values.)
+## Reader Routines
+(Reader routine not located automatically; add evidence after tracing the code.)
+
+## File Structure
+(No line-level read structure detected automatically.)
+
+## Parameters
+(No parameter table detected automatically. Check the reader routines above for manual interpretation.)

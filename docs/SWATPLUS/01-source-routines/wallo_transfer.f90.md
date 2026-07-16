@@ -16,6 +16,12 @@ module:
   - reservoir_module
   - time_module
 calls: []
+uses_variables:
+  - hydrograph_module.f90#hd
+  - hydrograph_module.f90#wal_omd
+  - water_allocation_module.f90#pipe
+  - water_allocation_module.f90#wallo
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -29,18 +35,35 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `wallo_transfer.f90`
-- **Modules used**: [[water_allocation_module.f90]], [[hydrograph_module.f90]], [[constituent_mass_module.f90]], [[sd_channel_module.f90]], [[aquifer_module.f90]], [[reservoir_module.f90]], [[time_module.f90]]
+- **Modules used**:
+  - [[water_allocation_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[sd_channel_module.f90]]
+  - [[aquifer_module.f90]]
+  - [[reservoir_module.f90]]
+  - [[time_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[wallo_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hydrograph_module.f90#hd]] - `hyd_output`
+- [[hydrograph_module.f90#wal_omd]] - `water_allocation_object`
+- [[water_allocation_module.f90#pipe]] - `water_transfer_data`
+- [[water_allocation_module.f90#wallo]] - `water_allocation`
 
 <!-- USER-NOTES-START -->
 ## Notes

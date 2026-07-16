@@ -15,6 +15,13 @@ module:
   - hru_module
   - res_cs_module
 calls: []
+uses_variables:
+  - constituent_mass_module.f90#cs_db
+  - constituent_mass_module.f90#wet_water
+  - cs_module.f90#fert_cs
+  - hru_module.f90#hru
+  - res_cs_module.f90#wetcs_d
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine adds constituent fertilizer to a wetland"
@@ -28,18 +35,35 @@ purpose: "this subroutine adds constituent fertilizer to a wetland"
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cs_fert_wet.f90`
-- **Modules used**: [[mgt_operations_module.f90]], [[cs_module.f90]], [[constituent_mass_module.f90]], [[fertilizer_data_module.f90]], [[hru_module.f90]], [[res_cs_module.f90]]
+- **Modules used**:
+  - [[mgt_operations_module.f90]]
+  - [[cs_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[fertilizer_data_module.f90]]
+  - [[hru_module.f90]]
+  - [[res_cs_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[mgt_sched.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[constituent_mass_module.f90#wet_water]] - `constituent_mass`
+- [[cs_module.f90#fert_cs]] - `fert_db_cs`
+- [[hru_module.f90#hru]] - `hydrologic_response_unit`
+- [[res_cs_module.f90#wetcs_d]] - `res_cs_output`
 
 <!-- USER-NOTES-START -->
 ## Notes

@@ -13,6 +13,12 @@ module:
   - plant_data_module
 calls:
   - ascrv
+uses_variables:
+  - basin_module.f90#bsn_prm
+  - maximum_data_module.f90#db_mx
+  - plant_data_module.f90#plcp
+  - plant_data_module.f90#pldb
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -26,7 +32,10 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `plantparm_init.f90`
-- **Modules used**: [[basin_module.f90]], [[maximum_data_module.f90]], [[plant_data_module.f90]]
+- **Modules used**:
+  - [[basin_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[plant_data_module.f90]]
 - **Subroutine calls**: 1 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -34,12 +43,22 @@ purpose: ""
 
 - [[ascrv.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_db.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#bsn_prm]] - `basin_parms`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[plant_data_module.f90#plcp]] - `plant_cp`
+- [[plant_data_module.f90#pldb]] - `plant_db`
 
 <!-- USER-NOTES-START -->
 ## Notes

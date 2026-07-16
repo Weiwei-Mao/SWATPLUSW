@@ -12,6 +12,10 @@ module:
   - time_module
   - basin_module
 calls: []
+uses_variables:
+  - basin_module.f90#bsn_prm
+  - time_module.f90#time
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine determines the subdaily flow hydrographs for hru's, ru's and inflow fractions"
@@ -25,18 +29,30 @@ purpose: "this subroutine determines the subdaily flow hydrographs for hru's, ru
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `flow_hyd_ru_hru.f90`
-- **Modules used**: [[hydrograph_module.f90]], [[time_module.f90]], [[basin_module.f90]]
+- **Modules used**:
+  - [[hydrograph_module.f90]]
+  - [[time_module.f90]]
+  - [[basin_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[hru_hyds.f90]]
+- [[ru_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#bsn_prm]] - `basin_parms`
+- [[time_module.f90#time]] - `time_current`
 
 <!-- USER-NOTES-START -->
 ## Notes

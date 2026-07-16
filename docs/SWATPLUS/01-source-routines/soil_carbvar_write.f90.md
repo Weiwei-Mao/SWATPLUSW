@@ -22,6 +22,16 @@ calls:
   - cv_emit_row_id_csv
   - cv_dyn_blocks
   - cb_write_var_block
+uses_variables:
+  - basin_module.f90#pco
+  - carbon_module.f90#cb_n_layers
+  - hydrograph_module.f90#ob
+  - hydrograph_module.f90#sp_ob
+  - hydrograph_module.f90#sp_ob1
+  - organic_mineral_mass_module.f90#soil1
+  - soil_module.f90#soil
+  - time_module.f90#time
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -35,25 +45,46 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `soil_carbvar_write.f90`
-- **Modules used**: [[basin_module.f90]], [[carbon_module.f90]], [[hydrograph_module.f90]], [[organic_mineral_mass_module.f90]], [[calibration_data_module.f90]], [[soil_module.f90]], [[time_module.f90]]
+- **Modules used**:
+  - [[basin_module.f90]]
+  - [[carbon_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[organic_mineral_mass_module.f90]]
+  - [[calibration_data_module.f90]]
+  - [[soil_module.f90]]
+  - [[time_module.f90]]
 - **Subroutine calls**: 6 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 **This routine calls:**
 
 - `cv_emit_row_id_txt`
-- `cb_write_depth_row`
+- [[carbon_module.f90#cb_write_depth_row]]
 - `cv_drv_blocks`
 - `cv_emit_row_id_csv`
 - `cv_dyn_blocks`
-- `cb_write_var_block`
+- [[carbon_module.f90#cb_write_var_block]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[command.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#pco]] - `basin_print_codes`
+- [[carbon_module.f90#cb_n_layers]] - `integer`
+- [[hydrograph_module.f90#ob]] - `object_connectivity`
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
+- [[hydrograph_module.f90#sp_ob1]] - `spatial_objects`
+- [[organic_mineral_mass_module.f90#soil1]] - `soil_profile_mass`
+- [[soil_module.f90#soil]] - `soil_profile`
+- [[time_module.f90#time]] - `time_current`
 
 <!-- USER-NOTES-START -->
 ## Notes

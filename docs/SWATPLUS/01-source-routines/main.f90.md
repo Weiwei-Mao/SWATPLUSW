@@ -71,6 +71,21 @@ calls:
   - calhard_control
   - swift_output
   - date_and_time
+uses_variables:
+  - calibration_data_module.f90#cal_hard
+  - calibration_data_module.f90#cal_soft
+  - calibration_data_module.f90#cal_upd
+  - hru_module.f90#hru
+  - hru_module.f90#ihru
+  - hru_module.f90#isol
+  - hydrograph_module.f90#icmd
+  - hydrograph_module.f90#ob
+  - hydrograph_module.f90#sp_ob
+  - hydrograph_module.f90#sp_ob1
+  - maximum_data_module.f90#db_mx
+  - time_module.f90#time
+  - time_module.f90#time_init
+input_variables: []
 reads: []
 writes:
   - simulation.out
@@ -87,7 +102,12 @@ purpose: ""
 ## Basic Information
 - **Type**: `program`
 - **Source file**: `main.f90.in`
-- **Modules used**: [[time_module.f90]], [[hydrograph_module.f90]], [[maximum_data_module.f90]], [[calibration_data_module.f90]], [[hru_module.f90]]
+- **Modules used**:
+  - [[time_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[calibration_data_module.f90]]
+  - [[hru_module.f90]]
 - **Subroutine calls**: 57 | **Files read**: 0 | **Files written**: 3
 
 ## Call Relationships
@@ -98,7 +118,7 @@ purpose: ""
 - [[proc_db.f90]]
 - [[proc_read.f90]]
 - [[hyd_connect.f90]]
-- `recalldb_read`
+- [[recall_read.f90]]
 - [[exco_db_read.f90]]
 - [[dr_db_read.f90]]
 - [[cli_lapse.f90]]
@@ -151,21 +171,47 @@ purpose: ""
 - [[swift_output.f90]]
 - `date_and_time`
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+(No static callers detected.)
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[calibration_data_module.f90#cal_hard]] - `character (len=1)`
+- [[calibration_data_module.f90#cal_soft]] - `character (len=1)`
+- [[calibration_data_module.f90#cal_upd]] - `update_parameters`
+- [[hru_module.f90#hru]] - `hydrologic_response_unit`
+- [[hru_module.f90#ihru]] - `integer`
+- [[hru_module.f90#isol]] - `integer`
+- [[hydrograph_module.f90#icmd]] - `integer`
+- [[hydrograph_module.f90#ob]] - `object_connectivity`
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
+- [[hydrograph_module.f90#sp_ob1]] - `spatial_objects`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[time_module.f90#time]] - `time_current`
+- [[time_module.f90#time_init]] - `time_current`
+
 ## File I/O
-- **Writes**: `simulation.out`, `erosion.txt`, `success.fin`
+- **Writes**:
+  - [[simulation.out]]
+  - [[erosion.txt]]
+  - [[success.fin]]
 
 <!-- USER-NOTES-START -->
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
-- Line 30: Opens file `simulation.out`(unit 9003)
-- Line 38: Opens file `erosion.txt`(unit 888, recl 1500)
-- Entry call: [[proc_bsn.f90]]
+- Line 30: Opens file [[simulation.out]] (unit 9003)
+- Line 38: Opens file [[erosion.txt]] (unit 888, recl 1500)
+- Line 40: call [[proc_bsn.f90]]
+- Line 41: call [[proc_date_time.f90]], input weather data
+- Line 42: call [[proc_db.f90]], reads the shared parameter databases and structural/management libraries
+- Line 43: call [[proc_read.f90]], reads the main environmental and object input data needed to build the model state
+- 
 <!-- USER-NOTES-END -->

@@ -25,6 +25,33 @@ calls:
   - gwflow_chan_read
   - gwflow_read
   - exit
+uses_variables:
+  - basin_module.f90#bsn_prm
+  - constituent_mass_module.f90#cs_db
+  - constituent_mass_module.f90#hcs1
+  - constituent_mass_module.f90#hcs2
+  - constituent_mass_module.f90#hcs3
+  - constituent_mass_module.f90#hin_csz
+  - constituent_mass_module.f90#obcs
+  - hydrograph_module.f90#aqu
+  - hydrograph_module.f90#dfn_sum
+  - hydrograph_module.f90#dr
+  - hydrograph_module.f90#exco
+  - hydrograph_module.f90#hd_tot
+  - hydrograph_module.f90#ich
+  - hydrograph_module.f90#ob
+  - hydrograph_module.f90#rcv_sum
+  - hydrograph_module.f90#recall
+  - hydrograph_module.f90#res
+  - hydrograph_module.f90#ru_def
+  - hydrograph_module.f90#ru_elem
+  - hydrograph_module.f90#ru_seq
+  - hydrograph_module.f90#sp_ob
+  - hydrograph_module.f90#sp_ob1
+  - input_file_module.f90#in_con
+  - ru_module.f90#iru
+  - ru_module.f90#ru
+input_variables: []
 reads: []
 writes:
   - looping.con
@@ -39,7 +66,14 @@ purpose: "reads in the routing information from the watershed configuration; inp
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `hyd_connect.f90`
-- **Modules used**: [[hydrograph_module.f90]], [[input_file_module.f90]], [[recall_module.f90]], [[organic_mineral_mass_module.f90]], [[constituent_mass_module.f90]], [[ru_module.f90]], [[basin_module.f90]]
+- **Modules used**:
+  - [[hydrograph_module.f90]]
+  - [[input_file_module.f90]]
+  - [[recall_module.f90]]
+  - [[organic_mineral_mass_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[ru_module.f90]]
+  - [[basin_module.f90]]
 - **Subroutine calls**: 9 | **Files read**: 0 | **Files written**: 1
 
 ## Call Relationships
@@ -55,15 +89,47 @@ purpose: "reads in the routing information from the watershed configuration; inp
 - [[gwflow_read.f90]]
 - `exit`
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[basin_module.f90#bsn_prm]] - `basin_parms`
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[constituent_mass_module.f90#hcs1]] - `constituent_mass`
+- [[constituent_mass_module.f90#hcs2]] - `constituent_mass`
+- [[constituent_mass_module.f90#hcs3]] - `constituent_mass`
+- [[constituent_mass_module.f90#hin_csz]] - `constituent_mass`
+- [[constituent_mass_module.f90#obcs]] - `all_constituent_hydrograph`
+- [[hydrograph_module.f90#aqu]] - `hyd_output`
+- [[hydrograph_module.f90#dfn_sum]] - `integer, dimension (:), allocatable`
+- [[hydrograph_module.f90#dr]] - `hyd_output`
+- [[hydrograph_module.f90#exco]] - `hyd_output`
+- [[hydrograph_module.f90#hd_tot]] - `object_total_hydrographs`
+- [[hydrograph_module.f90#ich]] - `integer`
+- [[hydrograph_module.f90#ob]] - `object_connectivity`
+- [[hydrograph_module.f90#rcv_sum]] - `integer, dimension (:), allocatable`
+- [[hydrograph_module.f90#recall]] - `recall_hydrograph_inputs`
+- [[hydrograph_module.f90#res]] - `hyd_output`
+- [[hydrograph_module.f90#ru_def]] - `routing_unit_data`
+- [[hydrograph_module.f90#ru_elem]] - `routing_unit_elements`
+- [[hydrograph_module.f90#ru_seq]] - `integer, dimension (:), allocatable`
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
+- [[hydrograph_module.f90#sp_ob1]] - `spatial_objects`
+- [[input_file_module.f90#in_con]] - `input_con`
+- [[ru_module.f90#iru]] - `integer`
+- [[ru_module.f90#ru]] - `ru_parameters`
+
 ## File I/O
-- **Writes**: `looping.con`
+- **Writes**:
+  - [[looping.con]]
 
 <!-- USER-NOTES-START -->
 ## Notes

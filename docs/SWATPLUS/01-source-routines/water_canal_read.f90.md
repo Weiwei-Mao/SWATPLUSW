@@ -15,6 +15,14 @@ module:
   - hydrograph_module
   - constituent_mass_module
 calls: []
+uses_variables:
+  - constituent_mass_module.f90#canal_cs_stor
+  - hydrograph_module.f90#canal_om_out
+  - hydrograph_module.f90#canal_om_stor
+  - maximum_data_module.f90#db_mx
+  - water_allocation_module.f90#canal
+input_variables:
+  - water_allocation_module.f90#canal
 reads:
   - water_canal.wal
 writes: []
@@ -29,21 +37,43 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `water_canal_read.f90`
-- **Modules used**: [[input_file_module.f90]], [[water_allocation_module.f90]], [[mgt_operations_module.f90]], [[maximum_data_module.f90]], [[hydrograph_module.f90]], [[constituent_mass_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[water_allocation_module.f90]]
+  - [[mgt_operations_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[constituent_mass_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[constituent_mass_module.f90#canal_cs_stor]] - `constituent_mass`
+- [[hydrograph_module.f90#canal_om_out]] - `hyd_output`
+- [[hydrograph_module.f90#canal_om_stor]] - `hyd_output`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[water_allocation_module.f90#canal]] - `water_canal_data`
+
+**Populated by file reads:**
+
+- [[water_allocation_module.f90#canal]]
+
 ## File I/O
-- **Reads**: `water_canal.wal`
+- **Reads**:
+  - [[water_canal.wal]]
 
 <!-- USER-NOTES-START -->
 ## Notes

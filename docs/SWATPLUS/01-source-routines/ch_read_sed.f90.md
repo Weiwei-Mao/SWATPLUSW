@@ -12,6 +12,12 @@ module:
   - maximum_data_module
   - channel_data_module
 calls: []
+uses_variables:
+  - channel_data_module.f90#ch_sed
+  - input_file_module.f90#in_cha
+  - maximum_data_module.f90#db_mx
+input_variables:
+  - channel_data_module.f90#ch_sed
 reads:
   - in_cha%sed
 writes: []
@@ -26,21 +32,38 @@ purpose: "this subroutine reads data from the lake water quality input file (.lw
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `ch_read_sed.f90`
-- **Modules used**: [[input_file_module.f90]], [[maximum_data_module.f90]], [[channel_data_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[channel_data_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_cha.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[channel_data_module.f90#ch_sed]] - `channel_sed_data`
+- [[input_file_module.f90#in_cha]] - `input_cha`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+
+**Populated by file reads:**
+
+- [[channel_data_module.f90#ch_sed]]
+
 ## File I/O
-- **Reads**: `in_cha%sed` _(variable; see file.cio)_
+- **Reads**:
+  - [[sediment.cha]]
 
 <!-- USER-NOTES-START -->
 ## Notes

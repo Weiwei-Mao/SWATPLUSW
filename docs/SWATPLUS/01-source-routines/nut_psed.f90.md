@@ -13,6 +13,17 @@ module:
   - plant_module
   - organic_mineral_mass_module
 calls: []
+uses_variables:
+  - hru_module.f90#enratio
+  - hru_module.f90#hru
+  - hru_module.f90#ihru
+  - hru_module.f90#sedminpa
+  - hru_module.f90#sedminps
+  - hru_module.f90#sedorgp
+  - hru_module.f90#sedyld
+  - organic_mineral_mass_module.f90#soil1
+  - soil_module.f90#soil
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine calculates the amount of organic and mineral phosphorus; attached to sediment in surface runoff"
@@ -26,18 +37,37 @@ purpose: "this subroutine calculates the amount of organic and mineral phosphoru
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `nut_psed.f90`
-- **Modules used**: [[hru_module.f90]], [[soil_module.f90]], [[plant_module.f90]], [[organic_mineral_mass_module.f90]]
+- **Modules used**:
+  - [[hru_module.f90]]
+  - [[soil_module.f90]]
+  - [[plant_module.f90]]
+  - [[organic_mineral_mass_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[hru_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hru_module.f90#enratio]] - `real`
+- [[hru_module.f90#hru]] - `hydrologic_response_unit`
+- [[hru_module.f90#ihru]] - `integer`
+- [[hru_module.f90#sedminpa]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#sedminps]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#sedorgp]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#sedyld]] - `real, dimension (:), allocatable`
+- [[organic_mineral_mass_module.f90#soil1]] - `soil_profile_mass`
+- [[soil_module.f90#soil]] - `soil_profile`
 
 <!-- USER-NOTES-START -->
 ## Notes

@@ -11,6 +11,12 @@ module:
   - basin_module
   - hydrograph_module
 calls: []
+uses_variables:
+  - basin_module.f90#pco
+  - hydrograph_module.f90#icmd
+  - hydrograph_module.f90#ob
+  - hydrograph_module.f90#sp_ob1
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -24,18 +30,30 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `hyd_connect_out.f90`
-- **Modules used**: [[basin_module.f90]], [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[basin_module.f90]]
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#pco]] - `basin_print_codes`
+- [[hydrograph_module.f90#icmd]] - `integer`
+- [[hydrograph_module.f90#ob]] - `object_connectivity`
+- [[hydrograph_module.f90#sp_ob1]] - `spatial_objects`
 
 <!-- USER-NOTES-START -->
 ## Notes

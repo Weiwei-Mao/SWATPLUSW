@@ -17,6 +17,12 @@ module:
   - soil_module
 calls:
   - pl_rootfr
+uses_variables:
+  - hru_module.f90#ipl
+  - plant_data_module.f90#pldb
+  - plant_module.f90#pcom
+  - soil_module.f90#soil
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -30,7 +36,14 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `pl_root_gro.f90`
-- **Modules used**: [[plant_data_module.f90]], [[basin_module.f90]], [[hru_module.f90]], [[plant_module.f90]], [[carbon_module.f90]], [[organic_mineral_mass_module.f90]], [[soil_module.f90]]
+- **Modules used**:
+  - [[plant_data_module.f90]]
+  - [[basin_module.f90]]
+  - [[hru_module.f90]]
+  - [[plant_module.f90]]
+  - [[carbon_module.f90]]
+  - [[organic_mineral_mass_module.f90]]
+  - [[soil_module.f90]]
 - **Subroutine calls**: 1 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -38,12 +51,24 @@ purpose: ""
 
 - [[pl_rootfr.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[mgt_transplant.f90]]
+- [[pl_grow.f90]]
+- [[plant_init.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hru_module.f90#ipl]] - `integer`
+- [[plant_data_module.f90#pldb]] - `plant_db`
+- [[plant_module.f90#pcom]] - `plant_community`
+- [[soil_module.f90#soil]] - `soil_profile`
 
 <!-- USER-NOTES-START -->
 ## Notes

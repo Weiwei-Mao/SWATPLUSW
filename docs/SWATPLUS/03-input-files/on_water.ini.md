@@ -5,8 +5,7 @@ tags:
 file: on_water.ini
 ext: ini
 cio_field: om_water
-read_by:
-  - om_water_init.f90
+read_by: []
 purpose: ""
 ---
 
@@ -15,8 +14,16 @@ purpose: ""
 > [!info] Input File
 > Declared in `file.cio` field `om_water`. See [[file.cio]] for the controlling file map.
 
-## Reader Routines
-- [[om_water_init.f90]]
+## Overview
+- **Declared in `file.cio` field**: `om_water`
+- **Format source**: generated from Fortran `open`/`read` statements and module/type comments.
+- **Format style**: SWAT+ text input; most readers use list-directed Fortran reads.
 
-## File Format
-(Add field meanings, units, and allowed values.)
+## Reader Routines
+(Reader routine not located automatically; add evidence after tracing the code.)
+
+## File Structure
+(No line-level read structure detected automatically.)
+
+## Parameters
+(No parameter table detected automatically. Check the reader routines above for manual interpretation.)

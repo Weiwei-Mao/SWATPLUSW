@@ -9,6 +9,15 @@ module_name: output_path_module
 defines_types: []
 defines_vars:
   - out_path
+defines_subroutines:
+  - init_output_path
+  - open_output_file
+defines_functions:
+  - get_output_filename
+defines_procedures:
+  - init_output_path
+  - open_output_file
+  - get_output_filename
 purpose: ""
 ---
 
@@ -20,10 +29,19 @@ purpose: ""
 ## Defined Types
 (No type definitions detected.)
 
-## Module-Level Variables
-| Variable | Type | Meaning |
-|---|---|---|
-| `out_path` |  |  |
+## Variables Defined
+### out_path
+
+- **Type**: `character(len=256)`
+- **Defined in source**: `output_path_module.f90:6`
+
+## Subroutines Defined
+### init_output_path
+
+### open_output_file
+
+## Functions Defined
+### get_output_filename
 
 ## Used By Source Routines
 

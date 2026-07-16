@@ -11,6 +11,11 @@ module:
   - channel_data_module
   - channel_module
 calls: []
+uses_variables:
+  - channel_data_module.f90#ch_dat
+  - channel_data_module.f90#ch_sed
+  - channel_module.f90#ch
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -24,18 +29,29 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `ch_initial.f90`
-- **Modules used**: [[channel_data_module.f90]], [[channel_module.f90]]
+- **Modules used**:
+  - [[channel_data_module.f90]]
+  - [[channel_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_cha.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[channel_data_module.f90#ch_dat]] - `channel_data`
+- [[channel_data_module.f90#ch_sed]] - `channel_sed_data`
+- [[channel_module.f90#ch]] - `channel`
 
 <!-- USER-NOTES-START -->
 ## Notes

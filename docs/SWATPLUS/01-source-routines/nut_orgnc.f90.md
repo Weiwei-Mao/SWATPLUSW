@@ -13,6 +13,18 @@ module:
   - soil_module
   - plant_module
 calls: []
+uses_variables:
+  - hru_module.f90#enratio
+  - hru_module.f90#hru
+  - hru_module.f90#ihru
+  - hru_module.f90#ipl
+  - hru_module.f90#sedorgn
+  - hru_module.f90#sedyld
+  - organic_mineral_mass_module.f90#pl_mass
+  - organic_mineral_mass_module.f90#soil1
+  - plant_module.f90#pcom
+  - soil_module.f90#soil
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine calculates the amount of organic nitrogen removed in; surface runoff"
@@ -26,18 +38,38 @@ purpose: "this subroutine calculates the amount of organic nitrogen removed in; 
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `nut_orgnc.f90`
-- **Modules used**: [[organic_mineral_mass_module.f90]], [[hru_module.f90]], [[soil_module.f90]], [[plant_module.f90]]
+- **Modules used**:
+  - [[organic_mineral_mass_module.f90]]
+  - [[hru_module.f90]]
+  - [[soil_module.f90]]
+  - [[plant_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+(No static callers detected.)
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hru_module.f90#enratio]] - `real`
+- [[hru_module.f90#hru]] - `hydrologic_response_unit`
+- [[hru_module.f90#ihru]] - `integer`
+- [[hru_module.f90#ipl]] - `integer`
+- [[hru_module.f90#sedorgn]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#sedyld]] - `real, dimension (:), allocatable`
+- [[organic_mineral_mass_module.f90#pl_mass]] - `plant_community_mass`
+- [[organic_mineral_mass_module.f90#soil1]] - `soil_profile_mass`
+- [[plant_module.f90#pcom]] - `plant_community`
+- [[soil_module.f90#soil]] - `soil_profile`
 
 <!-- USER-NOTES-START -->
 ## Notes

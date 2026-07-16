@@ -15,6 +15,20 @@ module:
   - hydrograph_module
   - time_module
 calls: []
+uses_variables:
+  - input_file_module.f90#in_cha
+  - maximum_data_module.f90#db_mx
+  - sd_channel_module.f90#flo_dep
+  - sd_channel_module.f90#hyd_rad
+  - sd_channel_module.f90#maxint
+  - sd_channel_module.f90#sd_chd
+  - sd_channel_module.f90#sd_chd1
+  - sd_channel_module.f90#timeint
+  - sd_channel_module.f90#trav_time
+  - time_module.f90#time
+input_variables:
+  - sd_channel_module.f90#sd_chd
+  - sd_channel_module.f90#sd_chd1
 reads:
   - in_cha%hyd_sed
   - sed_nut.cha
@@ -30,21 +44,50 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `sd_hydsed_read.f90`
-- **Modules used**: [[input_file_module.f90]], [[sd_channel_module.f90]], [[channel_velocity_module.f90]], [[maximum_data_module.f90]], [[hydrograph_module.f90]], [[time_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[sd_channel_module.f90]]
+  - [[channel_velocity_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[time_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 2 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_cha.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[input_file_module.f90#in_cha]] - `input_cha`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[sd_channel_module.f90#flo_dep]] - `real, dimension(:), allocatable`
+- [[sd_channel_module.f90#hyd_rad]] - `real, dimension(:), allocatable`
+- [[sd_channel_module.f90#maxint]] - `integer`
+- [[sd_channel_module.f90#sd_chd]] - `swatdeg_hydsed_data`
+- [[sd_channel_module.f90#sd_chd1]] - `swatdeg_sednut_data`
+- [[sd_channel_module.f90#timeint]] - `real, dimension(:), allocatable`
+- [[sd_channel_module.f90#trav_time]] - `real, dimension(:), allocatable`
+- [[time_module.f90#time]] - `time_current`
+
+**Populated by file reads:**
+
+- [[sd_channel_module.f90#sd_chd]]
+- [[sd_channel_module.f90#sd_chd1]]
+
 ## File I/O
-- **Reads**: `in_cha%hyd_sed` _(variable; see file.cio)_, `sed_nut.cha`
+- **Reads**:
+  - [[hyd-sed-lte.cha]]
+  - [[sed_nut.cha]]
 
 <!-- USER-NOTES-START -->
 ## Notes

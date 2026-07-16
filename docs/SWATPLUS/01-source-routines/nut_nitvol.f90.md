@@ -14,6 +14,14 @@ module:
   - hru_module
   - soil_module
 calls: []
+uses_variables:
+  - hru_module.f90#i_sep
+  - hru_module.f90#ihru
+  - hru_module.f90#isep
+  - organic_mineral_mass_module.f90#soil1
+  - septic_data_module.f90#sep
+  - soil_module.f90#soil
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine estimates daily mineralization (NH3 to NO3); and volatilization of NH3"
@@ -27,18 +35,35 @@ purpose: "this subroutine estimates daily mineralization (NH3 to NO3); and volat
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `nut_nitvol.f90`
-- **Modules used**: [[septic_data_module.f90]], [[basin_module.f90]], [[organic_mineral_mass_module.f90]], [[hru_module.f90]], [[soil_module.f90]]
+- **Modules used**:
+  - [[septic_data_module.f90]]
+  - [[basin_module.f90]]
+  - [[organic_mineral_mass_module.f90]]
+  - [[hru_module.f90]]
+  - [[soil_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[hru_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hru_module.f90#i_sep]] - `integer, dimension (:), allocatable`
+- [[hru_module.f90#ihru]] - `integer`
+- [[hru_module.f90#isep]] - `integer`
+- [[organic_mineral_mass_module.f90#soil1]] - `soil_profile_mass`
+- [[septic_data_module.f90#sep]] - `septic_system`
+- [[soil_module.f90#soil]] - `soil_profile`
 
 <!-- USER-NOTES-START -->
 ## Notes

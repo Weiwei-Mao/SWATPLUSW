@@ -10,6 +10,9 @@ subroutine: soil_text_init
 module:
   - soil_module
 calls: []
+uses_variables:
+  - soil_module.f90#soil
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine initializes soil parameters based on awc"
@@ -23,18 +26,26 @@ purpose: "this subroutine initializes soil parameters based on awc"
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `soil_text_init.f90`
-- **Modules used**: [[soil_module.f90]]
+- **Modules used**:
+  - [[soil_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[cal_parm_select.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[soil_module.f90#soil]] - `soil_profile`
 
 <!-- USER-NOTES-START -->
 ## Notes

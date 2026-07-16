@@ -14,6 +14,16 @@ module:
   - hydrograph_module
   - climate_module
 calls: []
+uses_variables:
+  - climate_module.f90#wst
+  - hydrograph_module.f90#ht2
+  - hydrograph_module.f90#iwst
+  - hydrograph_module.f90#ob
+  - hydrograph_module.f90#resz
+  - hydrograph_module.f90#wbody
+  - reservoir_data_module.f90#wbody_prm
+  - time_module.f90#time
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -27,18 +37,38 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `res_nutrient.f90`
-- **Modules used**: [[reservoir_data_module.f90]], [[time_module.f90]], [[reservoir_module.f90]], [[hydrograph_module.f90]], [[climate_module.f90]]
+- **Modules used**:
+  - [[reservoir_data_module.f90]]
+  - [[time_module.f90]]
+  - [[reservoir_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[climate_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[res_control.f90]]
+- [[wetland_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[climate_module.f90#wst]] - `weather_station`
+- [[hydrograph_module.f90#ht2]] - `hyd_output`
+- [[hydrograph_module.f90#iwst]] - `integer`
+- [[hydrograph_module.f90#ob]] - `object_connectivity`
+- [[hydrograph_module.f90#resz]] - `hyd_output`
+- [[hydrograph_module.f90#wbody]] - `hyd_output`
+- [[reservoir_data_module.f90#wbody_prm]] - `water_body_data_parameters`
+- [[time_module.f90#time]] - `time_current`
 
 <!-- USER-NOTES-START -->
 ## Notes

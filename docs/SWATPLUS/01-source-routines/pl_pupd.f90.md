@@ -13,6 +13,16 @@ module:
   - plant_module
   - organic_mineral_mass_module
 calls: []
+uses_variables:
+  - hru_module.f90#ihru
+  - hru_module.f90#ipl
+  - hru_module.f90#uapd
+  - hru_module.f90#up2
+  - organic_mineral_mass_module.f90#pl_mass
+  - plant_data_module.f90#plcp
+  - plant_data_module.f90#pldb
+  - plant_module.f90#pcom
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine calculates plant phosphorus demand"
@@ -26,18 +36,36 @@ purpose: "this subroutine calculates plant phosphorus demand"
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `pl_pupd.f90`
-- **Modules used**: [[plant_data_module.f90]], [[hru_module.f90]], [[plant_module.f90]], [[organic_mineral_mass_module.f90]]
+- **Modules used**:
+  - [[plant_data_module.f90]]
+  - [[hru_module.f90]]
+  - [[plant_module.f90]]
+  - [[organic_mineral_mass_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[pl_nut_demand.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hru_module.f90#ihru]] - `integer`
+- [[hru_module.f90#ipl]] - `integer`
+- [[hru_module.f90#uapd]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#up2]] - `real, dimension (:), allocatable`
+- [[organic_mineral_mass_module.f90#pl_mass]] - `plant_community_mass`
+- [[plant_data_module.f90#plcp]] - `plant_cp`
+- [[plant_data_module.f90#pldb]] - `plant_db`
+- [[plant_module.f90#pcom]] - `plant_community`
 
 <!-- USER-NOTES-START -->
 ## Notes

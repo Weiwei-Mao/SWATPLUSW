@@ -22,6 +22,10 @@ calls:
   - res_read
   - res_read_salt_cs
   - res_initial
+uses_variables:
+  - hydrograph_module.f90#res
+  - hydrograph_module.f90#sp_ob
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -35,7 +39,8 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `proc_res.f90`
-- **Modules used**: [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 12 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -54,12 +59,20 @@ purpose: ""
 - [[res_read_salt_cs.f90]]
 - [[res_initial.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hydrograph_module.f90#res]] - `hyd_output`
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
 
 <!-- USER-NOTES-START -->
 ## Notes

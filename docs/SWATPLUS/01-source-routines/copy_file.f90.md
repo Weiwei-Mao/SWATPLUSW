@@ -9,6 +9,8 @@ note_file: copy_file.f90
 subroutine: copy_file
 module: []
 calls: []
+uses_variables: []
+input_variables: []
 reads:
   - source
 writes:
@@ -24,22 +26,32 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `copy_file.f90`
-- **Modules used**: -
+- **Modules used**:
+  - -
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 1
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[swift_output.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+(No module-level variable references detected.)
+
 ## File I/O
-- **Writes**: `destination`
-- **Reads**: `source` _(variable; see file.cio)_
+- **Writes**:
+  - `destination` _(variable; see [[file.cio]])_
+- **Reads**:
+  - `source` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes

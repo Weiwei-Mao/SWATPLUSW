@@ -10,6 +10,8 @@ subroutine: wq_semianalyt
 module:
   - utils
 calls: []
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: "This function solves a semi-analytic solution for the QUAL2E equations (cfr Befekadu Woldegiorgis)."
@@ -23,18 +25,26 @@ purpose: "This function solves a semi-analytic solution for the QUAL2E equations
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `wq_semianalyt.f90`
-- **Modules used**: [[utils.f90]]
+- **Modules used**:
+  - [[utils.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+(No static callers detected.)
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+(No module-level variable references detected.)
 
 <!-- USER-NOTES-START -->
 ## Notes

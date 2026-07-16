@@ -14,6 +14,13 @@ module:
   - res_salt_module
   - constituent_mass_module
 calls: []
+uses_variables:
+  - constituent_mass_module.f90#cs_db
+  - input_file_module.f90#in_res
+  - maximum_data_module.f90#db_mx
+  - res_salt_module.f90#res_salt_data
+input_variables:
+  - res_salt_module.f90#res_salt_data
 reads:
   - salt_res
 writes: []
@@ -28,21 +35,41 @@ purpose: "this subroutine reads reservoir water quality parameters for salt ions
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `res_read_saltdb.f90`
-- **Modules used**: [[input_file_module.f90]], [[maximum_data_module.f90]], [[reservoir_data_module.f90]], [[res_salt_module.f90]], [[constituent_mass_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[reservoir_data_module.f90]]
+  - [[res_salt_module.f90]]
+  - [[constituent_mass_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_res.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[input_file_module.f90#in_res]] - `input_res`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[res_salt_module.f90#res_salt_data]] - `reservoir_salt_data`
+
+**Populated by file reads:**
+
+- [[res_salt_module.f90#res_salt_data]]
+
 ## File I/O
-- **Reads**: `salt_res` _(variable; see file.cio)_
+- **Reads**:
+  - `salt_res` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes

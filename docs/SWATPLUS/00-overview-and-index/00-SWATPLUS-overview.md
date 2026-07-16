@@ -7,7 +7,7 @@
 
 - Source routines (program + subroutine): **583**
 - Module files (`*_module.f90`): **66**
-- Output files: **51**; see [[input-output-file-index]]
+- Output files: **668**; see [[input-output-file-index]]
 - Input files: see [[file.cio]] as the controlling index
 
 ## Directory Structure

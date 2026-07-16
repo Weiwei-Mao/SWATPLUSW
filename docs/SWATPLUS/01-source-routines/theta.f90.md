@@ -9,6 +9,8 @@ note_file: theta.f90
 subroutine: theta
 module: []
 calls: []
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: "this function corrects rate constants for temperature; Equation is III-52 from QUAL2E"
@@ -22,18 +24,26 @@ purpose: "this function corrects rate constants for temperature; Equation is III
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `theta.f90`
-- **Modules used**: -
+- **Modules used**:
+  - -
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+(No static callers detected.)
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+(No module-level variable references detected.)
 
 <!-- USER-NOTES-START -->
 ## Notes

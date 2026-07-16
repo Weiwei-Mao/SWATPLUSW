@@ -12,6 +12,11 @@ module:
   - soil_module
   - time_module
 calls: []
+uses_variables:
+  - hru_module.f90#snocov1
+  - hru_module.f90#snocov2
+  - hru_module.f90#volcrmin
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine zeros values for single array variables"
@@ -25,18 +30,30 @@ purpose: "this subroutine zeros values for single array variables"
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `zeroini.f90`
-- **Modules used**: [[hru_module.f90]], [[soil_module.f90]], [[time_module.f90]]
+- **Modules used**:
+  - [[hru_module.f90]]
+  - [[soil_module.f90]]
+  - [[time_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[allocate_parms.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hru_module.f90#snocov1]] - `real`
+- [[hru_module.f90#snocov2]] - `real`
+- [[hru_module.f90#volcrmin]] - `real`
 
 <!-- USER-NOTES-START -->
 ## Notes

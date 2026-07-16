@@ -15,6 +15,11 @@ module:
   - hydrograph_module
   - constituent_mass_module
 calls: []
+uses_variables:
+  - maximum_data_module.f90#db_mx
+  - water_allocation_module.f90#pipe
+input_variables:
+  - water_allocation_module.f90#pipe
 reads:
   - water_pipe.wal
 writes: []
@@ -29,21 +34,40 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `water_pipe_read.f90`
-- **Modules used**: [[input_file_module.f90]], [[water_allocation_module.f90]], [[mgt_operations_module.f90]], [[maximum_data_module.f90]], [[hydrograph_module.f90]], [[constituent_mass_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[water_allocation_module.f90]]
+  - [[mgt_operations_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[constituent_mass_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[water_allocation_module.f90#pipe]] - `water_transfer_data`
+
+**Populated by file reads:**
+
+- [[water_allocation_module.f90#pipe]]
+
 ## File I/O
-- **Reads**: `water_pipe.wal`
+- **Reads**:
+  - [[water_pipe.wal]]
 
 <!-- USER-NOTES-START -->
 ## Notes

@@ -13,6 +13,14 @@ module:
   - ch_cs_module
   - time_module
 calls: []
+uses_variables:
+  - ch_cs_module.f90#chcs_d
+  - constituent_mass_module.f90#cs_obs_file
+  - constituent_mass_module.f90#cs_str_nobs
+  - constituent_mass_module.f90#cs_str_obs
+  - hydrograph_module.f90#ch_out_d
+  - time_module.f90#time
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine prints out daily constituent data for specified channels"
@@ -26,18 +34,34 @@ purpose: "this subroutine prints out daily constituent data for specified channe
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cs_str_output.f90`
-- **Modules used**: [[hydrograph_module.f90]], [[constituent_mass_module.f90]], [[ch_cs_module.f90]], [[time_module.f90]]
+- **Modules used**:
+  - [[hydrograph_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[ch_cs_module.f90]]
+  - [[time_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[command.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[ch_cs_module.f90#chcs_d]] - `ch_cs_output`
+- [[constituent_mass_module.f90#cs_obs_file]] - `integer`
+- [[constituent_mass_module.f90#cs_str_nobs]] - `integer`
+- [[constituent_mass_module.f90#cs_str_obs]] - `integer, dimension (:), allocatable`
+- [[hydrograph_module.f90#ch_out_d]] - `hyd_output`
+- [[time_module.f90#time]] - `time_current`
 
 <!-- USER-NOTES-START -->
 ## Notes

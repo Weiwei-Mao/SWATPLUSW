@@ -18,6 +18,25 @@ module:
   - hru_module
 calls:
   - mgt_tillfactor
+uses_variables:
+  - constituent_mass_module.f90#cs_db
+  - hru_module.f90#ipl
+  - hru_module.f90#tillage_days
+  - hru_module.f90#tillage_switch
+  - organic_mineral_mass_module.f90#mix_mn
+  - organic_mineral_mass_module.f90#mix_mp
+  - organic_mineral_mass_module.f90#mix_org
+  - organic_mineral_mass_module.f90#mnz
+  - organic_mineral_mass_module.f90#mpz
+  - organic_mineral_mass_module.f90#orgz
+  - organic_mineral_mass_module.f90#pl_mass
+  - organic_mineral_mass_module.f90#soil1
+  - plant_module.f90#pcom
+  - soil_module.f90#soil
+  - tillage_data_module.f90#bio_consf
+  - tillage_data_module.f90#bmix_depth
+  - tillage_data_module.f90#bmix_eff
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine mixes residue and nutrients from biological mixing; New version developed by Armen R. Kemanian in collaboration with Stefan Julich and Cole Rossi; A subroutine to simulate stimulation of organic matter decomposition was added"
@@ -31,7 +50,15 @@ purpose: "this subroutine mixes residue and nutrients from biological mixing; Ne
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `mgt_biomix.f90`
-- **Modules used**: [[tillage_data_module.f90]], [[basin_module.f90]], [[organic_mineral_mass_module.f90]], [[soil_module.f90]], [[constituent_mass_module.f90]], [[plant_module.f90]], [[plant_data_module.f90]], [[hru_module.f90]]
+- **Modules used**:
+  - [[tillage_data_module.f90]]
+  - [[basin_module.f90]]
+  - [[organic_mineral_mass_module.f90]]
+  - [[soil_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[plant_module.f90]]
+  - [[plant_data_module.f90]]
+  - [[hru_module.f90]]
 - **Subroutine calls**: 1 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -39,12 +66,35 @@ purpose: "this subroutine mixes residue and nutrients from biological mixing; Ne
 
 - [[mgt_tillfactor.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[hru_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[hru_module.f90#ipl]] - `integer`
+- [[hru_module.f90#tillage_days]] - `integer, dimension(:), allocatable`
+- [[hru_module.f90#tillage_switch]] - `integer, dimension(:), allocatable`
+- [[organic_mineral_mass_module.f90#mix_mn]] - `mineral_nitrogen`
+- [[organic_mineral_mass_module.f90#mix_mp]] - `mineral_phosphorus`
+- [[organic_mineral_mass_module.f90#mix_org]] - `organic_mixing_mass`
+- [[organic_mineral_mass_module.f90#mnz]] - `mineral_nitrogen`
+- [[organic_mineral_mass_module.f90#mpz]] - `mineral_phosphorus`
+- [[organic_mineral_mass_module.f90#orgz]] - `organic_mass`
+- [[organic_mineral_mass_module.f90#pl_mass]] - `plant_community_mass`
+- [[organic_mineral_mass_module.f90#soil1]] - `soil_profile_mass`
+- [[plant_module.f90#pcom]] - `plant_community`
+- [[soil_module.f90#soil]] - `soil_profile`
+- [[tillage_data_module.f90#bio_consf]] - `real`
+- [[tillage_data_module.f90#bmix_depth]] - `real`
+- [[tillage_data_module.f90#bmix_eff]] - `real`
 
 <!-- USER-NOTES-START -->
 ## Notes

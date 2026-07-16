@@ -31,8 +31,212 @@ calls:
   - cb_write_wide_header
   - cb_write_flat_header
   - cb_write_cbn_lyr_header
+uses_variables:
+  - basin_module.f90#bsn
+  - basin_module.f90#bsn_cc
+  - basin_module.f90#pco
+  - basin_module.f90#prog
+  - calibration_data_module.f90#lsu_out
+  - carbon_module.f90#carb_drv_vars
+  - carbon_module.f90#carb_dyn_vars
+  - carbon_module.f90#cb_n_layers
+  - carbon_module.f90#cb_n_layers_explicit
+  - carbon_module.f90#cflux_vars
+  - carbon_module.f90#cpool_vars
+  - carbon_module.f90#n_p_pool_vars
+  - carbon_module.f90#soil_snap_vars
+  - hydrograph_module.f90#sp_ob
+  - maximum_data_module.f90#db_mx
+  - output_landscape_module.f90#carb_gl_hdr
+  - output_landscape_module.f90#carb_gl_hdr_units
+  - output_landscape_module.f90#hscf_hdr
+  - output_landscape_module.f90#hscf_hdr_units
+  - output_landscape_module.f90#ls_hdr
+  - output_landscape_module.f90#ls_hdr_units
+  - output_landscape_module.f90#nb_hdr
+  - output_landscape_module.f90#nb_hdr1
+  - output_landscape_module.f90#nb_hdr_units
+  - output_landscape_module.f90#nb_hdr_units1
+  - output_landscape_module.f90#pw_hdr
+  - output_landscape_module.f90#pw_hdr_units
+  - output_landscape_module.f90#wb_hdr
+  - output_landscape_module.f90#wb_hdr_units
+  - soil_module.f90#soil
+input_variables: []
 reads: []
-writes: []
+writes:
+  - hru_wb_day.txt
+  - hru_wb_day.csv
+  - hru_wb_mon.txt
+  - hru_wb_mon.csv
+  - hru_wb_yr.txt
+  - hru_wb_yr.csv
+  - hru_wb_aa.txt
+  - hru_wb_aa.csv
+  - hru_nb_day.txt
+  - hru_nb_day.csv
+  - hru_ncycle_day.txt
+  - hru_ncycle_day.csv
+  - hru_ncycle_mon.txt
+  - hru_ncycle_mon.csv
+  - hru_ncycle_yr.txt
+  - hru_ncycle_yr.csv
+  - hru_ncycle_aa.txt
+  - hru_ncycle_aa.csv
+  - hru_nb_mon.txt
+  - hru_nb_mon.csv
+  - hru_nb_yr.txt
+  - hru_nb_yr.csv
+  - hru_nb_aa.txt
+  - hru_nb_aa.csv
+  - hru_carb_gl_day.txt
+  - hru_carb_gl_day.csv
+  - hru_carb_gl_mon.txt
+  - hru_carb_gl_mon.csv
+  - hru_carb_gl_yr.txt
+  - hru_carb_gl_yr.csv
+  - hru_carb_gl_aa.txt
+  - hru_carb_gl_aa.csv
+  - hru_scf_day.txt
+  - hru_scf_day.csv
+  - hru_scf_mon.txt
+  - hru_scf_mon.csv
+  - hru_scf_yr.txt
+  - hru_scf_yr.csv
+  - hru_scf_aa.txt
+  - hru_scf_aa.csv
+  - hru_ls_day.txt
+  - hru_ls_day.csv
+  - hru_ls_mon.txt
+  - hru_ls_mon.csv
+  - hru_ls_yr.txt
+  - hru_ls_yr.csv
+  - hru_ls_aa.txt
+  - hru_ls_aa.csv
+  - hru_pw_day.txt
+  - hru_pw_day.csv
+  - hru_pw_mon.txt
+  - hru_pw_mon.csv
+  - hru_pw_yr.txt
+  - hru_pw_yr.csv
+  - hru_pw_aa.txt
+  - hru_pw_aa.csv
+  - hru-lte_wb_day.txt
+  - hru-lte_wb_day.csv
+  - hru-lte_wb_mon.txt
+  - hru-lte_wb_mon.csv
+  - hru-lte_wb_yr.txt
+  - hru-lte_wb_yr.csv
+  - hru-lte_wb_aa.txt
+  - hru-lte_wb_aa.csv
+  - hru-lte_ls_day.txt
+  - hru-lte_ls_day.csv
+  - hru-lte_ls_mon.txt
+  - hru-lte_ls_mon.csv
+  - hru-lte_ls_yr.txt
+  - hru-lte_ls_yr.csv
+  - hru-lte_ls_aa.txt
+  - hru-lte_ls_aa.csv
+  - hru-lte_pw_day.txt
+  - hru-lte_pw_day.csv
+  - hru-lte_pw_mon.txt
+  - hru-lte_pw_mon.csv
+  - hru-lte_pw_yr.txt
+  - hru-lte_pw_yr.csv
+  - hru-lte_pw_aa.txt
+  - hru-lte_pw_aa.csv
+  - lsunit_wb_day.txt
+  - lsunit_wb_day.csv
+  - lsunit_wb_mon.txt
+  - lsunit_wb_mon.csv
+  - lsunit_wb_yr.txt
+  - lsunit_wb_yr.csv
+  - lsunit_wb_aa.txt
+  - lsunit_wb_aa.csv
+  - lsunit_nb_day.txt
+  - lsunit_nb_day.csv
+  - lsunit_nb_mon.txt
+  - lsunit_nb_mon.csv
+  - lsunit_nb_yr.txt
+  - lsunit_nb_yr.csv
+  - lsunit_nb_aa.txt
+  - lsunit_nb_aa.csv
+  - lsunit_ls_day.txt
+  - lsunit_ls_day.csv
+  - lsunit_ls_mon.txt
+  - lsunit_ls_mon.csv
+  - lsunit_ls_yr.txt
+  - lsunit_ls_yr.csv
+  - lsunit_ls_aa.txt
+  - lsunit_ls_aa.csv
+  - lsunit_pw_day.txt
+  - lsunit_pw_day.csv
+  - lsunit_pw_mon.txt
+  - lsunit_pw_mon.csv
+  - lsunit_pw_yr.txt
+  - lsunit_pw_yr.csv
+  - lsunit_pw_aa.txt
+  - lsunit_pw_aa.csv
+  - basin_wb_day.txt
+  - basin_wb_day.csv
+  - basin_wb_mon.txt
+  - basin_wb_mon.csv
+  - basin_wb_yr.txt
+  - basin_wb_yr.csv
+  - basin_wb_aa.txt
+  - basin_wb_aa.csv
+  - basin_nb_day.txt
+  - basin_nb_day.csv
+  - basin_nb_mon.txt
+  - basin_nb_mon.csv
+  - basin_nb_yr.txt
+  - basin_nb_yr.csv
+  - basin_nb_aa.txt
+  - basin_nb_aa.csv
+  - basin_ls_day.txt
+  - basin_ls_day.csv
+  - basin_ls_mon.txt
+  - basin_ls_mon.csv
+  - basin_ls_yr.txt
+  - basin_ls_yr.csv
+  - basin_ls_aa.txt
+  - basin_ls_aa.csv
+  - basin_pw_day.txt
+  - basin_pw_day.csv
+  - basin_pw_mon.txt
+  - basin_pw_mon.csv
+  - basin_pw_yr.txt
+  - basin_pw_yr.csv
+  - basin_pw_aa.txt
+  - basin_pw_aa.csv
+  - crop_yld_yr.txt
+  - crop_yld_yr.csv
+  - crop_yld_aa.txt
+  - crop_yld_aa.csv
+  - lsu_carb_gl_day.txt
+  - lsu_carb_gl_day.csv
+  - lsu_carb_gl_mon.txt
+  - lsu_carb_gl_mon.csv
+  - lsu_carb_gl_yr.txt
+  - lsu_carb_gl_yr.csv
+  - lsu_carb_gl_aa.txt
+  - lsu_carb_gl_aa.csv
+  - lsu_scf_day.txt
+  - lsu_scf_day.csv
+  - lsu_scf_mon.txt
+  - lsu_scf_mon.csv
+  - lsu_scf_yr.txt
+  - lsu_scf_yr.csv
+  - lsu_scf_aa.txt
+  - lsu_scf_aa.csv
+  - lsu_plc_stat_day.txt
+  - lsu_plc_stat_day.csv
+  - lsu_plc_stat_mon.txt
+  - lsu_plc_stat_mon.csv
+  - lsu_plc_stat_yr.txt
+  - lsu_plc_stat_yr.csv
+  - lsu_plc_stat_aa.txt
+  - lsu_plc_stat_aa.csv
 purpose: ""
 ---
 
@@ -44,28 +248,252 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `output_landscape_init.f90`
-- **Modules used**: [[hydrograph_module.f90]], [[channel_module.f90]], [[sd_channel_module.f90]], [[basin_module.f90]], [[maximum_data_module.f90]], [[calibration_data_module.f90]], [[aquifer_module.f90]], [[output_landscape_module.f90]], [[time_module.f90]], [[carbon_module.f90]], [[output_path_module.f90]], [[soil_module.f90]], [[carbon_legacy_module.f90]]
-- **Subroutine calls**: 9 | **Files read**: 0 | **Files written**: 0
+- **Modules used**:
+  - [[hydrograph_module.f90]]
+  - [[channel_module.f90]]
+  - [[sd_channel_module.f90]]
+  - [[basin_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[calibration_data_module.f90]]
+  - [[aquifer_module.f90]]
+  - [[output_landscape_module.f90]]
+  - [[time_module.f90]]
+  - [[carbon_module.f90]]
+  - [[output_path_module.f90]]
+  - [[soil_module.f90]]
+  - [[carbon_legacy_module.f90]]
+- **Subroutine calls**: 9 | **Files read**: 0 | **Files written**: 172
 
 ## Call Relationships
 **This routine calls:**
 
-- `open_output_file`
+- [[output_path_module.f90#open_output_file]]
 - `open_cb_banner_pair`
 - `open_cb_wide_pair`
 - [[soil_nutcarb_write.f90]]
 - `open_cb_flat_pair`
-- `carbon_legacy_open`
-- `cb_write_wide_header`
-- `cb_write_flat_header`
-- `cb_write_cbn_lyr_header`
+- [[carbon_legacy_module.f90#carbon_legacy_open]]
+- [[carbon_module.f90#cb_write_wide_header]]
+- [[carbon_module.f90#cb_write_flat_header]]
+- [[carbon_module.f90#cb_write_cbn_lyr_header]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_open.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#bsn]] - `basin_inputs`
+- [[basin_module.f90#bsn_cc]] - `basin_control_codes`
+- [[basin_module.f90#pco]] - `basin_print_codes`
+- [[basin_module.f90#prog]] - `character(len=80)`
+- [[calibration_data_module.f90#lsu_out]] - `landscape_units`
+- [[carbon_module.f90#carb_drv_vars]] - `character(len=16), parameter`
+- [[carbon_module.f90#carb_dyn_vars]] - `character(len=16), parameter`
+- [[carbon_module.f90#cb_n_layers]] - `integer`
+- [[carbon_module.f90#cb_n_layers_explicit]] - `logical`
+- [[carbon_module.f90#cflux_vars]] - `character(len=16), parameter`
+- [[carbon_module.f90#cpool_vars]] - `character(len=16), parameter`
+- [[carbon_module.f90#n_p_pool_vars]] - `character(len=16), parameter`
+- [[carbon_module.f90#soil_snap_vars]] - `character(len=16), parameter`
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[output_landscape_module.f90#carb_gl_hdr]] - `output_carb_gl_header`
+- [[output_landscape_module.f90#carb_gl_hdr_units]] - `output_carb_gl_header_units`
+- [[output_landscape_module.f90#hscf_hdr]] - `output_hscf_header`
+- [[output_landscape_module.f90#hscf_hdr_units]] - `output_hscf_header_units`
+- [[output_landscape_module.f90#ls_hdr]] - `output_losses_header`
+- [[output_landscape_module.f90#ls_hdr_units]] - `output_losses_header_units`
+- [[output_landscape_module.f90#nb_hdr]] - `output_nutbal_header`
+- [[output_landscape_module.f90#nb_hdr1]] - `output_nutcarb_cycling_header`
+- [[output_landscape_module.f90#nb_hdr_units]] - `output_nutbal_header_units`
+- [[output_landscape_module.f90#nb_hdr_units1]] - `output_nutbal_header_units1`
+- [[output_landscape_module.f90#pw_hdr]] - `output_plantweather_header`
+- [[output_landscape_module.f90#pw_hdr_units]] - `output_plantweather_header_units`
+- [[output_landscape_module.f90#wb_hdr]] - `output_waterbal_header`
+- [[output_landscape_module.f90#wb_hdr_units]] - `output_waterbal_header_units`
+- [[soil_module.f90#soil]] - `soil_profile`
+
+## File I/O
+- **Writes**:
+  - [[hru_wb_day.txt]]
+  - [[hru_wb_day.csv]]
+  - [[hru_wb_mon.txt]]
+  - [[hru_wb_mon.csv]]
+  - [[hru_wb_yr.txt]]
+  - [[hru_wb_yr.csv]]
+  - [[hru_wb_aa.txt]]
+  - [[hru_wb_aa.csv]]
+  - [[hru_nb_day.txt]]
+  - [[hru_nb_day.csv]]
+  - [[hru_ncycle_day.txt]]
+  - [[hru_ncycle_day.csv]]
+  - [[hru_ncycle_mon.txt]]
+  - [[hru_ncycle_mon.csv]]
+  - [[hru_ncycle_yr.txt]]
+  - [[hru_ncycle_yr.csv]]
+  - [[hru_ncycle_aa.txt]]
+  - [[hru_ncycle_aa.csv]]
+  - [[hru_nb_mon.txt]]
+  - [[hru_nb_mon.csv]]
+  - [[hru_nb_yr.txt]]
+  - [[hru_nb_yr.csv]]
+  - [[hru_nb_aa.txt]]
+  - [[hru_nb_aa.csv]]
+  - [[hru_carb_gl_day.txt]]
+  - [[hru_carb_gl_day.csv]]
+  - [[hru_carb_gl_mon.txt]]
+  - [[hru_carb_gl_mon.csv]]
+  - [[hru_carb_gl_yr.txt]]
+  - [[hru_carb_gl_yr.csv]]
+  - [[hru_carb_gl_aa.txt]]
+  - [[hru_carb_gl_aa.csv]]
+  - [[hru_scf_day.txt]]
+  - [[hru_scf_day.csv]]
+  - [[hru_scf_mon.txt]]
+  - [[hru_scf_mon.csv]]
+  - [[hru_scf_yr.txt]]
+  - [[hru_scf_yr.csv]]
+  - [[hru_scf_aa.txt]]
+  - [[hru_scf_aa.csv]]
+  - [[hru_ls_day.txt]]
+  - [[hru_ls_day.csv]]
+  - [[hru_ls_mon.txt]]
+  - [[hru_ls_mon.csv]]
+  - [[hru_ls_yr.txt]]
+  - [[hru_ls_yr.csv]]
+  - [[hru_ls_aa.txt]]
+  - [[hru_ls_aa.csv]]
+  - [[hru_pw_day.txt]]
+  - [[hru_pw_day.csv]]
+  - [[hru_pw_mon.txt]]
+  - [[hru_pw_mon.csv]]
+  - [[hru_pw_yr.txt]]
+  - [[hru_pw_yr.csv]]
+  - [[hru_pw_aa.txt]]
+  - [[hru_pw_aa.csv]]
+  - [[hru-lte_wb_day.txt]]
+  - [[hru-lte_wb_day.csv]]
+  - [[hru-lte_wb_mon.txt]]
+  - [[hru-lte_wb_mon.csv]]
+  - [[hru-lte_wb_yr.txt]]
+  - [[hru-lte_wb_yr.csv]]
+  - [[hru-lte_wb_aa.txt]]
+  - [[hru-lte_wb_aa.csv]]
+  - [[hru-lte_ls_day.txt]]
+  - [[hru-lte_ls_day.csv]]
+  - [[hru-lte_ls_mon.txt]]
+  - [[hru-lte_ls_mon.csv]]
+  - [[hru-lte_ls_yr.txt]]
+  - [[hru-lte_ls_yr.csv]]
+  - [[hru-lte_ls_aa.txt]]
+  - [[hru-lte_ls_aa.csv]]
+  - [[hru-lte_pw_day.txt]]
+  - [[hru-lte_pw_day.csv]]
+  - [[hru-lte_pw_mon.txt]]
+  - [[hru-lte_pw_mon.csv]]
+  - [[hru-lte_pw_yr.txt]]
+  - [[hru-lte_pw_yr.csv]]
+  - [[hru-lte_pw_aa.txt]]
+  - [[hru-lte_pw_aa.csv]]
+  - [[lsunit_wb_day.txt]]
+  - [[lsunit_wb_day.csv]]
+  - [[lsunit_wb_mon.txt]]
+  - [[lsunit_wb_mon.csv]]
+  - [[lsunit_wb_yr.txt]]
+  - [[lsunit_wb_yr.csv]]
+  - [[lsunit_wb_aa.txt]]
+  - [[lsunit_wb_aa.csv]]
+  - [[lsunit_nb_day.txt]]
+  - [[lsunit_nb_day.csv]]
+  - [[lsunit_nb_mon.txt]]
+  - [[lsunit_nb_mon.csv]]
+  - [[lsunit_nb_yr.txt]]
+  - [[lsunit_nb_yr.csv]]
+  - [[lsunit_nb_aa.txt]]
+  - [[lsunit_nb_aa.csv]]
+  - [[lsunit_ls_day.txt]]
+  - [[lsunit_ls_day.csv]]
+  - [[lsunit_ls_mon.txt]]
+  - [[lsunit_ls_mon.csv]]
+  - [[lsunit_ls_yr.txt]]
+  - [[lsunit_ls_yr.csv]]
+  - [[lsunit_ls_aa.txt]]
+  - [[lsunit_ls_aa.csv]]
+  - [[lsunit_pw_day.txt]]
+  - [[lsunit_pw_day.csv]]
+  - [[lsunit_pw_mon.txt]]
+  - [[lsunit_pw_mon.csv]]
+  - [[lsunit_pw_yr.txt]]
+  - [[lsunit_pw_yr.csv]]
+  - [[lsunit_pw_aa.txt]]
+  - [[lsunit_pw_aa.csv]]
+  - [[basin_wb_day.txt]]
+  - [[basin_wb_day.csv]]
+  - [[basin_wb_mon.txt]]
+  - [[basin_wb_mon.csv]]
+  - [[basin_wb_yr.txt]]
+  - [[basin_wb_yr.csv]]
+  - [[basin_wb_aa.txt]]
+  - [[basin_wb_aa.csv]]
+  - [[basin_nb_day.txt]]
+  - [[basin_nb_day.csv]]
+  - [[basin_nb_mon.txt]]
+  - [[basin_nb_mon.csv]]
+  - [[basin_nb_yr.txt]]
+  - [[basin_nb_yr.csv]]
+  - [[basin_nb_aa.txt]]
+  - [[basin_nb_aa.csv]]
+  - [[basin_ls_day.txt]]
+  - [[basin_ls_day.csv]]
+  - [[basin_ls_mon.txt]]
+  - [[basin_ls_mon.csv]]
+  - [[basin_ls_yr.txt]]
+  - [[basin_ls_yr.csv]]
+  - [[basin_ls_aa.txt]]
+  - [[basin_ls_aa.csv]]
+  - [[basin_pw_day.txt]]
+  - [[basin_pw_day.csv]]
+  - [[basin_pw_mon.txt]]
+  - [[basin_pw_mon.csv]]
+  - [[basin_pw_yr.txt]]
+  - [[basin_pw_yr.csv]]
+  - [[basin_pw_aa.txt]]
+  - [[basin_pw_aa.csv]]
+  - [[crop_yld_yr.txt]]
+  - [[crop_yld_yr.csv]]
+  - [[crop_yld_aa.txt]]
+  - [[crop_yld_aa.csv]]
+  - [[lsu_carb_gl_day.txt]]
+  - [[lsu_carb_gl_day.csv]]
+  - [[lsu_carb_gl_mon.txt]]
+  - [[lsu_carb_gl_mon.csv]]
+  - [[lsu_carb_gl_yr.txt]]
+  - [[lsu_carb_gl_yr.csv]]
+  - [[lsu_carb_gl_aa.txt]]
+  - [[lsu_carb_gl_aa.csv]]
+  - [[lsu_scf_day.txt]]
+  - [[lsu_scf_day.csv]]
+  - [[lsu_scf_mon.txt]]
+  - [[lsu_scf_mon.csv]]
+  - [[lsu_scf_yr.txt]]
+  - [[lsu_scf_yr.csv]]
+  - [[lsu_scf_aa.txt]]
+  - [[lsu_scf_aa.csv]]
+  - [[lsu_plc_stat_day.txt]]
+  - [[lsu_plc_stat_day.csv]]
+  - [[lsu_plc_stat_mon.txt]]
+  - [[lsu_plc_stat_mon.csv]]
+  - [[lsu_plc_stat_yr.txt]]
+  - [[lsu_plc_stat_yr.csv]]
+  - [[lsu_plc_stat_aa.txt]]
+  - [[lsu_plc_stat_aa.csv]]
 
 <!-- USER-NOTES-START -->
 ## Notes

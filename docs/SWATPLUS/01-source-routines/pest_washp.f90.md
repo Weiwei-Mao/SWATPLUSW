@@ -15,6 +15,16 @@ module:
   - constituent_mass_module
   - plant_module
 calls: []
+uses_variables:
+  - constituent_mass_module.f90#cs_db
+  - constituent_mass_module.f90#cs_pl
+  - constituent_mass_module.f90#cs_soil
+  - hru_module.f90#ihru
+  - hru_module.f90#ipl
+  - output_ls_pesticide_module.f90#hpestb_d
+  - pesticide_data_module.f90#pestdb
+  - plant_module.f90#pcom
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine calculates the amount of pesticide washed off the plant; foliage and onto the soil"
@@ -28,18 +38,38 @@ purpose: "this subroutine calculates the amount of pesticide washed off the plan
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `pest_washp.f90`
-- **Modules used**: [[pesticide_data_module.f90]], [[output_ls_pesticide_module.f90]], [[hru_module.f90]], [[soil_module.f90]], [[constituent_mass_module.f90]], [[plant_module.f90]]
+- **Modules used**:
+  - [[pesticide_data_module.f90]]
+  - [[output_ls_pesticide_module.f90]]
+  - [[hru_module.f90]]
+  - [[soil_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[plant_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[hru_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[constituent_mass_module.f90#cs_pl]] - `plant_constituent_mass`
+- [[constituent_mass_module.f90#cs_soil]] - `soil_constituent_mass`
+- [[hru_module.f90#ihru]] - `integer`
+- [[hru_module.f90#ipl]] - `integer`
+- [[output_ls_pesticide_module.f90#hpestb_d]] - `object_pesticide_balance`
+- [[pesticide_data_module.f90#pestdb]] - `pesticide_db`
+- [[plant_module.f90#pcom]] - `plant_community`
 
 <!-- USER-NOTES-START -->
 ## Notes

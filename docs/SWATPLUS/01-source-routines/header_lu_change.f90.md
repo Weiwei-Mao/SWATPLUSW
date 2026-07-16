@@ -12,8 +12,13 @@ module:
   - output_path_module
 calls:
   - open_output_file
+uses_variables:
+  - basin_module.f90#bsn
+  - basin_module.f90#prog
+input_variables: []
 reads: []
-writes: []
+writes:
+  - lu_change_out.txt
 purpose: ""
 ---
 
@@ -25,20 +30,34 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `header_lu_change.f90`
-- **Modules used**: [[basin_module.f90]], [[output_path_module.f90]]
-- **Subroutine calls**: 1 | **Files read**: 0 | **Files written**: 0
+- **Modules used**:
+  - [[basin_module.f90]]
+  - [[output_path_module.f90]]
+- **Subroutine calls**: 1 | **Files read**: 0 | **Files written**: 1
 
 ## Call Relationships
 **This routine calls:**
 
-- `open_output_file`
+- [[output_path_module.f90#open_output_file]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_open.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#bsn]] - `basin_inputs`
+- [[basin_module.f90#prog]] - `character(len=80)`
+
+## File I/O
+- **Writes**:
+  - [[lu_change_out.txt]]
 
 <!-- USER-NOTES-START -->
 ## Notes

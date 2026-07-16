@@ -12,6 +12,12 @@ module:
   - input_file_module
   - maximum_data_module
 calls: []
+uses_variables:
+  - constituent_mass_module.f90#cs_db
+  - constituent_mass_module.f90#cs_water_irr
+  - maximum_data_module.f90#db_mx
+input_variables:
+  - constituent_mass_module.f90#cs_water_irr
 reads:
   - cs_irrigation
 writes: []
@@ -26,21 +32,38 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cs_irr_read.f90`
-- **Modules used**: [[constituent_mass_module.f90]], [[input_file_module.f90]], [[maximum_data_module.f90]]
+- **Modules used**:
+  - [[constituent_mass_module.f90]]
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_read.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[constituent_mass_module.f90#cs_water_irr]] - `cs_irrigation_concentrations`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+
+**Populated by file reads:**
+
+- [[constituent_mass_module.f90#cs_water_irr]]
+
 ## File I/O
-- **Reads**: `cs_irrigation` _(variable; see file.cio)_
+- **Reads**:
+  - `cs_irrigation` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes

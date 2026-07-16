@@ -102,6 +102,160 @@ calls:
   - swr_subwq
   - hru_urb_bmp
   - hru_hyds
+uses_variables:
+  - basin_module.f90#bsn_cc
+  - basin_module.f90#bsn_sedbud
+  - basin_module.f90#pco
+  - carbon_module.f90#hpc_d
+  - carbon_module.f90#hpcz
+  - carbon_module.f90#hrc_d
+  - carbon_module.f90#hrcz
+  - carbon_module.f90#hsc_d
+  - carbon_module.f90#hscf_d
+  - carbon_module.f90#hscfz
+  - carbon_module.f90#hscz
+  - climate_module.f90#cs_atmo
+  - climate_module.f90#salt_atmo
+  - climate_module.f90#tmp
+  - climate_module.f90#w
+  - climate_module.f90#wgn
+  - climate_module.f90#wgn_pms
+  - climate_module.f90#wst
+  - conditional_module.f90#d_tbl
+  - conditional_module.f90#dtbl_flo
+  - conditional_module.f90#dtbl_lum
+  - constituent_mass_module.f90#cs_db
+  - constituent_mass_module.f90#cs_soil
+  - cs_module.f90#hcsb_d
+  - gwflow_module.f90#etremain
+  - gwflow_module.f90#gw_solute_flag
+  - gwflow_module.f90#gwflow_perc
+  - gwflow_module.f90#gwflow_percsol
+  - hru_module.f90#brt
+  - hru_module.f90#bss
+  - hru_module.f90#bss_ex
+  - hru_module.f90#canev
+  - hru_module.f90#cnday
+  - hru_module.f90#ep_day
+  - hru_module.f90#es_day
+  - hru_module.f90#etday
+  - hru_module.f90#fertn
+  - hru_module.f90#fertp
+  - hru_module.f90#filterw
+  - hru_module.f90#fixn
+  - hru_module.f90#grazn
+  - hru_module.f90#grazp
+  - hru_module.f90#grz_days
+  - hru_module.f90#gwsoiln
+  - hru_module.f90#gwsoilp
+  - hru_module.f90#gwsoilq
+  - hru_module.f90#gwupcs
+  - hru_module.f90#gwupsalt
+  - hru_module.f90#hru
+  - hru_module.f90#i_sep
+  - hru_module.f90#igrz
+  - hru_module.f90#ihru
+  - hru_module.f90#inflpcp
+  - hru_module.f90#ipl
+  - hru_module.f90#isep
+  - hru_module.f90#iseptic
+  - hru_module.f90#iwgen
+  - hru_module.f90#latno3
+  - hru_module.f90#latq
+  - hru_module.f90#latqcs
+  - hru_module.f90#latqrunon
+  - hru_module.f90#latqsalt
+  - hru_module.f90#ls_overq
+  - hru_module.f90#luse
+  - hru_module.f90#mgt_ops
+  - hru_module.f90#mo
+  - hru_module.f90#nd_30
+  - hru_module.f90#ndeat
+  - hru_module.f90#nplnt
+  - hru_module.f90#orgn_con
+  - hru_module.f90#orgp_con
+  - hru_module.f90#perccs
+  - hru_module.f90#percn
+  - hru_module.f90#percsalt
+  - hru_module.f90#pet_day
+  - hru_module.f90#phubase
+  - hru_module.f90#pplnt
+  - hru_module.f90#precip_eff
+  - hru_module.f90#qday
+  - hru_module.f90#qdr
+  - hru_module.f90#qp_cms
+  - hru_module.f90#qtile
+  - hru_module.f90#satexq
+  - hru_module.f90#satexq_chan
+  - hru_module.f90#sed_con
+  - hru_module.f90#sedmcs
+  - hru_module.f90#sedminpa
+  - hru_module.f90#sedminps
+  - hru_module.f90#sedorgn
+  - hru_module.f90#sedorgp
+  - hru_module.f90#sedyld
+  - hru_module.f90#sepbtm
+  - hru_module.f90#snofall
+  - hru_module.f90#snomlt
+  - hru_module.f90#soln_con
+  - hru_module.f90#solp_con
+  - hru_module.f90#strsa_av
+  - hru_module.f90#strsn_av
+  - hru_module.f90#strsp_av
+  - hru_module.f90#strstmp_av
+  - hru_module.f90#surf_bs
+  - hru_module.f90#surfq
+  - hru_module.f90#surqcs
+  - hru_module.f90#surqno3
+  - hru_module.f90#surqsalt
+  - hru_module.f90#surqsolp
+  - hru_module.f90#tilecs
+  - hru_module.f90#tileno3
+  - hru_module.f90#tilesalt
+  - hru_module.f90#tillage_days
+  - hru_module.f90#tillage_switch
+  - hru_module.f90#ulu
+  - hru_module.f90#urbqcs
+  - hru_module.f90#urbqsalt
+  - hru_module.f90#usle
+  - hru_module.f90#wetqcs
+  - hru_module.f90#wetqsalt
+  - hru_module.f90#wtspcs
+  - hru_module.f90#wtspsalt
+  - hru_module.f90#yr_skip
+  - hydrograph_module.f90#ht1
+  - hydrograph_module.f90#ht2
+  - hydrograph_module.f90#hz
+  - hydrograph_module.f90#icmd
+  - hydrograph_module.f90#irrig
+  - hydrograph_module.f90#iwst
+  - hydrograph_module.f90#ob
+  - hydrograph_module.f90#sp_ob
+  - hydrograph_module.f90#sp_ob1
+  - hydrograph_module.f90#ts
+  - hydrograph_module.f90#wet
+  - hydrograph_module.f90#wet_stor
+  - mgt_operations_module.f90#sched
+  - organic_mineral_mass_module.f90#pl_mass
+  - organic_mineral_mass_module.f90#pl_yield
+  - organic_mineral_mass_module.f90#plt_mass_z
+  - organic_mineral_mass_module.f90#soil1
+  - output_landscape_module.f90#hls_d
+  - output_landscape_module.f90#hnb_d
+  - output_landscape_module.f90#hpw_d
+  - output_landscape_module.f90#hwb_d
+  - output_ls_pesticide_module.f90#hpestb_d
+  - plant_data_module.f90#pldb
+  - plant_module.f90#pcom
+  - reservoir_data_module.f90#wet_dat_c
+  - reservoir_module.f90#wet_ob
+  - salt_module.f90#hsaltb_d
+  - septic_data_module.f90#sep
+  - soil_module.f90#soil
+  - tillage_data_module.f90#bmix_eff
+  - tillage_data_module.f90#till_eff_days
+  - time_module.f90#time
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine controls the simulation of the land phase of the; hydrologic cycle"
@@ -115,7 +269,30 @@ purpose: "this subroutine controls the simulation of the land phase of the; hydr
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `hru_control.f90`
-- **Modules used**: [[hru_module.f90]], [[soil_module.f90]], [[plant_module.f90]], [[basin_module.f90]], [[organic_mineral_mass_module.f90]], [[carbon_module.f90]], [[hydrograph_module.f90]], [[climate_module.f90]], [[septic_data_module.f90]], [[reservoir_data_module.f90]], [[plant_data_module.f90]], [[mgt_operations_module.f90]], [[reservoir_module.f90]], [[output_landscape_module.f90]], [[output_ls_pesticide_module.f90]], [[time_module.f90]], [[conditional_module.f90]], [[constituent_mass_module.f90]], [[water_body_module.f90]], [[salt_module.f90]], [[cs_module.f90]], [[gwflow_module.f90]], [[tillage_data_module.f90]]
+- **Modules used**:
+  - [[hru_module.f90]]
+  - [[soil_module.f90]]
+  - [[plant_module.f90]]
+  - [[basin_module.f90]]
+  - [[organic_mineral_mass_module.f90]]
+  - [[carbon_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[climate_module.f90]]
+  - [[septic_data_module.f90]]
+  - [[reservoir_data_module.f90]]
+  - [[plant_data_module.f90]]
+  - [[mgt_operations_module.f90]]
+  - [[reservoir_module.f90]]
+  - [[output_landscape_module.f90]]
+  - [[output_ls_pesticide_module.f90]]
+  - [[time_module.f90]]
+  - [[conditional_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[water_body_module.f90]]
+  - [[salt_module.f90]]
+  - [[cs_module.f90]]
+  - [[gwflow_module.f90]]
+  - [[tillage_data_module.f90]]
 - **Subroutine calls**: 70 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -192,12 +369,170 @@ purpose: "this subroutine controls the simulation of the land phase of the; hydr
 - [[hru_urb_bmp.f90]]
 - [[hru_hyds.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[command.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#bsn_cc]] - `basin_control_codes`
+- [[basin_module.f90#bsn_sedbud]] - `basin_sediment_budget`
+- [[basin_module.f90#pco]] - `basin_print_codes`
+- [[carbon_module.f90#hpc_d]] - `carbon_plant_gain_losses`
+- [[carbon_module.f90#hpcz]] - `carbon_plant_gain_losses`
+- [[carbon_module.f90#hrc_d]] - `carbon_residue_gain_losses`
+- [[carbon_module.f90#hrcz]] - `carbon_residue_gain_losses`
+- [[carbon_module.f90#hsc_d]] - `carbon_soil_gain_losses`
+- [[carbon_module.f90#hscf_d]] - `carbon_soil_transformations`
+- [[carbon_module.f90#hscfz]] - `carbon_soil_transformations`
+- [[carbon_module.f90#hscz]] - `carbon_soil_gain_losses`
+- [[climate_module.f90#cs_atmo]] - `character(len=1)`
+- [[climate_module.f90#salt_atmo]] - `character(len=1)`
+- [[climate_module.f90#tmp]] - `climate_measured_data`
+- [[climate_module.f90#w]] - `weather_daily`
+- [[climate_module.f90#wgn]] - `weather_generator_db`
+- [[climate_module.f90#wgn_pms]] - `wgn_parms`
+- [[climate_module.f90#wst]] - `weather_station`
+- [[conditional_module.f90#d_tbl]] - `decision_table`
+- [[conditional_module.f90#dtbl_flo]] - `decision_table`
+- [[conditional_module.f90#dtbl_lum]] - `decision_table`
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[constituent_mass_module.f90#cs_soil]] - `soil_constituent_mass`
+- [[cs_module.f90#hcsb_d]] - `object_cs_balance`
+- [[gwflow_module.f90#etremain]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_solute_flag]] - `integer`
+- [[gwflow_module.f90#gwflow_perc]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gwflow_percsol]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#brt]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#bss]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#bss_ex]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#canev]] - `real`
+- [[hru_module.f90#cnday]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#ep_day]] - `real`
+- [[hru_module.f90#es_day]] - `real`
+- [[hru_module.f90#etday]] - `real`
+- [[hru_module.f90#fertn]] - `real`
+- [[hru_module.f90#fertp]] - `real`
+- [[hru_module.f90#filterw]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#fixn]] - `real`
+- [[hru_module.f90#grazn]] - `real`
+- [[hru_module.f90#grazp]] - `real`
+- [[hru_module.f90#grz_days]] - `integer, dimension (:), allocatable`
+- [[hru_module.f90#gwsoiln]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#gwsoilp]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#gwsoilq]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#gwupcs]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#gwupsalt]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#hru]] - `hydrologic_response_unit`
+- [[hru_module.f90#i_sep]] - `integer, dimension (:), allocatable`
+- [[hru_module.f90#igrz]] - `integer, dimension (:), allocatable`
+- [[hru_module.f90#ihru]] - `integer`
+- [[hru_module.f90#inflpcp]] - `real`
+- [[hru_module.f90#ipl]] - `integer`
+- [[hru_module.f90#isep]] - `integer`
+- [[hru_module.f90#iseptic]] - `integer, dimension (:), allocatable`
+- [[hru_module.f90#iwgen]] - `integer`
+- [[hru_module.f90#latno3]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#latq]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#latqcs]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#latqrunon]] - `real`
+- [[hru_module.f90#latqsalt]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#ls_overq]] - `real`
+- [[hru_module.f90#luse]] - `landuse`
+- [[hru_module.f90#mgt_ops]] - `integer, dimension (:,:), allocatable`
+- [[hru_module.f90#mo]] - `integer`
+- [[hru_module.f90#nd_30]] - `integer`
+- [[hru_module.f90#ndeat]] - `integer, dimension (:), allocatable`
+- [[hru_module.f90#nplnt]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#orgn_con]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#orgp_con]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#perccs]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#percn]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#percsalt]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#pet_day]] - `real`
+- [[hru_module.f90#phubase]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#pplnt]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#precip_eff]] - `real`
+- [[hru_module.f90#qday]] - `real`
+- [[hru_module.f90#qdr]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#qp_cms]] - `real`
+- [[hru_module.f90#qtile]] - `real`
+- [[hru_module.f90#satexq]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#satexq_chan]] - `real`
+- [[hru_module.f90#sed_con]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#sedmcs]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#sedminpa]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#sedminps]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#sedorgn]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#sedorgp]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#sedyld]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#sepbtm]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#snofall]] - `real`
+- [[hru_module.f90#snomlt]] - `real`
+- [[hru_module.f90#soln_con]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#solp_con]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#strsa_av]] - `real`
+- [[hru_module.f90#strsn_av]] - `real`
+- [[hru_module.f90#strsp_av]] - `real`
+- [[hru_module.f90#strstmp_av]] - `real`
+- [[hru_module.f90#surf_bs]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#surfq]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#surqcs]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#surqno3]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#surqsalt]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#surqsolp]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#tilecs]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#tileno3]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#tilesalt]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#tillage_days]] - `integer, dimension(:), allocatable`
+- [[hru_module.f90#tillage_switch]] - `integer, dimension(:), allocatable`
+- [[hru_module.f90#ulu]] - `integer`
+- [[hru_module.f90#urbqcs]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#urbqsalt]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#usle]] - `real`
+- [[hru_module.f90#wetqcs]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#wetqsalt]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#wtspcs]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#wtspsalt]] - `real, dimension (:,:), allocatable`
+- [[hru_module.f90#yr_skip]] - `integer, dimension (:), allocatable`
+- [[hydrograph_module.f90#ht1]] - `hyd_output`
+- [[hydrograph_module.f90#ht2]] - `hyd_output`
+- [[hydrograph_module.f90#hz]] - `hyd_output`
+- [[hydrograph_module.f90#icmd]] - `integer`
+- [[hydrograph_module.f90#irrig]] - `irrigation_water_transfer`
+- [[hydrograph_module.f90#iwst]] - `integer`
+- [[hydrograph_module.f90#ob]] - `object_connectivity`
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
+- [[hydrograph_module.f90#sp_ob1]] - `spatial_objects`
+- [[hydrograph_module.f90#ts]] - `timestep`
+- [[hydrograph_module.f90#wet]] - `hyd_output`
+- [[hydrograph_module.f90#wet_stor]] - `hyd_output`
+- [[mgt_operations_module.f90#sched]] - `management_schedule`
+- [[organic_mineral_mass_module.f90#pl_mass]] - `plant_community_mass`
+- [[organic_mineral_mass_module.f90#pl_yield]] - `organic_mass`
+- [[organic_mineral_mass_module.f90#plt_mass_z]] - `organic_mass`
+- [[organic_mineral_mass_module.f90#soil1]] - `soil_profile_mass`
+- [[output_landscape_module.f90#hls_d]] - `output_losses`
+- [[output_landscape_module.f90#hnb_d]] - `output_nutbal`
+- [[output_landscape_module.f90#hpw_d]] - `output_plantweather`
+- [[output_landscape_module.f90#hwb_d]] - `output_waterbal`
+- [[output_ls_pesticide_module.f90#hpestb_d]] - `object_pesticide_balance`
+- [[plant_data_module.f90#pldb]] - `plant_db`
+- [[plant_module.f90#pcom]] - `plant_community`
+- [[reservoir_data_module.f90#wet_dat_c]] - `reservoir_data_char_input`
+- [[reservoir_module.f90#wet_ob]] - `wetland`
+- [[salt_module.f90#hsaltb_d]] - `object_salt_balance`
+- [[septic_data_module.f90#sep]] - `septic_system`
+- [[soil_module.f90#soil]] - `soil_profile`
+- [[tillage_data_module.f90#bmix_eff]] - `real`
+- [[tillage_data_module.f90#till_eff_days]] - `integer`
+- [[time_module.f90#time]] - `time_current`
 
 <!-- USER-NOTES-START -->
 ## Notes

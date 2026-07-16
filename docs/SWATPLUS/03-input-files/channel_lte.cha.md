@@ -5,8 +5,7 @@ tags:
 file: channel_lte.cha
 ext: cha
 cio_field: chan_ez
-read_by:
-  - sd_channel_read.f90
+read_by: []
 purpose: ""
 ---
 
@@ -15,8 +14,16 @@ purpose: ""
 > [!info] Input File
 > Declared in `file.cio` field `chan_ez`. See [[file.cio]] for the controlling file map.
 
-## Reader Routines
-- [[sd_channel_read.f90]]
+## Overview
+- **Declared in `file.cio` field**: `chan_ez`
+- **Format source**: generated from Fortran `open`/`read` statements and module/type comments.
+- **Format style**: SWAT+ text input; most readers use list-directed Fortran reads.
 
-## File Format
-(Add field meanings, units, and allowed values.)
+## Reader Routines
+(Reader routine not located automatically; add evidence after tracing the code.)
+
+## File Structure
+(No line-level read structure detected automatically.)
+
+## Parameters
+(No parameter table detected automatically. Check the reader routines above for manual interpretation.)

@@ -15,6 +15,14 @@ module:
   - pesticide_data_module
   - pathogen_data_module
 calls: []
+uses_variables:
+  - constituent_mass_module.f90#cs_db
+  - input_file_module.f90#in_sim
+  - maximum_data_module.f90#db_mx
+  - pathogen_data_module.f90#path_db
+  - pesticide_data_module.f90#pestdb
+input_variables:
+  - constituent_mass_module.f90#cs_db
 reads:
   - in_sim%cs_db
 writes: []
@@ -29,21 +37,43 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `constit_db_read.f90`
-- **Modules used**: [[basin_module.f90]], [[input_file_module.f90]], [[constituent_mass_module.f90]], [[maximum_data_module.f90]], [[pesticide_data_module.f90]], [[pathogen_data_module.f90]]
+- **Modules used**:
+  - [[basin_module.f90]]
+  - [[input_file_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[pesticide_data_module.f90]]
+  - [[pathogen_data_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_read.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[input_file_module.f90#in_sim]] - `input_sim`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[pathogen_data_module.f90#path_db]] - `pathogen_db`
+- [[pesticide_data_module.f90#pestdb]] - `pesticide_db`
+
+**Populated by file reads:**
+
+- [[constituent_mass_module.f90#cs_db]]
+
 ## File I/O
-- **Reads**: `in_sim%cs_db` _(variable; see file.cio)_
+- **Reads**:
+  - [[constituents.cs]]
 
 <!-- USER-NOTES-START -->
 ## Notes

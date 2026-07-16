@@ -12,6 +12,12 @@ module:
   - maximum_data_module
   - reservoir_data_module
 calls: []
+uses_variables:
+  - input_file_module.f90#in_res
+  - maximum_data_module.f90#db_mx
+  - reservoir_data_module.f90#res_nut
+input_variables:
+  - reservoir_data_module.f90#res_nut
 reads:
   - in_res%nut_res
 writes: []
@@ -26,21 +32,38 @@ purpose: "this subroutine reads data from the lake water quality input file (.lw
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `res_read_nut.f90`
-- **Modules used**: [[input_file_module.f90]], [[maximum_data_module.f90]], [[reservoir_data_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[reservoir_data_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_res.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[input_file_module.f90#in_res]] - `input_res`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[reservoir_data_module.f90#res_nut]] - `reservoir_nut_data`
+
+**Populated by file reads:**
+
+- [[reservoir_data_module.f90#res_nut]]
+
 ## File I/O
-- **Reads**: `in_res%nut_res` _(variable; see file.cio)_
+- **Reads**:
+  - [[nutrients.res]]
 
 <!-- USER-NOTES-START -->
 ## Notes

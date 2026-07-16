@@ -44,6 +44,8 @@ calls:
   - snowdb_read
   - soil_db_read
   - soil_lte_db_read
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -57,7 +59,8 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `proc_read.f90`
-- **Modules used**: -
+- **Modules used**:
+  - -
 - **Subroutine calls**: 35 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -99,14 +102,44 @@ purpose: ""
 - [[soil_db_read.f90]]
 - [[soil_lte_db_read.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+(No module-level variable references detected.)
+
 <!-- USER-NOTES-START -->
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Line 18: call [[ch_read_temp.f90]], read channel temperature parameter/input file: [[temperature.cha]]
+- Line 19: call [[cli_read_atmodep.f90]], read atmospheric deposition input for nutrients/standard constituents: [[atmodep.cli]]
+- Line 20: call [[cli_staread.f90]], read weather station definitions: [[weather-sta.cli]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- USER-NOTES-END -->

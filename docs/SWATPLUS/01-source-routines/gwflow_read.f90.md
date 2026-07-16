@@ -22,6 +22,208 @@ calls:
   - date_and_time
   - split_line
   - gwflow_output_init
+uses_variables:
+  - constituent_mass_module.f90#cs_db
+  - cs_data_module.f90#num_geol_shale
+  - cs_data_module.f90#rct
+  - cs_data_module.f90#rct_shale
+  - gwflow_module.f90#bc_type_array
+  - gwflow_module.f90#canal_out_conc
+  - gwflow_module.f90#canal_out_info
+  - gwflow_module.f90#cell_channel
+  - gwflow_module.f90#cell_col
+  - gwflow_module.f90#cell_gis_id
+  - gwflow_module.f90#cell_id_list
+  - gwflow_module.f90#cell_id_usg
+  - gwflow_module.f90#cell_int
+  - gwflow_module.f90#cell_name
+  - gwflow_module.f90#cell_row
+  - gwflow_module.f90#cells_fract
+  - gwflow_module.f90#chan_hyd_sep
+  - gwflow_module.f90#conn_type
+  - gwflow_module.f90#delay
+  - gwflow_module.f90#div_conc_cs
+  - gwflow_module.f90#div_conc_salt
+  - gwflow_module.f90#etremain
+  - gwflow_module.f90#grid_int
+  - gwflow_module.f90#grid_ncol
+  - gwflow_module.f90#grid_nrow
+  - gwflow_module.f90#grid_type
+  - gwflow_module.f90#grid_val
+  - gwflow_module.f90#gw_bed_change
+  - gwflow_module.f90#gw_bound_dist
+  - gwflow_module.f90#gw_bound_near
+  - gwflow_module.f90#gw_canal_ncells_div
+  - gwflow_module.f90#gw_canal_ncells_out
+  - gwflow_module.f90#gw_canl_div_cell
+  - gwflow_module.f90#gw_canl_div_info
+  - gwflow_module.f90#gw_canl_out_info
+  - gwflow_module.f90#gw_cell_chan_flag
+  - gwflow_module.f90#gw_cell_chan_time
+  - gwflow_module.f90#gw_cell_obs_ss
+  - gwflow_module.f90#gw_cell_tile_time
+  - gwflow_module.f90#gw_chan_cell
+  - gwflow_module.f90#gw_chan_chan
+  - gwflow_module.f90#gw_chan_dep_flag
+  - gwflow_module.f90#gw_chan_dpzn
+  - gwflow_module.f90#gw_chan_elev
+  - gwflow_module.f90#gw_chan_id
+  - gwflow_module.f90#gw_chan_K
+  - gwflow_module.f90#gw_chan_len
+  - gwflow_module.f90#gw_chan_obs
+  - gwflow_module.f90#gw_chan_thick
+  - gwflow_module.f90#gw_chan_zone
+  - gwflow_module.f90#gw_daycount
+  - gwflow_module.f90#gw_delay
+  - gwflow_module.f90#gw_head_sum_aa
+  - gwflow_module.f90#gw_heat_flag
+  - gwflow_module.f90#gw_heat_ss
+  - gwflow_module.f90#gw_heat_ss_yr
+  - gwflow_module.f90#gw_hyd_ss
+  - gwflow_module.f90#gw_hyd_ss_aa
+  - gwflow_module.f90#gw_hyd_ss_mo
+  - gwflow_module.f90#gw_hyd_ss_yr
+  - gwflow_module.f90#gw_long_disp
+  - gwflow_module.f90#gw_nminl
+  - gwflow_module.f90#gw_npond
+  - gwflow_module.f90#gw_nsolute
+  - gwflow_module.f90#gw_ntvh
+  - gwflow_module.f90#gw_num_obs_wells
+  - gwflow_module.f90#gw_num_output
+  - gwflow_module.f90#gw_obs_cells
+  - gwflow_module.f90#gw_obs_head
+  - gwflow_module.f90#gw_obs_sol_aa
+  - gwflow_module.f90#gw_obs_solute
+  - gwflow_module.f90#gw_obs_temp
+  - gwflow_module.f90#gw_obs_temp_aa
+  - gwflow_module.f90#gw_output_day
+  - gwflow_module.f90#gw_output_index
+  - gwflow_module.f90#gw_output_yr
+  - gwflow_module.f90#gw_phyt_area
+  - gwflow_module.f90#gw_phyt_dep
+  - gwflow_module.f90#gw_phyt_flag
+  - gwflow_module.f90#gw_phyt_ids
+  - gwflow_module.f90#gw_phyt_ncells
+  - gwflow_module.f90#gw_phyt_npts
+  - gwflow_module.f90#gw_phyt_rate
+  - gwflow_module.f90#gw_pond_div_flag
+  - gwflow_module.f90#gw_pond_flag
+  - gwflow_module.f90#gw_pond_info
+  - gwflow_module.f90#gw_rech
+  - gwflow_module.f90#gw_rechheat
+  - gwflow_module.f90#gw_rechsol
+  - gwflow_module.f90#gw_solute_flag
+  - gwflow_module.f90#gw_state
+  - gwflow_module.f90#gw_time_step
+  - gwflow_module.f90#gw_transit
+  - gwflow_module.f90#gw_transit_cells
+  - gwflow_module.f90#gw_transit_num
+  - gwflow_module.f90#gw_ttime
+  - gwflow_module.f90#gw_tvh_flag
+  - gwflow_module.f90#gw_tvh_ids
+  - gwflow_module.f90#gw_tvh_vals
+  - gwflow_module.f90#gwflag_aa
+  - gwflow_module.f90#gwflag_day
+  - gwflow_module.f90#gwflag_flux
+  - gwflow_module.f90#gwflag_mon
+  - gwflow_module.f90#gwflag_obs
+  - gwflow_module.f90#gwflag_pump
+  - gwflow_module.f90#gwflag_yr
+  - gwflow_module.f90#gwflow_area
+  - gwflow_module.f90#gwflow_perc
+  - gwflow_module.f90#gwflow_percsol
+  - gwflow_module.f90#gwheat_state
+  - gwflow_module.f90#gwsol_chem
+  - gwflow_module.f90#gwsol_cons
+  - gwflow_module.f90#gwsol_minl
+  - gwflow_module.f90#gwsol_minl_state
+  - gwflow_module.f90#gwsol_nm
+  - gwflow_module.f90#gwsol_rctn
+  - gwflow_module.f90#gwsol_salt
+  - gwflow_module.f90#gwsol_sorb
+  - gwflow_module.f90#gwsol_ss
+  - gwflow_module.f90#gwsol_ss_sum
+  - gwflow_module.f90#gwsol_ss_sum_mo
+  - gwflow_module.f90#gwsol_state
+  - gwflow_module.f90#heat_cell
+  - gwflow_module.f90#hru_cells
+  - gwflow_module.f90#hru_cells_fract
+  - gwflow_module.f90#hru_cells_link
+  - gwflow_module.f90#hru_num_cells
+  - gwflow_module.f90#hrus_connected
+  - gwflow_module.f90#hydsep_flag
+  - gwflow_module.f90#in_lsu_cell
+  - gwflow_module.f90#in_ponds
+  - gwflow_module.f90#lsu_cells
+  - gwflow_module.f90#lsu_cells_fract
+  - gwflow_module.f90#lsu_cells_link
+  - gwflow_module.f90#lsu_num_cells
+  - gwflow_module.f90#lsus_connected
+  - gwflow_module.f90#mass_min
+  - gwflow_module.f90#mass_rct
+  - gwflow_module.f90#ncell
+  - gwflow_module.f90#num_active
+  - gwflow_module.f90#num_ts_transport
+  - gwflow_module.f90#out_canal_bal
+  - gwflow_module.f90#out_canal_sol
+  - gwflow_module.f90#out_gw
+  - gwflow_module.f90#out_gw_transit
+  - gwflow_module.f90#out_gw_transit_chan
+  - gwflow_module.f90#out_gw_transit_tile
+  - gwflow_module.f90#out_gwobs
+  - gwflow_module.f90#out_gwobs_aa
+  - gwflow_module.f90#out_gwobs_mon
+  - gwflow_module.f90#out_gwobs_yr
+  - gwflow_module.f90#out_gwsw_chanobs_flow
+  - gwflow_module.f90#out_gwsw_chanobs_no3
+  - gwflow_module.f90#out_gwsw_groups
+  - gwflow_module.f90#out_hru_pump_aa
+  - gwflow_module.f90#out_hru_pump_day
+  - gwflow_module.f90#out_hru_pump_mo
+  - gwflow_module.f90#out_hru_pump_obs
+  - gwflow_module.f90#out_hru_pump_yr
+  - gwflow_module.f90#out_hyd_sep
+  - gwflow_module.f90#out_pond_bal
+  - gwflow_module.f90#out_pond_conc
+  - gwflow_module.f90#out_pond_mass
+  - gwflow_module.f90#out_pond_sol
+  - gwflow_module.f90#out_tile_cells
+  - hru_module.f90#hru
+  - hydrograph_module.f90#recall
+  - hydrograph_module.f90#res
+  - hydrograph_module.f90#sp_ob
+  - maximum_data_module.f90#db_mx
+  - reservoir_data_module.f90#wet_dat
+  - utils.f90#file_name
+  - water_allocation_module.f90#canal
+input_variables:
+  - gwflow_module.f90#canal_out_conc
+  - gwflow_module.f90#conn_type
+  - gwflow_module.f90#grid_ncol
+  - gwflow_module.f90#grid_nrow
+  - gwflow_module.f90#gw_bed_change
+  - gwflow_module.f90#gw_heat_flag
+  - gwflow_module.f90#gw_long_disp
+  - gwflow_module.f90#gw_nminl
+  - gwflow_module.f90#gw_phyt_area
+  - gwflow_module.f90#gw_phyt_dep
+  - gwflow_module.f90#gw_phyt_ids
+  - gwflow_module.f90#gw_phyt_rate
+  - gwflow_module.f90#gw_pond_info
+  - gwflow_module.f90#gw_solute_flag
+  - gwflow_module.f90#gw_state
+  - gwflow_module.f90#gw_time_step
+  - gwflow_module.f90#gw_transit_num
+  - gwflow_module.f90#gwflag_aa
+  - gwflow_module.f90#gwflag_day
+  - gwflow_module.f90#gwflag_mon
+  - gwflow_module.f90#gwflag_yr
+  - gwflow_module.f90#gwsol_rctn
+  - gwflow_module.f90#gwsol_sorb
+  - gwflow_module.f90#hru_cells
+  - gwflow_module.f90#lsu_cells
+  - gwflow_module.f90#ncell
+  - gwflow_module.f90#num_ts_transport
 reads:
   - codes.gw
   - zones.gw
@@ -82,26 +284,292 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `gwflow_read.f90`
-- **Modules used**: [[gwflow_module.f90]], [[hydrograph_module.f90]], [[sd_channel_module.f90]], [[maximum_data_module.f90]], [[hru_module.f90]], [[reservoir_data_module.f90]], [[cs_data_module.f90]], [[constituent_mass_module.f90]], [[water_allocation_module.f90]], [[utils.f90]]
+- **Modules used**:
+  - [[gwflow_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[sd_channel_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[hru_module.f90]]
+  - [[reservoir_data_module.f90]]
+  - [[cs_data_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[water_allocation_module.f90]]
+  - [[utils.f90]]
 - **Subroutine calls**: 3 | **Files read**: 27 | **Files written**: 20
 
 ## Call Relationships
 **This routine calls:**
 
 - `date_and_time`
-- `split_line`
-- `gwflow_output_init`
+- [[utils.f90#split_line]]
+- [[gwflow_output.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[hyd_connect.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[cs_data_module.f90#num_geol_shale]] - `integer`
+- [[cs_data_module.f90#rct]] - `real, dimension(:,:), allocatable`
+- [[cs_data_module.f90#rct_shale]] - `real, dimension(:,:), allocatable`
+- [[gwflow_module.f90#bc_type_array]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#canal_out_conc]] - `real, allocatable`
+- [[gwflow_module.f90#canal_out_info]] - `real, allocatable`
+- [[gwflow_module.f90#cell_channel]] - `real, allocatable`
+- [[gwflow_module.f90#cell_col]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#cell_gis_id]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#cell_id_list]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#cell_id_usg]] - `integer, dimension (:,:), allocatable`
+- [[gwflow_module.f90#cell_int]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#cell_name]] - `character(len=16), dimension (:), allocatable`
+- [[gwflow_module.f90#cell_row]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#cells_fract]] - `real, dimension (:,:), allocatable`
+- [[gwflow_module.f90#chan_hyd_sep]] - `real, dimension (:,:), allocatable`
+- [[gwflow_module.f90#conn_type]] - `integer`
+- [[gwflow_module.f90#delay]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#div_conc_cs]] - `real, allocatable`
+- [[gwflow_module.f90#div_conc_salt]] - `real, allocatable`
+- [[gwflow_module.f90#etremain]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#grid_int]] - `integer, dimension (:,:), allocatable`
+- [[gwflow_module.f90#grid_ncol]] - `integer`
+- [[gwflow_module.f90#grid_nrow]] - `integer`
+- [[gwflow_module.f90#grid_type]] - `character*15`
+- [[gwflow_module.f90#grid_val]] - `real, dimension (:,:), allocatable`
+- [[gwflow_module.f90#gw_bed_change]] - `real`
+- [[gwflow_module.f90#gw_bound_dist]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_bound_near]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_canal_ncells_div]] - `integer`
+- [[gwflow_module.f90#gw_canal_ncells_out]] - `integer`
+- [[gwflow_module.f90#gw_canl_div_cell]] - `cell_canal_div_info`
+- [[gwflow_module.f90#gw_canl_div_info]] - `canal_info`
+- [[gwflow_module.f90#gw_canl_out_info]] - `cell_canal_out_info`
+- [[gwflow_module.f90#gw_cell_chan_flag]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_cell_chan_time]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_cell_obs_ss]] - `integer`
+- [[gwflow_module.f90#gw_cell_tile_time]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_chan_cell]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_chan_chan]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_chan_dep_flag]] - `integer`
+- [[gwflow_module.f90#gw_chan_dpzn]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_chan_elev]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_chan_id]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_chan_K]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_chan_len]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_chan_obs]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_chan_thick]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_chan_zone]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_daycount]] - `integer`
+- [[gwflow_module.f90#gw_delay]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_head_sum_aa]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_heat_flag]] - `integer`
+- [[gwflow_module.f90#gw_heat_ss]] - `groundwater_ss`
+- [[gwflow_module.f90#gw_heat_ss_yr]] - `groundwater_ss`
+- [[gwflow_module.f90#gw_hyd_ss]] - `groundwater_ss`
+- [[gwflow_module.f90#gw_hyd_ss_aa]] - `groundwater_ss`
+- [[gwflow_module.f90#gw_hyd_ss_mo]] - `groundwater_ss`
+- [[gwflow_module.f90#gw_hyd_ss_yr]] - `groundwater_ss`
+- [[gwflow_module.f90#gw_long_disp]] - `real`
+- [[gwflow_module.f90#gw_nminl]] - `integer`
+- [[gwflow_module.f90#gw_npond]] - `integer`
+- [[gwflow_module.f90#gw_nsolute]] - `integer`
+- [[gwflow_module.f90#gw_ntvh]] - `integer`
+- [[gwflow_module.f90#gw_num_obs_wells]] - `integer`
+- [[gwflow_module.f90#gw_num_output]] - `integer`
+- [[gwflow_module.f90#gw_obs_cells]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_obs_head]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_obs_sol_aa]] - `real, dimension (:,:), allocatable`
+- [[gwflow_module.f90#gw_obs_solute]] - `real, dimension (:,:), allocatable`
+- [[gwflow_module.f90#gw_obs_temp]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_obs_temp_aa]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_output_day]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_output_index]] - `integer`
+- [[gwflow_module.f90#gw_output_yr]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_phyt_area]] - `real, allocatable`
+- [[gwflow_module.f90#gw_phyt_dep]] - `real, allocatable`
+- [[gwflow_module.f90#gw_phyt_flag]] - `integer`
+- [[gwflow_module.f90#gw_phyt_ids]] - `integer, allocatable`
+- [[gwflow_module.f90#gw_phyt_ncells]] - `integer`
+- [[gwflow_module.f90#gw_phyt_npts]] - `integer`
+- [[gwflow_module.f90#gw_phyt_rate]] - `real, allocatable`
+- [[gwflow_module.f90#gw_pond_div_flag]] - `integer`
+- [[gwflow_module.f90#gw_pond_flag]] - `integer`
+- [[gwflow_module.f90#gw_pond_info]] - `cell_pond_info`
+- [[gwflow_module.f90#gw_rech]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_rechheat]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_rechsol]] - `real, dimension (:,:), allocatable`
+- [[gwflow_module.f90#gw_solute_flag]] - `integer`
+- [[gwflow_module.f90#gw_state]] - `groundwater_state`
+- [[gwflow_module.f90#gw_time_step]] - `real`
+- [[gwflow_module.f90#gw_transit]] - `groundwater_transit`
+- [[gwflow_module.f90#gw_transit_cells]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#gw_transit_num]] - `integer`
+- [[gwflow_module.f90#gw_ttime]] - `integer`
+- [[gwflow_module.f90#gw_tvh_flag]] - `integer`
+- [[gwflow_module.f90#gw_tvh_ids]] - `integer, allocatable`
+- [[gwflow_module.f90#gw_tvh_vals]] - `real, allocatable`
+- [[gwflow_module.f90#gwflag_aa]] - `integer`
+- [[gwflow_module.f90#gwflag_day]] - `integer`
+- [[gwflow_module.f90#gwflag_flux]] - `integer`
+- [[gwflow_module.f90#gwflag_mon]] - `integer`
+- [[gwflow_module.f90#gwflag_obs]] - `integer`
+- [[gwflow_module.f90#gwflag_pump]] - `integer`
+- [[gwflow_module.f90#gwflag_yr]] - `integer`
+- [[gwflow_module.f90#gwflow_area]] - `real*8`
+- [[gwflow_module.f90#gwflow_perc]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#gwflow_percsol]] - `real, dimension (:,:), allocatable`
+- [[gwflow_module.f90#gwheat_state]] - `groundwater_heat_state`
+- [[gwflow_module.f90#gwsol_chem]] - `solute_chem`
+- [[gwflow_module.f90#gwsol_cons]] - `integer`
+- [[gwflow_module.f90#gwsol_minl]] - `integer`
+- [[gwflow_module.f90#gwsol_minl_state]] - `minl_state`
+- [[gwflow_module.f90#gwsol_nm]] - `character (len=16), allocatable`
+- [[gwflow_module.f90#gwsol_rctn]] - `real, allocatable`
+- [[gwflow_module.f90#gwsol_salt]] - `integer`
+- [[gwflow_module.f90#gwsol_sorb]] - `real, allocatable`
+- [[gwflow_module.f90#gwsol_ss]] - `object_solute_ss`
+- [[gwflow_module.f90#gwsol_ss_sum]] - `object_solute_ss_sum`
+- [[gwflow_module.f90#gwsol_ss_sum_mo]] - `object_solute_ss_sum`
+- [[gwflow_module.f90#gwsol_state]] - `object_solute_state`
+- [[gwflow_module.f90#heat_cell]] - `real, dimension (:), allocatable`
+- [[gwflow_module.f90#hru_cells]] - `integer, dimension (:,:), allocatable`
+- [[gwflow_module.f90#hru_cells_fract]] - `real, dimension (:,:), allocatable`
+- [[gwflow_module.f90#hru_cells_link]] - `integer`
+- [[gwflow_module.f90#hru_num_cells]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#hrus_connected]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#hydsep_flag]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#in_lsu_cell]] - `integer`
+- [[gwflow_module.f90#in_ponds]] - `integer`
+- [[gwflow_module.f90#lsu_cells]] - `integer, dimension (:,:), allocatable`
+- [[gwflow_module.f90#lsu_cells_fract]] - `real, dimension (:,:), allocatable`
+- [[gwflow_module.f90#lsu_cells_link]] - `integer`
+- [[gwflow_module.f90#lsu_num_cells]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#lsus_connected]] - `integer, dimension (:), allocatable`
+- [[gwflow_module.f90#mass_min]] - `real, allocatable`
+- [[gwflow_module.f90#mass_rct]] - `real, allocatable`
+- [[gwflow_module.f90#ncell]] - `integer`
+- [[gwflow_module.f90#num_active]] - `integer`
+- [[gwflow_module.f90#num_ts_transport]] - `integer`
+- [[gwflow_module.f90#out_canal_bal]] - `integer`
+- [[gwflow_module.f90#out_canal_sol]] - `integer`
+- [[gwflow_module.f90#out_gw]] - `integer`
+- [[gwflow_module.f90#out_gw_transit]] - `integer`
+- [[gwflow_module.f90#out_gw_transit_chan]] - `integer`
+- [[gwflow_module.f90#out_gw_transit_tile]] - `integer`
+- [[gwflow_module.f90#out_gwobs]] - `integer`
+- [[gwflow_module.f90#out_gwobs_aa]] - `integer`
+- [[gwflow_module.f90#out_gwobs_mon]] - `integer`
+- [[gwflow_module.f90#out_gwobs_yr]] - `integer`
+- [[gwflow_module.f90#out_gwsw_chanobs_flow]] - `integer`
+- [[gwflow_module.f90#out_gwsw_chanobs_no3]] - `integer`
+- [[gwflow_module.f90#out_gwsw_groups]] - `integer`
+- [[gwflow_module.f90#out_hru_pump_aa]] - `integer`
+- [[gwflow_module.f90#out_hru_pump_day]] - `integer`
+- [[gwflow_module.f90#out_hru_pump_mo]] - `integer`
+- [[gwflow_module.f90#out_hru_pump_obs]] - `integer`
+- [[gwflow_module.f90#out_hru_pump_yr]] - `integer`
+- [[gwflow_module.f90#out_hyd_sep]] - `integer`
+- [[gwflow_module.f90#out_pond_bal]] - `integer`
+- [[gwflow_module.f90#out_pond_conc]] - `integer`
+- [[gwflow_module.f90#out_pond_mass]] - `integer`
+- [[gwflow_module.f90#out_pond_sol]] - `integer`
+- [[gwflow_module.f90#out_tile_cells]] - `integer`
+- [[hru_module.f90#hru]] - `hydrologic_response_unit`
+- [[hydrograph_module.f90#recall]] - `recall_hydrograph_inputs`
+- [[hydrograph_module.f90#res]] - `hyd_output`
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[reservoir_data_module.f90#wet_dat]] - `reservoir_data`
+- [[utils.f90#file_name]] - `character(len=:), allocatable`
+- [[water_allocation_module.f90#canal]] - `water_canal_data`
+
+**Populated by file reads:**
+
+- [[gwflow_module.f90#canal_out_conc]]
+- [[gwflow_module.f90#conn_type]]
+- [[gwflow_module.f90#grid_ncol]]
+- [[gwflow_module.f90#grid_nrow]]
+- [[gwflow_module.f90#gw_bed_change]]
+- [[gwflow_module.f90#gw_heat_flag]]
+- [[gwflow_module.f90#gw_long_disp]]
+- [[gwflow_module.f90#gw_nminl]]
+- [[gwflow_module.f90#gw_phyt_area]]
+- [[gwflow_module.f90#gw_phyt_dep]]
+- [[gwflow_module.f90#gw_phyt_ids]]
+- [[gwflow_module.f90#gw_phyt_rate]]
+- [[gwflow_module.f90#gw_pond_info]]
+- [[gwflow_module.f90#gw_solute_flag]]
+- [[gwflow_module.f90#gw_state]]
+- [[gwflow_module.f90#gw_time_step]]
+- [[gwflow_module.f90#gw_transit_num]]
+- [[gwflow_module.f90#gwflag_aa]]
+- [[gwflow_module.f90#gwflag_day]]
+- [[gwflow_module.f90#gwflag_mon]]
+- [[gwflow_module.f90#gwflag_yr]]
+- [[gwflow_module.f90#gwsol_rctn]]
+- [[gwflow_module.f90#gwsol_sorb]]
+- [[gwflow_module.f90#hru_cells]]
+- [[gwflow_module.f90#lsu_cells]]
+- [[gwflow_module.f90#ncell]]
+- [[gwflow_module.f90#num_ts_transport]]
+
 ## File I/O
-- **Writes**: `gwflow_obs_day.txt`, `gwflow_obs_mon.txt`, `gwflow_obs_yr.txt`, `gwflow_obs_aa.txt`, `gwflow_chan_obs_flow_day.txt`, `gwflow_chan_obs_no3_day.txt`, `gwflow_hru_pump_day.txt`, `gwflow_hru_pump_mon.txt`, `gwflow_hru_pump_yr.txt`, `gwflow_hru_pump_aa.txt`, `gwflow_cell_wb_ppag_obs_day.txt`, `gwflow_tile_group_day.txt`, `gwflow_canal_wb_day.txt`, `gwflow_canal_sol_day.txt`, `gwflow_pond_wb_day.txt`, `gwflow_pond_sol_day.txt`, `gwflow_pond_mass_day.txt`, `gwflow_pond_conc_day.txt`, `gwflow_gwsw_group_day.txt`, `gwflow_chan_hydsep_day.txt`
-- **Reads**: `codes.gw`, `zones.gw`, `cells.gw`, `cellcon.gw`, `outputs.gw`, `hru_pump.gw`, `pumpex.gw`, `tile.gw`, `rescell.gw`, `floodplain.gw`, `gwflow_canal.con`, `phreato.gw`, `phreato_cell.gw`, `tvheads.gw`, `solute.gw`, `cell_sol.gw`, `minerals.gw`, `ponds.gw`, `pond_cell.gw`, `pond_div.gw`, `lsucell.gw`, `hrucell.gw`, `transit.gw`, `gwflow_transit_cell` _(variable; see file.cio)_, `gwflow_transit_chan` _(variable; see file.cio)_, `gwflow_transit_tile` _(variable; see file.cio)_, `sw_group.gw`
+- **Writes**:
+  - [[gwflow_obs_day.txt]]
+  - [[gwflow_obs_mon.txt]]
+  - [[gwflow_obs_yr.txt]]
+  - [[gwflow_obs_aa.txt]]
+  - [[gwflow_chan_obs_flow_day.txt]]
+  - [[gwflow_chan_obs_no3_day.txt]]
+  - [[gwflow_hru_pump_day.txt]]
+  - [[gwflow_hru_pump_mon.txt]]
+  - [[gwflow_hru_pump_yr.txt]]
+  - [[gwflow_hru_pump_aa.txt]]
+  - [[gwflow_cell_wb_ppag_obs_day.txt]]
+  - [[gwflow_tile_group_day.txt]]
+  - [[gwflow_canal_wb_day.txt]]
+  - [[gwflow_canal_sol_day.txt]]
+  - [[gwflow_pond_wb_day.txt]]
+  - [[gwflow_pond_sol_day.txt]]
+  - [[gwflow_pond_mass_day.txt]]
+  - [[gwflow_pond_conc_day.txt]]
+  - [[gwflow_gwsw_group_day.txt]]
+  - [[gwflow_chan_hydsep_day.txt]]
+- **Reads**:
+  - [[codes.gw]]
+  - [[zones.gw]]
+  - [[cells.gw]]
+  - [[cellcon.gw]]
+  - [[outputs.gw]]
+  - [[hru_pump.gw]]
+  - [[pumpex.gw]]
+  - [[tile.gw]]
+  - [[rescell.gw]]
+  - [[floodplain.gw]]
+  - [[gwflow_canal.con]]
+  - [[phreato.gw]]
+  - [[phreato_cell.gw]]
+  - [[tvheads.gw]]
+  - [[solute.gw]]
+  - [[cell_sol.gw]]
+  - [[minerals.gw]]
+  - [[ponds.gw]]
+  - [[pond_cell.gw]]
+  - [[pond_div.gw]]
+  - [[lsucell.gw]]
+  - [[hrucell.gw]]
+  - [[transit.gw]]
+  - `gwflow_transit_cell` _(variable; see [[file.cio]])_
+  - `gwflow_transit_chan` _(variable; see [[file.cio]])_
+  - `gwflow_transit_tile` _(variable; see [[file.cio]])_
+  - [[sw_group.gw]]
 
 <!-- USER-NOTES-START -->
 ## Notes

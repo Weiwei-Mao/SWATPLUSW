@@ -10,6 +10,8 @@ subroutine: jdt
 module:
   - time_module
 calls: []
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine computes the julian date given the month and; the day of the month"
@@ -23,18 +25,26 @@ purpose: "this subroutine computes the julian date given the month and; the day 
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `jdt.f90`
-- **Modules used**: [[time_module.f90]]
+- **Modules used**:
+  - [[time_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+(No static callers detected.)
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+(No module-level variable references detected.)
 
 <!-- USER-NOTES-START -->
 ## Notes

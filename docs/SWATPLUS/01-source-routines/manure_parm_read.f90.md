@@ -12,6 +12,11 @@ module:
   - maximum_data_module
   - fertilizer_data_module
 calls: []
+uses_variables:
+  - fertilizer_data_module.f90#manure_db
+  - maximum_data_module.f90#db_mx
+input_variables:
+  - fertilizer_data_module.f90#manure_db
 reads:
   - manure.frt
 writes: []
@@ -26,21 +31,37 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `manure_parm_read.f90`
-- **Modules used**: [[input_file_module.f90]], [[maximum_data_module.f90]], [[fertilizer_data_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[fertilizer_data_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+(No static callers detected.)
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[fertilizer_data_module.f90#manure_db]] - `manure_database`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+
+**Populated by file reads:**
+
+- [[fertilizer_data_module.f90#manure_db]]
+
 ## File I/O
-- **Reads**: `manure.frt`
+- **Reads**:
+  - [[manure.frt]]
 
 <!-- USER-NOTES-START -->
 ## Notes

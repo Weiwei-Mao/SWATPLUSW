@@ -12,6 +12,12 @@ module:
   - hydrograph_module
 calls:
   - wet_initial
+uses_variables:
+  - hru_module.f90#hru
+  - hydrograph_module.f90#sp_ob
+  - hydrograph_module.f90#wet
+  - hydrograph_module.f90#wet_om_init
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -25,7 +31,9 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `wet_all_initial.f90`
-- **Modules used**: [[hru_module.f90]], [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[hru_module.f90]]
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 1 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -33,12 +41,22 @@ purpose: ""
 
 - [[wet_initial.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hru_module.f90#hru]] - `hydrologic_response_unit`
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
+- [[hydrograph_module.f90#wet]] - `hyd_output`
+- [[hydrograph_module.f90#wet_om_init]] - `hyd_output`
 
 <!-- USER-NOTES-START -->
 ## Notes

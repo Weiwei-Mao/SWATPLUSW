@@ -13,6 +13,13 @@ module:
   - mgt_operations_module
   - fertilizer_data_module
 calls: []
+uses_variables:
+  - fertilizer_data_module.f90#fertdb
+  - input_file_module.f90#in_ops
+  - maximum_data_module.f90#db_mx
+  - mgt_operations_module.f90#grazeop_db
+input_variables:
+  - mgt_operations_module.f90#grazeop_db
 reads:
   - in_ops%graze_ops
 writes: []
@@ -27,21 +34,40 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `mgt_read_grazeops.f90`
-- **Modules used**: [[input_file_module.f90]], [[maximum_data_module.f90]], [[mgt_operations_module.f90]], [[fertilizer_data_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[mgt_operations_module.f90]]
+  - [[fertilizer_data_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_db.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[fertilizer_data_module.f90#fertdb]] - `fertilizer_db`
+- [[input_file_module.f90#in_ops]] - `input_ops`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[mgt_operations_module.f90#grazeop_db]] - `grazing_operation`
+
+**Populated by file reads:**
+
+- [[mgt_operations_module.f90#grazeop_db]]
+
 ## File I/O
-- **Reads**: `in_ops%graze_ops` _(variable; see file.cio)_
+- **Reads**:
+  - [[graze.ops]]
 
 <!-- USER-NOTES-START -->
 ## Notes

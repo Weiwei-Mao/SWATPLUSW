@@ -14,6 +14,11 @@ module:
   - input_file_module
   - plant_module
 calls: []
+uses_variables:
+  - calibration_data_module.f90#pl_prms
+  - calibration_data_module.f90#plcal
+  - maximum_data_module.f90#db_mx
+input_variables: []
 reads: []
 writes:
   - plant_parms.cal
@@ -28,21 +33,36 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `pl_write_parms_cal.f90`
-- **Modules used**: [[maximum_data_module.f90]], [[calibration_data_module.f90]], [[hydrograph_module.f90]], [[input_file_module.f90]], [[plant_module.f90]]
+- **Modules used**:
+  - [[maximum_data_module.f90]]
+  - [[calibration_data_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[input_file_module.f90]]
+  - [[plant_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 1
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[calsoft_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[calibration_data_module.f90#pl_prms]] - `pl_parm_region`
+- [[calibration_data_module.f90#plcal]] - `soft_data_calib_plant`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+
 ## File I/O
-- **Writes**: `plant_parms.cal`
+- **Writes**:
+  - [[plant_parms.cal]]
 
 <!-- USER-NOTES-START -->
 ## Notes

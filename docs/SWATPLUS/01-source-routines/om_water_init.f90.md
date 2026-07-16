@@ -16,6 +16,14 @@ module:
   - sd_channel_module
   - constituent_mass_module
 calls: []
+uses_variables:
+  - hydrograph_module.f90#om_init_name
+  - hydrograph_module.f90#om_init_water
+  - input_file_module.f90#in_init
+  - maximum_data_module.f90#db_mx
+input_variables:
+  - hydrograph_module.f90#om_init_name
+  - hydrograph_module.f90#om_init_water
 reads:
   - in_init%om_water
 writes: []
@@ -30,21 +38,44 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `om_water_init.f90`
-- **Modules used**: [[basin_module.f90]], [[input_file_module.f90]], [[maximum_data_module.f90]], [[channel_data_module.f90]], [[hydrograph_module.f90]], [[sd_channel_module.f90]], [[constituent_mass_module.f90]]
+- **Modules used**:
+  - [[basin_module.f90]]
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[channel_data_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[sd_channel_module.f90]]
+  - [[constituent_mass_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[hydrograph_module.f90#om_init_name]] - `character(len=16), dimension(:), allocatable`
+- [[hydrograph_module.f90#om_init_water]] - `hyd_output`
+- [[input_file_module.f90#in_init]] - `input_init`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+
+**Populated by file reads:**
+
+- [[hydrograph_module.f90#om_init_name]]
+- [[hydrograph_module.f90#om_init_water]]
+
 ## File I/O
-- **Reads**: `in_init%om_water` _(variable; see file.cio)_
+- **Reads**:
+  - [[om_water.ini]]
 
 <!-- USER-NOTES-START -->
 ## Notes

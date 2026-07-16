@@ -14,6 +14,8 @@ module:
 calls:
   - re_initialize
   - time_control
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -27,7 +29,10 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `calhard_control.f90`
-- **Modules used**: [[aquifer_module.f90]], [[maximum_data_module.f90]], [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[aquifer_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 2 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -36,12 +41,19 @@ purpose: ""
 - [[re_initialize.f90]]
 - [[time_control.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+(No module-level variable references detected.)
 
 <!-- USER-NOTES-START -->
 ## Notes

@@ -12,6 +12,12 @@ module:
   - maximum_data_module
   - topography_data_module
 calls: []
+uses_variables:
+  - input_file_module.f90#in_hyd
+  - maximum_data_module.f90#db_mx
+  - topography_data_module.f90#topo_db
+input_variables:
+  - topography_data_module.f90#topo_db
 reads:
   - in_hyd%topogr_hyd
 writes: []
@@ -26,21 +32,38 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `topo_read.f90`
-- **Modules used**: [[input_file_module.f90]], [[maximum_data_module.f90]], [[topography_data_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[topography_data_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_read.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[input_file_module.f90#in_hyd]] - `input_hydrology`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[topography_data_module.f90#topo_db]] - `topography_db`
+
+**Populated by file reads:**
+
+- [[topography_data_module.f90#topo_db]]
+
 ## File I/O
-- **Reads**: `in_hyd%topogr_hyd` _(variable; see file.cio)_
+- **Reads**:
+  - [[topography.hyd]]
 
 <!-- USER-NOTES-START -->
 ## Notes

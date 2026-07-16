@@ -12,6 +12,12 @@ module:
   - maximum_data_module
   - landuse_data_module
 calls: []
+uses_variables:
+  - input_file_module.f90#in_lum
+  - landuse_data_module.f90#cons_prac
+  - maximum_data_module.f90#db_mx
+input_variables:
+  - landuse_data_module.f90#cons_prac
 reads:
   - in_lum%cons_prac_lum
 writes: []
@@ -26,21 +32,38 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cons_prac_read.f90`
-- **Modules used**: [[input_file_module.f90]], [[maximum_data_module.f90]], [[landuse_data_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[landuse_data_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_db.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[input_file_module.f90#in_lum]] - `input_lum`
+- [[landuse_data_module.f90#cons_prac]] - `conservation_practice_table`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+
+**Populated by file reads:**
+
+- [[landuse_data_module.f90#cons_prac]]
+
 ## File I/O
-- **Reads**: `in_lum%cons_prac_lum` _(variable; see file.cio)_
+- **Reads**:
+  - [[cons_practice.lum]]
 
 <!-- USER-NOTES-START -->
 ## Notes

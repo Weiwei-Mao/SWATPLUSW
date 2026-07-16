@@ -40,11 +40,11 @@ SEED_SOURCE = {
         "- Entry call: [[proc_bsn.f90]]"
     ),
     "proc_bsn.f90": (
-        "- use: `time_module`, `output_path_module`\n"
+        "- use: [[time_module.f90]], [[output_path_module.f90]]\n"
         "- Line 12: call [[readcio_read.f90]]\n"
-        '- Line 15: call `open_output_file(9000, "files_out.out")`\n'
-        '- Line 18: call `open_output_file(9001, "diagnostics.out", 8000)` - unit 9001, recl 8000\n'
-        '- Line 21: call `open_output_file(9004, "area_calc.out", 80000)` - unit 9004, recl 80000\n'
+        "- Line 15: call [[output_path_module.f90#open_output_file]]; opens [[files_out.out]] (unit 9000)\n"
+        "- Line 18: call [[output_path_module.f90#open_output_file]]; opens [[diagnostics.out]] (unit 9001, recl 8000)\n"
+        "- Line 21: call [[output_path_module.f90#open_output_file]]; opens [[area_calc.out]] (unit 9004, recl 80000)\n"
         "- Line 23: call [[basin_read_cc.f90]]"
     ),
     "basin_read_cc.f90": (
@@ -63,16 +63,25 @@ SEED_SOURCE = {
 RE_PROGRAM = re.compile(r"^\s*program\s+([a-z0-9_]+)", re.I)
 RE_MODULE = re.compile(r"^\s*module\s+([a-z0-9_]+)\s*$", re.I)
 RE_SUBROUT = re.compile(r"^\s*(?:recursive\s+|pure\s+|elemental\s+)*subroutine\s+([a-z0-9_]+)", re.I)
+RE_FUNCTION = re.compile(r"^\s*(?!end\b)(?:recursive\s+|pure\s+|elemental\s+)*(?:[a-z0-9_(),=*:\s]+\s+)?function\s+([a-z0-9_]+)", re.I)
 RE_USE = re.compile(r"^\s*use\s+([a-z0-9_]+)", re.I)
 RE_CALL = re.compile(r"\bcall\s+([a-z0-9_]+)", re.I)
+RE_OPEN_OUTPUT_FILE = re.compile(r'\bcall\s+open_output_file\s*\(\s*[^,]+,\s*["\']([^"\']+)["\']', re.I)
 RE_OPEN = re.compile(r"\bopen\s*\(([^)]*)\)", re.I)
 RE_FILEARG = re.compile(r"\bfile\s*=\s*([^,)]+)", re.I)
 RE_UNITARG = re.compile(r"(?:^|,)\s*(?:unit\s*=\s*)?(\d+)\b")
+RE_READ_FULL = re.compile(r"\bread\s*\(([^)]*)\)\s*(.*)$", re.I)
 RE_TYPEDEF = re.compile(r"^\s*type\s+(?!.*\()\s*([a-z0-9_]+)", re.I)
+RE_END_TYPE = re.compile(r"^\s*end\s+type\b", re.I)
 RE_TYPEVAR = re.compile(r"^\s*type\s*\(\s*([a-z0-9_]+)\s*\)\s*::\s*([a-z0-9_,\s]+)", re.I)
 RE_SCALAR = re.compile(r"^\s*(?:real|integer|logical|character[^:!]*)::\s*([a-z0-9_,\s]+)", re.I)
+RE_DECL = re.compile(
+    r"^\s*((?:real|integer|logical|complex|double\s+precision|character[^:!]*|type\s*\(\s*[a-z0-9_]+\s*\))[^:!]*)::\s*(.+)$",
+    re.I,
+)
 RE_WRITE_U = re.compile(r"\bwrite\s*\(\s*(\d+)\s*,", re.I)
 RE_READ_U = re.compile(r"\bread\s*\(\s*(\d+)\s*,", re.I)
+RE_READ_STMT = re.compile(r"\bread\s*\([^)]*\)\s*(.+)$", re.I)
 
 
 NEW_BOILERPLATE = {
@@ -87,6 +96,92 @@ BOILERPLATE = NEW_BOILERPLATE
 def strip_comment(line: str) -> str:
     idx = line.find("!")
     return line[:idx] if idx >= 0 else line
+
+
+def strip_strings(line: str) -> str:
+    return re.sub(r"'[^']*'|\"[^\"]*\"", " ", line)
+
+
+def fortran_logical_lines(raw_lines: list[str]) -> list[tuple[int, str]]:
+    logical, buf, start = [], "", 1
+    for line_no, raw in enumerate(raw_lines, start=1):
+        code = strip_comment(raw).rstrip()
+        stripped = code.strip()
+        if not buf:
+            start = line_no
+        if stripped.startswith("&"):
+            stripped = stripped[1:].lstrip()
+        continued = stripped.endswith("&")
+        if continued:
+            stripped = stripped[:-1].rstrip()
+        buf = (buf + " " + stripped).strip() if buf else stripped
+        if not continued:
+            if buf:
+                logical.append((start, buf))
+            buf = ""
+    if buf:
+        logical.append((start, buf))
+    return logical
+
+
+def source_comment(line: str) -> str:
+    if "!!" in line:
+        return line.split("!!", 1)[1].strip()
+    if "!" in line:
+        return line.split("!", 1)[1].strip()
+    return ""
+
+
+def split_top_level_commas(text: str) -> list[str]:
+    parts, buf = [], []
+    depth = 0
+    for ch in text:
+        if ch == "(":
+            depth += 1
+        elif ch == ")" and depth:
+            depth -= 1
+        if ch == "," and depth == 0:
+            parts.append("".join(buf).strip())
+            buf = []
+        else:
+            buf.append(ch)
+    tail = "".join(buf).strip()
+    if tail:
+        parts.append(tail)
+    return parts
+
+
+def clean_decl_name(raw: str) -> str:
+    raw = raw.split("=>", 1)[0].split("=", 1)[0].strip()
+    m = re.match(r"([a-z][a-z0-9_]*)", raw, re.I)
+    return m.group(1) if m else ""
+
+
+def clean_type_spec(raw: str) -> str:
+    spec = " ".join(raw.strip().split())
+    tm = re.match(r"type\s*\(\s*([a-z0-9_]+)\s*\)", spec, re.I)
+    if tm:
+        return tm.group(1)
+    return spec
+
+
+def parse_declaration(raw_line: str) -> tuple[str, list[str], str] | None:
+    line = strip_comment(raw_line)
+    if "::" not in line:
+        return None
+    left, right = line.split("::", 1)
+    left = left.strip()
+    if not re.match(r"^(real|integer|logical|complex|double\s+precision|character\b|type\s*\()", left, re.I):
+        return None
+    type_spec = clean_type_spec(left)
+    names = []
+    for part in split_top_level_commas(right):
+        name = clean_decl_name(part)
+        if name and name.lower() not in [n.lower() for n in names]:
+            names.append(name)
+    if not names:
+        return None
+    return type_spec, names, source_comment(raw_line)
 
 
 def clean_target(raw: str) -> str:
@@ -110,6 +205,56 @@ def source_files() -> list[Path]:
     if main_template.exists() and not (SRC / "main.f90").exists():
         files.append(main_template)
     return sorted(files, key=lambda p: p.name.lower())
+
+
+def build_input_file_aliases() -> dict[str, str]:
+    path = SRC / "input_file_module.f90"
+    if not path.exists():
+        return {}
+
+    type_fields: dict[str, dict[str, str]] = {}
+    aliases: dict[str, str] = {}
+    current_type = ""
+
+    for raw in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        ln = strip_comment(raw)
+        tm = RE_TYPEDEF.match(ln)
+        if tm:
+            current_type = tm.group(1).lower()
+            type_fields.setdefault(current_type, {})
+            continue
+        if re.match(r"^\s*end\s+type\b", ln, re.I):
+            current_type = ""
+            continue
+
+        cm = re.match(
+            r'^\s*character[^:!]*::\s*([a-z0-9_]+)\s*=\s*["\']([^"\']+)["\']',
+            ln,
+            re.I,
+        )
+        if cm:
+            name = cm.group(1).lower()
+            filename = cm.group(2).strip()
+            if current_type:
+                type_fields[current_type][name] = filename
+            else:
+                aliases[name] = filename
+            continue
+
+        vm = RE_TYPEVAR.match(ln)
+        if vm:
+            type_name = vm.group(1).lower()
+            fields = type_fields.get(type_name, {})
+            if not fields:
+                continue
+            for var in re.split(r"[,\s]+", vm.group(2).strip()):
+                var = var.strip().lower()
+                if not var:
+                    continue
+                for field, filename in fields.items():
+                    aliases[f"{var}%{field}"] = filename
+
+    return aliases
 
 
 def note_names(path: Path) -> tuple[str, str, str]:
@@ -146,12 +291,22 @@ def parse_source(path: Path) -> dict:
             kind, name = "subroutine", m.group(1)
             break
 
-    uses, calls, opens = [], [], []
-    types, typevars, scalars = [], [], []
+    uses, calls, opens, output_files = [], [], [], []
+    types, typevars, scalars, subroutines, functions = [], [], [], [], []
+    type_defs, module_vars, local_vars = [], [], []
+    open_events, read_events = [], []
     in_module_scope = kind == "module"
+    current_type = ""
+    current_type_idx = -1
 
-    for ln in lines:
+    for line_no, ln in enumerate(lines, start=1):
+        raw_ln = raw_lines[line_no - 1]
         if not ln.strip():
+            if in_module_scope and current_type_idx >= 0:
+                cont = source_comment(raw_ln)
+                if cont and type_defs[current_type_idx]["fields"]:
+                    field = type_defs[current_type_idx]["fields"][-1]
+                    field["comment"] = append_comment(field.get("comment", ""), cont)
             continue
 
         m = RE_USE.match(ln)
@@ -175,29 +330,122 @@ def parse_source(path: Path) -> dict:
                 unit = um.group(1) if um else ""
                 opens.append((unit, target))
 
+        for oom in RE_OPEN_OUTPUT_FILE.finditer(ln):
+            target = clean_target(oom.group(1))
+            if target not in output_files:
+                output_files.append(target)
+
+        if kind != "module":
+            decl = parse_declaration(raw_ln)
+            if decl:
+                type_spec, names, comment = decl
+                for v in names:
+                    if v.lower() in [x["name"].lower() for x in local_vars]:
+                        continue
+                    local_vars.append(
+                        {
+                            "name": v,
+                            "type": type_spec,
+                            "line": line_no,
+                            "comment": comment,
+                        }
+                    )
+
         if in_module_scope:
-            if re.match(r"^\s*contains\b", ln, re.I):
+            if re.match(r"^\s*contains\b", ln, re.I) and not current_type:
                 in_module_scope = False
             else:
                 tm = RE_TYPEDEF.match(ln)
-                if tm and tm.group(1).lower() not in [t.lower() for t in types]:
-                    types.append(tm.group(1))
-                tvm = RE_TYPEVAR.match(ln)
-                if tvm:
-                    for v in re.split(r"[,\s]+", tvm.group(2).strip()):
-                        v = v.strip()
-                        if v and v.lower() not in [x.lower() for x in typevars]:
-                            typevars.append(v)
-                sm = RE_SCALAR.match(ln)
-                if sm:
-                    for v in re.split(r"[,\s]+", sm.group(1).strip()):
-                        v = v.strip().split("=")[0].strip()
-                        if v and v.lower() not in [x.lower() for x in scalars]:
-                            scalars.append(v)
+                if tm:
+                    current_type = tm.group(1)
+                    if current_type.lower() not in [t.lower() for t in types]:
+                        types.append(current_type)
+                    type_defs.append(
+                        {
+                            "name": current_type,
+                            "line": line_no,
+                            "comment": source_comment(raw_ln),
+                            "fields": [],
+                        }
+                    )
+                    current_type_idx = len(type_defs) - 1
+                    continue
+                if RE_END_TYPE.match(ln):
+                    current_type = ""
+                    current_type_idx = -1
+                    continue
+
+                decl = parse_declaration(raw_ln)
+                if decl:
+                    type_spec, names, comment = decl
+                    if current_type and current_type_idx >= 0:
+                        for v in names:
+                            type_defs[current_type_idx]["fields"].append(
+                                {
+                                    "name": v,
+                                    "type": type_spec,
+                                    "line": line_no,
+                                    "comment": comment,
+                                }
+                            )
+                    else:
+                        for v in names:
+                            if v.lower() in [x["name"].lower() for x in module_vars]:
+                                continue
+                            item = {
+                                "name": v,
+                                "type": type_spec,
+                                "line": line_no,
+                                "comment": comment,
+                            }
+                            module_vars.append(item)
+                            if type_spec.lower().startswith(("real", "integer", "logical", "character", "complex", "double precision")):
+                                scalars.append(v)
+                            else:
+                                typevars.append(v)
+        elif kind == "module":
+            sm = RE_SUBROUT.match(ln)
+            fm = RE_FUNCTION.match(ln)
+            if sm:
+                proc = sm.group(1).lower()
+                if proc not in subroutines:
+                    subroutines.append(proc)
+            elif fm:
+                proc = fm.group(1).lower()
+                if proc not in functions:
+                    functions.append(proc)
+
+    for line_no, stmt in fortran_logical_lines(raw_lines):
+        om = RE_OPEN.search(stmt)
+        if om:
+            inner = om.group(1)
+            fm = RE_FILEARG.search(inner)
+            um = RE_UNITARG.search(inner)
+            if fm and um:
+                open_events.append(
+                    {
+                        "line": line_no,
+                        "unit": um.group(1),
+                        "target": clean_target(fm.group(1)),
+                    }
+                )
+
+        rm = RE_READ_FULL.search(stmt)
+        if rm:
+            um = RE_UNITARG.search(rm.group(1))
+            if um:
+                targets = [p.strip() for p in split_top_level_commas(rm.group(2)) if p.strip()]
+                read_events.append(
+                    {
+                        "line": line_no,
+                        "unit": um.group(1),
+                        "targets": targets,
+                    }
+                )
 
     write_units = set(RE_WRITE_U.findall(text))
     read_units = set(RE_READ_U.findall(text))
-    writes, reads = [], []
+    writes, reads = list(output_files), []
     for unit, target in opens:
         u = unit.strip()
         literal = is_literal_file(target)
@@ -227,7 +475,16 @@ def parse_source(path: Path) -> dict:
         "types": types,
         "typevars": typevars,
         "scalars": scalars,
+        "type_defs": type_defs,
+        "module_vars": module_vars,
+        "local_vars": local_vars,
+        "open_events": open_events,
+        "read_events": read_events,
+        "subroutines": subroutines,
+        "functions": functions,
+        "procedures": subroutines + functions,
         "desc": extract_desc(raw_lines),
+        "code_lines": lines,
     }
 
 
@@ -265,9 +522,349 @@ def yaml_str(s: str) -> str:
     return f'"{s}"'
 
 
-def linkify_call(name: str, stems: set[str]) -> str:
-    if name in stems:
-        return f"[[{name}.f90]]"
+def md_cell(s: str) -> str:
+    return " ".join((s or "").replace("|", r"\|").split())
+
+
+def append_comment(existing: str, extra: str) -> str:
+    extra = " ".join((extra or "").split())
+    if "::" in extra:
+        return existing
+    extra = extra.lstrip("|").strip()
+    if not extra:
+        return existing
+    if not existing:
+        return extra
+    return f"{existing} {extra}"
+
+
+def build_routine_note_map(records: list[dict]) -> dict[str, str]:
+    routine_notes = {}
+    for r in records:
+        if r["kind"] != "module":
+            routine_notes.setdefault(r["name"].lower(), r["note_file"])
+    return routine_notes
+
+
+def build_module_procedure_map(records: list[dict]) -> dict[str, tuple[str, str]]:
+    proc_notes = {}
+    for r in records:
+        if r["kind"] != "module":
+            continue
+        for proc in r.get("subroutines", []) + r.get("functions", []):
+            proc_notes.setdefault(proc, (r["note_file"], proc))
+    return proc_notes
+
+
+def build_called_by(records: list[dict]) -> dict[str, list[dict]]:
+    callers = defaultdict(list)
+    for r in records:
+        for c in r["calls"]:
+            callers[c].append(r)
+    return callers
+
+
+def build_module_variable_map(records: list[dict]) -> dict[str, dict[str, dict]]:
+    module_vars: dict[str, dict[str, dict]] = {}
+    for r in records:
+        if r["kind"] != "module":
+            continue
+        module_key = r["name"].lower()
+        module_vars[module_key] = {}
+        for var in r.get("module_vars", []):
+            module_vars[module_key][var["name"].lower()] = {
+                "name": var["name"],
+                "type": var.get("type", ""),
+                "line": var.get("line", ""),
+                "comment": var.get("comment", ""),
+                "module": r["name"],
+                "note_file": r["note_file"],
+            }
+    return module_vars
+
+
+def build_type_map(records: list[dict]) -> dict[str, dict]:
+    type_map: dict[str, dict] = {}
+    for r in records:
+        if r["kind"] != "module":
+            continue
+        for t in r.get("type_defs", []):
+            type_map.setdefault(
+                t["name"].lower(),
+                {
+                    "name": t["name"],
+                    "module": r["name"],
+                    "note_file": r["note_file"],
+                    "line": t.get("line", ""),
+                    "fields": {f["name"].lower(): f for f in t.get("fields", [])},
+                },
+            )
+    return type_map
+
+
+def extract_read_target_names(code_lines: list[str]) -> set[str]:
+    names = set()
+    for ln in code_lines:
+        line = strip_strings(ln)
+        m = RE_READ_STMT.search(line)
+        if not m:
+            continue
+        for part in split_top_level_commas(m.group(1)):
+            name = clean_decl_name(part)
+            if name:
+                names.add(name.lower())
+    return names
+
+
+def annotate_variable_refs(records: list[dict], module_vars: dict[str, dict[str, dict]]) -> None:
+    for r in records:
+        r["var_refs"] = []
+        r["input_var_refs"] = []
+        if r["kind"] == "module":
+            continue
+
+        candidates = {}
+        for mod in r.get("uses", []):
+            for name, info in module_vars.get(mod.lower(), {}).items():
+                candidates.setdefault(name, info)
+        if not candidates:
+            continue
+
+        code = "\n".join(strip_strings(ln) for ln in r.get("code_lines", []))
+        tokens = set(t.lower() for t in re.findall(r"\b[a-z][a-z0-9_]*\b", code, re.I))
+        read_targets = extract_read_target_names(r.get("code_lines", []))
+
+        refs, input_refs = [], []
+        for name, info in sorted(candidates.items(), key=lambda item: (item[1]["note_file"], item[1]["name"].lower())):
+            if name not in tokens:
+                continue
+            refs.append(info)
+            if name in read_targets:
+                input_refs.append(info)
+        r["var_refs"] = refs
+        r["input_var_refs"] = input_refs
+
+
+def target_path_parts(expr: str) -> list[str]:
+    expr = re.sub(r"\([^()]*\)", "", expr.strip())
+    expr = expr.strip("() ")
+    parts = []
+    for part in expr.split("%"):
+        name = clean_decl_name(part)
+        if name:
+            parts.append(name)
+    return parts
+
+
+def split_units_meaning(comment: str) -> tuple[str, str]:
+    comment = " ".join((comment or "").split())
+    if "|" in comment:
+        units, meaning = comment.split("|", 1)
+        return units.strip(), meaning.strip()
+    return "", comment
+
+
+def variable_context_for_record(r: dict, module_vars: dict[str, dict[str, dict]]) -> dict[str, dict]:
+    context: dict[str, dict] = {}
+    for mod in r.get("uses", []):
+        for name, info in module_vars.get(mod.lower(), {}).items():
+            context.setdefault(name, info)
+    for var in r.get("local_vars", []):
+        context.setdefault(
+            var["name"].lower(),
+            {
+                "name": var["name"],
+                "type": var.get("type", ""),
+                "line": var.get("line", ""),
+                "comment": var.get("comment", ""),
+                "module": "",
+                "note_file": r["note_file"],
+                "local": True,
+            },
+        )
+    return context
+
+
+def normalize_type_name(type_spec: str) -> str:
+    return (type_spec or "").strip().lower()
+
+
+def source_ref_for_variable(var_info: dict, field_type: str = "") -> str:
+    if var_info.get("local"):
+        line = var_info.get("line", "")
+        return f"`{var_info['note_file']}:{line}`" if line else f"[[{var_info['note_file']}]]"
+    return f"[[{var_info['note_file']}#{var_info['name']}]]"
+
+
+def parameter_row(
+    expr: str,
+    type_spec: str,
+    comment: str,
+    source: str,
+    reader: str,
+    line: int,
+) -> dict:
+    units, meaning = split_units_meaning(comment)
+    return {
+        "expr": expr,
+        "type": type_spec or "",
+        "units": units,
+        "meaning": meaning,
+        "source": source,
+        "reader": reader,
+        "line": str(line),
+    }
+
+
+def flatten_type_parameters(
+    type_name: str,
+    type_map: dict[str, dict],
+    prefix: str,
+    source: str,
+    reader: str,
+    line: int,
+    depth: int = 0,
+    parent_comment: str = "",
+) -> list[dict]:
+    type_info = type_map.get(normalize_type_name(type_name))
+    if not type_info or depth > 4:
+        return []
+    rows = []
+    for field in type_info["fields"].values():
+        expr = f"{prefix}%{field['name']}"
+        field_type = field.get("type", "")
+        comment = field.get("comment", "") or parent_comment
+        nested = type_map.get(normalize_type_name(field_type))
+        if nested:
+            nested_comment = field.get("comment", "") or parent_comment
+            rows.extend(
+                flatten_type_parameters(
+                    field_type,
+                    type_map,
+                    expr,
+                    source,
+                    reader,
+                    line,
+                    depth + 1,
+                    nested_comment,
+                )
+            )
+        else:
+            rows.append(parameter_row(expr, field_type, comment, source, reader, line))
+    return rows
+
+
+def resolve_field_path(type_name: str, path: list[str], type_map: dict[str, dict]) -> tuple[str, str]:
+    current_type = normalize_type_name(type_name)
+    comments = []
+    field_type = ""
+    for part in path:
+        type_info = type_map.get(current_type)
+        if not type_info:
+            return field_type, " / ".join(c for c in comments if c)
+        field = type_info["fields"].get(part.lower())
+        if not field:
+            return field_type, " / ".join(c for c in comments if c)
+        field_type = field.get("type", "")
+        if field.get("comment"):
+            comments.append(field["comment"])
+        current_type = normalize_type_name(field_type)
+    return field_type, " / ".join(c for c in comments if c)
+
+
+def parameter_rows_for_target(
+    target: str,
+    r: dict,
+    var_context: dict[str, dict],
+    type_map: dict[str, dict],
+    line: int,
+) -> list[dict]:
+    parts = target_path_parts(target)
+    if not parts:
+        return []
+    base = parts[0].lower()
+    if base in {"titldum", "header"}:
+        return []
+    var_info = var_context.get(base)
+    if not var_info:
+        return []
+
+    source = source_ref_for_variable(var_info)
+    base_expr = var_info["name"]
+    type_spec = var_info.get("type", "")
+    if len(parts) == 1:
+        rows = flatten_type_parameters(type_spec, type_map, base_expr, source, r["note_file"], line)
+        if rows:
+            return rows
+        return [parameter_row(base_expr, type_spec, var_info.get("comment", ""), source, r["note_file"], line)]
+
+    path = parts[1:]
+    expr = base_expr + "%" + "%".join(path)
+    field_type, comment = resolve_field_path(type_spec, path, type_map)
+    return [parameter_row(expr, field_type, comment, source, r["note_file"], line)]
+
+
+def find_open_for_read(open_events: list[dict], read_event: dict) -> dict | None:
+    candidates = [
+        ev
+        for ev in open_events
+        if ev["unit"] == read_event["unit"] and ev["line"] <= read_event["line"]
+    ]
+    if not candidates:
+        return None
+    return sorted(candidates, key=lambda ev: ev["line"])[-1]
+
+
+def build_input_details(
+    records: list[dict],
+    file_aliases: dict[str, str],
+    module_vars: dict[str, dict[str, dict]],
+    type_map: dict[str, dict],
+) -> dict[str, dict]:
+    details: dict[str, dict] = defaultdict(lambda: {"events": [], "parameters": []})
+    seen_params: dict[str, set[tuple[str, str, str]]] = defaultdict(set)
+
+    for r in records:
+        if r["kind"] == "module":
+            continue
+        var_context = variable_context_for_record(r, module_vars)
+        for read_event in r.get("read_events", []):
+            open_event = find_open_for_read(r.get("open_events", []), read_event)
+            if not open_event:
+                continue
+            filename = resolve_file_io_target(open_event["target"], file_aliases)
+            if not filename:
+                continue
+
+            event_targets = [t.strip() for t in read_event.get("targets", []) if t.strip()]
+            details[filename]["events"].append(
+                {
+                    "reader": r["note_file"],
+                    "line": read_event["line"],
+                    "targets": event_targets,
+                }
+            )
+            for target in event_targets:
+                for row in parameter_rows_for_target(target, r, var_context, type_map, read_event["line"]):
+                    key = (row["expr"].lower(), row["source"], row["reader"])
+                    if key in seen_params[filename]:
+                        continue
+                    seen_params[filename].add(key)
+                    details[filename]["parameters"].append(row)
+
+    return details
+
+
+def linkify_record(r: dict) -> str:
+    return f"[[{r['note_file']}]]"
+
+
+def linkify_call(name: str, routine_notes: dict[str, str], module_procs: dict[str, tuple[str, str]]) -> str:
+    if name in routine_notes:
+        return f"[[{routine_notes[name]}]]"
+    if name in module_procs:
+        note_file, heading = module_procs[name]
+        return f"[[{note_file}#{heading}]]"
     return f"`{name}`"
 
 
@@ -277,8 +874,61 @@ def linkify_module(mod: str, mod_stems: set[str]) -> str:
     return f"`{mod}`"
 
 
+def linkify_variable_ref(ref: dict) -> str:
+    return f"[[{ref['note_file']}#{ref['name']}]]"
+
+
+def safe_note_name(fname: str) -> str:
+    return re.sub(r'[\\/:*?"<>|]', "_", fname)
+
+
+def resolve_file_io_target(target: str, file_aliases: dict[str, str]) -> str:
+    alias = file_aliases.get(target.lower())
+    if alias:
+        return alias
+    if is_literal_file(target):
+        return target
+    return ""
+
+
+def linkify_file_io(target: str, file_aliases: dict[str, str]) -> str:
+    exact = resolve_file_io_target(target, file_aliases)
+    if exact:
+        return f"[[{safe_note_name(exact)}]]"
+    return f"`{target}` _(variable; see [[file.cio]])_"
+
+
+def linkify_file_io_list(items: list[str], file_aliases: dict[str, str]) -> str:
+    return ", ".join(linkify_file_io_items(items, file_aliases))
+
+
+def linkify_file_io_items(items: list[str], file_aliases: dict[str, str]) -> list[str]:
+    rendered = []
+    seen = set()
+    for item in items:
+        link = linkify_file_io(item, file_aliases)
+        if link not in seen:
+            rendered.append(link)
+            seen.add(link)
+    return rendered
+
+
+def append_markdown_item_list(b: list[str], label: str, items: list[str]) -> None:
+    b.append(f"- **{label}**:")
+    if items:
+        for item in items:
+            b.append(f"  - {item}")
+    else:
+        b.append("  - -")
+
+
 def translate_preserved_note(text: str) -> str:
-    return text
+    text = "\n".join(ln.rstrip() for ln in text.splitlines())
+    text = text.replace("，", ",").replace("ï¼Œ", ",")
+    text = text.replace(",checks", ", checks")
+    text = re.sub(r"\[\[([^|\]\n]+#[^|\]\n]+)\|[^\]\n]+\]\]", r"[[\1]]", text)
+    text = re.sub(r"\[\[([^\]\n]+)#\^\]\]([a-z][a-z0-9_]*)", r"[[\1#\2]]", text, flags=re.I)
+    return re.sub(r"\[\[([^\]\n]+)#\^([a-z][a-z0-9_]*)\]\]", r"[[\1#\2]]", text, flags=re.I)
 
 
 def preserve_user_body(target_path: Path) -> str:
@@ -310,6 +960,14 @@ def main() -> None:
 
     stems = {r["stem"] for r in records}
     mod_stems = {r["stem"] for r in records if r["kind"] == "module"}
+    routine_notes = build_routine_note_map(records)
+    module_procs = build_module_procedure_map(records)
+    called_by = build_called_by(records)
+    module_vars = build_module_variable_map(records)
+    type_map = build_type_map(records)
+    annotate_variable_refs(records, module_vars)
+    file_aliases = build_input_file_aliases()
+    input_details = build_input_details(records, file_aliases, module_vars, type_map)
 
     output_writers = defaultdict(set)
     input_readers = defaultdict(set)
@@ -320,13 +978,15 @@ def main() -> None:
             if is_literal_file(w):
                 output_writers[w].add(r["stem"])
         for rr in r["reads"]:
-            input_readers[rr].add(r["stem"])
+            exact_read = resolve_file_io_target(rr, file_aliases)
+            if exact_read:
+                input_readers[exact_read].add(r["stem"])
 
         if r["kind"] == "module":
             write_module_note(r, stems)
             n_mod += 1
         else:
-            write_source_note(r, mod_stems, stems)
+            write_source_note(r, mod_stems, routine_notes, module_procs, called_by, file_aliases)
             n_src += 1
 
     n_out = 0
@@ -334,13 +994,21 @@ def main() -> None:
         n_out += 1
         write_output_note(fname, sorted(output_writers[fname]))
 
-    n_in = write_input_notes_from_cio(input_readers)
+    n_in = write_input_notes_from_cio(input_readers, input_details)
+    n_in += write_extra_input_notes(input_readers, input_details)
     write_indexes(records, output_writers)
 
     print(f"Generated: source {n_src} / modules {n_mod} / outputs {n_out} / inputs {n_in}")
 
 
-def write_source_note(r: dict, mod_stems: set[str], stems: set[str]) -> None:
+def write_source_note(
+    r: dict,
+    mod_stems: set[str],
+    routine_notes: dict[str, str],
+    module_procs: dict[str, tuple[str, str]],
+    called_by: dict[str, list[dict]],
+    file_aliases: dict[str, str],
+) -> None:
     target = SRC_DIR / f"{r['note_file']}.md"
     subtype = "program" if r["kind"] == "program" else "subroutine"
 
@@ -365,12 +1033,13 @@ def write_source_note(r: dict, mod_stems: set[str], stems: set[str]) -> None:
             fm.append(f"  - {c}")
     else:
         fm.append("calls: []")
+    fm.append("uses_variables:" + yaml_list([f"{v['note_file']}#{v['name']}" for v in r.get("var_refs", [])]))
+    fm.append("input_variables:" + yaml_list([f"{v['note_file']}#{v['name']}" for v in r.get("input_var_refs", [])]))
     fm.append("reads:" + yaml_list(r["reads"]))
     fm.append("writes:" + yaml_list(r["writes"]))
     fm.append("purpose: " + yaml_str("; ".join(r["desc"])))
 
     desc = "; ".join(r["desc"]) if r["desc"] else "TBD"
-    use_links = ", ".join(linkify_module(u, mod_stems) for u in r["uses"]) or "-"
 
     b = []
     b.append(f"# {r['name']}")
@@ -381,7 +1050,7 @@ def write_source_note(r: dict, mod_stems: set[str], stems: set[str]) -> None:
     b.append("## Basic Information")
     b.append(f"- **Type**: `{subtype}`")
     b.append(f"- **Source file**: `{r['fname']}`")
-    b.append(f"- **Modules used**: {use_links}")
+    append_markdown_item_list(b, "Modules used", [linkify_module(u, mod_stems) for u in r["uses"]])
     b.append(f"- **Subroutine calls**: {len(r['calls'])} | **Files read**: {len(r['reads'])} | **Files written**: {len(r['writes'])}")
     b.append("")
     b.append("## Call Relationships")
@@ -389,29 +1058,47 @@ def write_source_note(r: dict, mod_stems: set[str], stems: set[str]) -> None:
         b.append("**This routine calls:**")
         b.append("")
         for c in r["calls"]:
-            b.append(f"- {linkify_call(c, stems)}")
+            b.append(f"- {linkify_call(c, routine_notes, module_procs)}")
     else:
         b.append("(No call statements; leaf node.)")
     b.append("")
-    b.append("**Called by** (live Dataview back-query):")
+    b.append("**Called by:**")
+    callers = called_by.get(r["name"].lower(), [])
+    if callers:
+        b.append("")
+        for caller in callers:
+            b.append(f"- {linkify_record(caller)}")
+    else:
+        b.append("")
+        b.append("(No static callers detected.)")
+    b.append("")
+    b.append("**Live Dataview back-query:**")
     b.append("")
     b.append("```dataview")
     b.append('LIST file.link')
     b.append('WHERE type = "source" AND contains(calls, this.subroutine)')
     b.append("```")
     b.append("")
+    b.append("## Module Variables Referenced")
+    if r.get("var_refs"):
+        for ref in r["var_refs"]:
+            type_note = f" - `{ref['type']}`" if ref.get("type") else ""
+            b.append(f"- {linkify_variable_ref(ref)}{type_note}")
+    else:
+        b.append("(No module-level variable references detected.)")
+    if r.get("input_var_refs"):
+        b.append("")
+        b.append("**Populated by file reads:**")
+        b.append("")
+        for ref in r["input_var_refs"]:
+            b.append(f"- {linkify_variable_ref(ref)}")
+    b.append("")
     if r["reads"] or r["writes"]:
         b.append("## File I/O")
         if r["writes"]:
-            b.append("- **Writes**: " + ", ".join(f"`{w}`" for w in r["writes"]))
+            append_markdown_item_list(b, "Writes", linkify_file_io_items(r["writes"], file_aliases))
         if r["reads"]:
-            rd = []
-            for x in r["reads"]:
-                if is_literal_file(x):
-                    rd.append(f"`{x}`")
-                else:
-                    rd.append(f"`{x}` _(variable; see file.cio)_")
-            b.append("- **Reads**: " + ", ".join(rd))
+            append_markdown_item_list(b, "Reads", linkify_file_io_items(r["reads"], file_aliases))
         b.append("")
     b.append("<!-- USER-NOTES-START -->")
     b.append("## Notes")
@@ -436,7 +1123,10 @@ def write_module_note(r: dict, stems: set[str]) -> None:
     fm.append(f"note_file: {r['note_file']}")
     fm.append(f"module_name: {r['name']}")
     fm.append("defines_types:" + yaml_list(r["types"]))
-    fm.append("defines_vars:" + yaml_list(r["typevars"] + r["scalars"]))
+    fm.append("defines_vars:" + yaml_list([v["name"] for v in r.get("module_vars", [])]))
+    fm.append("defines_subroutines:" + yaml_list(r.get("subroutines", [])))
+    fm.append("defines_functions:" + yaml_list(r.get("functions", [])))
+    fm.append("defines_procedures:" + yaml_list(r.get("procedures", [])))
     fm.append("purpose: " + yaml_str("; ".join(r["desc"])))
 
     b = []
@@ -446,28 +1136,55 @@ def write_module_note(r: dict, stems: set[str]) -> None:
     b.append("> Defines derived types and module-level variables.")
     b.append("")
     b.append("## Defined Types")
-    if r["types"]:
-        b.append("| Type | Notes |")
-        b.append("|---|---|")
-        for t in r["types"]:
-            b.append(f"| `{t}` |  |")
+    if r.get("type_defs"):
+        for t in r["type_defs"]:
+            b.append(f"### {t['name']}")
+            b.append("")
+            b.append(f"- **Defined in source**: `{r['fname']}:{t['line']}`")
+            if t.get("comment"):
+                b.append(f"- **Source note**: {t['comment']}")
+            if t.get("fields"):
+                b.append("")
+                b.append("| Field | Type | Source line | Meaning |")
+                b.append("|---|---|---:|---|")
+                for field in t["fields"]:
+                    b.append(
+                        f"| `{field['name']}` | `{md_cell(field['type'])}` | {field['line']} | {md_cell(field.get('comment', ''))} |"
+                    )
+            b.append("")
     else:
         b.append("(No type definitions detected.)")
-    b.append("")
-    b.append("## Module-Level Variables")
-    vars_all = r["typevars"] + r["scalars"]
+        b.append("")
+    b.append("## Variables Defined")
+    vars_all = r.get("module_vars", [])
     if vars_all:
-        b.append("| Variable | Type | Meaning |")
-        b.append("|---|---|---|")
-        shown = vars_all[:40]
-        for v in shown:
-            b.append(f"| `{v}` |  |  |")
-        if len(vars_all) > 40:
+        for v in vars_all:
+            b.append(f"### {v['name']}")
             b.append("")
-            b.append(f"*(Showing first 40 of {len(vars_all)} variables.)*")
+            b.append(f"- **Type**: `{v['type']}`")
+            b.append(f"- **Defined in source**: `{r['fname']}:{v['line']}`")
+            if v.get("comment"):
+                b.append(f"- **Source note**: {v['comment']}")
+            b.append("")
     else:
-        b.append("(No module-level variables detected.)")
-    b.append("")
+        b.append("(No variables detected.)")
+        b.append("")
+    b.append("## Subroutines Defined")
+    if r.get("subroutines"):
+        for proc in r["subroutines"]:
+            b.append(f"### {proc}")
+            b.append("")
+    else:
+        b.append("(No subroutines detected.)")
+        b.append("")
+    b.append("## Functions Defined")
+    if r.get("functions"):
+        for proc in r["functions"]:
+            b.append(f"### {proc}")
+            b.append("")
+    else:
+        b.append("(No functions detected.)")
+        b.append("")
     b.append("## Used By Source Routines")
     b.append("")
     b.append("```dataview")
@@ -517,10 +1234,68 @@ def write_output_note(fname: str, writers: list[str]) -> None:
     write_note(target, "\n".join(fm), "\n".join(b))
 
 
-def write_input_notes_from_cio(input_readers: dict[str, set[str]]) -> int:
+def append_input_detail_sections(
+    b: list[str],
+    filename: str,
+    field: str,
+    readers: set[str],
+    details: dict,
+    auxiliary: bool = False,
+) -> None:
+    b.append("## Overview")
+    if field:
+        b.append(f"- **Declared in `file.cio` field**: `{field}`")
+    elif auxiliary:
+        b.append("- **Declared in `file.cio` field**: not listed directly; referenced by source code or a default file-name constant.")
+    else:
+        b.append("- **Declared in `file.cio` field**: not identified.")
+    b.append("- **Format source**: generated from Fortran `open`/`read` statements and module/type comments.")
+    b.append("- **Format style**: SWAT+ text input; most readers use list-directed Fortran reads.")
+    b.append("")
+
+    b.append("## Reader Routines")
+    if readers:
+        for s in sorted(readers):
+            b.append(f"- [[{s}.f90]]")
+    else:
+        b.append("(Reader routine not located automatically; add evidence after tracing the code.)")
+    b.append("")
+
+    b.append("## File Structure")
+    events = details.get("events", [])
+    if events:
+        for ev in events[:80]:
+            targets = ", ".join(f"`{t}`" for t in ev.get("targets", [])) or "(no targets parsed)"
+            b.append(f"- [[{ev['reader']}]] source line {ev['line']}: reads {targets}")
+        if len(events) > 80:
+            b.append(f"- ... {len(events) - 80} additional read statements omitted from this generated summary.")
+    else:
+        b.append("(No line-level read structure detected automatically.)")
+    b.append("")
+
+    b.append("## Parameters")
+    params = details.get("parameters", [])
+    if params:
+        b.append("| Parameter | Type | Units | Meaning | Source | Reader line |")
+        b.append("|---|---|---|---|---|---:|")
+        for row in params:
+            b.append(
+                "| "
+                f"`{md_cell(row['expr'])}` | "
+                f"`{md_cell(row['type'])}` | "
+                f"{md_cell(row['units'])} | "
+                f"{md_cell(row['meaning'])} | "
+                f"{row['source']} | "
+                f"[[{row['reader']}]]:{row['line']} |"
+            )
+    else:
+        b.append("(No parameter table detected automatically. Check the reader routines above for manual interpretation.)")
+
+
+def input_files_declared_in_cio() -> dict[str, str]:
     cio_path = IN_DIR / "file.cio.md"
     if not cio_path.exists():
-        return 0
+        return {}
 
     cio = cio_path.read_text(encoding="utf-8", errors="replace")
     pairs = re.findall(r"\*\*([a-z0-9_.]+)\*\*\s*[:=]+\s*([a-zA-Z0-9_./-]+\.[a-zA-Z0-9]+)", cio)
@@ -529,7 +1304,11 @@ def write_input_notes_from_cio(input_readers: dict[str, set[str]]) -> int:
         filename = filename.strip()
         if filename not in seen:
             seen[filename] = field
+    return seen
 
+
+def write_input_notes_from_cio(input_readers: dict[str, set[str]], input_details: dict[str, dict]) -> int:
+    seen = input_files_declared_in_cio()
     n = 0
     for filename, field in sorted(seen.items()):
         safe = re.sub(r'[\\/:*?"<>|]', "_", filename)
@@ -559,15 +1338,40 @@ def write_input_notes_from_cio(input_readers: dict[str, set[str]]) -> int:
         b.append("> [!info] Input File")
         b.append(f"> Declared in `file.cio` field `{field}`. See [[file.cio]] for the controlling file map.")
         b.append("")
-        b.append("## Reader Routines")
-        if readers:
-            for s in sorted(readers):
-                b.append(f"- [[{s}.f90]]")
-        else:
-            b.append("(Reader routine not located automatically; add evidence after tracing the code.)")
+        append_input_detail_sections(b, filename, field, readers, input_details.get(filename, {}))
+        write_note(target, "\n".join(fm), "\n".join(b))
+        n += 1
+    return n
+
+
+def write_extra_input_notes(input_readers: dict[str, set[str]], input_details: dict[str, dict]) -> int:
+    n = 0
+    cio_files = set(input_files_declared_in_cio())
+    for filename, readers in sorted(input_readers.items()):
+        safe = safe_note_name(filename)
+        if safe == "file.cio" or filename in cio_files:
+            continue
+        target = IN_DIR / f"{safe}.md"
+        ext = filename.rsplit(".", 1)[-1] if "." in filename else ""
+
+        fm = []
+        fm.append("type: input")
+        fm.append("tags:")
+        fm.append("  - swat/input")
+        fm.append("  - swat/auxiliary-input")
+        fm.append(f"file: {filename}")
+        fm.append(f"ext: {ext}")
+        fm.append("cio_field: []")
+        fm.append("read_by:" + yaml_list([f"{s}.f90" for s in sorted(readers)]))
+        fm.append('purpose: ""')
+
+        b = []
+        b.append(f"# {filename}")
         b.append("")
-        b.append("## File Format")
-        b.append("(Add field meanings, units, and allowed values.)")
+        b.append("> [!info] Input File")
+        b.append("> Referenced directly by source code or by a default file-name constant outside the main `file.cio` list.")
+        b.append("")
+        append_input_detail_sections(b, filename, "", readers, input_details.get(filename, {}), auxiliary=True)
         write_note(target, "\n".join(fm), "\n".join(b))
         n += 1
     return n

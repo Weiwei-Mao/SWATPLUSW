@@ -14,6 +14,8 @@ calls:
   - aqu_initial
   - aqu_read_init
   - aqu_read_init_cs
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -27,7 +29,8 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `proc_aqu.f90`
-- **Modules used**: [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 4 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -38,12 +41,19 @@ purpose: ""
 - [[aqu_read_init.f90]]
 - [[aqu_read_init_cs.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+(No module-level variable references detected.)
 
 <!-- USER-NOTES-START -->
 ## Notes

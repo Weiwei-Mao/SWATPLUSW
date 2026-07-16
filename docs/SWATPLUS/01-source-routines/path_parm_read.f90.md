@@ -12,6 +12,12 @@ module:
   - pathogen_data_module
   - maximum_data_module
 calls: []
+uses_variables:
+  - input_file_module.f90#in_parmdb
+  - maximum_data_module.f90#db_mx
+  - pathogen_data_module.f90#path_db
+input_variables:
+  - pathogen_data_module.f90#path_db
 reads:
   - in_parmdb%pathcom_db
 writes: []
@@ -26,21 +32,38 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `path_parm_read.f90`
-- **Modules used**: [[input_file_module.f90]], [[pathogen_data_module.f90]], [[maximum_data_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[pathogen_data_module.f90]]
+  - [[maximum_data_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_db.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[input_file_module.f90#in_parmdb]] - `input_parameter_databases`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[pathogen_data_module.f90#path_db]] - `pathogen_db`
+
+**Populated by file reads:**
+
+- [[pathogen_data_module.f90#path_db]]
+
 ## File I/O
-- **Reads**: `in_parmdb%pathcom_db` _(variable; see file.cio)_
+- **Reads**:
+  - [[pathogens.pth]]
 
 <!-- USER-NOTES-START -->
 ## Notes

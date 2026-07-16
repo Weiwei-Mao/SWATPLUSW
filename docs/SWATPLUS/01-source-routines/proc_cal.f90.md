@@ -26,6 +26,10 @@ calls:
   - ch_read_orders_cal
   - ch_read_parms_cal
   - cal_allo_init
+uses_variables:
+  - calibration_data_module.f90#cal_hard
+  - calibration_data_module.f90#cal_soft
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -39,7 +43,9 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `proc_cal.f90`
-- **Modules used**: [[hydrograph_module.f90]], [[calibration_data_module.f90]]
+- **Modules used**:
+  - [[hydrograph_module.f90]]
+  - [[calibration_data_module.f90]]
 - **Subroutine calls**: 15 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -52,7 +58,7 @@ purpose: ""
 - [[cal_conditions.f90]]
 - [[calsoft_read_codes.f90]]
 - [[lcu_read_softcal.f90]]
-- `ls_read_lsparms_cal`
+- [[ls_read_parms_cal.f90]]
 - [[aqu_read_elements.f90]]
 - [[ch_read_elements.f90]]
 - [[res_read_elements.f90]]
@@ -61,12 +67,20 @@ purpose: ""
 - [[ch_read_parms_cal.f90]]
 - [[cal_allo_init.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[calibration_data_module.f90#cal_hard]] - `character (len=1)`
+- [[calibration_data_module.f90#cal_soft]] - `character (len=1)`
 
 <!-- USER-NOTES-START -->
 ## Notes

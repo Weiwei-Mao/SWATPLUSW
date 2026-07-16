@@ -25,6 +25,12 @@ calls:
   - overbank_read
   - sd_channel_surf_link
   - time_conc_init
+uses_variables:
+  - hydrograph_module.f90#ich
+  - hydrograph_module.f90#ob
+  - hydrograph_module.f90#sp_ob
+  - hydrograph_module.f90#sp_ob1
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -38,7 +44,8 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `proc_cha.f90`
-- **Modules used**: [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 15 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -60,12 +67,22 @@ purpose: ""
 - [[sd_channel_surf_link.f90]]
 - [[time_conc_init.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hydrograph_module.f90#ich]] - `integer`
+- [[hydrograph_module.f90#ob]] - `object_connectivity`
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
+- [[hydrograph_module.f90#sp_ob1]] - `spatial_objects`
 
 <!-- USER-NOTES-START -->
 ## Notes

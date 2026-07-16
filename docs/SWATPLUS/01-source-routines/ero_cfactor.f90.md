@@ -17,6 +17,17 @@ module:
   - erosion_module
   - utils
 calls: []
+uses_variables:
+  - basin_module.f90#bsn_cc
+  - basin_module.f90#bsn_prm
+  - erosion_module.f90#ero_output
+  - hru_module.f90#cvm_com
+  - hru_module.f90#ihru
+  - hru_module.f90#ipl
+  - hru_module.f90#usle_cfac
+  - organic_mineral_mass_module.f90#pl_mass
+  - plant_module.f90#pcom
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine predicts daily soil loss caused by water erosion; using the modified universal soil loss equation"
@@ -30,18 +41,42 @@ purpose: "this subroutine predicts daily soil loss caused by water erosion; usin
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `ero_cfactor.f90`
-- **Modules used**: [[basin_module.f90]], [[hru_module.f90]], [[plant_module.f90]], [[plant_data_module.f90]], [[organic_mineral_mass_module.f90]], [[time_module.f90]], [[erosion_module.f90]], [[utils.f90]]
+- **Modules used**:
+  - [[basin_module.f90]]
+  - [[hru_module.f90]]
+  - [[plant_module.f90]]
+  - [[plant_data_module.f90]]
+  - [[organic_mineral_mass_module.f90]]
+  - [[time_module.f90]]
+  - [[erosion_module.f90]]
+  - [[utils.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[surface.f90]]
+- [[wetland_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#bsn_cc]] - `basin_control_codes`
+- [[basin_module.f90#bsn_prm]] - `basin_parms`
+- [[erosion_module.f90#ero_output]] - `erosion_output`
+- [[hru_module.f90#cvm_com]] - `real, dimension (:), allocatable`
+- [[hru_module.f90#ihru]] - `integer`
+- [[hru_module.f90#ipl]] - `integer`
+- [[hru_module.f90#usle_cfac]] - `real, dimension (:), allocatable`
+- [[organic_mineral_mass_module.f90#pl_mass]] - `plant_community_mass`
+- [[plant_module.f90#pcom]] - `plant_community`
 
 <!-- USER-NOTES-START -->
 ## Notes

@@ -19,6 +19,17 @@ module:
   - plant_module
   - soil_module
 calls: []
+uses_variables:
+  - constituent_mass_module.f90#cs_db
+  - constituent_mass_module.f90#cs_soil
+  - hru_module.f90#ihru
+  - hydrograph_module.f90#ob
+  - organic_mineral_mass_module.f90#pl_mass
+  - plant_module.f90#pcom
+  - salt_module.f90#hsaltb_d
+  - salt_module.f90#salt_uptake_kg
+  - soil_module.f90#soil
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine simulates salt ion uptake in the root zone"
@@ -32,18 +43,43 @@ purpose: "this subroutine simulates salt ion uptake in the root zone"
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `salt_uptake.f90`
-- **Modules used**: [[basin_module.f90]], [[organic_mineral_mass_module.f90]], [[hru_module.f90]], [[hydrograph_module.f90]], [[output_landscape_module.f90]], [[salt_module.f90]], [[constituent_mass_module.f90]], [[plant_data_module.f90]], [[plant_module.f90]], [[soil_module.f90]]
+- **Modules used**:
+  - [[basin_module.f90]]
+  - [[organic_mineral_mass_module.f90]]
+  - [[hru_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[output_landscape_module.f90]]
+  - [[salt_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[plant_data_module.f90]]
+  - [[plant_module.f90]]
+  - [[soil_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[pl_biomass_gro.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[constituent_mass_module.f90#cs_soil]] - `soil_constituent_mass`
+- [[hru_module.f90#ihru]] - `integer`
+- [[hydrograph_module.f90#ob]] - `object_connectivity`
+- [[organic_mineral_mass_module.f90#pl_mass]] - `plant_community_mass`
+- [[plant_module.f90#pcom]] - `plant_community`
+- [[salt_module.f90#hsaltb_d]] - `object_salt_balance`
+- [[salt_module.f90#salt_uptake_kg]] - `real, dimension(:,:), allocatable`
+- [[soil_module.f90#soil]] - `soil_profile`
 
 <!-- USER-NOTES-START -->
 ## Notes

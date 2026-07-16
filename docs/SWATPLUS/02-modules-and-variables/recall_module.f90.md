@@ -10,15 +10,10 @@ defines_types:
   - constituent_file_data
   - recall_databases
 defines_vars:
-  - org_min
-  - pest
-  - path
-  - hmet
-  - salt
-  - constit
-  - name
-  - units
-  - tstep
+  - recall_db
+defines_subroutines: []
+defines_functions: []
+defines_procedures: []
 purpose: ""
 ---
 
@@ -28,23 +23,47 @@ purpose: ""
 > Defines derived types and module-level variables.
 
 ## Defined Types
-| Type | Notes |
-|---|---|
-| `constituent_file_data` |  |
-| `recall_databases` |  |
+### constituent_file_data
 
-## Module-Level Variables
-| Variable | Type | Meaning |
-|---|---|---|
-| `org_min` |  |  |
-| `pest` |  |  |
-| `path` |  |  |
-| `hmet` |  |  |
-| `salt` |  |  |
-| `constit` |  |  |
-| `name` |  |  |
-| `units` |  |  |
-| `tstep` |  |  |
+- **Defined in source**: `recall_module.f90:5`
+
+| Field | Type | Source line | Meaning |
+|---|---|---:|---|
+| `name` | `character(len=25)` | 6 |  |
+| `units` | `character(len=13)` | 7 | mass, conc |
+| `tstep` | `character(len=13)` | 8 | day, mo, yr |
+
+### recall_databases
+
+- **Defined in source**: `recall_module.f90:11`
+
+| Field | Type | Source line | Meaning |
+|---|---|---:|---|
+| `name` | `character(len=13)` | 12 |  |
+| `org_min` | `constituent_file_data` | 13 |  |
+| `pest` | `constituent_file_data` | 14 |  |
+| `path` | `constituent_file_data` | 15 |  |
+| `hmet` | `constituent_file_data` | 16 |  |
+| `salt` | `constituent_file_data` | 17 |  |
+| `constit` | `constituent_file_data` | 18 |  |
+| `iorg_min` | `integer` | 19 |  |
+| `ipest` | `integer` | 20 |  |
+| `ipath` | `integer` | 21 |  |
+| `ihmet` | `integer` | 22 |  |
+| `isalt` | `integer` | 23 |  |
+| `iconstit` | `integer` | 24 |  |
+
+## Variables Defined
+### recall_db
+
+- **Type**: `recall_databases`
+- **Defined in source**: `recall_module.f90:30`
+
+## Subroutines Defined
+(No subroutines detected.)
+
+## Functions Defined
+(No functions detected.)
 
 ## Used By Source Routines
 

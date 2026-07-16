@@ -10,6 +10,9 @@ subroutine: cond_real_c
 module:
   - reservoir_conditions_module
 calls: []
+uses_variables:
+  - reservoir_conditions_module.f90#hit
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -23,18 +26,26 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cond_real_c.f90`
-- **Modules used**: [[reservoir_conditions_module.f90]]
+- **Modules used**:
+  - [[reservoir_conditions_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[res_rel_conds.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[reservoir_conditions_module.f90#hit]] - `character(1)`
 
 <!-- USER-NOTES-START -->
 ## Notes

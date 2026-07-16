@@ -11,6 +11,11 @@ module:
   - reservoir_conditions_module
   - maximum_data_module
 calls: []
+uses_variables:
+  - maximum_data_module.f90#db_mx
+  - reservoir_conditions_module.f90#ctbl
+input_variables:
+  - reservoir_conditions_module.f90#ctbl
 reads:
   - res_conds.dat
 writes: []
@@ -25,21 +30,36 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `res_read_conds.f90`
-- **Modules used**: [[reservoir_conditions_module.f90]], [[maximum_data_module.f90]]
+- **Modules used**:
+  - [[reservoir_conditions_module.f90]]
+  - [[maximum_data_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_res.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[reservoir_conditions_module.f90#ctbl]] - `reservoir_condition_tables`
+
+**Populated by file reads:**
+
+- [[reservoir_conditions_module.f90#ctbl]]
+
 ## File I/O
-- **Reads**: `res_conds.dat`
+- **Reads**:
+  - [[res_conds.dat]]
 
 <!-- USER-NOTES-START -->
 ## Notes

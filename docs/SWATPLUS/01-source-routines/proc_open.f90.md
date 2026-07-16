@@ -25,6 +25,8 @@ calls:
   - header_salt
   - header_const
   - header_write
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -38,7 +40,8 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `proc_open.f90`
-- **Modules used**: -
+- **Modules used**:
+  - -
 - **Subroutine calls**: 16 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -61,12 +64,19 @@ purpose: ""
 - [[header_const.f90]]
 - [[header_write.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+(No module-level variable references detected.)
 
 <!-- USER-NOTES-START -->
 ## Notes

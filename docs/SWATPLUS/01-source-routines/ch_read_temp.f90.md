@@ -15,6 +15,12 @@ module:
   - channel_data_module
   - hydrograph_module
 calls: []
+uses_variables:
+  - channel_data_module.f90#w_temp
+  - input_file_module.f90#in_cha
+  - maximum_data_module.f90#db_mx
+input_variables:
+  - channel_data_module.f90#w_temp
 reads:
   - in_cha%temp
 writes: []
@@ -29,21 +35,41 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `ch_read_temp.f90`
-- **Modules used**: [[basin_module.f90]], [[time_module.f90]], [[input_file_module.f90]], [[maximum_data_module.f90]], [[channel_data_module.f90]], [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[basin_module.f90]]
+  - [[time_module.f90]]
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[channel_data_module.f90]]
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_read.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[channel_data_module.f90#w_temp]] - `water_temperature_data`
+- [[input_file_module.f90#in_cha]] - `input_cha`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+
+**Populated by file reads:**
+
+- [[channel_data_module.f90#w_temp]]
+
 ## File I/O
-- **Reads**: `in_cha%temp` _(variable; see file.cio)_
+- **Reads**:
+  - [[temperature.cha]]
 
 <!-- USER-NOTES-START -->
 ## Notes

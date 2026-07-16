@@ -1,0 +1,22 @@
+---
+type: output
+tags:
+  - swat/output
+file: lsu_plc_stat_day.txt
+ext: txt
+written_by:
+  - output_landscape_init.f90
+purpose: ""
+---
+
+# lsu_plc_stat_day.txt
+
+> [!info] Output File
+> Written by SWAT+ routines. Extension: `.txt`.
+
+## Writer Routines
+
+- [[output_landscape_init.f90]]
+
+## File Format
+(Add field meanings and column notes after tracing the writer code or inspecting actual output.)

@@ -18,6 +18,20 @@ module:
   - constituent_mass_module
   - hydrograph_module
 calls: []
+uses_variables:
+  - basin_module.f90#pco
+  - ch_pesticide_module.f90#ch_pestbz
+  - ch_pesticide_module.f90#chpst_a
+  - ch_pesticide_module.f90#chpst_d
+  - ch_pesticide_module.f90#chpst_m
+  - ch_pesticide_module.f90#chpst_y
+  - constituent_mass_module.f90#cs_db
+  - hydrograph_module.f90#jrch
+  - hydrograph_module.f90#ob
+  - hydrograph_module.f90#sp_ob1
+  - time_module.f90#ndays
+  - time_module.f90#time
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine outputs HRU variables on daily, monthly and annual time steps"
@@ -31,18 +45,45 @@ purpose: "this subroutine outputs HRU variables on daily, monthly and annual tim
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cha_pesticide_output.f90`
-- **Modules used**: [[output_ls_pesticide_module.f90]], [[ch_pesticide_module.f90]], [[plant_module.f90]], [[plant_data_module.f90]], [[time_module.f90]], [[basin_module.f90]], [[output_landscape_module.f90]], [[constituent_mass_module.f90]], [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[output_ls_pesticide_module.f90]]
+  - [[ch_pesticide_module.f90]]
+  - [[plant_module.f90]]
+  - [[plant_data_module.f90]]
+  - [[time_module.f90]]
+  - [[basin_module.f90]]
+  - [[output_landscape_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[command.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#pco]] - `basin_print_codes`
+- [[ch_pesticide_module.f90#ch_pestbz]] - `ch_pesticide_processes`
+- [[ch_pesticide_module.f90#chpst_a]] - `ch_pesticide_output`
+- [[ch_pesticide_module.f90#chpst_d]] - `ch_pesticide_output`
+- [[ch_pesticide_module.f90#chpst_m]] - `ch_pesticide_output`
+- [[ch_pesticide_module.f90#chpst_y]] - `ch_pesticide_output`
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[hydrograph_module.f90#jrch]] - `integer`
+- [[hydrograph_module.f90#ob]] - `object_connectivity`
+- [[hydrograph_module.f90#sp_ob1]] - `spatial_objects`
+- [[time_module.f90#ndays]] - `integer, dimension (13)`
+- [[time_module.f90#time]] - `time_current`
 
 <!-- USER-NOTES-START -->
 ## Notes

@@ -9,6 +9,8 @@ note_file: erfc.f90
 subroutine: erfc
 module: []
 calls: []
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: "erfc is the complementary error function;; erf(B) is the error function for B"
@@ -22,18 +24,26 @@ purpose: "erfc is the complementary error function;; erf(B) is the error functio
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `erfc.f90`
-- **Modules used**: -
+- **Modules used**:
+  - -
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+(No static callers detected.)
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+(No module-level variable references detected.)
 
 <!-- USER-NOTES-START -->
 ## Notes

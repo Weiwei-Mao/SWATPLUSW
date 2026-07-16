@@ -11,6 +11,9 @@ module:
   - time_module
   - climate_module
 calls: []
+uses_variables:
+  - time_module.f90#time
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine checks to see if climate data is in current simulation day"
@@ -24,18 +27,28 @@ purpose: "this subroutine checks to see if climate data is in current simulation
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cli_bounds_check.f90`
-- **Modules used**: [[time_module.f90]], [[climate_module.f90]]
+- **Modules used**:
+  - [[time_module.f90]]
+  - [[climate_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[cli_precip_control.f90]]
+- [[climate_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[time_module.f90#time]] - `time_current`
 
 <!-- USER-NOTES-START -->
 ## Notes

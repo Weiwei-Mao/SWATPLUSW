@@ -12,6 +12,11 @@ module:
   - maximum_data_module
   - plant_data_module
 calls: []
+uses_variables:
+  - maximum_data_module.f90#db_mx
+  - plant_data_module.f90#transpl
+input_variables:
+  - plant_data_module.f90#transpl
 reads:
   - transplant.plt
 writes: []
@@ -26,23 +31,44 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `plant_transplant_read.f90`
-- **Modules used**: [[input_file_module.f90]], [[maximum_data_module.f90]], [[plant_data_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[plant_data_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_db.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[plant_data_module.f90#transpl]] - `plant_transplant_db`
+
+**Populated by file reads:**
+
+- [[plant_data_module.f90#transpl]]
+
 ## File I/O
-- **Reads**: `transplant.plt`
+- **Reads**:
+  - [[transplant.plt]]
 
 <!-- USER-NOTES-START -->
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+Read into [[plant_data_module.f90#transpl]], for example, rice
+
+input file [[transplant.plt]]
+
 <!-- USER-NOTES-END -->

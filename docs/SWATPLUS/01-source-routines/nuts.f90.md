@@ -9,6 +9,8 @@ note_file: nuts.f90
 subroutine: nuts
 module: []
 calls: []
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: "this function calculates the plant stress factor caused by limited; supply of nitrogen or phosphorus"
@@ -22,18 +24,27 @@ purpose: "this function calculates the plant stress factor caused by limited; su
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `nuts.f90`
-- **Modules used**: -
+- **Modules used**:
+  - -
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[pl_nup.f90]]
+- [[pl_pup.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+(No module-level variable references detected.)
 
 <!-- USER-NOTES-START -->
 ## Notes

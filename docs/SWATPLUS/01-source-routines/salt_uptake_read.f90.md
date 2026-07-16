@@ -17,6 +17,12 @@ module:
   - hydrograph_module
   - salt_module
 calls: []
+uses_variables:
+  - constituent_mass_module.f90#cs_db
+  - maximum_data_module.f90#db_mx
+  - salt_module.f90#salt_uptake_kg
+  - salt_module.f90#salt_uptake_on
+input_variables: []
 reads:
   - salt_uptake
 writes: []
@@ -31,21 +37,40 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `salt_uptake_read.f90`
-- **Modules used**: [[basin_module.f90]], [[input_file_module.f90]], [[climate_module.f90]], [[time_module.f90]], [[maximum_data_module.f90]], [[constituent_mass_module.f90]], [[hydrograph_module.f90]], [[salt_module.f90]]
+- **Modules used**:
+  - [[basin_module.f90]]
+  - [[input_file_module.f90]]
+  - [[climate_module.f90]]
+  - [[time_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[constituent_mass_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[salt_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_read.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[salt_module.f90#salt_uptake_kg]] - `real, dimension(:,:), allocatable`
+- [[salt_module.f90#salt_uptake_on]] - `integer`
+
 ## File I/O
-- **Reads**: `salt_uptake` _(variable; see file.cio)_
+- **Reads**:
+  - `salt_uptake` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes

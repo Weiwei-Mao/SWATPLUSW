@@ -12,6 +12,9 @@ module:
 calls:
   - sq_daycn
   - sq_greenampt
+uses_variables:
+  - basin_module.f90#bsn_cc
+input_variables: []
 reads: []
 writes: []
 purpose: "Call subroutines to calculate the current day\"s CN for the HRU and; to calculate surface runoff"
@@ -25,7 +28,8 @@ purpose: "Call subroutines to calculate the current day\"s CN for the HRU and; t
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `sq_volq.f90`
-- **Modules used**: [[basin_module.f90]]
+- **Modules used**:
+  - [[basin_module.f90]]
 - **Subroutine calls**: 2 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -34,12 +38,19 @@ purpose: "Call subroutines to calculate the current day\"s CN for the HRU and; t
 - [[sq_daycn.f90]]
 - [[sq_greenampt.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[surface.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#bsn_cc]] - `basin_control_codes`
 
 <!-- USER-NOTES-START -->
 ## Notes

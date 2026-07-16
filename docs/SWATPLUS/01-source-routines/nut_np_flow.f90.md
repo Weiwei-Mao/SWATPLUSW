@@ -9,6 +9,8 @@ note_file: nut_np_flow.f90
 subroutine: nut_np_flow
 module: []
 calls: []
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -22,18 +24,26 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `nut_np_flow.f90`
-- **Modules used**: -
+- **Modules used**:
+  - -
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[cbn_zhang2.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+(No module-level variable references detected.)
 
 <!-- USER-NOTES-START -->
 ## Notes

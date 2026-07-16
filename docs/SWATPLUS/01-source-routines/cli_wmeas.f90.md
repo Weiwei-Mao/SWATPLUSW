@@ -13,6 +13,16 @@ module:
   - maximum_data_module
   - time_module
 calls: []
+uses_variables:
+  - climate_module.f90#wnd
+  - climate_module.f90#wnd_n
+  - input_file_module.f90#in_cli
+  - input_file_module.f90#in_path_wnd
+  - maximum_data_module.f90#db_mx
+  - time_module.f90#time
+input_variables:
+  - climate_module.f90#wnd
+  - climate_module.f90#wnd_n
 reads:
   - in_cli%wnd_cli
   - wnd(i
@@ -29,21 +39,45 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cli_wmeas.f90`
-- **Modules used**: [[input_file_module.f90]], [[climate_module.f90]], [[maximum_data_module.f90]], [[time_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[climate_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[time_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 3 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_date_time.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[climate_module.f90#wnd]] - `climate_measured_data`
+- [[climate_module.f90#wnd_n]] - `character(len=50), dimension(:), allocatable`
+- [[input_file_module.f90#in_cli]] - `input_cli`
+- [[input_file_module.f90#in_path_wnd]] - `input_path_wnd`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+- [[time_module.f90#time]] - `time_current`
+
+**Populated by file reads:**
+
+- [[climate_module.f90#wnd]]
+- [[climate_module.f90#wnd_n]]
+
 ## File I/O
-- **Reads**: `in_cli%wnd_cli` _(variable; see file.cio)_, `wnd(i` _(variable; see file.cio)_, `TRIM(ADJUSTL(in_path_wnd%wnd` _(variable; see file.cio)_
+- **Reads**:
+  - [[wnd.cli]]
+  - `wnd(i` _(variable; see [[file.cio]])_
+  - `TRIM(ADJUSTL(in_path_wnd%wnd` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes

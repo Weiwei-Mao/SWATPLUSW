@@ -12,6 +12,16 @@ module:
   - climate_module
   - hydrograph_module
 calls: []
+uses_variables:
+  - basin_module.f90#bsn_prm
+  - climate_module.f90#pcp
+  - climate_module.f90#tmp
+  - climate_module.f90#wgn
+  - climate_module.f90#wst
+  - hydrograph_module.f90#iwst
+  - hydrograph_module.f90#ob
+  - hydrograph_module.f90#sp_ob
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine adjusts precip and temperature for elevation"
@@ -25,18 +35,37 @@ purpose: "this subroutine adjusts precip and temperature for elevation"
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cli_lapse.f90`
-- **Modules used**: [[basin_module.f90]], [[climate_module.f90]], [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[basin_module.f90]]
+  - [[climate_module.f90]]
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[main.f90]]
+- [[res_control.f90]]
+- [[sd_channel_control3.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#bsn_prm]] - `basin_parms`
+- [[climate_module.f90#pcp]] - `climate_measured_data`
+- [[climate_module.f90#tmp]] - `climate_measured_data`
+- [[climate_module.f90#wgn]] - `weather_generator_db`
+- [[climate_module.f90#wst]] - `weather_station`
+- [[hydrograph_module.f90#iwst]] - `integer`
+- [[hydrograph_module.f90#ob]] - `object_connectivity`
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
 
 <!-- USER-NOTES-START -->
 ## Notes

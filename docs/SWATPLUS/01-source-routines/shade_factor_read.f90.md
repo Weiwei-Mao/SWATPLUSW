@@ -13,6 +13,12 @@ module:
   - sd_channel_module
   - hydrograph_module
 calls: []
+uses_variables:
+  - hydrograph_module.f90#shf_db
+  - input_file_module.f90#in_shf
+  - maximum_data_module.f90#db_mx
+input_variables:
+  - hydrograph_module.f90#shf_db
 reads:
   - in_shf%ssff_shf
 writes: []
@@ -27,21 +33,39 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `shade_factor_read.f90`
-- **Modules used**: [[input_file_module.f90]], [[maximum_data_module.f90]], [[sd_channel_module.f90]], [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[input_file_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[sd_channel_module.f90]]
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_read.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 
+## Module Variables Referenced
+- [[hydrograph_module.f90#shf_db]] - `shade_factor_data`
+- [[input_file_module.f90#in_shf]] - `shade_factor`
+- [[maximum_data_module.f90#db_mx]] - `data_files_max_elements`
+
+**Populated by file reads:**
+
+- [[hydrograph_module.f90#shf_db]]
+
 ## File I/O
-- **Reads**: `in_shf%ssff_shf` _(variable; see file.cio)_
+- **Reads**:
+  - [[shade_factor.shf]]
 
 <!-- USER-NOTES-START -->
 ## Notes

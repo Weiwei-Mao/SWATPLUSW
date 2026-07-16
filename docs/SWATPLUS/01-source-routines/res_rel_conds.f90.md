@@ -14,6 +14,13 @@ module:
 calls:
   - cond_real_c
   - cond_integer_c
+uses_variables:
+  - hydrograph_module.f90#ht2
+  - reservoir_conditions_module.f90#ctbl
+  - reservoir_conditions_module.f90#day
+  - reservoir_conditions_module.f90#hit
+  - reservoir_conditions_module.f90#release
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -27,7 +34,10 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `res_rel_conds.f90`
-- **Modules used**: [[reservoir_conditions_module.f90]], [[time_module.f90]], [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[reservoir_conditions_module.f90]]
+  - [[time_module.f90]]
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 2 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -36,12 +46,23 @@ purpose: ""
 - [[cond_real_c.f90]]
 - [[cond_integer_c.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[res_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hydrograph_module.f90#ht2]] - `hyd_output`
+- [[reservoir_conditions_module.f90#ctbl]] - `reservoir_condition_tables`
+- [[reservoir_conditions_module.f90#day]] - `integer`
+- [[reservoir_conditions_module.f90#hit]] - `character(1)`
+- [[reservoir_conditions_module.f90#release]] - `real`
 
 <!-- USER-NOTES-START -->
 ## Notes

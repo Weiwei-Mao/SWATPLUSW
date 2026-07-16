@@ -11,6 +11,13 @@ module:
   - reservoir_module
   - hydrograph_module
 calls: []
+uses_variables:
+  - hydrograph_module.f90#ob
+  - hydrograph_module.f90#res
+  - hydrograph_module.f90#sp_ob
+  - hydrograph_module.f90#sp_ob1
+  - reservoir_module.f90#res_ob
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -24,18 +31,31 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `res_objects.f90`
-- **Modules used**: [[reservoir_module.f90]], [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[reservoir_module.f90]]
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_res.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hydrograph_module.f90#ob]] - `object_connectivity`
+- [[hydrograph_module.f90#res]] - `hyd_output`
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
+- [[hydrograph_module.f90#sp_ob1]] - `spatial_objects`
+- [[reservoir_module.f90#res_ob]] - `reservoir`
 
 <!-- USER-NOTES-START -->
 ## Notes

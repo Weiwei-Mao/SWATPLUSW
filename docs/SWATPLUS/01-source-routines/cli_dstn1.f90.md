@@ -9,6 +9,8 @@ note_file: cli_dstn1.f90
 subroutine: cli_dstn1
 module: []
 calls: []
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: "this function computes the distance from the mean of a normal; distribution with mean = 0 and standard deviation = 1, given two; random numbers"
@@ -22,18 +24,26 @@ purpose: "this function computes the distance from the mean of a normal; distrib
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cli_dstn1.f90`
-- **Modules used**: -
+- **Modules used**:
+  - -
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+(No static callers detected.)
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+(No module-level variable references detected.)
 
 <!-- USER-NOTES-START -->
 ## Notes

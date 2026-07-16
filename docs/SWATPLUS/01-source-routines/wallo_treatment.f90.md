@@ -15,6 +15,17 @@ calls:
   - hyd_convert_conc_to_mass
   - hyd_min
   - hydcsout_conc_mass
+uses_variables:
+  - constituent_mass_module.f90#cs_db
+  - constituent_mass_module.f90#outflo_cs
+  - constituent_mass_module.f90#wtp_cs_treat
+  - hydrograph_module.f90#hz
+  - hydrograph_module.f90#outflo_om
+  - hydrograph_module.f90#wal_omd
+  - hydrograph_module.f90#wal_tr_omd
+  - hydrograph_module.f90#wtp_om_out
+  - hydrograph_module.f90#wtp_om_treat
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -28,22 +39,40 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `wallo_treatment.f90`
-- **Modules used**: [[water_allocation_module.f90]], [[hydrograph_module.f90]], [[constituent_mass_module.f90]]
+- **Modules used**:
+  - [[water_allocation_module.f90]]
+  - [[hydrograph_module.f90]]
+  - [[constituent_mass_module.f90]]
 - **Subroutine calls**: 3 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 **This routine calls:**
 
-- `hyd_convert_conc_to_mass`
-- `hyd_min`
-- `hydcsout_conc_mass`
+- [[hydrograph_module.f90#hyd_convert_conc_to_mass]]
+- [[hydrograph_module.f90#hyd_min]]
+- [[constituent_mass_module.f90#hydcsout_conc_mass]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[wallo_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[constituent_mass_module.f90#cs_db]] - `constituents`
+- [[constituent_mass_module.f90#outflo_cs]] - `constituent_mass`
+- [[constituent_mass_module.f90#wtp_cs_treat]] - `constituent_mass`
+- [[hydrograph_module.f90#hz]] - `hyd_output`
+- [[hydrograph_module.f90#outflo_om]] - `hyd_output`
+- [[hydrograph_module.f90#wal_omd]] - `water_allocation_object`
+- [[hydrograph_module.f90#wal_tr_omd]] - `hyd_output`
+- [[hydrograph_module.f90#wtp_om_out]] - `hyd_output`
+- [[hydrograph_module.f90#wtp_om_treat]] - `hyd_output`
 
 <!-- USER-NOTES-START -->
 ## Notes

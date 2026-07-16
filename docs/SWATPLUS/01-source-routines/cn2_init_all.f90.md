@@ -14,6 +14,9 @@ module:
   - hydrograph_module
 calls:
   - cn2_init
+uses_variables:
+  - hydrograph_module.f90#sp_ob
+input_variables: []
 reads: []
 writes: []
 purpose: ""
@@ -27,7 +30,11 @@ purpose: ""
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `cn2_init_all.f90`
-- **Modules used**: [[soil_module.f90]], [[maximum_data_module.f90]], [[landuse_data_module.f90]], [[hydrograph_module.f90]]
+- **Modules used**:
+  - [[soil_module.f90]]
+  - [[maximum_data_module.f90]]
+  - [[landuse_data_module.f90]]
+  - [[hydrograph_module.f90]]
 - **Subroutine calls**: 1 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -35,12 +42,19 @@ purpose: ""
 
 - [[cn2_init.f90]]
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[proc_hru.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[hydrograph_module.f90#sp_ob]] - `spatial_objects`
 
 <!-- USER-NOTES-START -->
 ## Notes

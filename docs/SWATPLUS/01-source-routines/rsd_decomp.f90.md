@@ -17,6 +17,20 @@ module:
   - output_landscape_module
   - carbon_module
 calls: []
+uses_variables:
+  - basin_module.f90#bsn_prm
+  - carbon_module.f90#hrc_d
+  - hru_module.f90#ihru
+  - hru_module.f90#ipl
+  - organic_mineral_mass_module.f90#decomp
+  - organic_mineral_mass_module.f90#pl_mass
+  - organic_mineral_mass_module.f90#plt_mass_z
+  - organic_mineral_mass_module.f90#soil1
+  - output_landscape_module.f90#hnb_d
+  - plant_data_module.f90#pldb
+  - plant_module.f90#pcom
+  - soil_module.f90#soil
+input_variables: []
 reads: []
 writes: []
 purpose: "this subroutine estimates daily nitrogen and phosphorus; mineralization and immobilization considering fresh organic; material (plant residue) and active and stable humus material"
@@ -30,18 +44,44 @@ purpose: "this subroutine estimates daily nitrogen and phosphorus; mineralizatio
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `rsd_decomp.f90`
-- **Modules used**: [[plant_data_module.f90]], [[basin_module.f90]], [[organic_mineral_mass_module.f90]], [[hru_module.f90]], [[soil_module.f90]], [[plant_module.f90]], [[output_landscape_module.f90]], [[carbon_module.f90]]
+- **Modules used**:
+  - [[plant_data_module.f90]]
+  - [[basin_module.f90]]
+  - [[organic_mineral_mass_module.f90]]
+  - [[hru_module.f90]]
+  - [[soil_module.f90]]
+  - [[plant_module.f90]]
+  - [[output_landscape_module.f90]]
+  - [[carbon_module.f90]]
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+- [[hru_control.f90]]
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+- [[basin_module.f90#bsn_prm]] - `basin_parms`
+- [[carbon_module.f90#hrc_d]] - `carbon_residue_gain_losses`
+- [[hru_module.f90#ihru]] - `integer`
+- [[hru_module.f90#ipl]] - `integer`
+- [[organic_mineral_mass_module.f90#decomp]] - `organic_mass`
+- [[organic_mineral_mass_module.f90#pl_mass]] - `plant_community_mass`
+- [[organic_mineral_mass_module.f90#plt_mass_z]] - `organic_mass`
+- [[organic_mineral_mass_module.f90#soil1]] - `soil_profile_mass`
+- [[output_landscape_module.f90#hnb_d]] - `output_nutbal`
+- [[plant_data_module.f90#pldb]] - `plant_db`
+- [[plant_module.f90#pcom]] - `plant_community`
+- [[soil_module.f90#soil]] - `soil_profile`
 
 <!-- USER-NOTES-START -->
 ## Notes

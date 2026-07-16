@@ -9,6 +9,8 @@ note_file: atri.f90
 subroutine: atri
 module: []
 calls: []
+uses_variables: []
+input_variables: []
 reads: []
 writes: []
 purpose: "this function generates a random number from a triangular distribution; given X axis points at start, end, and peak Y value"
@@ -22,18 +24,26 @@ purpose: "this function generates a random number from a triangular distribution
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `atri.f90`
-- **Modules used**: -
+- **Modules used**:
+  - -
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
 
-**Called by** (live Dataview back-query):
+**Called by:**
+
+(No static callers detected.)
+
+**Live Dataview back-query:**
 
 ```dataview
 LIST file.link
 WHERE type = "source" AND contains(calls, this.subroutine)
 ```
+
+## Module Variables Referenced
+(No module-level variable references detected.)
 
 <!-- USER-NOTES-START -->
 ## Notes
