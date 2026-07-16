@@ -1,0 +1,44 @@
+---
+type: source
+subtype: subroutine
+tags:
+  - swat/源码
+  - swat/待读
+file: ero_pkq.f90
+subroutine: ero_pkq
+module:
+  - hru_module
+  - hydrograph_module
+  - climate_module
+  - basin_module
+calls: []
+reads: []
+writes: []
+purpose: "this subroutine computes the peak runoff rate for each HRU；and the entire subbasin using a modification of the rational formula"
+---
+
+# ero_pkq
+
+> [!info] 概要
+> this subroutine computes the peak runoff rate for each HRU；and the entire subbasin using a modification of the rational formula
+
+## 基本信息
+- **类型**：`subroutine`
+- **源文件**：`ero_pkq.f90`
+- **使用模块**：[[hru_module.f90]]、[[hydrograph_module.f90]]、[[climate_module.f90]]、[[basin_module.f90]]
+- **调用子程序**：0 个 ｜ **读取文件**：0 ｜ **写入文件**：0
+
+## 调用关系
+（无 call 语句，叶子节点）
+
+**被以下程序调用**（dataview 实时反查）：
+
+```dataview
+LIST file.link
+WHERE type = "source" AND contains(calls, this.subroutine)
+```
+
+<!-- USER-NOTES-START -->
+## 我的笔记
+（在此自由记录：逐行注解、关键变量、个人理解。重跑生成脚本时本段会被保留。）
+<!-- USER-NOTES-END -->
