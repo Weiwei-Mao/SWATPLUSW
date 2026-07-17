@@ -96,8 +96,4 @@ Use this section for line notes, key variables, and interpretation. This section
 		- Line 87-150, read the precipitation data
 		  The data are stored in [[climate_module.f90#pcp]] %ts
 - End
-
-
-
-
 <!-- USER-NOTES-END -->

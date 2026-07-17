@@ -70,5 +70,4 @@ Use this section for line notes, key variables, and interpretation. This section
 Read into [[plant_data_module.f90#transpl]], for example, rice
 
 input file [[transplant.plt]]
-
 <!-- USER-NOTES-END -->

@@ -62,7 +62,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 ## File I/O
 - **Reads**:
-  - `cs_urban` _(variable; see [[file.cio]])_
+  - [[cs_urban]]
 
 <!-- USER-NOTES-START -->
 ## Notes

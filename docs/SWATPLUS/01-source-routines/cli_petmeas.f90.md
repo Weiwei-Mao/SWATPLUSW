@@ -87,7 +87,4 @@ Use this section for line notes, key variables, and interpretation. This section
 	- if it does not exist, return
 	- Else, read the file
 - End
-
-
-
 <!-- USER-NOTES-END -->

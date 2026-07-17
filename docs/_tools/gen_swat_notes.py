@@ -188,8 +188,16 @@ def clean_target(raw: str) -> str:
     return raw.strip().strip("'\"").strip()
 
 
+# Filenames opened with a quoted literal but having no extension (e.g. 'salt_plants')
+# are indistinguishable from variables after quote-stripping, so the parser records
+# every quoted file= literal here; is_literal_file() then recognizes them.
+LITERAL_FILES: set[str] = set()
+
+
 def is_literal_file(target: str) -> bool:
     t = target.strip()
+    if t in LITERAL_FILES:
+        return True
     if t.startswith("'") or t.startswith('"'):
         return True
     if "%" in t or "//" in t:
@@ -326,7 +334,10 @@ def parse_source(path: Path) -> dict:
             fm = RE_FILEARG.search(inner)
             um = RE_UNITARG.search(inner)
             if fm:
-                target = clean_target(fm.group(1))
+                raw_file = fm.group(1)
+                target = clean_target(raw_file)
+                if raw_file.strip().startswith(("'", '"')):
+                    LITERAL_FILES.add(target)
                 unit = um.group(1) if um else ""
                 opens.append((unit, target))
 
@@ -942,6 +953,31 @@ def preserve_user_body(target_path: Path) -> str:
     return translate_preserved_note("\n".join(lines).strip())
 
 
+def load_existing_tags(path: Path) -> list[str]:
+    """Read the `tags:` block from an existing note's frontmatter."""
+    if not path.exists():
+        return []
+    txt = path.read_text(encoding="utf-8", errors="replace")
+    m = re.search(r"^tags:\s*\n((?:\s+-\s+.+\n?)+)", txt, re.M)
+    if not m:
+        return []
+    return [t.strip() for t in re.findall(r"-\s+(.+)", m.group(1))]
+
+
+def preserved_tags(target: Path, default_type: str) -> list[str]:
+    """Keep the user's reading-status (swat/read, swat/in-progress) and any domain
+    tags across regeneration, instead of always resetting to swat/to-read."""
+    existing = load_existing_tags(target)
+    tags = [default_type]
+    status = [t for t in existing if t in ("swat/read", "swat/in-progress")]
+    tags.append(status[0] if status else "swat/to-read")
+    reserved = {"swat/source", "swat/module", "swat/to-read", "swat/read", "swat/in-progress"}
+    for t in existing:
+        if t not in reserved and t not in tags:
+            tags.append(t)
+    return tags
+
+
 def write_note(path: Path, frontmatter: str, body: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="\n") as f:
@@ -1016,8 +1052,8 @@ def write_source_note(
     fm.append("type: source")
     fm.append(f"subtype: {subtype}")
     fm.append("tags:")
-    fm.append("  - swat/source")
-    fm.append("  - swat/to-read")
+    for _t in preserved_tags(target, "swat/source"):
+        fm.append(f"  - {_t}")
     fm.append(f"file: {r['fname']}")
     fm.append(f"note_file: {r['note_file']}")
     fm.append(f"subroutine: {r['name']}")
@@ -1117,8 +1153,8 @@ def write_module_note(r: dict, stems: set[str]) -> None:
     fm = []
     fm.append("type: module")
     fm.append("tags:")
-    fm.append("  - swat/module")
-    fm.append("  - swat/to-read")
+    for _t in preserved_tags(target, "swat/module"):
+        fm.append(f"  - {_t}")
     fm.append(f"file: {r['fname']}")
     fm.append(f"note_file: {r['note_file']}")
     fm.append(f"module_name: {r['name']}")

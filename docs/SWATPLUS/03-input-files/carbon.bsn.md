@@ -19,7 +19,6 @@ purpose: ""
 - **Declared in `file.cio` field**: `carboin_bsn`
 - **Format source**: generated from Fortran `open`/`read` statements and module/type comments.
 - **Format style**: SWAT+ text input; most readers use list-directed Fortran reads.
-- **Companion file**: [[carbon_lyr.bsn]] is derived from this file name and is also required when dynamic carbon is enabled (`codes.bsn` carbon = `2`).
 
 ## Reader Routines
 - [[carbon_bsn_read.f90]]

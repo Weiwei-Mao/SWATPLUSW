@@ -91,7 +91,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 - **Reads**:
   - [[object.cnt]]
   - [[chancell.gw]]
-  - `gwflow_record` _(variable; see [[file.cio]])_
+  - [[gwflow_record]]
 
 <!-- USER-NOTES-START -->
 ## Notes

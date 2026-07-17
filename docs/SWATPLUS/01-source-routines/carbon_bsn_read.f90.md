@@ -49,7 +49,7 @@ purpose: ""
 # carbon_bsn_read
 
 > [!info] Summary
-> Reads the basin-wide dynamic carbon settings from [[carbon.bsn]] and the companion per-layer coefficients from [[carbon_lyr.bsn]] when `bsn_cc%cswat = 2`.
+> TBD
 
 ## Basic Information
 - **Type**: `subroutine`
@@ -104,7 +104,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 ## File I/O
 - **Reads**:
   - [[carbon.bsn]]
-  - [[carbon_lyr.bsn]] _(derived from `in_basin%carbon_bsn`; not listed separately in [[file.cio]])_
+  - `carbon_lyr` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes
@@ -119,6 +119,4 @@ Use this section for line notes, key variables, and interpretation. This section
 	- Line 95-165, read [[carbon_lyr.bsn]]
 	- The derived layer file currently expects two valid coefficient rows because `carbdb` and `org_allo` are `dimension(2)` in [[carbon_module.f90]].
 - End
-
-
 <!-- USER-NOTES-END -->

@@ -91,21 +91,4 @@ Use this section for line notes, key variables, and interpretation. This section
 	  input plant name + plant class
 - Line 61-73, if [[basin_module.f90#bsn_cc]] == 2 is selected, there are some excess calculation
 - End
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- USER-NOTES-END -->

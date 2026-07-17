@@ -47,3 +47,7 @@ desktop.ini
 /VSProj/SWAT/Osu_1hru/recall_db.rec
 # Existing sample outputs in other scenarios may stay tracked as fixtures.
 # Do not add new run outputs unless they are intentionally curated examples.
+
+# --- Python (docs/_tools generator) ---------------------------------------
+__pycache__/
+*.pyc

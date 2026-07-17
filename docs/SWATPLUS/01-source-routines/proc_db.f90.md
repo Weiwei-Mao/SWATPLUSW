@@ -3,7 +3,7 @@ type: source
 subtype: subroutine
 tags:
   - swat/source
-  - swat/to-read
+  - swat/read
 file: proc_db.f90
 note_file: proc_db.f90
 subroutine: proc_db
@@ -113,7 +113,7 @@ Use this section for line notes, key variables, and interpretation. This section
 - Database used by all spatial modules
 - Line 13: call [[plant_parm_read.f90]], read plant species/crop parameter database: [[plants.plt]]
 - Line 14: call [[plantparm_init.f90]], initialize/derive plant parameters after [[plants.plt]] is read
-- Line 15: call [[plant_transplant_read.f90]], read transplant-related plant data, used by transplant operations: [[plant_transplant_read.f90]]
+- Line 15: call [[plant_transplant_read.f90]], read [[transplant.plt]] (plant transplanting data); hardcoded filename (not in [[file.cio]])
 - Line 16: call [[till_parm_read.f90]], read tillage operation parameter database: [[tillage.til]]
 - Line 17: call [[pest_parm_read.f90]], read pesticide chemical parameter database: [[pesticide.pes]]
 - Line 18: call [[fert_parm_read.f90]], read fertilizer/mineral nutrient database: [[fertilizer.frt]]
@@ -145,7 +145,7 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 38: call [[scen_read_grwway.f90]], read grassed waterway structural data: [[grassedww.str]], reads grassed-waterway definitions, which affect HRU surface runoff sediment, nutrients, and pesticides by routing flow through a grassed channel.
 - Line 39: call [[scen_read_filtstrip.f90]], read filter strip structural data: [[filterstrip.str]], reads vegetative filter-strip definitions, which reduce sediment, nutrients, pesticides, and some runoff leaving the HRU.
 - Line 40: call [[scen_read_bmpuser.f90]], read user-defined BMP structural data: [[bmpuser.str]], reads user-defined BMP removal efficiencies, which directly reduce selected HRU sediment, nitrogen, phosphorus, and bacteria loads by fixed fractions.
-- Line 41: call [[sat_buff_read.f90]], read saturated buffer structural/BMP data: [[satbuffer.str]], reads saturated-buffer connections, which divert tile flow and nitrate from a source HRU into a receiving buffer HRU soil layer.
+- Line 41: call [[sat_buff_read.f90]], read [[satbuffer.str]], reads saturated-buffer connections, which divert tile flow and nitrate from a source HRU into a receiving buffer HRU soil layer. NOTE: unlike the other `.str` files (lines 36–40, via `in_str%*`), `satbuffer.str` is a **hardcoded** filename (not in [[file.cio]]).
 - Read plant community database
 - Line 44: call [[readpcom.f90]], read plant community definitions used by landuse/management setup
 - Line 46: call [[cntbl_read.f90]], read curve number table: [[cntable.lum]]
@@ -153,5 +153,5 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 48: call [[overland_n_read.f90]], read overland Manning's n table: [[ovn_table.lum]]
 - Line 49: call [[landuse_read.f90]], read landuse management definitions: [[landuse.lum]]
 - End
-
+- Mostly shared databases (plants/till/pest/fert/urban/path/septic — via in_parmdb) and management/structural libraries (.ops/.str/.lum), all through file.cio. Five exceptions are hardwired: manure_om, manure_db, puddle, transplant, satbuffer. See [[input-file-architecture]].
 <!-- USER-NOTES-END -->

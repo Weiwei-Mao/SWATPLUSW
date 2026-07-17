@@ -9,6 +9,8 @@ read_by: [readcio_read.f90]
 purpose: "Control file that declares SWAT+ input files and the output path"
 ---
 
+> **How files get opened:** a filename declared here is stored by [[readcio_read.f90]] into an `in_*` field of [[input_file_module.f90]]; readers then do `inquire (file=in_<cat>%<field>)`. Files NOT in this list (every `rtb salt` / `rtb cs` data file, plus manure/transplant/puddle/co2/satbuffer/recall/water-rights files) are opened by **hardcoded literals** in source, so file.cio does not control them. Full mechanism + database/scenario/operations roles: [[input-file-architecture]].
+
 ### Line 1
  - title
 ### Line 2: in_sim
@@ -200,6 +202,7 @@ purpose: "Control file that declares SWAT+ input files and the output path"
 - **hmet_water**: hmet_water.ini
 - **salt_soil**: salt_hru.ini
 - **salt_water**: salt_water.ini
+- NOTE: these two salt slots are declared but **ignored** — [[salt_hru_read.f90]] / [[salt_aqu_read.f90]] hardcode `salt_hru.ini` / `salt_aqu.ini` and never dereference `in_init%salt_soil`. The `rtb salt`/`rtb cs` module bypasses file.cio entirely; see [[input-file-architecture]] §2.
 
 ### Line 24: in_sol
 - soils

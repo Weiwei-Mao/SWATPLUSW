@@ -56,85 +56,85 @@ purpose: ""
 
 - **Defined in source**: `basin_module.f90:16`
 
-| Field         | Type                | Source line | Meaning                                                                                                                                                                                                                                                                        |
-| ------------- | ------------------- | ----------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `petfile`     | `character(len=16)` |          18 | potential et filename                                                                                                                                                                                                                                                          |
-| `wwqfile`     | `character(len=16)` |          19 | watershed stream water quality filename                                                                                                                                                                                                                                        |
-| `pet`         | `integer`           |          20 | potential ET method code 0 = Priestley-Taylor 1 = Penman-Monteith 2 = Hargreaves method                                                                                                                                                                                        |
-| `nam1`        | `integer`           |          24 | 0, [[plants.plt]], only plant name; 1, plant name + plant class                                                                                                                                                                                                                |
-| `crk`         | `integer`           |          25 | crack flow code 1 = compute flow in cracks                                                                                                                                                                                                                                     |
-| `swift_out`   | `integer`           |          27 | write to SWIFT input file 0 = do not write 1 = write to swift_hru.inp                                                                                                                                                                                                          |
-| `sed_det`     | `integer`           |          30 | peak rate method 0 = NRCS dimensionless hydrograph with PRF 1 = half hour rainfall intensity method                                                                                                                                                                            |
-| `rte`         | `integer`           |          33 | water routing method 0 variable storage method 1 Muskingum method                                                                                                                                                                                                              |
-| `deg`         | `integer`           |          36 | not used                                                                                                                                                                                                                                                                       |
-| `wq`          | `integer`           |          37 | not used                                                                                                                                                                                                                                                                       |
-| `nostress`    | `integer`           |          38 | redefined to the sequence number -- changed to no nutrient stress 0 = all stresses applied 1 = turn off all plant stress 2 = turn off nutrient plant stress only                                                                                                               |
-| `cn`          | `integer`           |          42 | not used                                                                                                                                                                                                                                                                       |
-| `cfac`        | `integer`           |          43 | not used                                                                                                                                                                                                                                                                       |
-| `cswat`       | `integer`           |          44 | carbon code: 0 = off (static), 1 = C-FARM (reserved, not implemented), 2 = dynamic CENTURY/SWAT-C model. numbering aligned with legacy SWAT as directed by Srinivasan. = 0 Static soil carbon (old mineralization routines) = 1 C-FARM one carbon pool model = 2 Century model |
-| `lapse`       | `integer`           |          50 | precip and temperature lapse rate control 0 = do not adjust for elevation 1 = adjust for elevation                                                                                                                                                                             |
-| `uhyd`        | `integer`           |          53 | Unit hydrograph method: 0 = triangular UH 1 = gamma function UH                                                                                                                                                                                                                |
-| `sed_ch`      | `integer`           |          56 | not used                                                                                                                                                                                                                                                                       |
-| `tdrn`        | `integer`           |          57 | tile drainage eq code 0 = tile flow using drawdown days equation 1 = tile flow using drainmod equations                                                                                                                                                                        |
-| `wtdn`        | `integer`           |          60 | shallow water table depth algorithms code 0 = depth using orig water table depth routine - fill to upper limit 1 = depth using drainmod water table depth routine                                                                                                              |
-| `sol_p_model` | `integer`           |          63 | 0 = original soil P model in SWAT documentation 1 = new soil P model in Vadas and White (2010)                                                                                                                                                                                 |
-| `gampt`       | `integer`           |          65 | 0 = curve number; 1 = Green and Ampt                                                                                                                                                                                                                                           |
-| `atmo`        | `character(len=1)`  |          66 | not used                                                                                                                                                                                                                                                                       |
-| `smax`        | `integer`           |          67 | not used                                                                                                                                                                                                                                                                       |
-| `qual2e`      | `integer`           |          68 | 0 = instream nutrient routing using QUAL2E 1 = instream nutrient routing using QUAL2E - with simplified nutrient transformations                                                                                                                                               |
-| `gwflow`      | `integer`           |          70 | 0 = gwflow module not active; 1 = gwflow module active                                                                                                                                                                                                                         |
-| `idc_till`    | `integer`           |          71 | 1 = Use dssat tillage method to use if cswat = 2 2 = Use epic tillage method to use if cswat = 2 3 = Use Kemanian tillage method to use if cswat = 2 4 = Use dndc tillage method to use if cswat = 2                                                                           |
+| Field | Type | Source line | Meaning |
+|---|---|---:|---|
+| `petfile` | `character(len=16)` | 18 | potential et filename |
+| `wwqfile` | `character(len=16)` | 19 | watershed stream water quality filename |
+| `pet` | `integer` | 20 | potential ET method code 0 = Priestley-Taylor 1 = Penman-Monteith 2 = Hargreaves method |
+| `nam1` | `integer` | 24 | not used |
+| `crk` | `integer` | 25 | crack flow code 1 = compute flow in cracks |
+| `swift_out` | `integer` | 27 | write to SWIFT input file 0 = do not write 1 = write to swift_hru.inp |
+| `sed_det` | `integer` | 30 | peak rate method 0 = NRCS dimensionless hydrograph with PRF 1 = half hour rainfall intensity method |
+| `rte` | `integer` | 33 | water routing method 0 variable storage method 1 Muskingum method |
+| `deg` | `integer` | 36 | not used |
+| `wq` | `integer` | 37 | not used |
+| `nostress` | `integer` | 38 | redefined to the sequence number -- changed to no nutrient stress 0 = all stresses applied 1 = turn off all plant stress 2 = turn off nutrient plant stress only |
+| `cn` | `integer` | 42 | not used |
+| `cfac` | `integer` | 43 | not used |
+| `cswat` | `integer` | 44 | carbon code: 0 = off (static), 1 = C-FARM (reserved, not implemented), 2 = dynamic CENTURY/SWAT-C model. numbering aligned with legacy SWAT as directed by Srinivasan. = 0 Static soil carbon (old mineralization routines) = 1 C-FARM one carbon pool model = 2 Century model |
+| `lapse` | `integer` | 50 | precip and temperature lapse rate control 0 = do not adjust for elevation 1 = adjust for elevation |
+| `uhyd` | `integer` | 53 | Unit hydrograph method: 0 = triangular UH 1 = gamma function UH |
+| `sed_ch` | `integer` | 56 | not used |
+| `tdrn` | `integer` | 57 | tile drainage eq code 0 = tile flow using drawdown days equation 1 = tile flow using drainmod equations |
+| `wtdn` | `integer` | 60 | shallow water table depth algorithms code 0 = depth using orig water table depth routine - fill to upper limit 1 = depth using drainmod water table depth routine |
+| `sol_p_model` | `integer` | 63 | 0 = original soil P model in SWAT documentation 1 = new soil P model in Vadas and White (2010) |
+| `gampt` | `integer` | 65 | 0 = curve number; 1 = Green and Ampt |
+| `atmo` | `character(len=1)` | 66 | not used |
+| `smax` | `integer` | 67 | not used |
+| `qual2e` | `integer` | 68 | 0 = instream nutrient routing using QUAL2E 1 = instream nutrient routing using QUAL2E - with simplified nutrient transformations |
+| `gwflow` | `integer` | 70 | 0 = gwflow module not active; 1 = gwflow module active |
+| `idc_till` | `integer` | 71 | 1 = Use dssat tillage method to use if cswat = 2 2 = Use epic tillage method to use if cswat = 2 3 = Use Kemanian tillage method to use if cswat = 2 4 = Use dndc tillage method to use if cswat = 2 |
 
 ### basin_parms
 
 - **Defined in source**: `basin_module.f90:79`
 
-| Field            | Type      | Source line | Meaning                                                                                                                                                                                     |
-| ---------------- | --------- | ----------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `evlai`          | `real`    |          80 | none \|leaf area index at which no evap occurs                                                                                                                                              |
-| `ffcb`           | `real`    |          81 | none \|initial soil water cont expressed as a fraction of fc                                                                                                                                |
-| `surlag`         | `real`    |          82 | days \|surface runoff lag time (days)                                                                                                                                                       |
-| `adj_pkr`        | `real`    |          83 | none \|peak rate adjustment factor in the subbasin                                                                                                                                          |
-| `prf`            | `real`    |          84 | peak rate factor for peak rate equation                                                                                                                                                     |
-| `spcon`          | `real`    |          85 | not used                                                                                                                                                                                    |
-| `spexp`          | `real`    |          86 | not used                                                                                                                                                                                    |
-| `cmn`            | `real`    |          87 | rate factor for mineralization on active org N - 0.0003 -> 0.003                                                                                                                            |
-| `n_updis`        | `real`    |          88 | nitrogen uptake dist parm                                                                                                                                                                   |
-| `p_updis`        | `real`    |          89 | phosphorus uptake dist parm                                                                                                                                                                 |
-| `nperco`         | `real`    |          90 | nitrate perc coeff (0-1) 0 = conc of nitrate in surface runoff is zero 1 = perc has same conc of nitrate as surf runoff                                                                     |
-| `pperco`         | `real`    |          93 | phos perc coeff (0-1) 0 = conc of sol P in surf runoff is zero 1 = percolate has some conc of sol P as surf runoff                                                                          |
-| `phoskd`         | `real`    |          96 | phos soil partitioning coef                                                                                                                                                                 |
-| `psp`            | `real`    |          97 | phos availability index                                                                                                                                                                     |
-| `rsdco`          | `real`    |          98 | residue decomposition coeff                                                                                                                                                                 |
-| `percop`         | `real`    |          99 | pestcide perc coeff (0-1)                                                                                                                                                                   |
-| `msk_co1`        | `real`    |         100 | calibration coeff to control impact of the storage time constant for the reach at bankfull depth                                                                                            |
-| `msk_co2`        | `real`    |         102 | calibration coefficient used to control impact of the storage time constant for low flow (where low flow is when river is at 0.1 bankfull depth) upon the Km value calculated for the reach |
-| `msk_x`          | `real`    |         106 | weighting factor control relative importance of inflow rate and outflow rate in determining storage on reach                                                                                |
-| `nperco_lchtile` | `real`    |         108 | n concentration coeff for tile flow and leach from bottom layer                                                                                                                             |
-| `evrch`          | `real`    |         109 | reach evaporation adjustment factor                                                                                                                                                         |
-| `scoef`          | `real`    |         110 | channel storage coefficient (0-1)                                                                                                                                                           |
-| `cdn`            | `real`    |         111 | denitrification exponential rate coefficient                                                                                                                                                |
-| `sdnco`          | `real`    |         112 | denitrification threshold frac of field cap                                                                                                                                                 |
-| `bact_swf`       | `real`    |         113 | frac of manure containing active colony forming units                                                                                                                                       |
-| `tb_adj`         | `real`    |         114 | adjustment factor for subdaily unit hydrograph basetime                                                                                                                                     |
-| `cn_froz`        | `real`    |         115 | parameter for frozen soil adjustment on infiltraion/runoff                                                                                                                                  |
-| `dorm_hr`        | `real`    |         116 | time threshold used to define dormant (hrs)                                                                                                                                                 |
-| `plaps`          | `real`    |         117 | mm/km \|precipitation lapse rate: mm per km of elevation difference                                                                                                                         |
-| `tlaps`          | `real`    |         118 | deg C/km \|temperature lapse rate: deg C per km of elevation difference                                                                                                                     |
-| `nfixmx`         | `real`    |         119 | max daily n-fixation (kg/ha)                                                                                                                                                                |
-| `decr_min`       | `real`    |         120 | minimum daily residue decay                                                                                                                                                                 |
-| `rsd_covco`      | `real`    |         121 | residue cover factor for computing frac of cover                                                                                                                                            |
-| `urb_init_abst`  | `real`    |         122 | maximum initial abstraction for urban areas when using Green and Ampt                                                                                                                       |
-| `petco_pmpt`     | `real`    |         123 | PET adjustment (%) for Penman-Montieth and Preiestly-Taylor methods                                                                                                                         |
-| `uhalpha`        | `real`    |         124 | alpha coeff for est unit hydrograph using gamma func                                                                                                                                        |
-| `eros_spl`       | `real`    |         125 | coeff of splash erosion varying 0.9-3.1                                                                                                                                                     |
-| `rill_mult`      | `real`    |         126 | rill erosion coefficient                                                                                                                                                                    |
-| `eros_expo`      | `real`    |         127 | exponential coefficient for overland flow                                                                                                                                                   |
-| `c_factor`       | `real`    |         128 | scaling parameter for cover and management factor for overland flow erosion                                                                                                                 |
-| `ch_d50`         | `real`    |         130 | median particle diameter of main channel (mm)                                                                                                                                               |
-| `co2`            | `real`    |         131 | co2 concentration at start of simulation (ppm)                                                                                                                                              |
-| `day_lag_mx`     | `integer` |         132 | max days to lag hydrographs for hru, ru and channels non-draining soils                                                                                                                     |
-| `igen`           | `integer` |         134 | random generator code: 0 = use default numbers 1 = generate new numbers in every simulation                                                                                                 |
+| Field | Type | Source line | Meaning |
+|---|---|---:|---|
+| `evlai` | `real` | 80 | none \|leaf area index at which no evap occurs |
+| `ffcb` | `real` | 81 | none \|initial soil water cont expressed as a fraction of fc |
+| `surlag` | `real` | 82 | days \|surface runoff lag time (days) |
+| `adj_pkr` | `real` | 83 | none \|peak rate adjustment factor in the subbasin |
+| `prf` | `real` | 84 | peak rate factor for peak rate equation |
+| `spcon` | `real` | 85 | not used |
+| `spexp` | `real` | 86 | not used |
+| `cmn` | `real` | 87 | rate factor for mineralization on active org N - 0.0003 -> 0.003 |
+| `n_updis` | `real` | 88 | nitrogen uptake dist parm |
+| `p_updis` | `real` | 89 | phosphorus uptake dist parm |
+| `nperco` | `real` | 90 | nitrate perc coeff (0-1) 0 = conc of nitrate in surface runoff is zero 1 = perc has same conc of nitrate as surf runoff |
+| `pperco` | `real` | 93 | phos perc coeff (0-1) 0 = conc of sol P in surf runoff is zero 1 = percolate has some conc of sol P as surf runoff |
+| `phoskd` | `real` | 96 | phos soil partitioning coef |
+| `psp` | `real` | 97 | phos availability index |
+| `rsdco` | `real` | 98 | residue decomposition coeff |
+| `percop` | `real` | 99 | pestcide perc coeff (0-1) |
+| `msk_co1` | `real` | 100 | calibration coeff to control impact of the storage time constant for the reach at bankfull depth |
+| `msk_co2` | `real` | 102 | calibration coefficient used to control impact of the storage time constant for low flow (where low flow is when river is at 0.1 bankfull depth) upon the Km value calculated for the reach |
+| `msk_x` | `real` | 106 | weighting factor control relative importance of inflow rate and outflow rate in determining storage on reach |
+| `nperco_lchtile` | `real` | 108 | n concentration coeff for tile flow and leach from bottom layer |
+| `evrch` | `real` | 109 | reach evaporation adjustment factor |
+| `scoef` | `real` | 110 | channel storage coefficient (0-1) |
+| `cdn` | `real` | 111 | denitrification exponential rate coefficient |
+| `sdnco` | `real` | 112 | denitrification threshold frac of field cap |
+| `bact_swf` | `real` | 113 | frac of manure containing active colony forming units |
+| `tb_adj` | `real` | 114 | adjustment factor for subdaily unit hydrograph basetime |
+| `cn_froz` | `real` | 115 | parameter for frozen soil adjustment on infiltraion/runoff |
+| `dorm_hr` | `real` | 116 | time threshold used to define dormant (hrs) |
+| `plaps` | `real` | 117 | mm/km \|precipitation lapse rate: mm per km of elevation difference |
+| `tlaps` | `real` | 118 | deg C/km \|temperature lapse rate: deg C per km of elevation difference |
+| `nfixmx` | `real` | 119 | max daily n-fixation (kg/ha) |
+| `decr_min` | `real` | 120 | minimum daily residue decay |
+| `rsd_covco` | `real` | 121 | residue cover factor for computing frac of cover |
+| `urb_init_abst` | `real` | 122 | maximum initial abstraction for urban areas when using Green and Ampt |
+| `petco_pmpt` | `real` | 123 | PET adjustment (%) for Penman-Montieth and Preiestly-Taylor methods |
+| `uhalpha` | `real` | 124 | alpha coeff for est unit hydrograph using gamma func |
+| `eros_spl` | `real` | 125 | coeff of splash erosion varying 0.9-3.1 |
+| `rill_mult` | `real` | 126 | rill erosion coefficient |
+| `eros_expo` | `real` | 127 | exponential coefficient for overland flow |
+| `c_factor` | `real` | 128 | scaling parameter for cover and management factor for overland flow erosion |
+| `ch_d50` | `real` | 130 | median particle diameter of main channel (mm) |
+| `co2` | `real` | 131 | co2 concentration at start of simulation (ppm) |
+| `day_lag_mx` | `integer` | 132 | max days to lag hydrographs for hru, ru and channels non-draining soils |
+| `igen` | `integer` | 134 | random generator code: 0 = use default numbers 1 = generate new numbers in every simulation |
 
 ### print_interval
 

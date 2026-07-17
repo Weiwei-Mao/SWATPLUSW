@@ -170,7 +170,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
   - [[SWIFT_res_dat.swf]]
   - [[SWIFT_res_dr.swf]]
   - [[SWIFT_recall.swf]]
-  - `SWIFT/" // trim(adjustl(recall_db(irec` _(variable; see [[file.cio]])_
+  - [[SWIFT__ __ trim(adjustl(recall_db(irec]]
   - [[SWIFT_object_prt.swf]]
 
 <!-- USER-NOTES-START -->

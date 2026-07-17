@@ -77,26 +77,11 @@ Use this section for line notes, key variables, and interpretation. This section
 
 - Line 22, check [[input_file_module.f90#in_parmdb]] %till_til, [[tillage.til]]
 - if it does not exist, return
-- Line 27, Else, open the file [[tillage.til]] 
+- Line 27, Else, open the file [[tillage.til]]
 - Line 28-38, count the numbers, imax
 - Line 40-56, read [[tillage_data_module.f90#tilldb]]
 - Line 48-52, biomix
   biological mixing, by earthworms, not real tillage, slowly mix soil surface residue and organic material,
   The default value of bmix_eff is 0.2, and bmix_depth is 50 mm
 - End
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- USER-NOTES-END -->

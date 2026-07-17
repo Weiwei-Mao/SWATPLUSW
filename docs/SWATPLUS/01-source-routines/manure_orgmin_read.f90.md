@@ -67,9 +67,6 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
-- Check file [[manure_om.frt]] 
+- Check file [[manure_om.frt]]
 - add to [[fertilizer_data_module.f90#manure_db]]
-
-
-
 <!-- USER-NOTES-END -->

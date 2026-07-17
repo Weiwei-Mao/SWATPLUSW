@@ -3,7 +3,7 @@ type: source
 subtype: subroutine
 tags:
   - swat/source
-  - swat/to-read
+  - swat/read
 file: proc_bsn.f90
 note_file: proc_bsn.f90
 subroutine: proc_bsn
@@ -103,4 +103,5 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 35: call [[carbon_bsn_read.f90]]
 - Line 36: call [[carbon_layers_read.f90]]
 - End
+- Line 12 [[readcio_read.f90]] is the file.cio parser: it reads file.cio and fills the in_* vars (in_sim, in_cli, in_init, …) that every later reader looks up by name. That's what makes "file.cio-registered" files work. co2 (L34) and carbon_layers (L36) do the opposite — names hardwired in code. More: [[input-file-architecture]].
 <!-- USER-NOTES-END -->

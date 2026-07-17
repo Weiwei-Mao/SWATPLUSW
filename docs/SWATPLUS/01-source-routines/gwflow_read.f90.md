@@ -566,9 +566,9 @@ WHERE type = "source" AND contains(calls, this.subroutine)
   - [[lsucell.gw]]
   - [[hrucell.gw]]
   - [[transit.gw]]
-  - `gwflow_transit_cell` _(variable; see [[file.cio]])_
-  - `gwflow_transit_chan` _(variable; see [[file.cio]])_
-  - `gwflow_transit_tile` _(variable; see [[file.cio]])_
+  - [[gwflow_transit_cell]]
+  - [[gwflow_transit_chan]]
+  - [[gwflow_transit_tile]]
   - [[sw_group.gw]]
 
 <!-- USER-NOTES-START -->

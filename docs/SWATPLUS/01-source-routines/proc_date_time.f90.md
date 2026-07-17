@@ -3,7 +3,7 @@ type: source
 subtype: subroutine
 tags:
   - swat/source
-  - swat/to-read
+  - swat/read
 file: proc_date_time.f90
 note_file: proc_date_time.f90
 subroutine: proc_date_time
@@ -28,7 +28,7 @@ purpose: ""
 # proc_date_time
 
 > [!info] Summary
-> Weather input
+> TBD
 
 ## Basic Information
 - **Type**: `subroutine`
@@ -74,9 +74,6 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 31-34: call [[cli_smeas.f90]], solar radiation
 - Line 35-38: call [[cli_hmeas.f90]], relative humidity
 - Line 39-42: call [[cli_wmeas.f90]], wind
-- Line 43-46: call [[cli_wgnread.f90]], weather stations
+- Line 43-46: call [[cli_wgnread.f90]], read weather GENERATOR data (wgn = weather-wgn.cli), NOT measured stations; measured weather stations are read by [[cli_staread.f90]] in [[proc_read.f90]]
 - End
-
-
-
 <!-- USER-NOTES-END -->

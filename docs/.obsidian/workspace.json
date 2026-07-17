@@ -44,7 +44,7 @@
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "文件列表"
             }
           },
           {
@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "fa5de89beff43565",
@@ -133,7 +134,7 @@
                 "searchQuery": ""
               },
               "icon": "lucide-tags",
-              "title": "Tags"
+              "title": "标签"
             }
           },
           {
@@ -170,48 +171,57 @@
       }
     ],
     "direction": "horizontal",
-    "width": 417.5
+    "width": 417.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:Open quick switcher": false,
-      "graph:Open graph view": false,
-      "canvas:Create new canvas": false,
-      "daily-notes:Open today's daily note": false,
-      "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "bases:Create new base": false
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
     }
   },
   "active": "a614234f695c1541",
   "lastOpenFiles": [
-    "SWATPLUS/03-input-files/atmodep.cli.md",
+    "SWATPLUS/01-source-routines/proc_read.f90.md.tmp.19912.03a404e03cde",
+    "SWATPLUS/03-input-files/soils.sol.md",
     "SWATPLUS/01-source-routines/proc_read.f90.md",
-    "SWATPLUS/03-input-files/temperature.cha.md",
+    "SWATPLUS/01-source-routines/proc_read.f90.md.tmp.19912.cd0f3a03020b",
+    "SWATPLUS/01-source-routines/proc_bsn.f90.md.tmp.19912.d77327eaee7b",
+    "SWATPLUS/01-source-routines/proc_db.f90.md.tmp.19912.942c9974169c",
+    "SWATPLUS/01-source-routines/proc_read.f90.md.tmp.19912.82b0374c073b",
+    "SWATPLUS/01-source-routines/proc_read.f90.md.tmp.19912.6980ccecdf7b",
+    "SWATPLUS/01-source-routines/proc_read.f90.md.tmp.19912.440a73811500",
+    "SWATPLUS/01-source-routines/proc_read.f90.md.tmp.19912.4e9116287a26",
+    "SWATPLUS/01-source-routines/proc_read.f90.md.tmp.19912.fa578975dacd",
+    "SWATPLUS/01-source-routines/proc_read.f90.md.tmp.19912.bbf41a666bbb",
+    "SWATPLUS/03-input-files/gwflow_transit_cell.md",
+    "SWATPLUS/03-input-files/gwflow_record.md",
+    "SWATPLUS/03-input-files/cs_urban.md",
+    "SWATPLUS/03-input-files/cs_uptake.md",
+    "SWATPLUS/03-input-files/cs_streamobs.md",
+    "SWATPLUS/03-input-files/cs_res.md",
+    "SWATPLUS/03-input-files/cs_reactions.md",
+    "SWATPLUS/03-input-files/cs_plants_boron.md",
+    "SWATPLUS/03-input-files/cs_irrigation.md",
+    "SWATPLUS/04-output-files/cs_streamobs_output.md",
+    "SWATPLUS/04-output-files/SWIFT__ __ trim(adjustl(recall_db(irec.md",
+    "_tools/__pycache__/gen_swat_notes.cpython-39.pyc",
     "SWATPLUS/01-source-routines/main.f90.md",
+    "SWATPLUS/00-overview-and-index/input-file-architecture.md",
+    "salt_road.md",
+    "SWATPLUS/03-input-files/salt_atmo.cli.md",
+    "SWATPLUS/03-input-files/salt_channel.ini.md",
     "SWATPLUS/01-source-routines/proc_db.f90.md",
-    "SWATPLUS/03-input-files/grassedww.str.md",
-    "SWATPLUS/03-input-files/septic.str.md",
-    "SWATPLUS/03-input-files/management.sch.md",
-    "SWATPLUS/01-source-routines/mgt_read_irrops.f90.md",
-    "SWATPLUS/03-input-files/septic.sep.md",
-    "SWATPLUS/03-input-files/pathogens.pth.md",
-    "SWATPLUS/01-source-routines/urban_parm_read.f90.md",
-    "SWATPLUS/01-source-routines/manure_db_read.f90.md",
-    "SWATPLUS/03-input-files/file.cio.md",
-    "SWATPLUS/01-source-routines/manure_orgmin_read.f90.md",
-    "SWATPLUS/03-input-files/manure_om.frt.md",
-    "SWATPLUS/01-source-routines/fert_parm_read.f90.md",
-    "SWATPLUS/01-source-routines/till_parm_read.f90.md",
-    "SWATPLUS/03-input-files/tillage.til.md",
-    "SWATPLUS/02-modules-and-variables/input_file_module.f90.md",
-    "SWATPLUS/01-source-routines/plant_transplant_read.f90.md",
-    "SWATPLUS/03-input-files/transplant.plt.md",
-    "SWATPLUS/01-source-routines/plantparm_init.f90.md",
-    "SWATPLUS/01-source-routines/plant_parm_read.f90.md",
-    "SWATPLUS/02-modules-and-variables/plant_data_module.f90.md",
-    "SWATPLUS/02-modules-and-variables/basin_module.f90.md",
-    "_tools/__pycache__/gen_swat_notes.cpython-312.pyc",
-    "_tools/__pycache__"
+    "SWATPLUS/03-input-files/constituents.cs.md",
+    "SWATPLUS/01-source-routines/constit_db_read.f90.md",
+    "SWATPLUS/01-source-routines/cli_staread.f90.md",
+    "SWATPLUS/03-input-files/atmodep.cli.md",
+    "SWATPLUS/03-input-files/temperature.cha.md",
+    "SWATPLUS/03-input-files/grassedww.str.md"
   ]
 }

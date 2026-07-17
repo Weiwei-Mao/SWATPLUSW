@@ -71,7 +71,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 ## File I/O
 - **Reads**:
-  - `cs_reactions` _(variable; see [[file.cio]])_
+  - [[cs_reactions]]
 
 <!-- USER-NOTES-START -->
 ## Notes

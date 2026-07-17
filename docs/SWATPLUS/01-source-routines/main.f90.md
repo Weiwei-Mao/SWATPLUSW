@@ -4,7 +4,7 @@ subtype: program
 tags:
   - swat/source
   - swat/to-read
-file: main.f90.in
+file: main.f90
 note_file: main.f90
 subroutine: main
 module:
@@ -101,7 +101,7 @@ purpose: ""
 
 ## Basic Information
 - **Type**: `program`
-- **Source file**: `main.f90.in`
+- **Source file**: `main.f90`
 - **Modules used**:
   - [[time_module.f90]]
   - [[hydrograph_module.f90]]
@@ -213,5 +213,5 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 41: call [[proc_date_time.f90]], input weather data
 - Line 42: call [[proc_db.f90]], reads the shared parameter databases and structural/management libraries
 - Line 43: call [[proc_read.f90]], reads the main environmental and object input data needed to build the model state
-- 
+-
 <!-- USER-NOTES-END -->

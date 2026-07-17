@@ -70,6 +70,4 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Read from [[urban.urb]] to get [[urban_data_module.f90#urbdb]]
-
-
 <!-- USER-NOTES-END -->

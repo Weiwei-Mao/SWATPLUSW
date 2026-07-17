@@ -4,7 +4,7 @@
 
 ```mermaid
 graph LR
-  main["main<br/>main.f90.in"]
+  main["main<br/>main.f90"]
   main --> proc_bsn["proc_bsn"]
   main --> proc_date_time["proc_date_time"]
   main --> proc_db["proc_db"]

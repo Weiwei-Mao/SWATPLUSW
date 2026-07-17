@@ -32,7 +32,7 @@ purpose: "This subroutine initializes the random number seeds. If the user; desi
 # gcycl
 
 > [!info] Summary
-> This subroutine initializes the random number seeds. If the user; desires a different set of random numbers for each simulation run,; the random number generator is used to reset the values of the seeds.
+> This subroutine initializes the random number seeds. If the user; desires a different set of random numbers for each simulation run,; the random number generator is used to reset the values of the
 
 ## Basic Information
 - **Type**: `subroutine`

@@ -71,7 +71,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 ## File I/O
 - **Reads**:
-  - `cs_plants_boron` _(variable; see [[file.cio]])_
+  - [[cs_plants_boron]]
 
 <!-- USER-NOTES-START -->
 ## Notes

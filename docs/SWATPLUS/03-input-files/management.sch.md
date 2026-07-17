@@ -37,13 +37,12 @@ purpose: ""
 - [[mgt_read_mgtops.f90]] source line 83: reads `sched(isched)%auto_name(iauto)`, `sched(isched)%auto_crop`
 
 ## Parameters
-| Parameter         | Type                                            | Units | Meaning     | Source                              |                Reader line |
-| ----------------- | ----------------------------------------------- | ----- | ----------- | ----------------------------------- | -------------------------: |
-| `nops`            | `integer`                                       |       | end of loop | `mgt_read_mgtops.f90:11`            | [[mgt_read_mgtops.f90]]:39 |
-| `nauto`           | `integer`                                       |       | end of loop | `mgt_read_mgtops.f90:18`            | [[mgt_read_mgtops.f90]]:39 |
-| `sched%name`      | `character(len=40)`                             |       |             | [[mgt_operations_module.f90#sched]] | [[mgt_read_mgtops.f90]]:61 |
-| `sched%num_ops`   | `integer`                                       |       |             | [[mgt_operations_module.f90#sched]] | [[mgt_read_mgtops.f90]]:61 |
-| `sched%num_autos` | `integer`                                       |       |             | [[mgt_operations_module.f90#sched]] | [[mgt_read_mgtops.f90]]:61 |
-| `sched%auto_name` | `character(len=40), dimension (:), allocatable` |       |             | [[mgt_operations_module.f90#sched]] | [[mgt_read_mgtops.f90]]:69 |
-| `sched%auto_crop` | `character(len=40), dimension (:), allocatable` |       |             | [[mgt_operations_module.f90#sched]] | [[mgt_read_mgtops.f90]]:77 |
-|                   |                                                 |       |             |                                     |                            |
+| Parameter | Type | Units | Meaning | Source | Reader line |
+|---|---|---|---|---|---:|
+| `nops` | `integer` |  | end of loop | `mgt_read_mgtops.f90:11` | [[mgt_read_mgtops.f90]]:39 |
+| `nauto` | `integer` |  | end of loop | `mgt_read_mgtops.f90:18` | [[mgt_read_mgtops.f90]]:39 |
+| `sched%name` | `character(len=40)` |  |  | [[mgt_operations_module.f90#sched]] | [[mgt_read_mgtops.f90]]:61 |
+| `sched%num_ops` | `integer` |  |  | [[mgt_operations_module.f90#sched]] | [[mgt_read_mgtops.f90]]:61 |
+| `sched%num_autos` | `integer` |  |  | [[mgt_operations_module.f90#sched]] | [[mgt_read_mgtops.f90]]:61 |
+| `sched%auto_name` | `character(len=40), dimension (:), allocatable` |  |  | [[mgt_operations_module.f90#sched]] | [[mgt_read_mgtops.f90]]:69 |
+| `sched%auto_crop` | `character(len=40), dimension (:), allocatable` |  |  | [[mgt_operations_module.f90#sched]] | [[mgt_read_mgtops.f90]]:77 |

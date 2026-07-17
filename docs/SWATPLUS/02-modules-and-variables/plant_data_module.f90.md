@@ -64,62 +64,62 @@ purpose: ""
 
 - **Defined in source**: `plant_data_module.f90:30`
 
-| Field            | Type                      | Source line | Meaning                                                                                                                   |
-| ---------------- | ------------------------- | ----------: | ------------------------------------------------------------------------------------------------------------------------- |
-| `plantnm`        | `character(len=40)`       |          31 | none \|crop name                                                                                                          |
-| `typ`            | `character(len=18)`       |          32 | none \|plant category warm_annual cold_annual warm_annual_tuber cold_annual_tuber perennial                               |
-| `trig`           | `character(len=18)`       |          38 | none \|phenology trigger moisture_gro temp_gro                                                                            |
-| `nfix_co`        | `real`                    |          41 | none \|n fixation coefficient (0.5 legume; 0 non-legume)                                                                  |
-| `days_mat`       | `integer`                 |          42 | days \|days to maturity - if zero use hu for entire growing season                                                        |
-| `bio_e`          | `real`                    |          43 | (kg/ha/(MJ/m**2) \|biomass-energy ratio                                                                                   |
-| `hvsti`          | `real`                    |          44 | (kg/ha)/(kg/ha) \|harvest index: crop yield/aboveground biomass                                                           |
-| `blai`           | `real`                    |          45 | none \|max (potential) leaf area index                                                                                    |
-| `frgrw1`         | `real`                    |          46 | none \|fraction of the growing season corresponding to the 1st point on optimal leaf area development curve               |
-| `laimx1`         | `real`                    |          48 | none \|frac of max leaf area index corresponding to the 1st point on optimal leaf area development curve                  |
-| `frgrw2`         | `real`                    |          50 | none \|fraction of the growing season corresponding to the 2nd point on optimal leaf area development curve               |
-| `laimx2`         | `real`                    |          52 | none \|fraction of max leaf area index corresponding to the 2nd point on optimal leaf area development curve              |
-| `dlai`           | `real`                    |          54 | none \|frac of growing season when leaf are declines                                                                      |
-| `dlai_rate`      | `real`                    |          55 | none \|exponent that governs lai decline rate                                                                             |
-| `chtmx`          | `real`                    |          56 | m \|maximum canopy height                                                                                                 |
-| `rdmx`           | `real`                    |          57 | m \|maximum root depth                                                                                                    |
-| `t_opt`          | `real`                    |          58 | deg C \|optimal temp for plant growth                                                                                     |
-| `t_base`         | `real`                    |          59 | deg C \|minimum temp for plant growth                                                                                     |
-| `cnyld`          | `real`                    |          60 | kg N/kg yld \|frac of nitrogen in yield                                                                                   |
-| `cpyld`          | `real`                    |          61 | kg P/kg yld \|frac of phosphorus in yield                                                                                 |
-| `pltnfr1`        | `real`                    |          62 | kg N/kg biomass \|nitrogen uptake parm #1                                                                                 |
-| `pltnfr2`        | `real`                    |          63 | kg N/kg biomass \|nitrogen uptake parm #2                                                                                 |
-| `pltnfr3`        | `real`                    |          64 | kg N/kg/biomass \|nitrogen uptake parm #3                                                                                 |
-| `pltpfr1`        | `real`                    |          65 | kg P/kg/biomass \|phoshorus uptake parm #1                                                                                |
-| `pltpfr2`        | `real`                    |          66 | kg P/kg/biomass \|phoshorus uptake parm #2                                                                                |
-| `pltpfr3`        | `real`                    |          67 | kg P/kg/biomass \|phoshorus uptake parm #3                                                                                |
-| `wsyf`           | `real`                    |          68 | (kg/ha)/(kg/ha) \|value of harvest index bet 0 and HVSTI                                                                  |
-| `usle_c`         | `real`                    |          69 | none \|minimum value of the USLE C factor for water erosion                                                               |
-| `gsi`            | `real`                    |          70 | m/s \|maximum stomatal conductance                                                                                        |
-| `vpdfr`          | `real`                    |          71 | kPa \|vapor pressure deficit at which GMAXFR is valid                                                                     |
-| `gmaxfr`         | `real`                    |          72 | none \|fraction of max stomatal conductance that is achieved at the vapor pressure deficit defined by VPDFR               |
-| `wavp`           | `real`                    |          74 | none \|rate of decline in radiation use efficiency                                                                        |
-| `co2hi`          | `real`                    |          75 | uL CO2/L air \|CO2 concentration higher than the ambient corresponding to the 2nd point on radiation use efficiency curve |
-| `bioehi`         | `real`                    |          77 | (kg/ha)/(MJ/m**2) \|biomass-energy ratio when plant is in an environment with CO2 level equal to the value of CO2HI.      |
-| `rsdco_pl`       | `real`                    |          79 | none \|plant residue decomposition coeff                                                                                  |
-| `alai_min`       | `real`                    |          80 | m**2/m**2 \|min LAI during winter dormant period                                                                          |
-| `laixco_tree`    | `real`                    |          81 | none \|coefficient to estimate max lai during tree growth                                                                 |
-| `mat_yrs`        | `integer`                 |          82 | years \|years to maturity                                                                                                 |
-| `bmx_peren`      | `real`                    |          83 | metric tons/ha \|max biomass for forest                                                                                   |
-| `ext_coef`       | `real`                    |          84 | \|light extinction coefficient                                                                                            |
-| `leaf_tov_min`   | `real`                    |          85 | months \|perennial leaf turnover rate with minimum stress (complete turnover in 12 mon)                                   |
-| `leaf_tov_max`   | `real`                    |          86 | months \|perennial leaf turnover rate with maximum stress (complete turnover in 3 mon)                                    |
-| `bm_dieoff`      | `real`                    |          87 | frac \|above ground biomass that dies off at dormancy                                                                     |
-| `rsr1`           | `real`                    |          89 | frac \|initial root to shoot ratio at the beg of growing season                                                           |
-| `rsr2`           | `real`                    |          90 | frac \|root to shoot ratio at the end of the growing season                                                               |
-| `pop1`           | `real`                    |          91 | plants/m^2 \|plant population corresponding to the 1st point on the population lai curve                                  |
-| `frlai1`         | `real`                    |          93 | frac \|frac of max leaf area index corresponding to the 1st point on the leaf area development curve                      |
-| `pop2`           | `real`                    |          95 | plants/m^2 \|plant population corresponding to the 2nd point on the population lai curve                                  |
-| `frlai2`         | `real`                    |          97 | frac \|frac of max leaf area index corresponding to the 2nd point on the leaf area development curve                      |
-| `frsw_gro`       | `real`                    |          99 | frac \|30 day sum of P-PET to initiate growth of tropical plants during monsoon season - pcom()%plcur()%iseason           |
-| `aeration`       | `real`                    |         101 | \|aeration stress factor                                                                                                  |
-| `rsd_pctcov`     | `real`                    |         102 | \|residue factor for percent cover equation                                                                               |
-| `rsd_covfac`     | `real`                    |         103 | \|residue factor for surface cover (C factor) equation                                                                    |
-| `res_part_fracs` | `residue_partition_fracs` |         105 |                                                                                                                           |
+| Field | Type | Source line | Meaning |
+|---|---|---:|---|
+| `plantnm` | `character(len=40)` | 31 | none \|crop name |
+| `typ` | `character(len=18)` | 32 | none \|plant category warm_annual cold_annual warm_annual_tuber cold_annual_tuber perennial |
+| `trig` | `character(len=18)` | 38 | none \|phenology trigger moisture_gro temp_gro |
+| `nfix_co` | `real` | 41 | none \|n fixation coefficient (0.5 legume; 0 non-legume) |
+| `days_mat` | `integer` | 42 | days \|days to maturity - if zero use hu for entire growing season |
+| `bio_e` | `real` | 43 | (kg/ha/(MJ/m**2) \|biomass-energy ratio |
+| `hvsti` | `real` | 44 | (kg/ha)/(kg/ha) \|harvest index: crop yield/aboveground biomass |
+| `blai` | `real` | 45 | none \|max (potential) leaf area index |
+| `frgrw1` | `real` | 46 | none \|fraction of the growing season corresponding to the 1st point on optimal leaf area development curve |
+| `laimx1` | `real` | 48 | none \|frac of max leaf area index corresponding to the 1st point on optimal leaf area development curve |
+| `frgrw2` | `real` | 50 | none \|fraction of the growing season corresponding to the 2nd point on optimal leaf area development curve |
+| `laimx2` | `real` | 52 | none \|fraction of max leaf area index corresponding to the 2nd point on optimal leaf area development curve |
+| `dlai` | `real` | 54 | none \|frac of growing season when leaf are declines |
+| `dlai_rate` | `real` | 55 | none \|exponent that governs lai decline rate |
+| `chtmx` | `real` | 56 | m \|maximum canopy height |
+| `rdmx` | `real` | 57 | m \|maximum root depth |
+| `t_opt` | `real` | 58 | deg C \|optimal temp for plant growth |
+| `t_base` | `real` | 59 | deg C \|minimum temp for plant growth |
+| `cnyld` | `real` | 60 | kg N/kg yld \|frac of nitrogen in yield |
+| `cpyld` | `real` | 61 | kg P/kg yld \|frac of phosphorus in yield |
+| `pltnfr1` | `real` | 62 | kg N/kg biomass \|nitrogen uptake parm #1 |
+| `pltnfr2` | `real` | 63 | kg N/kg biomass \|nitrogen uptake parm #2 |
+| `pltnfr3` | `real` | 64 | kg N/kg/biomass \|nitrogen uptake parm #3 |
+| `pltpfr1` | `real` | 65 | kg P/kg/biomass \|phoshorus uptake parm #1 |
+| `pltpfr2` | `real` | 66 | kg P/kg/biomass \|phoshorus uptake parm #2 |
+| `pltpfr3` | `real` | 67 | kg P/kg/biomass \|phoshorus uptake parm #3 |
+| `wsyf` | `real` | 68 | (kg/ha)/(kg/ha) \|value of harvest index bet 0 and HVSTI |
+| `usle_c` | `real` | 69 | none \|minimum value of the USLE C factor for water erosion |
+| `gsi` | `real` | 70 | m/s \|maximum stomatal conductance |
+| `vpdfr` | `real` | 71 | kPa \|vapor pressure deficit at which GMAXFR is valid |
+| `gmaxfr` | `real` | 72 | none \|fraction of max stomatal conductance that is achieved at the vapor pressure deficit defined by VPDFR |
+| `wavp` | `real` | 74 | none \|rate of decline in radiation use efficiency |
+| `co2hi` | `real` | 75 | uL CO2/L air \|CO2 concentration higher than the ambient corresponding to the 2nd point on radiation use efficiency curve |
+| `bioehi` | `real` | 77 | (kg/ha)/(MJ/m**2) \|biomass-energy ratio when plant is in an environment with CO2 level equal to the value of CO2HI. |
+| `rsdco_pl` | `real` | 79 | none \|plant residue decomposition coeff |
+| `alai_min` | `real` | 80 | m**2/m**2 \|min LAI during winter dormant period |
+| `laixco_tree` | `real` | 81 | none \|coefficient to estimate max lai during tree growth |
+| `mat_yrs` | `integer` | 82 | years \|years to maturity |
+| `bmx_peren` | `real` | 83 | metric tons/ha \|max biomass for forest |
+| `ext_coef` | `real` | 84 | \|light extinction coefficient |
+| `leaf_tov_min` | `real` | 85 | months \|perennial leaf turnover rate with minimum stress (complete turnover in 12 mon) |
+| `leaf_tov_max` | `real` | 86 | months \|perennial leaf turnover rate with maximum stress (complete turnover in 3 mon) |
+| `bm_dieoff` | `real` | 87 | frac \|above ground biomass that dies off at dormancy |
+| `rsr1` | `real` | 89 | frac \|initial root to shoot ratio at the beg of growing season |
+| `rsr2` | `real` | 90 | frac \|root to shoot ratio at the end of the growing season |
+| `pop1` | `real` | 91 | plants/m^2 \|plant population corresponding to the 1st point on the population lai curve |
+| `frlai1` | `real` | 93 | frac \|frac of max leaf area index corresponding to the 1st point on the leaf area development curve |
+| `pop2` | `real` | 95 | plants/m^2 \|plant population corresponding to the 2nd point on the population lai curve |
+| `frlai2` | `real` | 97 | frac \|frac of max leaf area index corresponding to the 2nd point on the leaf area development curve |
+| `frsw_gro` | `real` | 99 | frac \|30 day sum of P-PET to initiate growth of tropical plants during monsoon season - pcom()%plcur()%iseason |
+| `aeration` | `real` | 101 | \|aeration stress factor |
+| `rsd_pctcov` | `real` | 102 | \|residue factor for percent cover equation |
+| `rsd_covfac` | `real` | 103 | \|residue factor for surface cover (C factor) equation |
+| `res_part_fracs` | `residue_partition_fracs` | 105 |  |
 
 ### plant_cp
 

@@ -115,16 +115,8 @@ Use this section for line notes, key variables, and interpretation. This section
 	- Line 2, header
 	- Line 3-14,
 		- Each row is a month
-		- Each column, 
+		- Each column,
 			- Tmax_ave, Tmin_ave, Tmax_sd, Tmin_sd, ...
 	- Line 103, call [[cli_initwgn.f90]], initialize weather generator parameters
 - END
-
-
-
-
-
-
-
-
 <!-- USER-NOTES-END -->

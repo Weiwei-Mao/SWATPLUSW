@@ -62,7 +62,4 @@ Use this section for line notes, key variables, and interpretation. This section
 - If it exist,
 	- Read n_lyr, and set as cb_n_layer in [[carbon_module.f90]]
 - End
-
-
-
 <!-- USER-NOTES-END -->

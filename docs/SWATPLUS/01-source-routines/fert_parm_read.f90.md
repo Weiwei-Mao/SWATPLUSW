@@ -75,15 +75,4 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 28-36, count, imax
 - Line 47, get [[fertilizer_data_module.f90#fertdb]]
 - End
-
-
-
-
-
-
-
-
-
-
-
 <!-- USER-NOTES-END -->

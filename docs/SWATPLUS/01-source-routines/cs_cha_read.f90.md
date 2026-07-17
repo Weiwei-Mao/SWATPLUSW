@@ -83,10 +83,10 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 ## File I/O
 - **Writes**:
-  - `cs_streamobs_output` _(variable; see [[file.cio]])_
+  - [[cs_streamobs_output]]
 - **Reads**:
   - [[cs_channel.ini]]
-  - `cs_streamobs` _(variable; see [[file.cio]])_
+  - [[cs_streamobs]]
 
 <!-- USER-NOTES-START -->
 ## Notes

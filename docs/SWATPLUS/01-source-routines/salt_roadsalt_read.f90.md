@@ -75,7 +75,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 ## File I/O
 - **Reads**:
-  - `salt_road` _(variable; see [[file.cio]])_
+  - [[salt_road]]
 
 <!-- USER-NOTES-START -->
 ## Notes

@@ -70,7 +70,4 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - open the file [[manure_db.frt]] and read the file. Data are file names.
-
-
-
 <!-- USER-NOTES-END -->

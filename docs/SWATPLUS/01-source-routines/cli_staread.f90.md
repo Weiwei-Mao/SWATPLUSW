@@ -105,4 +105,15 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 <!-- USER-NOTES-START -->
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Line 27, check [[input_file_module.f90#in_cli]], %wea_sta, [[weather-sta.cli]] exist or not
+- Line 34-44, read file and count imax
+- Line 46-57, allocation
+- Line 68, read [[climate_module.f90#wst]], name and wco_c
+	- weather station name
+	- weather genrator name
+	- gage name for rainfall/temp/solar radiation/humidity/wind/ET/atmodep
+- Line 71, based on the name of weather station, search the number
+- Then check the files exist or not
+- End
 <!-- USER-NOTES-END -->
