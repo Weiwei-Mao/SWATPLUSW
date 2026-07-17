@@ -1,3 +1,10 @@
+---
+type: overview
+tags:
+  - swat/overview
+  - swat/index
+---
+
 # Call Graph
 
 ## Direct Calls From main

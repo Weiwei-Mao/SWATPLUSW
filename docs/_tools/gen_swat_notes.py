@@ -336,7 +336,19 @@ def parse_source(path: Path) -> dict:
             if fm:
                 raw_file = fm.group(1)
                 target = clean_target(raw_file)
-                if raw_file.strip().startswith(("'", '"')):
+                # Record only plain quoted literals (e.g. 'salt_plants') so
+                # is_literal_file() recognises extension-less filenames.
+                # Skip expressions such as  file="SWIFT/" // trim(...)//".swf"
+                # (swift_output.f90:267) — they contain //, (, or % and are not
+                # static filenames. If added here they would be whitelisted and
+                # is_literal_file's own ///% guard (which runs after the
+                # LITERAL_FILES membership check) could never reject them.
+                if (
+                    raw_file.strip().startswith(("'", '"'))
+                    and "//" not in target
+                    and "(" not in target
+                    and "%" not in target
+                ):
                     LITERAL_FILES.add(target)
                 unit = um.group(1) if um else ""
                 opens.append((unit, target))
@@ -1413,6 +1425,11 @@ def write_extra_input_notes(input_readers: dict[str, set[str]], input_details: d
     return n
 
 
+# Frontmatter for the generated overview/index pages so they carry a type and
+# show up in type-based Dataview queries like the rest of the tree.
+INDEX_FM = "type: overview\ntags:\n  - swat/overview\n  - swat/index"
+
+
 def write_indexes(records: list[dict], output_writers: dict[str, set[str]]) -> None:
     n_src = sum(1 for r in records if r["kind"] != "module")
     n_mod = sum(1 for r in records if r["kind"] == "module")
@@ -1444,6 +1461,7 @@ def write_indexes(records: list[dict], output_writers: dict[str, set[str]]) -> N
 - [[call-graph]] - main call tree and call frequency table
 - [[module-variable-index]] - all modules and their type/variable definitions
 - [[input-output-file-index]] - input/output file lists and reader/writer relationships
+- [[input-file-architecture]] - how readers locate input files (file.cio vs hardcoded) and file roles (database / scenario / operations)
 
 ## How To Use
 
@@ -1461,7 +1479,7 @@ After source updates, rerun the generator to refresh structured fields. Content 
 python "docs/_tools/gen_swat_notes.py"
 ```
 """
-    write_note(IDX_DIR / "00-SWATPLUS-overview.md", "", overview)
+    write_note(IDX_DIR / "00-SWATPLUS-overview.md", INDEX_FM, overview)
 
     main_rec = next((r for r in records if r["kind"] == "program"), None)
     mermaid = ["```mermaid", "graph LR"]
@@ -1506,7 +1524,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 ```
 ````
 """
-    write_note(IDX_DIR / "call-graph.md", "", call_graph)
+    write_note(IDX_DIR / "call-graph.md", INDEX_FM, call_graph)
 
     mod_index = f"""# Module And Variable Index
 
@@ -1533,7 +1551,7 @@ FROM "{BASE}/02-modules-and-variables"
 WHERE contains(tags, "#swat/domain-hydrology")
 ```
 """
-    write_note(IDX_DIR / "module-variable-index.md", "", mod_index)
+    write_note(IDX_DIR / "module-variable-index.md", INDEX_FM, mod_index)
 
     io_index = f"""# Input/Output File Index
 
@@ -1561,7 +1579,7 @@ SORT file ASC
 
 - [[file.cio]] - control file that declares the input files and output path
 """
-    write_note(IDX_DIR / "input-output-file-index.md", "", io_index)
+    write_note(IDX_DIR / "input-output-file-index.md", INDEX_FM, io_index)
 
 
 if __name__ == "__main__":

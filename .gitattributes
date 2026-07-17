@@ -1,0 +1,8 @@
+# Lock our docs and Python tooling to LF.
+# core.autocrlf=true would otherwise flip the working tree to CRLF, so every
+# generator rerun (which writes LF) showed up as mass CRLF<->LF phantom diffs.
+# The SWAT+ source lives in a submodule and is unaffected here.
+docs/**       text eol=lf
+*.py          text eol=lf
+README.md     text eol=lf
+AGENTS.md     text eol=lf

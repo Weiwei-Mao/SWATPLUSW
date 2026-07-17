@@ -47,5 +47,5 @@ This folder is the English entry point for the SWAT+ code-learning notes in this
 The generator is repo-local and reads `SWATPLUS/swatplus/src`. It also includes `main.f90.in` as the source for `main.f90.md`, because this workspace tracks the template and generates the Visual Studio `main.f90` copy.
 
 ```powershell
-& 'C:\Users\wei.mao\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' docs\_tools\gen_swat_notes.py
+python docs\_tools\gen_swat_notes.py
 ```

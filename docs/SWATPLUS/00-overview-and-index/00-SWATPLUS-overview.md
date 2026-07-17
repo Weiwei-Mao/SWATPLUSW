@@ -1,3 +1,10 @@
+---
+type: overview
+tags:
+  - swat/overview
+  - swat/index
+---
+
 # SWAT+ Code Learning System
 
 > This subsystem maps the SWAT+ source code: routine call relationships, key variables, and input/output files.
@@ -7,7 +14,7 @@
 
 - Source routines (program + subroutine): **583**
 - Module files (`*_module.f90`): **66**
-- Output files: **670**; see [[input-output-file-index]]
+- Output files: **669**; see [[input-output-file-index]]
 - Input files: see [[file.cio]] as the controlling index
 
 ## Directory Structure
@@ -24,6 +31,7 @@
 - [[call-graph]] - main call tree and call frequency table
 - [[module-variable-index]] - all modules and their type/variable definitions
 - [[input-output-file-index]] - input/output file lists and reader/writer relationships
+- [[input-file-architecture]] - how readers locate input files (file.cio vs hardcoded) and file roles (database / scenario / operations)
 
 ## How To Use
 

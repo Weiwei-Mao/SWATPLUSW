@@ -1,3 +1,10 @@
+---
+type: overview
+tags:
+  - swat/overview
+  - swat/index
+---
+
 # Input/Output File Index
 
 ## Input Files

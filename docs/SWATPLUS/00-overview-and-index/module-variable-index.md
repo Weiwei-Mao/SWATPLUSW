@@ -1,3 +1,10 @@
+---
+type: overview
+tags:
+  - swat/overview
+  - swat/index
+---
+
 # Module And Variable Index
 
 ## All Modules
