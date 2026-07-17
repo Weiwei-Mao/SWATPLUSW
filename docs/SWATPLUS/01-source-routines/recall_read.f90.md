@@ -111,4 +111,10 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 <!-- USER-NOTES-START -->
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Check file [[recall_db.rec]] exist or not. This file out file [[file.cio]]
+	- recall = user-provided flow + sediment/nutrient/constituent time series
+	         routed as an external source/sink object in SWAT+
+ - End
+ 
 <!-- USER-NOTES-END -->

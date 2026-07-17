@@ -482,91 +482,91 @@ purpose: ""
 
 - **Defined in source**: `hydrograph_module.f90:315`
 
-| Field | Type | Source line | Meaning |
-|---|---|---:|---|
-| `name` | `character(len=16)` | 316 |  |
-| `typ` | `character(len=8)` | 317 | object type - ie hru, hru_lte, sub, chan, res, recall |
-| `nhyds` | `integer` | 318 | hru=5, chan=3 - see type hd_tot for each object |
-| `lat` | `real` | 319 | latitude (degrees) |
-| `long` | `real` | 320 | longitude (degrees) |
-| `elev` | `real` | 321 | elevation (m) |
-| `plaps` | `real` | 322 | precipitation lapse applied to object precip |
-| `tlaps` | `real` | 323 | temperature lapse applied to object precip |
-| `area_ha` | `real` | 324 | input drainag area - ha |
-| `sp_ob_no` | `integer` | 325 | spatial object number - ie: hru number, channel number, etc |
-| `area_ha_calc` | `real` | 326 | calculated drainage area-ha. only for checking - doesn't work if routing across landscape |
-| `props` | `integer` | 327 | properties number from data base (ie hru.dat, sub.dat) - change props to data |
-| `wst_c` | `character (len=50)` | 328 | weather station name |
-| `wst` | `integer` | 329 | weather station number |
-| `constit` | `integer` | 330 | constituent data pointer to pesticides, pathogens, metals, salts |
-| `props2` | `integer` | 331 | overbank connectivity pointer to landscape units - change props2 to overbank |
-| `ruleset` | `character(len=16)` | 332 | points to the name of the dtbl in flo_con.dtl for out flow control |
-| `flo_dtbl` | `integer` | 333 | dtbl pointer for flow fraction of hydrograph |
-| `num` | `integer` | 334 | spatial object number- ie hru number corresponding to sequential command number this is the first column in hru_dat (doesn"t have to be sequential) |
-| `gis_id` | `integer*8` | 336 | gis number for database purposes |
-| `fired` | `integer` | 337 | 0=not fired; 1=fired off as a command |
-| `cmd_next` | `integer` | 338 | next command (object) number |
-| `cmd_prev` | `integer` | 339 | previous command (object) number |
-| `cmd_order` | `integer` | 340 | 1=headwater,2=2nd order,etc |
-| `src_tot` | `integer` | 341 | total number of outgoing (source) objects |
-| `rcv_tot` | `integer` | 342 | total number of incoming (receiving) hydrographs |
-| `dfn_tot` | `integer` | 343 | total number of defining objects (ie hru"s within a subbasin) |
-| `ru_tot` | `integer` | 344 | number of routing units that contain this object |
-| `ru` | `integer, dimension (:), allocatable` | 345 | subbasin the element is in |
-| `elem` | `integer` | 346 | subbasins element number for this object- used for routing over (can only have one) |
-| `flood_ch_lnk` | `integer` | 347 | channel the landscape unit is linked to |
-| `flood_ch_elem` | `integer` | 348 | landscape unit number - 1 is nearest to stream |
-| `flood_frac` | `integer` | 349 | fraction of flood flow assigned to the object |
-| `obtyp_out` | `character (len=3), dimension (:), allocatable` | 350 | outflow object type (ie 1=hru, 2=sd_hru, 3=sub, 4=chan, etc) |
-| `obtypno_out` | `integer, dimension(:), allocatable` | 351 | outflow object type name |
-| `obj_out` | `integer, dimension(:), allocatable` | 352 | outflow object |
-| `htyp_out` | `character (len=3), dimension (:), allocatable` | 353 | outflow hyd type (ie 1=tot, 2= recharge, 3=surf, etc) |
-| `ihtyp_out` | `integer, dimension (:), allocatable` | 354 | outflow hyd type (ie 1=tot, 2= recharge, 3=surf, etc) |
-| `frac_out` | `real, dimension (:), allocatable` | 355 | fraction of hydrograph |
-| `obtyp_in` | `character(len=8), dimension(:), allocatable` | 356 | inflow object type (ie 1=hru, 2=sd_hru, 3=sub, 4=chan, etc) |
-| `obtypno_in` | `integer, dimension(:), allocatable` | 357 | inflow object type number |
-| `obj_in` | `integer, dimension(:), allocatable` | 358 |  |
-| `htyp_in` | `character (len=3), dimension(:), allocatable` | 359 | inflow hyd type (ie 1=tot, 2= recharge, 3=surf, etc) |
-| `ihtyp_in` | `integer, dimension(:), allocatable` | 360 |  |
-| `frac_in` | `real, dimension(:), allocatable` | 361 |  |
-| `rcvob_inhyd` | `integer, dimension(:), allocatable` | 362 | inflow hydrograph number of receiving object - used for dtbl flow fractions |
-| `fdc` | `flow_duration_curve` | 363 | use for daily flows and then use to get median of annual fdc"s |
-| `fdc_ll` | `sorted_duration_curve` | 364 | linked list of daily flow for year - dimensioned to 366 |
-| `fdc_lla` | `sorted_duration_curve` | 365 | linked list of annual flow for simulation - dimensioned to nbyr |
-| `flash_idx` | `flashiness_index` | 366 | flashiness index object |
-| `hin` | `hyd_output` | 367 | inflow hydrograph for surface runon - sum of all inflow hyds |
-| `hin_sur` | `hyd_output` | 368 | inflow hydrograph for surface runoff - sum of all surface inflow hyds |
-| `hin_lat` | `hyd_output` | 369 | inflow hydrograph for lateral soil flow - sum of all lateral inflow hyds |
-| `hin_til` | `hyd_output` | 370 | inflow hydrograph for tile flow - sum of all tile inflow hyds |
-| `hin_aqu` | `hyd_output` | 371 | inflow hydrograph for aquifer flow - sum of all aquifer inflow hyds |
-| `hd` | `hyd_output` | 372 | daily hydrograph (ie 1=tot, 2= recharge, 3=surf, etc) |
-| `hd_aa` | `hyd_output` | 373 | ave annual hydrograph for hru for swift (ie 1=tot, 2= recharge, 3=surf, etc) |
-| `ts` | `hyd_output` | 374 | subdaily hydrographs |
-| `hin_uh` | `inflow_unit_hyds` | 375 | inflow unit hydrographs |
-| `uh` | `real, dimension(:,:), allocatable` | 376 | subdaily surface runoff unit hydrograph |
-| `hyd_flo` | `real, dimension(:,:), allocatable` | 377 | subdaily surface runoff hydrograph |
-| `tsin` | `real, dimension(:),allocatable` | 378 | inflow subdaily flow hydrograph |
-| `trans` | `hyd_output` | 379 | water transfer in water allocation |
-| `hin_tot` | `hyd_output` | 380 | total inflow hydrograph to the object |
-| `hout_tot` | `hyd_output` | 381 | total outflow hydrograph to the object |
-| `conc_prev` | `hyd_output` | 382 | concentration of previous timestep for watqual2e routine |
-| `demand` | `real` | 383 | water irrigation demand (ha-m) |
-| `day_cur` | `integer` | 384 | current hydrograph day in ts |
-| `day_max` | `integer` | 385 | maximum number of days to store the hydrograph |
-| `peakrate` | `real` | 386 | peak flow rate during time step - m3/s |
-| `hin_d` | `hyd_output` | 388 |  |
-| `hin_m` | `hyd_output` | 389 |  |
-| `hin_y` | `hyd_output` | 390 |  |
-| `hin_a` | `hyd_output` | 391 |  |
-| `hout_m` | `hyd_output` | 392 |  |
-| `hout_y` | `hyd_output` | 393 |  |
-| `hout_a` | `hyd_output` | 394 |  |
-| `hdep_m` | `hyd_output` | 395 |  |
-| `hdep_y` | `hyd_output` | 396 |  |
-| `hdep_a` | `hyd_output` | 397 | rtb gwflow |
-| `hdsep` | `hyd_sep` | 400 |  |
-| `hdsep_in` | `hyd_sep` | 400 |  |
-| `obj_subs` | `integer, dimension(:), allocatable` | 402 | subbasins object number that contain this object |
+| Field           | Type                                            | Source line | Meaning                                                                                                                                             |
+| --------------- | ----------------------------------------------- | ----------: | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`          | `character(len=16)`                             |         316 |                                                                                                                                                     |
+| `typ`           | `character(len=8)`                              |         317 | object type - ie hru, hru_lte, sub, chan, res, recall                                                                                               |
+| `nhyds`         | `integer`                                       |         318 | hru=5, chan=3 - see type hd_tot for each object                                                                                                     |
+| `lat`           | `real`                                          |         319 | latitude (degrees)                                                                                                                                  |
+| `long`          | `real`                                          |         320 | longitude (degrees)                                                                                                                                 |
+| `elev`          | `real`                                          |         321 | elevation (m)                                                                                                                                       |
+| `plaps`         | `real`                                          |         322 | precipitation lapse applied to object precip                                                                                                        |
+| `tlaps`         | `real`                                          |         323 | temperature lapse applied to object precip                                                                                                          |
+| `area_ha`       | `real`                                          |         324 | input drainag area - ha                                                                                                                             |
+| `sp_ob_no`      | `integer`                                       |         325 | spatial object number - ie: hru number, channel number, etc                                                                                         |
+| `area_ha_calc`  | `real`                                          |         326 | calculated drainage area-ha. only for checking - doesn't work if routing across landscape                                                           |
+| `props`         | `integer`                                       |         327 | properties number from data base (ie hru.dat, sub.dat) - change props to data                                                                       |
+| `wst_c`         | `character (len=50)`                            |         328 | weather station name                                                                                                                                |
+| `wst`           | `integer`                                       |         329 | weather station number                                                                                                                              |
+| `constit`       | `integer`                                       |         330 | constituent data pointer to pesticides, pathogens, metals, salts                                                                                    |
+| `props2`        | `integer`                                       |         331 | overbank connectivity pointer to landscape units - change props2 to overbank                                                                        |
+| `ruleset`       | `character(len=16)`                             |         332 | points to the name of the dtbl in flo_con.dtl for out flow control                                                                                  |
+| `flo_dtbl`      | `integer`                                       |         333 | dtbl pointer for flow fraction of hydrograph                                                                                                        |
+| `num`           | `integer`                                       |         334 | spatial object number- ie hru number corresponding to sequential command number this is the first column in hru_dat (doesn"t have to be sequential) |
+| `gis_id`        | `integer*8`                                     |         336 | gis number for database purposes                                                                                                                    |
+| `fired`         | `integer`                                       |         337 | 0=not fired; 1=fired off as a command                                                                                                               |
+| `cmd_next`      | `integer`                                       |         338 | next command (object) number                                                                                                                        |
+| `cmd_prev`      | `integer`                                       |         339 | previous command (object) number                                                                                                                    |
+| `cmd_order`     | `integer`                                       |         340 | 1=headwater,2=2nd order,etc                                                                                                                         |
+| `src_tot`       | `integer`                                       |         341 | total number of outgoing (source) objects                                                                                                           |
+| `rcv_tot`       | `integer`                                       |         342 | total number of incoming (receiving) hydrographs                                                                                                    |
+| `dfn_tot`       | `integer`                                       |         343 | total number of defining objects (ie hru"s within a subbasin)                                                                                       |
+| `ru_tot`        | `integer`                                       |         344 | number of routing units that contain this object                                                                                                    |
+| `ru`            | `integer, dimension (:), allocatable`           |         345 | subbasin the element is in                                                                                                                          |
+| `elem`          | `integer`                                       |         346 | subbasins element number for this object- used for routing over (can only have one)                                                                 |
+| `flood_ch_lnk`  | `integer`                                       |         347 | channel the landscape unit is linked to                                                                                                             |
+| `flood_ch_elem` | `integer`                                       |         348 | landscape unit number - 1 is nearest to stream                                                                                                      |
+| `flood_frac`    | `integer`                                       |         349 | fraction of flood flow assigned to the object                                                                                                       |
+| `obtyp_out`     | `character (len=3), dimension (:), allocatable` |         350 | outflow object type (ie 1=hru, 2=sd_hru, 3=sub, 4=chan, etc)                                                                                        |
+| `obtypno_out`   | `integer, dimension(:), allocatable`            |         351 | outflow object type name                                                                                                                            |
+| `obj_out`       | `integer, dimension(:), allocatable`            |         352 | outflow object                                                                                                                                      |
+| `htyp_out`      | `character (len=3), dimension (:), allocatable` |         353 | outflow hyd type (ie 1=tot, 2= recharge, 3=surf, etc)                                                                                               |
+| `ihtyp_out`     | `integer, dimension (:), allocatable`           |         354 | outflow hyd type (ie 1=tot, 2= recharge, 3=surf, etc)                                                                                               |
+| `frac_out`      | `real, dimension (:), allocatable`              |         355 | fraction of hydrograph                                                                                                                              |
+| `obtyp_in`      | `character(len=8), dimension(:), allocatable`   |         356 | inflow object type (ie 1=hru, 2=sd_hru, 3=sub, 4=chan, etc)                                                                                         |
+| `obtypno_in`    | `integer, dimension(:), allocatable`            |         357 | inflow object type number                                                                                                                           |
+| `obj_in`        | `integer, dimension(:), allocatable`            |         358 |                                                                                                                                                     |
+| `htyp_in`       | `character (len=3), dimension(:), allocatable`  |         359 | inflow hyd type (ie 1=tot, 2= recharge, 3=surf, etc)                                                                                                |
+| `ihtyp_in`      | `integer, dimension(:), allocatable`            |         360 |                                                                                                                                                     |
+| `frac_in`       | `real, dimension(:), allocatable`               |         361 |                                                                                                                                                     |
+| `rcvob_inhyd`   | `integer, dimension(:), allocatable`            |         362 | inflow hydrograph number of receiving object - used for dtbl flow fractions                                                                         |
+| `fdc`           | `flow_duration_curve`                           |         363 | use for daily flows and then use to get median of annual fdc"s                                                                                      |
+| `fdc_ll`        | `sorted_duration_curve`                         |         364 | linked list of daily flow for year - dimensioned to 366                                                                                             |
+| `fdc_lla`       | `sorted_duration_curve`                         |         365 | linked list of annual flow for simulation - dimensioned to nbyr                                                                                     |
+| `flash_idx`     | `flashiness_index`                              |         366 | flashiness index object                                                                                                                             |
+| `hin`           | `hyd_output`                                    |         367 | inflow hydrograph for surface runon - sum of all inflow hyds                                                                                        |
+| `hin_sur`       | `hyd_output`                                    |         368 | inflow hydrograph for surface runoff - sum of all surface inflow hyds                                                                               |
+| `hin_lat`       | `hyd_output`                                    |         369 | inflow hydrograph for lateral soil flow - sum of all lateral inflow hyds                                                                            |
+| `hin_til`       | `hyd_output`                                    |         370 | inflow hydrograph for tile flow - sum of all tile inflow hyds                                                                                       |
+| `hin_aqu`       | `hyd_output`                                    |         371 | inflow hydrograph for aquifer flow - sum of all aquifer inflow hyds                                                                                 |
+| `hd`            | `hyd_output`                                    |         372 | daily hydrograph (ie 1=tot, 2= recharge, 3=surf, etc)                                                                                               |
+| `hd_aa`         | `hyd_output`                                    |         373 | ave annual hydrograph for hru for swift (ie 1=tot, 2= recharge, 3=surf, etc)                                                                        |
+| `ts`            | `hyd_output`                                    |         374 | subdaily hydrographs                                                                                                                                |
+| `hin_uh`        | `inflow_unit_hyds`                              |         375 | inflow unit hydrographs                                                                                                                             |
+| `uh`            | `real, dimension(:,:), allocatable`             |         376 | subdaily surface runoff unit hydrograph                                                                                                             |
+| `hyd_flo`       | `real, dimension(:,:), allocatable`             |         377 | subdaily surface runoff hydrograph                                                                                                                  |
+| `tsin`          | `real, dimension(:),allocatable`                |         378 | inflow subdaily flow hydrograph                                                                                                                     |
+| `trans`         | `hyd_output`                                    |         379 | water transfer in water allocation                                                                                                                  |
+| `hin_tot`       | `hyd_output`                                    |         380 | total inflow hydrograph to the object                                                                                                               |
+| `hout_tot`      | `hyd_output`                                    |         381 | total outflow hydrograph to the object                                                                                                              |
+| `conc_prev`     | `hyd_output`                                    |         382 | concentration of previous timestep for watqual2e routine                                                                                            |
+| `demand`        | `real`                                          |         383 | water irrigation demand (ha-m)                                                                                                                      |
+| `day_cur`       | `integer`                                       |         384 | current hydrograph day in ts                                                                                                                        |
+| `day_max`       | `integer`                                       |         385 | maximum number of days to store the hydrograph                                                                                                      |
+| `peakrate`      | `real`                                          |         386 | peak flow rate during time step - m3/s                                                                                                              |
+| `hin_d`         | `hyd_output`                                    |         388 |                                                                                                                                                     |
+| `hin_m`         | `hyd_output`                                    |         389 |                                                                                                                                                     |
+| `hin_y`         | `hyd_output`                                    |         390 |                                                                                                                                                     |
+| `hin_a`         | `hyd_output`                                    |         391 |                                                                                                                                                     |
+| `hout_m`        | `hyd_output`                                    |         392 |                                                                                                                                                     |
+| `hout_y`        | `hyd_output`                                    |         393 |                                                                                                                                                     |
+| `hout_a`        | `hyd_output`                                    |         394 |                                                                                                                                                     |
+| `hdep_m`        | `hyd_output`                                    |         395 |                                                                                                                                                     |
+| `hdep_y`        | `hyd_output`                                    |         396 |                                                                                                                                                     |
+| `hdep_a`        | `hyd_output`                                    |         397 | rtb gwflow                                                                                                                                          |
+| `hdsep`         | `hyd_sep`                                       |         400 |                                                                                                                                                     |
+| `hdsep_in`      | `hyd_sep`                                       |         400 |                                                                                                                                                     |
+| `obj_subs`      | `integer, dimension(:), allocatable`            |         402 | subbasins object number that contain this object                                                                                                    |
 
 ### irrigation_water_transfer
 

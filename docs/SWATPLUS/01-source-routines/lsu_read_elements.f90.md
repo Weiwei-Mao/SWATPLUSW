@@ -119,4 +119,38 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 <!-- USER-NOTES-START -->
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Read from [[input_file_module.f90#in_regs]] %def_lsu, [[ls_unit.def]]
+- In the input file [[ls_unit.def]]
+	- Line 2, mlsu, lsu numbers
+	- Other lines
+		- id
+		- name
+		- area
+		- elem_tot
+		- elements
+- Line 99, read [[input_file_module.f90#in_regs]] %ele_lsu, [[ls_unit.ele]]
+	- Read parameters
+		- id
+		- name
+		- obj_type, hru/hru-lte, etc
+		- obj_typ_number
+		- fraction of element in basin
+		- fraction of element in ru
+		- fraction of element in calibration region
+- End
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- USER-NOTES-END -->

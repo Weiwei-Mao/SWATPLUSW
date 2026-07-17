@@ -116,4 +116,32 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 <!-- USER-NOTES-START -->
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Line 58, msoils, maximum numbers of soils, from [[soils.sol]]
+- Line 62-67, we already use [[soil_db_read.f90]] to read data in [[soils.sol]] into [[soil_data_module.f90#soildb]],
+	- we set value from [[soil_data_module.f90#soildb]] into [[soil_module.f90#sol]]
+- Line 69, if [[soil_lyr_depths.sol]] exist or not
+- Line 70-131, not exist
+	- Line 71-78, if the depth of first layer < 10 mm, add another layer
+	- Line 81, Set the first layer depth as 10 mm
+	- Line 82-94, set the parameters of the first layer
+	- Line 96-131, set other layers
+- Line 131-278, exist
+	- Line 219, there is no check, a 10 mm top layer is always inserted
+- Line 280-282, call [[soils_test_adjust.f90]], overrides the physical properties with measured values via the per-mm averaging scheme
+- Line 285-287, derives the remaining physical parameters
+
+- Line 292-end, Iteration based on hru
+	- For each hru, define isol, soil layers for each hru
+	- Line 295, wfsh, average capillary suction for the first layer, used for Green-Ampt infiltration
+	- Line 316-348, for septic tank, add a biozone layer
+	- Then allocations
+- End
+
+| object      | scope    | holds                                                  | mutability                 |
+| ----------- | -------- | ------------------------------------------------------ | -------------------------- |
+| soildb      | database | raw soil record from soils.sol                         | static input               |
+| sol         | per soil | assembled physical properties                          | computed once at init      |
+| soil(ihru)  | per HRU  | HRU's physical soil layers (depth, bd, awc, clay, ...) | static after init          |
+| soil1(ihru) | per HRU  | water + C/N/P pools by layer                           | dynamic - updated each day |
 <!-- USER-NOTES-END -->

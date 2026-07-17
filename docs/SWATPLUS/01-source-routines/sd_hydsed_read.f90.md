@@ -92,4 +92,31 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 <!-- USER-NOTES-START -->
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- From [[input_file_module.f90#in_cha]] %hyd_sed, read [[hyd-sed-lte.cha]]
+- Get [[sd_channel_module.f90#sd_chd]]
+	- order
+	- channel width
+	- channel depth
+	- channel slope
+	- channel length
+	- channel manning's n
+	- channel bottom conductivity
+	- bank erosion exponent
+	- channel cover factor
+	- sinuousity
+	- critical velocity coefficient
+	- channel median sediment size
+	- clay percent of bank and bed
+	- carbon percent of bank anbd bed
+	- dry bulk density
+	- channel side slope
+	- bank full flow rate
+	- flood plain slope
+	- flood plain manning's n
+	- nitrogen concentration in channel bank
+	- phosphorus concentration in channel bank
+	- fraction of p in bank that is bioavailable
+- Check file [[sed_nut.cha]] exist or not. out of [[file.cio]]
+- End
 <!-- USER-NOTES-END -->

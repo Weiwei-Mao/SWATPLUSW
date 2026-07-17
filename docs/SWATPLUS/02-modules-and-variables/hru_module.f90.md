@@ -422,33 +422,44 @@ purpose: ""
 
 - **Defined in source**: `hru_module.f90:146`
 
+Integer database pointers for an HRU database record. Most fields are resolved
+from the matching text names in `hru_databases_char` while reading
+[[hru-data.hru]]. These integer values are what the simulation uses after the
+crosswalk.
+
 | Field | Type | Source line | Meaning |
 |---|---|---:|---|
-| `name` | `character(len=40)` | 147 |  |
-| `topo` | `integer` | 148 |  |
-| `hyd` | `integer` | 149 |  |
-| `soil` | `integer` | 150 |  |
-| `land_use_mgt` | `integer` | 151 |  |
-| `soil_plant_init` | `integer` | 152 |  |
-| `surf_stor` | `integer` | 153 |  |
-| `snow` | `integer` | 154 |  |
-| `field` | `integer` | 155 |  |
+| `name` | `character(len=40)` | 147 | HRU database record name. |
+| `topo` | `integer` | 148 | Pointer to topography data from [[topography.hyd]]. |
+| `hyd` | `integer` | 149 | Pointer to hydrology data from [[hydrology.hyd]]. |
+| `soil` | `integer` | 150 | Pointer to soil data from [[soils.sol]]. |
+| `land_use_mgt` | `integer` | 151 | Pointer to land-use/management data from [[landuse.lum]]. |
+| `soil_plant_init` | `integer` | 152 | Pointer to soil/plant initialization data loaded into `sol_plt_ini`. |
+| `surf_stor` | `integer` | 153 | Pointer to HRU surface-storage/wetland data from [[wetland.wet]]; `0` means none. |
+| `snow` | `integer` | 154 | Pointer to snow data from [[snow.sno]]. |
+| `field` | `integer` | 155 | Pointer to field data from [[field.fld]]; `0` means none. |
 
 ### hru_databases_char
 
 - **Defined in source**: `hru_module.f90:158`
 
+Text database names read from [[hru-data.hru]]. The reader stores the input row
+directly in `hru_db(id)%dbsc` using list-directed Fortran input, so values are
+consumed in the declaration order shown below. `hru_read.f90` then crosswalks
+these names to integer pointers in `hru_db(id)%dbs`, and `hrudb_init.f90`
+copies both `dbsc` and `dbs` into each active `hru()` object.
+
 | Field | Type | Source line | Meaning |
 |---|---|---:|---|
-| `name` | `character(len=40)` | 159 |  |
-| `topo` | `character(len=40)` | 160 |  |
-| `hyd` | `character(len=40)` | 161 |  |
-| `soil` | `character(len=40)` | 162 |  |
-| `land_use_mgt` | `character(len=40)` | 163 |  |
-| `soil_plant_init` | `character(len=40)` | 164 |  |
-| `surf_stor` | `character(len=40)` | 165 |  |
-| `snow` | `character(len=40)` | 166 |  |
-| `field` | `character(len=40)` | 167 |  |
+| `name` | `character(len=40)` | 159 | HRU database record name from [[hru-data.hru]]. |
+| `topo` | `character(len=40)` | 160 | Name matched to `topo_db(:)%name` from [[topography.hyd]]. |
+| `hyd` | `character(len=40)` | 161 | Name matched to `hyd_db(:)%name` from [[hydrology.hyd]]. |
+| `soil` | `character(len=40)` | 162 | Soil name matched to `soildb(:)%s%snam` from [[soils.sol]]. |
+| `land_use_mgt` | `character(len=40)` | 163 | Land-use/management name matched to `lum(:)%name` from [[landuse.lum]]. |
+| `soil_plant_init` | `character(len=40)` | 164 | Soil/plant initialization name matched to `sol_plt_ini(:)%name`. |
+| `surf_stor` | `character(len=40)` | 165 | Surface-storage/wetland name from [[wetland.wet]], or `null`. This is resolved later in `wet_initial.f90`. |
+| `snow` | `character(len=40)` | 166 | Snow parameter name matched to `snodb(:)%name` from [[snow.sno]], or `null`. |
+| `field` | `character(len=40)` | 167 | Field data name matched to `field_db(:)%name` from [[field.fld]], or `null`. |
 
 ### hydrologic_response_unit_db
 

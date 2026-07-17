@@ -70,4 +70,16 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 <!-- USER-NOTES-START -->
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+Adjust precip and temperature for elevation for each spatial_object
+
+- plaps and tlaps are defined in [[basin_module.f90#bsn_prm]]
+- plaps, mm/km, precipitation lapse rate: mm per km of elevation difference
+- tlpas, deg C/km, temperature lapse rate: deg C per km of elevation difference
+- If precip is simulated,
+	- use weather generator elevation to adjust
+- else
+	- use weather station elevation to adjust
+- same as temperature
+- End
 <!-- USER-NOTES-END -->

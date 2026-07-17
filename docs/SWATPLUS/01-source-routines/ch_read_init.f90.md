@@ -74,4 +74,8 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 <!-- USER-NOTES-START -->
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Check [[input_file_module.f90#in_cha]] %init, [[initial.cha]]
+- Read [[initial.cha]] into [[channel_data_module.f90#ch_init]]
+- End
 <!-- USER-NOTES-END -->

@@ -213,5 +213,22 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 41: call [[proc_date_time.f90]], input weather data
 - Line 42: call [[proc_db.f90]], reads the shared parameter databases and structural/management libraries
 - Line 43: call [[proc_read.f90]], reads the main environmental and object input data needed to build the model state
--
+- Line 45: call [[hyd_connect.f90]], connection files
+- Line 46: call [[recall_read.f90]], recall is a user-defined **time-series source or sink**.
+- Line 47: call [[exco_db_read.f90]], export coefficient is a user-defined **loading source/coefficient**, not normally a sink.
+- Line 48: call [[dr_db_read.f90]], delivery ratio. The `dr` object **receives an inflow hydrograph**, multiplies each component by user-defined delivery ratios, then sends the reduced/modified hydrograph downstream.
+- Define icmd
+- Line 59: call [[cli_lapse.f90]], Adjusts precip and temperature based on elevation for each [[hydrograph_module.f90#ob]]
+- Line 60: call [[object_read_output.f90]], is for **specific output for specific objects**
+
+- Line 62: call [[om_water_init.f90]], Initial organic-mineral state of stored water (channel/reservoir/wetland/aquifer)
+- Line 63: call [[pest_cha_res_read.f90]], Reads pesticide initial water and benthic concentrations from [[pest_water.ini]]
+- Line 64: call [[path_cha_res_read.f90]], Reads pathogen initial water and benthic concentrations from [[[path_water.ini]]
+- Line 65: call [[salt_cha_read.f90]], Reads initial channel-water salt concentrations from [[salt_channel.ini]]
+- Line 66: call [[cs_cha_read.f90]], Reads initial channel-water concentrations for generic constituents from [[cs_channel.ini]]. It also optionally sets up [[cs_streamobs]] output. These two files are out of [[file.cio]]
+
+- Line 68: call [[lsu_read_elements.f90]], read landscape cataloging unit definitions for output
+- Line 70: call [[proc_hru.f90]]
+- Line 71: call [[proc_cha.f90]]
+- Line 72: call [[proc_aqu.f90]]
 <!-- USER-NOTES-END -->
