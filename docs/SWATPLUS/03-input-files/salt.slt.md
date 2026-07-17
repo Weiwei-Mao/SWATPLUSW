@@ -4,7 +4,7 @@ tags:
   - swat/input
 file: salt.slt
 ext: slt
-cio_field: saltcom.db
+cio_field: saltcom_db
 read_by: []
 purpose: ""
 ---
@@ -12,10 +12,10 @@ purpose: ""
 # salt.slt
 
 > [!info] Input File
-> Declared in `file.cio` field `saltcom.db`. See [[file.cio]] for the controlling file map.
+> Declared in `file.cio` field `saltcom_db`. See [[file.cio]] for the controlling file map.
 
 ## Overview
-- **Declared in `file.cio` field**: `saltcom.db`
+- **Declared in `file.cio` field**: `saltcom_db`
 - **Format source**: generated from Fortran `open`/`read` statements and module/type comments.
 - **Format style**: SWAT+ text input; most readers use list-directed Fortran reads.
 

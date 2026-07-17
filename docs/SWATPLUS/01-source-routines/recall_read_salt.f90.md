@@ -32,7 +32,6 @@ input_variables:
   - constituent_mass_module.f90#rec_salt
 reads:
   - salt_recall.rec
-  - rec_salt(i
 writes: []
 purpose: ""
 ---
@@ -53,7 +52,7 @@ purpose: ""
   - [[maximum_data_module.f90]]
   - [[time_module.f90]]
   - [[exco_module.f90]]
-- **Subroutine calls**: 0 | **Files read**: 2 | **Files written**: 0
+- **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
@@ -89,7 +88,6 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 ## File I/O
 - **Reads**:
   - [[salt_recall.rec]]
-  - `rec_salt(i` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes

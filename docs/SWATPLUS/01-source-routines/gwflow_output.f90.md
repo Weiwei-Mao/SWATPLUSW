@@ -164,10 +164,6 @@ input_variables:
 reads:
   - gwflow.wbgroups
   - file_name_scalar
-  - file_name(n
-  - file_name(n
-  - file_name(n
-  - file_name(n
 writes:
   - gwflow_basin_wb_day.txt
   - gwflow_basin_wb_mon.txt
@@ -199,7 +195,7 @@ purpose: "this subroutine opens all gwflow output files and writes headers; (ext
   - [[time_module.f90]]
   - [[constituent_mass_module.f90]]
   - [[basin_module.f90]]
-- **Subroutine calls**: 2 | **Files read**: 6 | **Files written**: 12
+- **Subroutine calls**: 2 | **Files read**: 2 | **Files written**: 12
 
 ## Call Relationships
 **This routine calls:**
@@ -382,7 +378,6 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 - **Reads**:
   - [[gwflow.wbgroups]]
   - `file_name_scalar` _(variable; see [[file.cio]])_
-  - `file_name(n` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes

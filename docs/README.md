@@ -34,6 +34,11 @@ This folder is the English entry point for the SWAT+ code-learning notes in this
 - Call graph: [call-graph](SWATPLUS/00-overview-and-index/call-graph.md)
 - Module and variable index: [module-variable-index](SWATPLUS/00-overview-and-index/module-variable-index.md)
 - Input/output file index: [input-output-file-index](SWATPLUS/00-overview-and-index/input-output-file-index.md)
+- Input file architecture: [input-file-architecture](SWATPLUS/00-overview-and-index/input-file-architecture.md)
+- Hardcoded input files: [hardcoded-input-files](SWATPLUS/00-overview-and-index/hardcoded-input-files.md)
+- Osu_1hru input inventory: [osu-1hru-input-inventory](SWATPLUS/00-overview-and-index/osu-1hru-input-inventory.md)
+- Osu_1hru baseline and debug guide: [osu-1hru-baseline-and-debug](SWATPLUS/00-overview-and-index/osu-1hru-baseline-and-debug.md)
+- Source reading checklist: [source-reading-checklist](SWATPLUS/00-overview-and-index/source-reading-checklist.md)
 
 ## Generated Note Tree
 
@@ -48,4 +53,10 @@ The generator is repo-local and reads `SWATPLUS/swatplus/src`. It also includes 
 
 ```powershell
 python docs\_tools\gen_swat_notes.py
+```
+
+To check for stale generated note pages without rewriting the tree:
+
+```powershell
+python docs\_tools\gen_swat_notes.py --check-orphans
 ```

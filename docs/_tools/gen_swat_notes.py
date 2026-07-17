@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import os
 import re
+import argparse
 from collections import defaultdict
 from pathlib import Path
 
@@ -31,6 +32,11 @@ MOD_DIR = DEST / "02-modules-and-variables"
 IN_DIR = DEST / "03-input-files"
 OUT_DIR = DEST / "04-output-files"
 IDX_DIR = DEST / "00-overview-and-index"
+
+MANUAL_INPUT_NOTE_ALLOWLIST = {
+    "file.cio.md",
+    "carbon_lyr.bsn.md",
+}
 
 
 SEED_SOURCE = {
@@ -188,6 +194,17 @@ def clean_target(raw: str) -> str:
     return raw.strip().strip("'\"").strip()
 
 
+def is_dynamic_file_expr(target: str) -> bool:
+    """Return true for open(file=...) expressions that are not static filenames.
+
+    These include station-file indirections such as pcp(i)%filename and composed
+    paths such as TRIM(ADJUSTL(in_path_pcp%pcp))//pcp(i)%filename. They are real
+    runtime reads, but not standalone input-file names suitable for the generated
+    File I/O index.
+    """
+    return "(" in target or ")" in target or "//" in target
+
+
 # Filenames opened with a quoted literal but having no extension (e.g. 'salt_plants')
 # are indistinguishable from variables after quote-stripping, so the parser records
 # every quoted file= literal here; is_literal_file() then recognizes them.
@@ -336,6 +353,8 @@ def parse_source(path: Path) -> dict:
             if fm:
                 raw_file = fm.group(1)
                 target = clean_target(raw_file)
+                if is_dynamic_file_expr(target):
+                    continue
                 # Record only plain quoted literals (e.g. 'salt_plants') so
                 # is_literal_file() recognises extension-less filenames.
                 # Skip expressions such as  file="SWIFT/" // trim(...)//".swf"
@@ -445,11 +464,14 @@ def parse_source(path: Path) -> dict:
             fm = RE_FILEARG.search(inner)
             um = RE_UNITARG.search(inner)
             if fm and um:
+                target = clean_target(fm.group(1))
+                if is_dynamic_file_expr(target):
+                    continue
                 open_events.append(
                     {
                         "line": line_no,
                         "unit": um.group(1),
-                        "target": clean_target(fm.group(1)),
+                        "target": target,
                     }
                 )
 
@@ -942,7 +964,7 @@ def append_markdown_item_list(b: list[str], label: str, items: list[str]) -> Non
         for item in items:
             b.append(f"  - {item}")
     else:
-        b.append("  - -")
+        b.append("  - (none)")
 
 
 def translate_preserved_note(text: str) -> str:
@@ -963,6 +985,42 @@ def preserve_user_body(target_path: Path) -> str:
         return ""
     lines = [ln for ln in m.group(1).splitlines() if ln.strip() not in BOILERPLATE]
     return translate_preserved_note("\n".join(lines).strip())
+
+
+def load_existing_frontmatter_scalar(path: Path, key: str) -> str:
+    if not path.exists():
+        return ""
+    txt = path.read_text(encoding="utf-8", errors="replace")
+    m = re.match(r"^---\s*\n(.*?)\n---\s*\n", txt, re.S)
+    if not m:
+        return ""
+    for line in m.group(1).splitlines():
+        if not line.startswith(f"{key}:"):
+            continue
+        value = line.split(":", 1)[1].strip()
+        if value in {"", '""', "''"}:
+            return ""
+        if (value.startswith('"') and value.endswith('"')) or (value.startswith("'") and value.endswith("'")):
+            value = value[1:-1]
+        return value.strip()
+    return ""
+
+
+def load_existing_summary(path: Path) -> str:
+    if not path.exists():
+        return ""
+    txt = path.read_text(encoding="utf-8", errors="replace")
+    m = re.search(r"^> \[!info\] Summary\s*\n((?:>.*\n?)+)", txt, re.M)
+    if not m:
+        return ""
+    lines = []
+    for line in m.group(1).splitlines():
+        if not line.startswith(">"):
+            continue
+        value = line[1:].strip()
+        if value and value != "TBD":
+            lines.append(value)
+    return " ".join(lines).strip()
 
 
 def load_existing_tags(path: Path) -> list[str]:
@@ -1000,7 +1058,70 @@ def write_note(path: Path, frontmatter: str, body: str) -> None:
         f.write(body.rstrip() + "\n")
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Generate or check the SWAT+ source-study note tree."
+    )
+    parser.add_argument(
+        "--check-orphans",
+        action="store_true",
+        help="Report generated-note candidates that no longer match current source/file.cio references. Does not write files.",
+    )
+    return parser.parse_args()
+
+
+def expected_note_names(
+    records: list[dict],
+    output_writers: dict[str, set[str]],
+    input_readers: dict[str, set[str]],
+) -> dict[Path, set[str]]:
+    source_notes = {f"{r['note_file']}.md" for r in records if r["kind"] != "module"}
+    module_notes = {f"{r['note_file']}.md" for r in records if r["kind"] == "module"}
+    output_notes = {f"{safe_note_name(fname)}.md" for fname in output_writers}
+
+    cio_files = input_files_declared_in_cio()
+    input_notes = set(MANUAL_INPUT_NOTE_ALLOWLIST)
+    for filename in cio_files:
+        safe = safe_note_name(filename)
+        if safe != "file.cio":
+            input_notes.add(f"{safe}.md")
+    for filename in input_readers:
+        if filename in cio_files:
+            continue
+        safe = safe_note_name(filename)
+        if safe != "file.cio":
+            input_notes.add(f"{safe}.md")
+
+    return {
+        SRC_DIR: source_notes,
+        MOD_DIR: module_notes,
+        IN_DIR: input_notes,
+        OUT_DIR: output_notes,
+    }
+
+
+def report_orphans(expected: dict[Path, set[str]]) -> int:
+    total = 0
+    for directory, expected_names in expected.items():
+        existing = {p.name for p in directory.glob("*.md")}
+        extras = sorted(existing - expected_names)
+        if not extras:
+            continue
+        total += len(extras)
+        rel = directory.relative_to(REPO_ROOT)
+        print(f"{rel}: {len(extras)} possible orphan note(s)")
+        for name in extras:
+            print(f"  - {name}")
+    if total == 0:
+        print("No possible orphan notes found.")
+    else:
+        print(f"Possible orphan notes found: {total}")
+    return total
+
+
 def main() -> None:
+    args = parse_args()
+
     for d in (SRC_DIR, MOD_DIR, IN_DIR, OUT_DIR, IDX_DIR):
         d.mkdir(parents=True, exist_ok=True)
 
@@ -1030,6 +1151,17 @@ def main() -> None:
             if exact_read:
                 input_readers[exact_read].add(r["stem"])
 
+        if r["kind"] == "module":
+            n_mod += 1
+        else:
+            n_src += 1
+
+    if args.check_orphans:
+        count = report_orphans(expected_note_names(records, output_writers, input_readers))
+        raise SystemExit(1 if count else 0)
+
+    n_src = n_mod = 0
+    for r in records:
         if r["kind"] == "module":
             write_module_note(r, stems)
             n_mod += 1
@@ -1084,10 +1216,13 @@ def write_source_note(
     fm.append("uses_variables:" + yaml_list([f"{v['note_file']}#{v['name']}" for v in r.get("var_refs", [])]))
     fm.append("input_variables:" + yaml_list([f"{v['note_file']}#{v['name']}" for v in r.get("input_var_refs", [])]))
     fm.append("reads:" + yaml_list(r["reads"]))
-    fm.append("writes:" + yaml_list(r["writes"]))
-    fm.append("purpose: " + yaml_str("; ".join(r["desc"])))
+    generated_desc = "; ".join(r["desc"])
+    purpose = load_existing_frontmatter_scalar(target, "purpose") or generated_desc
+    desc = load_existing_summary(target) or generated_desc or "TBD"
 
-    desc = "; ".join(r["desc"]) if r["desc"] else "TBD"
+    fm.append("writes:" + yaml_list(r["writes"]))
+    fm.append("purpose: " + yaml_str(purpose))
+
 
     b = []
     b.append(f"# {r['name']}")
@@ -1462,14 +1597,19 @@ def write_indexes(records: list[dict], output_writers: dict[str, set[str]]) -> N
 - [[module-variable-index]] - all modules and their type/variable definitions
 - [[input-output-file-index]] - input/output file lists and reader/writer relationships
 - [[input-file-architecture]] - how readers locate input files (file.cio vs hardcoded) and file roles (database / scenario / operations)
+- [[hardcoded-input-files]] - curated index of literal/default input filenames not controlled by file.cio
+- [[osu-1hru-input-inventory]] - configured files, active objects, and record chains in the default debug scenario
+- [[osu-1hru-baseline-and-debug]] - reproducible build, run, breakpoint, and output checks for the default scenario
+- [[source-reading-checklist]] - required questions and status vocabulary for durable source-reading notes
 
 ## How To Use
 
-1. To read a routine, open `01-source-routines/xxx.f90.md` and review "Call Relationships" and "File I/O".
-2. To see who calls a routine, use the live Dataview back-query at the end of each routine note.
-3. To inspect key variables, open the defining module under `02-modules-and-variables/`.
-4. To update reading progress, change frontmatter tags from `swat/to-read` to `swat/in-progress` or `swat/read`, and fill in `purpose`.
-5. To classify a functional domain, add tags such as `swat/domain-hydrology`, `swat/domain-sediment`, or `swat/domain-reservoir`.
+1. Before changing model behavior, establish the current scenario result with [[osu-1hru-baseline-and-debug]].
+2. To read a routine, open `01-source-routines/xxx.f90.md` and review "Call Relationships" and "File I/O".
+3. To see who calls a routine, use the live Dataview back-query at the end of each routine note.
+4. To inspect key variables, open the defining module under `02-modules-and-variables/`.
+5. To update reading progress, follow [[source-reading-checklist]], change frontmatter tags from `swat/to-read` to `swat/in-progress` or `swat/read`, and fill in `purpose`.
+6. To classify a functional domain, add tags such as `swat/domain-hydrology`, `swat/domain-sediment`, or `swat/domain-reservoir`.
 
 ## Regenerate
 
@@ -1477,6 +1617,12 @@ After source updates, rerun the generator to refresh structured fields. Content 
 
 ```bash
 python "docs/_tools/gen_swat_notes.py"
+```
+
+To check for stale generated notes without writing files:
+
+```bash
+python "docs/_tools/gen_swat_notes.py" --check-orphans
 ```
 """
     write_note(IDX_DIR / "00-SWATPLUS-overview.md", INDEX_FM, overview)
@@ -1578,6 +1724,9 @@ SORT file ASC
 ## Controlling Input File
 
 - [[file.cio]] - control file that declares the input files and output path
+- [[input-file-architecture]] - how readers locate input files and how file roles differ
+- [[hardcoded-input-files]] - literal/default filenames outside the main file.cio list
+- [[osu-1hru-input-inventory]] - configured and active inputs in the default debug scenario
 """
     write_note(IDX_DIR / "input-output-file-index.md", INDEX_FM, io_index)
 

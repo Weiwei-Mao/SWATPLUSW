@@ -30,13 +30,13 @@ writes:
   - files_out.out
   - diagnostics.out
   - area_calc.out
-purpose: ""
+purpose: "Reads file.cio, opens core run-report outputs, reads basin controls and timing, and initializes basin defaults plus CO2/carbon controls."
 ---
 
 # proc_bsn
 
 > [!info] Summary
-> TBD
+> Reads `file.cio`, opens core run-report outputs, then loads basin controls, objects, timing, basin parameters, print codes, CO2, and carbon settings.
 
 ## Basic Information
 - **Type**: `subroutine`
@@ -95,13 +95,13 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 23: call [[basin_read_cc.f90]]
 - Line 24: call [[basin_read_objs.f90]]
 - Line 25: call [[time_read.f90]]
-- Line 28: time%dmt, time step in minutes for rainfall, runoff and routing
+- Line 28: `time%dtm`, time step in minutes for rainfall, runoff, and routing.
 - Line 31: call [[basin_read_prm.f90]]
-- Line 32: call [[basin_prm_default.f90]], set default parameters of [[basin_module.f90#bsn_prm]], [[hru_module.f90#hru_module#uptake]]
+- Line 32: call [[basin_prm_default.f90]], set default parameters of [[basin_module.f90#bsn_prm]] and [[hru_module.f90#uptake]]
 - Line 33: call [[basin_print_codes_read.f90]]
 - Line 34: call [[co2_read.f90]], read atmosphere co2 input if it is available
 - Line 35: call [[carbon_bsn_read.f90]]
 - Line 36: call [[carbon_layers_read.f90]]
 - End
-- Line 12 [[readcio_read.f90]] is the file.cio parser: it reads file.cio and fills the in_* vars (in_sim, in_cli, in_init, …) that every later reader looks up by name. That's what makes "file.cio-registered" files work. co2 (L34) and carbon_layers (L36) do the opposite — names hardwired in code. More: [[input-file-architecture]].
+- Line 12 [[readcio_read.f90]] is the file.cio parser: it reads `file.cio` and fills the `in_*` filename structures (`in_sim`, `in_cli`, `in_init`, etc.) that later readers use. [[co2_read.f90]] and [[carbon_layers_read.f90]] use hardcoded filenames instead. More: [[input-file-architecture]].
 <!-- USER-NOTES-END -->

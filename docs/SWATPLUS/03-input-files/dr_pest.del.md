@@ -2,10 +2,9 @@
 type: input
 tags:
   - swat/input
-  - swat/auxiliary-input
 file: dr_pest.del
 ext: del
-cio_field: []
+cio_field: pest
 read_by:
   - dr_read_pest.f90
 purpose: ""
@@ -14,10 +13,10 @@ purpose: ""
 # dr_pest.del
 
 > [!info] Input File
-> Referenced directly by source code or by a default file-name constant outside the main `file.cio` list.
+> Declared in `file.cio` field `pest`. See [[file.cio]] for the controlling file map.
 
 ## Overview
-- **Declared in `file.cio` field**: not listed directly; referenced by source code or a default file-name constant.
+- **Declared in `file.cio` field**: `pest`
 - **Format source**: generated from Fortran `open`/`read` statements and module/type comments.
 - **Format style**: SWAT+ text input; most readers use list-directed Fortran reads.
 

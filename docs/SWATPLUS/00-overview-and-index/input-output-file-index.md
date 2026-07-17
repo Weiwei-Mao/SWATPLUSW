@@ -30,3 +30,6 @@ SORT file ASC
 ## Controlling Input File
 
 - [[file.cio]] - control file that declares the input files and output path
+- [[input-file-architecture]] - how readers locate input files and how file roles differ
+- [[hardcoded-input-files]] - literal/default filenames outside the main file.cio list
+- [[osu-1hru-input-inventory]] - configured and active inputs in the default debug scenario

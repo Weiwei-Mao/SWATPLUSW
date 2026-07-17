@@ -22,13 +22,13 @@ uses_variables: []
 input_variables: []
 reads: []
 writes: []
-purpose: ""
+purpose: "Logs startup timing while reading measured climate and weather-generator data files."
 ---
 
 # proc_date_time
 
 > [!info] Summary
-> TBD
+> Writes the current startup time, then reads measured PET, precipitation, temperature, solar radiation, humidity, wind, and weather-generator inputs.
 
 ## Basic Information
 - **Type**: `subroutine`

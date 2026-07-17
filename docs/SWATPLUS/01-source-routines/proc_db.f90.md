@@ -43,19 +43,19 @@ uses_variables: []
 input_variables: []
 reads: []
 writes: []
-purpose: ""
+purpose: "Reads shared parameter databases plus management, operation, structural, plant-community, and landuse libraries."
 ---
 
 # proc_db
 
 > [!info] Summary
-> TBD
+> Loads the shared database layer before object construction: plants, operations, pesticides/fertilizers/manure, urban/pathogen/septic parameters, management operations, structural practices, plant communities, curve-number/overland tables, and landuse definitions.
 
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `proc_db.f90`
 - **Modules used**:
-  - -
+  - (none)
 - **Subroutine calls**: 30 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships

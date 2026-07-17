@@ -20,13 +20,13 @@ input_variables:
 reads:
   - manure_om.frt
 writes: []
-purpose: ""
+purpose: "Reads hardcoded manure organic/mineral nutrient definitions from manure_om.frt into manure_om."
 ---
 
 # manure_orgmin_read
 
 > [!info] Summary
-> TBD
+> Reads `manure_om.frt`, allocates `manure_om(:)`, and stores manure water, carbon, nitrogen, phosphorus, and ammonium fractions.
 
 ## Basic Information
 - **Type**: `subroutine`
@@ -68,5 +68,5 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Check file [[manure_om.frt]]
-- add to [[fertilizer_data_module.f90#manure_db]]
+- Populates [[fertilizer_data_module.f90#manure_om]] and sets `db_mx%manure_om`.
 <!-- USER-NOTES-END -->

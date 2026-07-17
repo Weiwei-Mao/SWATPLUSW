@@ -2,10 +2,9 @@
 type: input
 tags:
   - swat/input
-  - swat/auxiliary-input
 file: om_water.ini
 ext: ini
-cio_field: []
+cio_field: om_water
 read_by:
   - om_water_init.f90
 purpose: ""
@@ -14,10 +13,10 @@ purpose: ""
 # om_water.ini
 
 > [!info] Input File
-> Referenced directly by source code or by a default file-name constant outside the main `file.cio` list.
+> Declared in `file.cio` field `om_water`. See [[file.cio]] for the controlling file map.
 
 ## Overview
-- **Declared in `file.cio` field**: not listed directly; referenced by source code or a default file-name constant.
+- **Declared in `file.cio` field**: `om_water`
 - **Format source**: generated from Fortran `open`/`read` statements and module/type comments.
 - **Format style**: SWAT+ text input; most readers use list-directed Fortran reads.
 

@@ -45,7 +45,7 @@ So the **filename is whatever the user typed in `file.cio`**; renaming a file me
 | [[cli_read_atmodep.f90]] | `in_cli%atmo_cli` | atmodep.cli |
 | [[cli_staread.f90]] | `in_cli%weat_sta` | weather-sta.cli |
 | [[ch_read_temp.f90]] | `in_cha%temp` | temperature.cha |
-| [[hydrol_read.f90]] / [[topo_read.f90]] / [[field_read.f90]] | `in_hyd%*` | hydrology.hyd / topography.hyd / field_fld |
+| [[hydrol_read.f90]] / [[topo_read.f90]] / [[field_read.f90]] | `in_hyd%*` | hydrology.hyd / topography.hyd / field.fld |
 | [[exco_read_salt.f90]] / [[dr_read_salt.f90]] | `in_exco%salt` / `in_delr%salt` | exco_salt.exc / dr_salt.del |
 
 ### (B) Hardcoded filename — newer modules, not file.cio-controlled

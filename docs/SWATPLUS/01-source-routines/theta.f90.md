@@ -25,7 +25,7 @@ purpose: "this function corrects rate constants for temperature; Equation is III
 - **Type**: `subroutine`
 - **Source file**: `theta.f90`
 - **Modules used**:
-  - -
+  - (none)
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships

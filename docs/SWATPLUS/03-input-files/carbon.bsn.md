@@ -4,7 +4,7 @@ tags:
   - swat/input
 file: carbon.bsn
 ext: bsn
-cio_field: carboin_bsn
+cio_field: carbon_bsn
 read_by:
   - carbon_bsn_read.f90
 purpose: ""
@@ -13,10 +13,10 @@ purpose: ""
 # carbon.bsn
 
 > [!info] Input File
-> Declared in `file.cio` field `carboin_bsn`. See [[file.cio]] for the controlling file map.
+> Declared in `file.cio` field `carbon_bsn`. See [[file.cio]] for the controlling file map.
 
 ## Overview
-- **Declared in `file.cio` field**: `carboin_bsn`
+- **Declared in `file.cio` field**: `carbon_bsn`
 - **Format source**: generated from Fortran `open`/`read` statements and module/type comments.
 - **Format style**: SWAT+ text input; most readers use list-directed Fortran reads.
 

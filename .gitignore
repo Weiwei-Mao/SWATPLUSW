@@ -37,6 +37,11 @@ desktop.ini
 *.swp
 *~
 
+# --- Local agent / vault UI state -----------------------------------------
+/.claude/
+/docs/.claude/
+/docs/.obsidian/workspace.json
+
 # --- SWAT+ run outputs inside scenarios -----------------------------------
 # Scenario inputs (file.cio, *.bsn, *.lum, *.pcp, ...) stay tracked.
 /VSProj/SWAT/*.out

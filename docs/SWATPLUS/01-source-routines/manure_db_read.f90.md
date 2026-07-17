@@ -21,13 +21,13 @@ input_variables:
 reads:
   - manure_db.frt
 writes: []
-purpose: ""
+purpose: "Reads hardcoded extended manure database records from manure_db.frt and cross-references organic/mineral manure definitions."
 ---
 
 # manure_db_read
 
 > [!info] Summary
-> TBD
+> Reads `manure_db.frt`, stores manure database names and constituent cross-reference names, and resolves `org_min` to `manure_om` via `iorg_min`.
 
 ## Basic Information
 - **Type**: `subroutine`
@@ -69,5 +69,5 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 ## Notes
 Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
-- open the file [[manure_db.frt]] and read the file. Data are file names.
+- Opens [[manure_db.frt]] and reads manure database records: record name plus cross-reference names (`org_min`, `pests`, `paths`, `hmets`, `salts`, `constit`) and description. The active implemented cross-reference maps `org_min` to [[fertilizer_data_module.f90#manure_om]] and stores the index in `manure_db(:)%iorg_min`.
 <!-- USER-NOTES-END -->

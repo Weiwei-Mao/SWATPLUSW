@@ -29,8 +29,6 @@ input_variables:
   - climate_module.f90#tmp_n
 reads:
   - in_cli%tmp_cli
-  - tmp(i
-  - TRIM(ADJUSTL(in_path_tmp%tmp
 writes: []
 purpose: ""
 ---
@@ -48,7 +46,7 @@ purpose: ""
   - [[climate_module.f90]]
   - [[maximum_data_module.f90]]
   - [[time_module.f90]]
-- **Subroutine calls**: 1 | **Files read**: 3 | **Files written**: 0
+- **Subroutine calls**: 1 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 **This routine calls:**
@@ -85,8 +83,6 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 ## File I/O
 - **Reads**:
   - [[tmp.cli]]
-  - `tmp(i` _(variable; see [[file.cio]])_
-  - `TRIM(ADJUSTL(in_path_tmp%tmp` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes
