@@ -32,6 +32,7 @@ tags:
 - [[module-variable-index]] - all modules and their type/variable definitions
 - [[input-output-file-index]] - input/output file lists and reader/writer relationships
 - [[input-file-architecture]] - how readers locate input files (file.cio vs hardcoded) and file roles (database / scenario / operations)
+- [[online-documentation]] - SWAT+ online documentation URL and priority mirror plan
 
 ## How To Use
 
