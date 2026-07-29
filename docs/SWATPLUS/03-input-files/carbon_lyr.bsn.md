@@ -14,10 +14,10 @@ purpose: "Per-layer carbon transformation and allocation coefficients used with 
 # carbon_lyr.bsn
 
 > [!info] Input File
-> Companion file for [[carbon.bsn]]. It is not listed directly in `file.cio`; [[carbon_bsn_read.f90]] derives its name from the `carboin_bsn` entry.
+> Companion file for [[carbon.bsn]]. It is not listed directly in `file.cio`; [[carbon_bsn_read.f90]] derives its name from the `carbon_bsn` entry.
 
 ## Overview
-- **Declared in `file.cio` field**: not listed directly. The reader derives this file from `carboin_bsn`.
+- **Declared in `file.cio` field**: not listed directly. The reader derives this file from `carbon_bsn`.
 - **Derived name rule**: `carbon.bsn` -> `carbon_lyr.bsn`; `foo.bsn` -> `foo_lyr.bsn`; a name without an extension gets `_lyr.bsn` appended.
 - **Required when**: dynamic carbon is enabled (`codes.bsn` carbon / `bsn_cc%cswat` = `2`).
 - **Format source**: [[carbon_bsn_read.f90]] and the Ames_sub1 demo input.

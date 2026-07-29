@@ -25,8 +25,6 @@ input_variables:
   - climate_module.f90#hmd_n
 reads:
   - in_cli%hmd_cli
-  - hmd(i
-  - TRIM(ADJUSTL(in_path_hmd%hmd
 writes: []
 purpose: ""
 ---
@@ -44,7 +42,7 @@ purpose: ""
   - [[climate_module.f90]]
   - [[maximum_data_module.f90]]
   - [[time_module.f90]]
-- **Subroutine calls**: 0 | **Files read**: 3 | **Files written**: 0
+- **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
@@ -76,8 +74,6 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 ## File I/O
 - **Reads**:
   - [[hmd.cli]]
-  - `hmd(i` _(variable; see [[file.cio]])_
-  - `TRIM(ADJUSTL(in_path_hmd%hmd` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes

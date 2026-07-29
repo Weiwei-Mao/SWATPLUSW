@@ -48,19 +48,19 @@ uses_variables: []
 input_variables: []
 reads: []
 writes: []
-purpose: ""
+purpose: "Reads environmental, constituent, topography, hydrology, shade, snow, and soil inputs after shared databases are loaded."
 ---
 
 # proc_read
 
 > [!info] Summary
-> TBD
+> Reads environmental and object-support inputs after the shared databases: channel temperature, climate stations and deposition, constituent initialization, topography/field/hydrology, shade factors, snow, and soils.
 
 ## Basic Information
 - **Type**: `subroutine`
 - **Source file**: `proc_read.f90`
 - **Modules used**:
-  - -
+  - (none)
 - **Subroutine calls**: 35 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships
@@ -151,11 +151,10 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 52: call [[topo_read.f90]], read [[input_file_module.f90#in_hyd]], %topogr_hyd
 - Line 53: call [[field_read.f90]], read [[input_file_module.f90#in_hyd]] %field_fld
 - Line 54: call [[hydrol_read.f90]], read [[input_file_module.f90#in_hyd]] %hydrol_hyd (hydrology.hyd)
-- Line 56: [[shade_factor_read.f90]] reads `in_shf%ssff_shf` — but this is **dead code**. Nothing ever puts a filename in `in_shf` (not in file.cio, not set by any routine), so the reader always thinks the file is missing and skips. Shade factors never load; looks unfinished/optional.
+- Line 56: [[shade_factor_read.f90]] reads `in_shf%ssff_shf`. This filename is not `file.cio`-controlled; it defaults to `shade_factor.shf` in [[input_file_module.f90#in_shf]]. If that file is absent, the reader allocates an empty `shf_db(0:0)` and leaves `db_mx%shf` at 0.
 - Line 58: call [[snowdb_read.f90]], read [[input_file_module.f90#in_parmdb]] %snow
 - Line 59: call [[soil_db_read.f90]], read [[input_file_module.f90#in_sol]] %soils_sol
 - Line 60: call [[soil_lte_db_read.f90]], read [[input_file_module.f90#in_sol]] %lte_sol
 - End
 - How files are opened here: names listed in file.cio are looked up via the in_* vars (e.g. soil_plant.ini, nutrients.sol, temperature.cha); the salt_/cs_ names are hardwired in the reader itself (e.g. salt_hru.ini). Full picture: [[input-file-architecture]].
-- (Fixed 2026-07-16) Generator used to skip input files with no extension (like salt_plants) — patched, notes now exist.
 <!-- USER-NOTES-END -->

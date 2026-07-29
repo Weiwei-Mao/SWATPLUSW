@@ -3,7 +3,7 @@ type: source
 subtype: program
 tags:
   - swat/source
-  - swat/to-read
+  - swat/read
 file: main.f90
 note_file: main.f90
 subroutine: main
@@ -91,13 +91,13 @@ writes:
   - simulation.out
   - erosion.txt
   - success.fin
-purpose: ""
+purpose: "Orchestrates SWAT+ startup, input loading, object setup, calibration initialization, simulation dispatch, and completion output."
 ---
 
 # main
 
 > [!info] Summary
-> TBD
+> Main program startup path: opens top-level outputs, calls the basin/date/database/read orchestration routines, builds connectivity and objects, initializes optional calibration paths, runs the simulation control path, and writes completion output.
 
 ## Basic Information
 - **Type**: `program`

@@ -25,7 +25,7 @@ purpose: "this function calculates the plant stress factor caused by limited; su
 - **Type**: `subroutine`
 - **Source file**: `nuts.f90`
 - **Modules used**:
-  - -
+  - (none)
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships

@@ -25,7 +25,7 @@ purpose: "this subroutine calculates flow rate or flow velocity using Manning\"s
 - **Type**: `subroutine`
 - **Source file**: `qman.f90`
 - **Modules used**:
-  - -
+  - (none)
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships

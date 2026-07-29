@@ -25,7 +25,7 @@ purpose: "this function generates a random number from a triangular distribution
 - **Type**: `subroutine`
 - **Source file**: `atri.f90`
 - **Modules used**:
-  - -
+  - (none)
 - **Subroutine calls**: 0 | **Files read**: 0 | **Files written**: 0
 
 ## Call Relationships

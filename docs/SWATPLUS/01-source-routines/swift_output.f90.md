@@ -74,7 +74,6 @@ writes:
   - SWIFT/res_dat.swf
   - SWIFT/res_dr.swf
   - SWIFT/recall.swf
-  - SWIFT/" // trim(adjustl(recall_db(irec
   - SWIFT/object_prt.swf
 purpose: ""
 ---
@@ -100,7 +99,7 @@ purpose: ""
   - [[sd_channel_module.f90]]
   - [[time_module.f90]]
   - [[recall_module.f90]]
-- **Subroutine calls**: 3 | **Files read**: 0 | **Files written**: 13
+- **Subroutine calls**: 3 | **Files read**: 0 | **Files written**: 12
 
 ## Call Relationships
 **This routine calls:**
@@ -170,7 +169,6 @@ WHERE type = "source" AND contains(calls, this.subroutine)
   - [[SWIFT_res_dat.swf]]
   - [[SWIFT_res_dr.swf]]
   - [[SWIFT_recall.swf]]
-  - `SWIFT/" // trim(adjustl(recall_db(irec` _(variable; see [[file.cio]])_
   - [[SWIFT_object_prt.swf]]
 
 <!-- USER-NOTES-START -->

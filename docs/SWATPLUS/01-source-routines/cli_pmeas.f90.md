@@ -26,16 +26,14 @@ input_variables:
   - climate_module.f90#pcp_n
 reads:
   - in_cli%pcp_cli
-  - pcp(i
-  - TRIM(ADJUSTL(in_path_pcp%pcp
 writes: []
-purpose: ""
+purpose: "Reads the precipitation station list and each station's precipitation time series into climate_module pcp arrays."
 ---
 
 # cli_pmeas
 
 > [!info] Summary
-> TBD
+> Reads `pcp.cli`, opens each listed precipitation station file, stores station metadata, and loads daily or subdaily precipitation data into `pcp(:)`.
 
 ## Basic Information
 - **Type**: `subroutine`
@@ -46,7 +44,7 @@ purpose: ""
   - [[basin_module.f90]]
   - [[input_file_module.f90]]
   - [[time_module.f90]]
-- **Subroutine calls**: 0 | **Files read**: 3 | **Files written**: 0
+- **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
@@ -78,8 +76,6 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 ## File I/O
 - **Reads**:
   - [[pcp.cli]]
-  - `pcp(i` _(variable; see [[file.cio]])_
-  - `TRIM(ADJUSTL(in_path_pcp%pcp` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes
@@ -91,8 +87,8 @@ Use this section for line notes, key variables, and interpretation. This section
 		- Line 38-47, count lines, imax
 		- Line 52-60, read the data, actually, it is file name of precipitation file
 		- Line 62-85, open the file, and read the data into [[climate_module.f90#pcp]]
-		  This is first part, read number of year, tstep, lat, lon, and elev of the station
-		  **tstep** shown in the weather input file, actually, they are **Julian day of year**, not any steps.
+		  This first part reads the station metadata: number of years, `tstep`, latitude, longitude, and elevation.
+		  `tstep` is the station file time-step flag/value. Later data rows use `istep` as the Julian day of year.
 		- Line 87-150, read the precipitation data
 		  The data are stored in [[climate_module.f90#pcp]] %ts
 - End

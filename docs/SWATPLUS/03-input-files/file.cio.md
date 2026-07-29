@@ -25,7 +25,7 @@ purpose: "Control file that declares SWAT+ input files and the output path"
  - bsn
  - **codes_bas**: codes.bsn
  - **parms_bas**: parameters.bsn
- - **carboin_bsn**: carbon.bsn
+ - **carbon_bsn**: carbon.bsn
 
 ### Line 4: in_cli
  - climate
@@ -100,13 +100,13 @@ purpose: "Control file that declares SWAT+ input files and the output path"
 
 ### Line 11: in_rec
 - recall
-- **recall_rec**: recall.exc
+- **recall_rec**: recall.rec
 
 ### Line 12: in_delr
 - dr
 - **del_ratio**: delratio.del
 - **om**: dr_om.del
-- **pest**: dr_pes.del
+- **pest**: dr_pest.del
 - **path**: dr_path.del
 - **hmet**:: dr_hmet.del
 - **salt**: dr_salt.del
@@ -137,7 +137,7 @@ purpose: "Control file that declares SWAT+ input files and the output path"
 - hydrology
 - **hydrol_hyd**: hydrology.hyd
 - **topogr_hyd**: topography.hyd
-- **field_fld**: field_fld
+- **field_fld**: field.fld
 
 ### Line 18: in_str
 - structural
@@ -155,7 +155,7 @@ purpose: "Control file that declares SWAT+ input files and the output path"
 - **pest**: pesticide.pes
 - **pathcom_db**: pathogens.pth
 - **hmetcom_db**: metals.mtl
-- **saltcom.db**: salt.slt
+- **saltcom_db**: salt.slt
 - **urban_urb**: urban.urb
 - **septic_sep**: septic.sep
 - **snow**: snow.sno
@@ -171,7 +171,7 @@ purpose: "Control file that declares SWAT+ input files and the output path"
 
 ### Line 21: in_lum
 - lum
-- **landuse_lim**: landuse_lum
+- **landuse_lum**: landuse.lum
 - **management_sch**: management.sch
 - **cntable_lum**: cntable.lum
 - **cons_prac_lum**: cons_practice.lum
@@ -193,7 +193,7 @@ purpose: "Control file that declares SWAT+ input files and the output path"
 - init
 - **plant**: plant.ini
 - **soil_plant_ini**: soil_plant.ini
-- **om_water**: on_water.ini
+- **om_water**: om_water.ini
 - **pest_soil**: pest_hru.ini
 - **pest_water**: pest_water.ini
 - **path_soil**: path_hru.ini

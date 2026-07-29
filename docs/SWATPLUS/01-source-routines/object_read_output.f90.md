@@ -30,7 +30,6 @@ input_variables:
   - hydrograph_module.f90#ob_out
 reads:
   - in_sim%object_prt
-  - ob_out(i
 writes: []
 purpose: ""
 ---
@@ -47,7 +46,7 @@ purpose: ""
   - [[input_file_module.f90]]
   - [[hydrograph_module.f90]]
   - [[maximum_data_module.f90]]
-- **Subroutine calls**: 0 | **Files read**: 2 | **Files written**: 0
+- **Subroutine calls**: 0 | **Files read**: 1 | **Files written**: 0
 
 ## Call Relationships
 (No call statements; leaf node.)
@@ -85,7 +84,6 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 ## File I/O
 - **Reads**:
   - [[object.prt]]
-  - `ob_out(i` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes

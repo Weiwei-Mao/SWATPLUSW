@@ -38,9 +38,7 @@ input_variables:
   - recall_module.f90#recall_db
 reads:
   - recall_db.rec
-  - recall_db(irec
   - pest.com
-  - rec_pest(i
 writes: []
 purpose: ""
 ---
@@ -63,7 +61,7 @@ purpose: ""
   - [[constituent_mass_module.f90]]
   - [[time_module.f90]]
   - [[exco_module.f90]]
-- **Subroutine calls**: 1 | **Files read**: 4 | **Files written**: 0
+- **Subroutine calls**: 1 | **Files read**: 2 | **Files written**: 0
 
 ## Call Relationships
 **This routine calls:**
@@ -104,9 +102,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 ## File I/O
 - **Reads**:
   - [[recall_db.rec]]
-  - `recall_db(irec` _(variable; see [[file.cio]])_
   - [[pest.com]]
-  - `rec_pest(i` _(variable; see [[file.cio]])_
 
 <!-- USER-NOTES-START -->
 ## Notes

@@ -27,13 +27,13 @@ input_variables:
 reads:
   - in_parmdb%plants_plt
 writes: []
-purpose: ""
+purpose: "Reads plant parameter records from plants.plt and optionally derives C-SWAT residue partition fractions."
 ---
 
 # plant_parm_read
 
 > [!info] Summary
-> TBD
+> Reads `plants.plt` into plant database arrays, optionally includes plant class names, and derives C-SWAT partition fractions when `bsn_cc%cswat == 2`.
 
 ## Basic Information
 - **Type**: `subroutine`
@@ -89,6 +89,6 @@ Use this section for line notes, key variables, and interpretation. This section
 	  input plant name, [[plant_data_module.f90#pldb]]
 	- Else  [[basin_module.f90#bsn_cc]] %nam1 == 1
 	  input plant name + plant class
-- Line 61-73, if [[basin_module.f90#bsn_cc]] == 2 is selected, there are some excess calculation
+- Line 61-73, if `[[basin_module.f90#bsn_cc]]%cswat == 2`, derives C-SWAT residue partition fractions in [[plant_data_module.f90#cswat_1_part_fracs]] from the plant residue partition fields.
 - End
 <!-- USER-NOTES-END -->
