@@ -156,5 +156,5 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 59: call [[soil_db_read.f90]], read [[input_file_module.f90#in_sol]] %soils_sol
 - Line 60: call [[soil_lte_db_read.f90]], read [[input_file_module.f90#in_sol]] %lte_sol
 - End
-- How files are opened here: names listed in file.cio are looked up via the in_* vars (e.g. soil_plant.ini, nutrients.sol, temperature.cha); the salt_/cs_ names are hardwired in the reader itself (e.g. salt_hru.ini). Full picture: [[input-file-architecture]].
+- How files are opened here: names listed in file.cio are looked up via the in_* vars (e.g. soil_plant.ini, nutrients.sol, temperature.cha); the salt_/cs_ names are hardwired in the reader itself (e.g. salt_hru.ini). Full picture: [[01-input-file-system]].
 <!-- USER-NOTES-END -->

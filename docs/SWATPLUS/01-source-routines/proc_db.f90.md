@@ -153,5 +153,5 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 48: call [[overland_n_read.f90]], read overland Manning's n table: [[ovn_table.lum]]
 - Line 49: call [[landuse_read.f90]], read landuse management definitions: [[landuse.lum]]
 - End
-- Mostly shared databases (plants/till/pest/fert/urban/path/septic — via in_parmdb) and management/structural libraries (.ops/.str/.lum), all through file.cio. Five exceptions are hardwired: manure_om, manure_db, puddle, transplant, satbuffer. See [[input-file-architecture]].
+- Mostly shared databases (plants/till/pest/fert/urban/path/septic — via in_parmdb) and management/structural libraries (.ops/.str/.lum), all through file.cio. Five exceptions are hardwired: manure_om, manure_db, puddle, transplant, satbuffer. See [[01-input-file-system]].
 <!-- USER-NOTES-END -->

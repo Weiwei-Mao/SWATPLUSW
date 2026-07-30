@@ -103,5 +103,5 @@ Use this section for line notes, key variables, and interpretation. This section
 - Line 35: call [[carbon_bsn_read.f90]]
 - Line 36: call [[carbon_layers_read.f90]]
 - End
-- Line 12 [[readcio_read.f90]] is the file.cio parser: it reads `file.cio` and fills the `in_*` filename structures (`in_sim`, `in_cli`, `in_init`, etc.) that later readers use. [[co2_read.f90]] and [[carbon_layers_read.f90]] use hardcoded filenames instead. More: [[input-file-architecture]].
+- Line 12 [[readcio_read.f90]] is the file.cio parser: it reads `file.cio` and fills the `in_*` filename structures (`in_sim`, `in_cli`, `in_init`, etc.) that later readers use. [[co2_read.f90]] and [[carbon_layers_read.f90]] use hardcoded filenames instead. More: [[01-input-file-system]].
 <!-- USER-NOTES-END -->
