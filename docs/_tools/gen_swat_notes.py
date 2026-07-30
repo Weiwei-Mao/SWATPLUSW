@@ -1596,19 +1596,17 @@ def write_indexes(records: list[dict], output_writers: dict[str, set[str]]) -> N
 - [[call-graph]] - main call tree and call frequency table
 - [[module-variable-index]] - all modules and their type/variable definitions
 - [[input-output-file-index]] - input/output file lists and reader/writer relationships
-- [[input-file-architecture]] - how readers locate input files (file.cio vs hardcoded) and file roles (database / scenario / operations)
-- [[hardcoded-input-files]] - curated index of literal/default input filenames not controlled by file.cio
-- [[osu-1hru-input-inventory]] - configured files, active objects, and record chains in the default debug scenario
-- [[osu-1hru-baseline-and-debug]] - reproducible build, run, breakpoint, and output checks for the default scenario
-- [[source-reading-checklist]] - required questions and status vocabulary for durable source-reading notes
+- [[01-input-file-system]] - how readers locate input files (file.cio vs hardcoded) and file roles (database / scenario / operations)
+- [[07-osu-1hru-input-inventory]] - configured files, active objects, and record chains in the default debug scenario
+- [[08-osu-1hru-baseline-and-debug]] - reproducible build, run, breakpoint, and output checks for the default scenario
 
 ## How To Use
 
-1. Before changing model behavior, establish the current scenario result with [[osu-1hru-baseline-and-debug]].
+1. Before changing model behavior, establish the current scenario result with [[08-osu-1hru-baseline-and-debug]].
 2. To read a routine, open `01-source-routines/xxx.f90.md` and review "Call Relationships" and "File I/O".
 3. To see who calls a routine, use the live Dataview back-query at the end of each routine note.
 4. To inspect key variables, open the defining module under `02-modules-and-variables/`.
-5. To update reading progress, follow [[source-reading-checklist]], change frontmatter tags from `swat/to-read` to `swat/in-progress` or `swat/read`, and fill in `purpose`.
+5. To update reading progress, change frontmatter tags from `swat/to-read` to `swat/in-progress` or `swat/read`, and fill in `purpose`.
 6. To classify a functional domain, add tags such as `swat/domain-hydrology`, `swat/domain-sediment`, or `swat/domain-reservoir`.
 
 ## Regenerate
@@ -1724,9 +1722,8 @@ SORT file ASC
 ## Controlling Input File
 
 - [[file.cio]] - control file that declares the input files and output path
-- [[input-file-architecture]] - how readers locate input files and how file roles differ
-- [[hardcoded-input-files]] - literal/default filenames outside the main file.cio list
-- [[osu-1hru-input-inventory]] - configured and active inputs in the default debug scenario
+- [[01-input-file-system]] - how readers locate input files and how file roles differ
+- [[07-osu-1hru-input-inventory]] - configured and active inputs in the default debug scenario
 """
     write_note(IDX_DIR / "input-output-file-index.md", INDEX_FM, io_index)
 

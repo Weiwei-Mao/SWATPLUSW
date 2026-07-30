@@ -20,7 +20,7 @@ This is the default short feedback loop for learning or changing SWAT+. It ties 
 
 | Check | State | Evidence |
 |---|---|---|
-| Scenario inputs | verified | 71 distinct non-`null` filenames in `file.cio`; all 71 exist. See [[osu-1hru-input-inventory]]. |
+| Scenario inputs | verified | 71 distinct non-`null` filenames in `file.cio`; all 71 exist. See [[07-osu-1hru-input-inventory]]. |
 | Current source Debug rebuild | verified | Visual Studio 18.7 plus Intel Fortran 2026.1 linked `Debug|x64` with 0 errors and 0 warnings on 2026-07-16. |
 | Repeated Debug run | verified | Two independent temporary scenario copies completed with exit code `0`. |
 | Golden output baseline | verified | Both runs printed revision `cb442f7...`, contained no unresolved build placeholders, and produced identical payload hashes. |

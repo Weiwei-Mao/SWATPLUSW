@@ -14,6 +14,8 @@ organized as a reading path, not as an exhaustive generated index. The goal is
 to answer the main modeling questions first, then point to exact source,
 input-file, and output-file notes when you need details.
 
+> **Source version:** these notes track SWAT+ Revision 62 (`SWATPLUS/swatplus` submodule pinned at `cb442f7c`, 2026-07-06). When the source moves, refresh the baseline in [[08-osu-1hru-baseline-and-debug]].
+
 ## File Order
 
 | Order | File | Topic | Use it for |
@@ -25,6 +27,8 @@ input-file, and output-file notes when you need details.
 | 04 | [[04-management-schedule-and-operations]] | Management operations | Detailed explanation of `landuse.lum`, `management.sch`, operation databases, manual operations, and auto operations. |
 | 05 | [[05-online-documentation]] | External docs | Official and online SWAT+ documentation sections to compare or mirror. |
 | 06 | [[06-code-logic-issues]] | Source logic issues | Working log of possible SWAT+ channel, routing, sediment, and water-quality code issues. |
+| 07 | [[07-osu-1hru-input-inventory]] | Debug scenario inputs | Configured files, active objects, and record chains in the default one-HRU scenario. |
+| 08 | [[08-osu-1hru-baseline-and-debug]] | Debug baseline | Reproducible build, run, breakpoint, and output checks for the default scenario. |
 
 ## Main Questions
 

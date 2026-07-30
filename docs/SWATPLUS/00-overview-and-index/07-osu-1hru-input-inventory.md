@@ -55,7 +55,7 @@ A file can be present, and even named in `file.cio`, without an active object us
 | decision tables | `lum.dtl`, `res_rel.dtl` |
 | regions | `ls_unit.ele`, `ls_unit.def`, `aqu_catunit.ele` |
 
-See [[file.cio]] for the field-by-field schema and [[input-file-architecture]] for registered versus hardcoded filenames.
+See [[file.cio]] for the field-by-field schema and [[01-input-file-system]] for registered versus hardcoded filenames.
 
 ## Active Object Topology
 
@@ -125,7 +125,7 @@ The simulation-level constituent database field is `null`. `constit_db_read` the
 
 ## Hardcoded And Optional Files
 
-These files are outside the 71 `file.cio` names. Their readers and mechanisms are indexed in [[hardcoded-input-files]].
+These files are outside the 71 `file.cio` names. Their readers and mechanisms are indexed in [[01-input-file-system]] (Hardcoded Files section).
 
 | File group | Present in scenario | Interpretation |
 |---|---|---|
@@ -147,4 +147,4 @@ Re-run these checks whenever `file.cio`, `object.cnt`, a connection file, or `hr
 3. Follow selected record names from `hru-data.hru` into their database files.
 4. Follow station records into measured child climate files.
 5. Check basin switches and constituent counts before treating optional hardcoded files as active.
-6. Run the [[osu-1hru-baseline-and-debug]] checks and compare output payloads.
+6. Run the [[08-osu-1hru-baseline-and-debug]] checks and compare output payloads.
