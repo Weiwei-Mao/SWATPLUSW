@@ -86,7 +86,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+Use this section for line notes, key variables, and interpretation.
 
 - Line 15: call [[ch_read_init.f90]], Reads channel initialization names/settings from [[initial.cha]]
 	- org_min, pest, path, hmet, salt, description

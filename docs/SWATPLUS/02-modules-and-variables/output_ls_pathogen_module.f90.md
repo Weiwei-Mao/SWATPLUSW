@@ -181,5 +181,5 @@ WHERE type = "source" AND contains(module, this.module_name)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for type and variable meanings, units, and allowed values. This section is preserved when the generator is rerun.
+Use this section for type and variable meanings, units, and allowed values.
 <!-- USER-NOTES-END -->

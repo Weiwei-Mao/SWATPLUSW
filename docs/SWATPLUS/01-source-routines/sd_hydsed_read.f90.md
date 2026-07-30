@@ -91,7 +91,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+Use this section for line notes, key variables, and interpretation.
 
 - From [[input_file_module.f90#in_cha]] %hyd_sed, read [[hyd-sed-lte.cha]]
 - Get [[sd_channel_module.f90#sd_chd]]

@@ -118,7 +118,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+Use this section for line notes, key variables, and interpretation.
 
 - Line 18: call [[ch_read_temp.f90]], read channel temperature parameter/input file: [[temperature.cha]]
 - Line 19: call [[cli_read_atmodep.f90]], read atmospheric deposition input for nutrients/standard constituents: [[atmodep.cli]]

@@ -79,7 +79,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+Use this section for line notes, key variables, and interpretation.
 
 - Check the file [[input_file_module.f90#in_init]] %om_water, [[om_water.ini]]
 - Line 29-40, get imax

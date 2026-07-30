@@ -108,7 +108,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+Use this section for line notes, key variables, and interpretation.
 
 - Database used by all spatial modules
 - Line 13: call [[plant_parm_read.f90]], read plant species/crop parameter database: [[plants.plt]]

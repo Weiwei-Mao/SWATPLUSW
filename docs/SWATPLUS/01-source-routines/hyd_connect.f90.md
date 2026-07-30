@@ -133,7 +133,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+Use this section for line notes, key variables, and interpretation.
 
 - Line 63-124, set spatial_object type of this simulation. 
 	- defined in [[hydrograph_module.f90#spatial_objects]],

@@ -115,7 +115,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+Use this section for line notes, key variables, and interpretation.
 
 - Line 58, msoils, maximum numbers of soils, from [[soils.sol]]
 - Line 62-67, we already use [[soil_db_read.f90]] to read data in [[soils.sol]] into [[soil_data_module.f90#soildb]],

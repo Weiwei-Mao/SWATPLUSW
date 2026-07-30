@@ -102,7 +102,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+Use this section for line notes, key variables, and interpretation.
 
 - Line 24, check [[input_file_module.f90#in_cli]] %weat_wgn, [[weather-wgn.cli]] exist or not
 - If not, call [[gcycl.f90]], initializes the random number seeds
