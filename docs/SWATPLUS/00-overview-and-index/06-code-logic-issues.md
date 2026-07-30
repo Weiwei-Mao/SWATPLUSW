@@ -51,6 +51,8 @@ flo_time = 2 * 86400
 
 So `flo_time` is constant whenever `ht1%flo > 0`. That does not look like a real flood duration.
 
+Plugging in `ave_rate`, `flo_time` works out to `2 * 86400 = 172800` s — so it looks like a constant (about 2 days) regardless of the hydrograph. If that's right, `flo_time` is always `>= 86400`, the test `if (flo_time < 86400.)` at line 116 would never be true, and the "flood over within the day" branch would never run — only the `else` branch below.
+
 Another line in the same block:
 
 ```fortran
@@ -58,6 +60,8 @@ Another line in the same block:
 ```
 
 This looks worse because `ht1%flo` is volume with unit m3, while `ave_rate` is m3/s. So this is probably a unit problem unless one of the variable meanings is different from the comments.
+
+If this is a unit problem, it would also propagate: the same `florate` is used in the `flovol_ob` denominator at line 122, so it would affect the overbank flood volume estimate too.
 
 ### 1.2 Bed Erosion Nutrients, Unit Error
 
@@ -71,6 +75,8 @@ For bed erosion:
 
 For bank erosion, the code uses `/ 1000.` in the nutrient calculation. Here it does not.
 
+If `n_conc`/`p_conc` are in mg/kg (as the inline comment assumes) and the nutrient fields are stored in kg, then `sed [t] * conc [mg/kg]` gives grams, and the missing `/1000` would leave `bed_ero%orgn`/`%sedp`/`%solp` about 1000x too large — but the units of `n_conc` and the storage fields need confirming before trusting that. This and 1.3 are worth reading together, since `bed_ero` does not appear to be added to the hydrograph.
+
 ### 1.3 Bed Erosion Not Added
 
 The bed erosion block ends with:
@@ -82,6 +88,8 @@ The bed erosion block ends with:
 ```
 
 So bed erosion is calculated, but it is not added to the channel hydrograph. Bank erosion and floodplain deposition do change `ht1`, but bed erosion does not. It also seems that no deposition happens for bed erosion.
+
+From a read of the code, the erosion depth does get used (`ebtm_m` feeds `ch_morph%d_yr` at line 269), but the sediment/nutrient mass (`sed`/`orgn`/`sedp`/`solp`) does not appear to be added to `ht1` anywhere — worth confirming it isn't used in a later routine. Also `bed_ero%flo` does not seem to be assigned anywhere, so `rto = bed_ero%flo / ht1%flo` at line 278 may always be 0.
 
 For bank erosion, deposition is calculated as a constant percentage of the eroded amount.
 ```fortran
@@ -124,26 +132,31 @@ In the current local `ch_rtmusk.f90`, the daily reset block is:
 
 It will overwrite the prepared `sd_ch(jrch)%msk%nsteps` and `sd_ch(jrch)%msk%substeps`.
 
+`time%step` appears to be steps-per-day (line 185 multiplies it by `substeps`), so `== 1` likely means a daily run. The reset also looks redundant with `sd_hydsed_init`, which already forces `substeps = 1` for the daily/simple case at lines 182-184 (`if rte == 0 .and. step <= 1`). A case worth checking: if init kept `substeps > 1` for stability and `ch_rtmusk` still forces 1, those stability substeps would be lost — but whether daily routing actually needs them is something to confirm.
+
 ### 2.2 Inflow Rate Under Substeps
 
 Inside the routing loop:
 
 ```fortran
-dts = time%dtm / sd_ch(jrch)%msk%substeps * 60.
-inflo = ob(icmd)%tsin(irtstep) / sd_ch(jrch)%msk%substeps
-inflo_rate = inflo / 86400.
-outflo_rate = outflo / dts
+97     dts = time%dtm / sd_ch(jrch)%msk%substeps * 60.
+
+119    inflo = ob(icmd)%tsin(irtstep) / sd_ch(jrch)%msk%substeps
+
+128    inflo_rate = inflo / 86400.
+
+159    outflo_rate = outflo / dts
 ```
 
-`inflo` is already the water volume for this Muskingum substep. Therefore the
-flow rate should use the substep duration:
+`inflo` is already the water volume for this Muskingum substep. Therefore the flow rate should use the substep duration:
 
 ```fortran
 inflo_rate = inflo / dts
 ```
 
-Using `/ 86400.` only makes sense if `inflo` is daily volume. Under subdaily or
-Muskingum substeps, it is not.
+Using `/ 86400.` only makes sense if `inflo` is daily volume. Under subdaily or Muskingum substeps, it is not.
+
+In units, `inflo [m3/substep] / dts [s/substep]` would give m3/s; dividing by `86400 [s/day]` instead looks inconsistent with how `outflo_rate` is computed (`/ dts`, line 159) in the same loop. Since `inflo_rate` feeds the rating-curve lookup at line 129, this could affect the depth/velocity used downstream — worth checking what the author intended here.
 
 ## ch_watqual4.f90
 
@@ -152,16 +165,16 @@ Muskingum substeps, it is not.
 At the start, the routine converts incoming mass to concentration:
 
 ```fortran
-ht3%orgn = 1000. * ht1%orgn / ht1%flo
-ht3%sedp = 1000. * ht1%sedp / ht1%flo
+98    ht3%orgn = 1000. * ht1%orgn / ht1%flo
+99    ht3%sedp = 1000. * ht1%sedp / ht1%flo
 ...
 ```
 
 At the end, it converts concentration back to mass:
 
 ```fortran
-ht2%orgn = ht3%orgn * ht1%flo / 1000.
-ht2%sedp = ht3%sedp * ht1%flo / 1000.
+327    ht2%orgn = ht3%orgn * ht1%flo / 1000.
+328    ht2%sedp = ht3%sedp * ht1%flo / 1000.
 ...
 ```
 
@@ -182,12 +195,12 @@ reacting on inflow volume instead of outflow volume. But for routing output,
 The algae block does this:
 
 ```fortran
-factk = Theta(gra, thgra, wtmp) - Theta(ch_nut(jnut)%rhoq, thrho, wtmp)
-algcon = 1000. * ht3%chla / ch_nut(jnut)%ai0
-alg_m1 = wq_semianalyt(tday, rt_delt, 0., factk, algcon, algin)
+205    factk = Theta(gra, thgra, wtmp) - Theta(ch_nut(jnut)%rhoq, thrho, wtmp)
+206    algcon = 1000. * ht3%chla / ch_nut(jnut)%ai0
+207    alg_m1 = wq_semianalyt(tday, rt_delt, 0., factk, algcon, algin)
 
-alg_m = wq_semianalyt(tday, rt_delt, 0., factk, algcon, algin)
-alg_m2 = alg_m - alg_m1
+209    alg_m = wq_semianalyt(tday, rt_delt, 0., factk, algcon, algin)
+210    alg_m2 = alg_m - alg_m1
 ```
 
 `alg_m1` and `alg_m` have exactly the same inputs, so `alg_m2` is always zero.
@@ -195,7 +208,7 @@ alg_m2 = alg_m - alg_m1
 Then:
 
 ```fortran
-algcon_out = wq_semianalyt(tday, rt_delt, alg_m, -alg_set, algcon, algin)
+220    algcon_out = wq_semianalyt(tday, rt_delt, alg_m, -alg_set, algcon, algin)
 ```
 
 This is the main issue: `alg_m` is a concentration, but it is passed as
@@ -216,9 +229,9 @@ next `cprev`, not `term_m`.
 The code calculates:
 
 ```fortran
-alg_no3_m = -alg_m * (1. - f1) * ch_nut(jnut)%ai1
-alg_nh4_m = -alg_m * f1 * ch_nut(jnut)%ai1
-alg_P_m = -alg_m * ch_nut(jnut)%ai2
+214    alg_no3_m = -alg_m * (1. - f1) * ch_nut(jnut)%ai1
+215    alg_nh4_m = -alg_m * f1 * ch_nut(jnut)%ai1
+216    alg_P_m = -alg_m * ch_nut(jnut)%ai2
 ```
 
 This also looks wrong because `alg_m` is final algae concentration, not algae
@@ -250,10 +263,10 @@ nitrogen equations.
 The nitrogen block has:
 
 ```fortran
-bc1_k = Theta(ch_nut(jnut)%bc1, thbc1, wtmp) ! NH3 -> NO2
-bc3_k = Theta(ch_nut(jnut)%bc3, thbc3, wtmp) ! Organic N -> ammonia
-bc1_k = bc1_k * 2.
-bc3_k = bc3_k * 2.
+248    bc1_k = Theta(ch_nut(jnut)%bc1, thbc1, wtmp) ! NH3 -> NO2
+249    bc3_k = Theta(ch_nut(jnut)%bc3, thbc3, wtmp) ! Organic N -> ammonia
+250    bc1_k = bc1_k * 2.
+251    bc3_k = bc3_k * 2.
 ```
 
 I do not see why only these two rates are doubled.
@@ -272,10 +285,10 @@ So this looks like either:
 The organic N block uses:
 
 ```fortran
-bc3_m = wq_k2m(tday, rt_delt, -bc3_k, ht3%orgn, ht3%orgn)
-factk = -rs4_k
-factm = bc3_m
-ht3%orgn = wq_semianalyt(tday, rt_delt, factm, factk, ht3%orgn, ht3%orgn)
+255    bc3_m = wq_k2m(tday, rt_delt, -bc3_k, ht3%orgn, ht3%orgn)
+256    factk = -rs4_k
+257    factm = bc3_m
+258    ht3%orgn = wq_semianalyt(tday, rt_delt, factm, factk, ht3%orgn, ht3%orgn)
 ```
 
 This includes:
@@ -303,7 +316,7 @@ not in the current code.
 The code calculates:
 
 ```fortran
-alg_m_o2 = ch_nut(jnut)%ai4 * alg_m2 + ch_nut(jnut)%ai3 * alg_m1
+266    alg_m_o2 = ch_nut(jnut)%ai4 * alg_m2 + ch_nut(jnut)%ai3 * alg_m1
 ```
 
 where:
@@ -314,8 +327,8 @@ where:
 But `alg_m_o2` is not used in the DO equation:
 
 ```fortran
-factm = rk1_m + rk2_m - rs4_k + bc1_m * ch_nut(jnut)%ai5 + bc2_m * ch_nut(jnut)%ai6
-ht3%dox = wq_semianalyt(tday, rt_delt, factm, factk, ht3%dox, ht3%dox)
+272    factm = rk1_m + rk2_m - rs4_k + bc1_m * ch_nut(jnut)%ai5 + bc2_m * ch_nut(jnut)%ai6
+273    ht3%dox = wq_semianalyt(tday, rt_delt, factm, factk, ht3%dox, ht3%dox)
 ```
 
 Also, because `alg_m1` and `alg_m` are identical, `alg_m2` is zero anyway.
