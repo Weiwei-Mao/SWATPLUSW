@@ -158,7 +158,7 @@ Water allocation files:
 | File | Reader | Notes |
 |---|---|---|
 | [[outside_rcv.wal]] | [[water_orcv_read.f90]] | outside receiving objects |
-| [[outside_src.wal]] / [[out_src.wal]] | [[water_osrc_read.f90]] | source inquires `outside_src.wal` but opens `out_src.wal`; verify before changing |
+| `outside_src.wal` / [[out_src.wal]] | [[water_osrc_read.f90]] | source inquires `outside_src.wal` but opens `out_src.wal`; verify before changing |
 | [[water_treat.wal]] | [[water_treatment_read.f90]] | treatment definitions |
 | [[water_use.wal]] | [[water_use_read.f90]] | water use definitions |
 | [[water_tower.wal]] | [[water_tower_read.f90]] | tower definitions |
