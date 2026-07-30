@@ -84,15 +84,3 @@ input-file, and output-file notes when you need details.
 | `02-modules-and-variables/` | `*_module.f90` notes for derived types and global variables | `type: module` |
 | `03-input-files/` | `file.cio` plus one note per input file | `type: input` |
 | `04-output-files/` | `.out`, `.txt`, and other output file notes | `type: output` |
-
-## Regenerate
-
-After source updates, rerun the generator to refresh structured fields. Content
-between USER-NOTES markers is preserved in source and module notes. Generated
-input/output notes may be rewritten, so keep durable explanations in the
-hand-maintained numbered overview notes or update the generator before
-rerunning.
-
-```bash
-python "docs/_tools/gen_swat_notes.py"
-```
