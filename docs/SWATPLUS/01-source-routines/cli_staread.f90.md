@@ -104,7 +104,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 27, check [[input_file_module.f90#in_cli]], %wea_sta, [[weather-sta.cli]] exist or not
 - Line 34-44, read file and count imax

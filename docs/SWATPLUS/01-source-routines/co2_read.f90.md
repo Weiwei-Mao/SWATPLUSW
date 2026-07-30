@@ -72,7 +72,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 35, call [[output_path_module.f90#open_output_file]]
 	- Open [[co2.out]]

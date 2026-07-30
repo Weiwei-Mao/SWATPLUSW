@@ -86,7 +86,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 15: call [[ch_read_init.f90]], Reads channel initialization names/settings from [[initial.cha]]
 	- org_min, pest, path, hmet, salt, description
@@ -98,6 +98,7 @@ Use this section for line notes, key variables, and interpretation.
 - Line 22: call [[ch_read.f90]],        Read regular-channel definition
 - Line 23: call [[sd_channel_read.f90]], Reads SWAT-DEG channel definition
 - Line 24: call [[sd_hydsed_init.f90]]
+	- Based on Oru_1hru demo
 	- [[object.cnt]] defines number of SWAT-DEG channels in column `lcha`; this becomes `sp_ob%chandeg`
 	- [[file.cio]] points the model to the channel files: `chandeg.con`, `initial.cha`, `nutrients.cha`, `channel-lte.cha`, `hyd-sed-lte.cha`.
 	- [[chandeg.con]] defines each actual SWAT-DEG channel object. Column 8, `lcha`, is the property/database pointer; it is read into `ob(i)%props`.
@@ -124,9 +125,11 @@ Use this section for line notes, key variables, and interpretation.
 | `chsd_d/m/y/a`                   | output             | SWAT-DEG channel flow/sediment/morphology output                                             | dynamic accumulators                                 |
 | `ch_sed_bud_d/m/y/a`             | output budget      | channel sediment, N, P budget terms                                                          | dynamic accumulators                                 |
 
+- Line 30: call [[aqu2d_init.f90]]
 
-
-
-
-
+- Line 32-41, initialize channel object if it exists, not swat-deg
+- Line 44: call [[overbank_read.f90]]
+- Line 45: call [[sd_channel_surf_link.f90]]
+- Line 47: call [[time_conc_init.f90]], Equation 2:1.3.2 in theoretical documentation. time of concentration = overland time + channel time
+- End
 <!-- USER-NOTES-END -->

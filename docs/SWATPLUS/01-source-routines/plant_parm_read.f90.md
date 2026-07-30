@@ -79,7 +79,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 24, check [[input_file_module.f90#in_parmdb]] %plants_plt exist or not
 - if it does not exist, return
@@ -89,6 +89,6 @@ Use this section for line notes, key variables, and interpretation.
 	  input plant name, [[plant_data_module.f90#pldb]]
 	- Else  [[basin_module.f90#bsn_cc]] %nam1 == 1
 	  input plant name + plant class
-- Line 61-73, if `[[basin_module.f90#bsn_cc]]%cswat == 2`, derives C-SWAT residue partition fractions in [[plant_data_module.f90#cswat_1_part_fracs]] from the plant residue partition fields.
+- Line 61-73, if [[basin_module.f90#bsn_cc]] == 2 is selected, there are some excess calculation
 - End
 <!-- USER-NOTES-END -->

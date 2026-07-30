@@ -317,5 +317,22 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Line 74, icmd, spatial object pointer
+- Line 78-426, do while iteration
+	- Line 80-90, water allocation setting. water allocation is not a normal spatial object like HRU/channel/aquifer. It is a daily management rule system that can withdraw, transfer, treat, store, return, or apply water during routing.
+	- Line 92-102, set day_cur for the ob. For HRU/RU, surface runoff can lag into the next day because of time of concentration / unit hydrograph routing.
+	- Line 104-122, initialize the inflow hyds
+	- if total number of incoming (receiving) hydrographs,
+		- Line 124-288
+	- Select case based on type, line 290-425
+		- case hru, call [[hru_control.f90]]
+		- case chandeg call [[sd_channel_control3.f90]]
+- output
+
+
+
+
+
 <!-- USER-NOTES-END -->

@@ -205,7 +205,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 30: Opens file [[simulation.out]] (unit 9003)
 - Line 38: Opens file [[erosion.txt]] (unit 888, recl 1500)
@@ -228,7 +228,45 @@ Use this section for line notes, key variables, and interpretation.
 - Line 66: call [[cs_cha_read.f90]], Reads initial channel-water concentrations for generic constituents from [[cs_channel.ini]]. It also optionally sets up [[cs_streamobs]] output. These two files are out of [[file.cio]]
 
 - Line 68: call [[lsu_read_elements.f90]], read landscape cataloging unit definitions for output
-- Line 70: call [[proc_hru.f90]]
-- Line 71: call [[proc_cha.f90]]
-- Line 72: call [[proc_aqu.f90]]
+- Line 70: call [[proc_hru.f90]], read HRU databases, allocate HRU arrays, copy selected `hru_db` records into active `hru(:)`, initialize soil/plant/hydro/topo state
+- Line 71: call [[proc_cha.f90]], read channel databases, allocate/init regular channels and SWAT-DEG channels, build rating curves, initialize channel routing state
+- Line 72: call [[proc_aqu.f90]], read aquifer database, allocate active aquifer arrays, copy selected `aqudb` records into active aquifer state
+
+- Line 75: call [[dtbl_lum_read.f90]], read decision table data for conditional management, [[lum.dtl]]
+- Line 77: call [[hru_lte_read.f90]]
+- Line 79: call [[proc_cond.f90]], crosswalks auto-management names from `management.sch` to `dtbl_lum(:)` indexes
+- Line 81: call [[res_read_weir.f90]], read [[weir.res]], reads weir equation parameters into `res_weir(:)`
+- Line 82: call [[dtbl_res_read.f90]], read [[res_rel.dtl]], reads reservoir/wetland release decision tables into `dtbl_res(:)`
+- Line 83: call [[dtbl_scen_read.f90]], read [[scen_lu.dtl]], reads scenario decision tables, mainly `lu_change` and `snow_change`
+- Line 85: call [[cal_cond_read.f90]], read [[scen_dtl.upd]], out of [[file.cio]], reads conditional update schedule and points it to `dtbl_scen(:)`
+- Line 88: call [[manure_allocation_read.f90]], read [[manure_allo.mnu]], out of [[file.cio]], reads manure source/demand allocation objects into `mallo(:)`
+- Line 90: call [[dtbl_flocon_read.f90]], read [[flo_con.dtl]], reads flow-control decision tables into `dtbl_flo(:)`
+
+- Line 93: call [[om_treat_read.f90]], read file [[om_treat.wal]], out of [[file.cio]]
+- Line 94: call [[om_use_read.f90]], read file [[om_use.wal]], out of [[file.cio]]
+- Line 95: call [[om_osrc_read.f90]], read file [[om_osrc.wal]], out of [[file.cio]]
+- Line 96: call [[water_treatment_read.f90]], read file [[water_treat.wal]], out of [[file.cio]]
+- Line 97: call [[water_use_read.f90]], call file [[water_use.wal]], out of [[file.cio]]
+- Line 99: read [[water_tower_read.f90]],
+- Line 100: read [[water_pipe_read.f90]]
+- Line 101: read [[water_canal_read.f90]]
+- Line 102: read [[water_allocation_read.f90]]
+- Line 104: read [[hru_dtbl_actions_init.f90]]
+
+- Line 118: call [[proc_cal.f90]], set calibration and soft calibration
+
+- Line 120-124, iteration based on hru
+	- isol, soil pointer in input file [[soils.sol]]
+	- Call [[soil_nutcarb_init.f90]]
+
+- Line 126: call [[proc_open.f90]], write headers in output files
+- Line 130: call [[unit_hyd_ru_hru.f90]]
+- Line 132: call [[dr_ru.f90]], calculate delivery ratio for each routing unit
+- Line 134: call [[hyd_connect_out.f90]]
+
+- Line 140-151, time iteration
+	- Line 150: call [[time_control.f90]]
+-
+
+
 <!-- USER-NOTES-END -->

@@ -95,7 +95,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 24-43, Read input file[[object.cnt]], from variable *[[input_file_module.f90#in_sim]]* get the file name
 	- Read variable *[[basin_module.f90#bsn]]*, first 3 parameters

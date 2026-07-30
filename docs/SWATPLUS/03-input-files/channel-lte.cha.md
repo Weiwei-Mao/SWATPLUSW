@@ -2,10 +2,9 @@
 type: input
 tags:
   - swat/input
-  - swat/auxiliary-input
 file: channel-lte.cha
 ext: cha
-cio_field: []
+cio_field: chan_ez
 read_by:
   - sd_channel_read.f90
 purpose: ""
@@ -14,10 +13,10 @@ purpose: ""
 # channel-lte.cha
 
 > [!info] Input File
-> Referenced directly by source code or by a default file-name constant outside the main `file.cio` list.
+> Declared in `file.cio` field `chan_ez`. See [[file.cio]] for the controlling file map.
 
 ## Overview
-- **Declared in `file.cio` field**: not listed directly; referenced by source code or a default file-name constant.
+- **Declared in `file.cio` field**: `chan_ez`
 - **Format source**: generated from Fortran `open`/`read` statements and module/type comments.
 - **Format style**: SWAT+ text input; most readers use list-directed Fortran reads.
 

@@ -268,5 +268,40 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Line 87-100, setting times
+	- time%yrc, current calendar year;
+	- yrs, current sequential year = 1
+	- time%day = 1
+	- time%mo
+	- time%day_mo
+- Line 101: call [[cli_precip_control.f90]], controls **precipitation input for each weather station**. It decides whether precipitation comes from measured `pcp.cli`/precip files or from the weather generator, handles missing/out-of-range data, and prepares current-day and next-day precipitation.
+
+- Line 103-409, year loop
+	- Line 109-138, set days for that year
+	- Line 149-156: set initial soil water
+
+	- Line 158-271, daily loop
+		- Line 159-172, update time and cpu time
+		- Line 174-198, check for end of month, year and simulation
+		- Line 200-215, check time interval for daily printing
+		- Line 218, initialize variables at beginning of day for hrus, call [[sim_initday.f90]]
+		- Line 229, call [[climate_control.f90]], is the **daily weather controller**. For each day and each weather station, whether to use measured data or generated data, then fills wst(iwst)%weat
+		- Line 231, call [[cli_atmodep_time_control.f90]], set array counter for atmospheric deposition
+		- Line 233-241, conditional reset of land use and management
+		- line 244-248, allocate manure to appropriate demand objects
+		- Line 250, call [[command.f90]], every day simulation
+		-
+
+
+
+
+
+
+
+
+
+
+
 <!-- USER-NOTES-END -->

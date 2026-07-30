@@ -67,7 +67,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 17-783, Read input file [[print.prt]], from variable *[[input_file_module.f90#in_sim]]* to get the file name
 	- File line 3, 6 parameters

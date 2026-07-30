@@ -79,7 +79,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 32, check [[input_file_module.f90#in_cli]] %pcp_cli, precipitation
 	- if it does not exist, return
@@ -87,8 +87,8 @@ Use this section for line notes, key variables, and interpretation.
 		- Line 38-47, count lines, imax
 		- Line 52-60, read the data, actually, it is file name of precipitation file
 		- Line 62-85, open the file, and read the data into [[climate_module.f90#pcp]]
-		  This first part reads the station metadata: number of years, `tstep`, latitude, longitude, and elevation.
-		  `tstep` is the station file time-step flag/value. Later data rows use `istep` as the Julian day of year.
+		  This is first part, read number of year, tstep, lat, lon, and elev of the station
+		  **tstep** shown in the weather input file, actually, they are **Julian day of year**, not any steps.
 		- Line 87-150, read the precipitation data
 		  The data are stored in [[climate_module.f90#pcp]] %ts
 - End

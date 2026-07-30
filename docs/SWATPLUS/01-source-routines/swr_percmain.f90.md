@@ -108,5 +108,23 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Line 69-75, sepday, infiltration
+- Line 79-83, crack flow
+- Line 88, Do iteration
+	- Line 92, nlay iteration
+		- Line 96-101, septic tank inflow
+		- Line 103-118, if soil water content > fc, percolation
+- Line 136, call [[swr_satexcess.f90]], if soil water content > saturation
+- Line 138-142, update soil profile water
+-
+
+
+
+
+
+
+
+
 <!-- USER-NOTES-END -->

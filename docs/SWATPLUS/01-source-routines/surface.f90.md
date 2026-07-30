@@ -96,5 +96,9 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Line 46: call [[sq_dailycn.f90]], calculate subdaily curve number value
+- Line 48-54, if precip_eff > 0.1 mm, then calculate runoff
+
 <!-- USER-NOTES-END -->

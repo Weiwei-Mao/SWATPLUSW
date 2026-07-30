@@ -536,5 +536,132 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Line 101-105, calculate soil water at the beginning of the day, st is mm water in that layer
+- Line 107-110, initialize the fraction of mixing that occurs from tillage or biomixing in each soil layer
+- Line 115-122, initialization variables
+- Line 124-132, adjust precipitation and temperature for elevation
+- Line 133, precip_eff, daily effective precip for runoff calculations
+- Line 135-144, initialization
+- Line 146-159, set tillage parameters
+- Line 161-167, initialize pesticide parameters
+- Line 169, variable initialization
+- Line 170-171, nd_30, seems no use
+- Line 179-216, check auto operations
+- Line 218-222, increment days
+- Line 224-227, update heat units
+- Line 240, calculate albedo for day
+- **Line 243-245, calculate salt ion concentration using salt equilibrium chemistry** (No relation to T)
+- **Line 247-251, calculate change in constituent concentrations due to chemical reactions and sorption**  (No relation to T)
+- Line 253-253, calculate soil temperature for soil layers
+- Line 256-257, calculate canopy interception
+- Line 259-260, calculate snow melt
+	- snow fall and snow melt
+	- sno_mm, depth of snow
+- Line 262-275, route overland flow across hru to downstream object
+- Line 277-281, route incoming lateral soil flow
+- Line 283-286, add tile flow to tile
+- Line 288-292, add aquifer flow to bottom soil layer
+- Line 295, calculate by pass flow, **preferential flow**
+- Line 298: call [[et_pot.f90]], calculate potential evapotranspiration, different from FAO-56 short grass reference
+	- reference surface: alfalfa
+	- height: 0.40 m
+	- albedo for PET: 0.23 unless snow-covered
+	- canopy resistance rc: about 49 s/m, adjusted by CO2
+	- aerodynamic resistance rv: based on wind speed and reference height formula
+- Line 299: call [[et_act.f90]], calculate actual soil evaporation.
+	- ep_max, caculated in [[et_pot.f90]], is reset based on lai_sum, to $ep\_max = \frac{lai \times pet}{3}$
+	- es_max, based on the cover of ground, cover = above ground mass + residue mass, and use cover to calculate eaj, and es_max = eaj * pet
+	- Line 241-252, calculate no3 flux from layer 2 to layer 1 based on soil evaporation
+- Line 302: call [[mgt_operatn.f90]], perform management operations
+- Line 304-313, if not wetland, call [[surface.f90]]
+- Line 318-324, check wetland/paddy irrigation
+- Line 326-334, wetland/paddy processes
+- Line 336-344, effective rainfall = surface runoff + infiltration
+- Line 346-349, add irrigation to subdaily effective precip
+- Line 352: call [[swr_percmain.f90]], soil water redistribution
+- Line 354-357, calculate saturation excess reaching the main channel for the current day
+- Line 366-376, calculate graze
+- Line 378-385, cswat = 0, compute residue decomposition and N/P mineralization
+	- call [[rsd_decomp.f90]]
+	- call [[nut_nminrl.f90]]
+- Line 387-396, cswat = 2
+	- call [[mgt_biomix.f90]]
+		- Mineral nutrients:
+	        - `soil1(jj)%mn(l)` mineral N
+		    - `soil1(jj)%mp(l)` mineral P
+		- Organic matter / carbon pools:
+		    - `soil1(jj)%tot(l)`, total organic pool dimensioned by layer
+		    - `soil1(jj)%hact(l)`, active humus for old mineralization model dimensioned by layer
+		    - `soil1(jj)%hsta(l)`, stable humus for old mineralization model dimensioned by layer
+		    - `soil1(jj)%hs(l)`, slow humus dimensioned by layer
+		    - `soil1(jj)%hp(l)`, passive humus dimensioned by layer
+		    - `soil1(jj)%microb(l)`, microbial biomass
+		    - `soil1(jj)%str(l)`, structural litter pool dimensioned by layer
+		    - `soil1(jj)%lig(l)`, lignin pool dimensioned by layer
+		    - `soil1(jj)%meta(l)`, metabolic litter pool dimensioned by layer
+		    - `soil1(jj)%man(l)`, manure pool dimensioned by layer
+		    - `soil1(jj)%water(l)`, water soluble
+		- Plant residue:
+	        - `soil1(jj)%pl(ipl)%rsd(l)` soil-layer residue by plant
+		    - `pl_mass(jj)%rsd(ipl)` surface residue is moved into soil
+		    - `pl_mass(jj)%rsd_tot` is reduced accordingly
+		- Soil physical properties:
+			- `soil(jj)%phys(l)%clay`
+			- `soil(jj)%phys(l)%silt`
+			- `soil(jj)%phys(l)%sand`
+			- `soil(jj)%phys(l)%st` soil water/storage
+	- call [[cbn_surfrsd_decomp.f90]]
+		- plant residue to first soil layer's meta, str, and lig pools
+	- call [[cbn_rsd_transfer.f90]]
+		- root residue to soil layers' meta, str, and lig pools
+	- call [[cbn_zhang2.f90]]
+- Line 398, call [[nut_nitvol.f90]], nitrification from NH3 -> NO3, and volatilization
+- Line 400-404, P model, p flux between the labile, active mineral and stable mineral p pools
+	- 0, original soil P model
+	- 1, Vadas and White (2010)
+- Line 406-411, septic process
+- Line 413-421, [[pl_community.f90]], partitions, predicts daily potential growth of total plant biomass and roots and calculates leaf area index
+- Line 428-441, check monsoon season for tropical plants
+- Line 443, [[pl_grow.f90]], compute plant biomass, leaf, root, and seed growth
+- Line 446-452, reset harvest biomass and number of harvests for yearly yield output
+- Line 454-476, compute stress
+- Line 478-493, compute amount of water stored to 300 mm
+- Line 495-498, calculate soil water content for each layer, st/thick + wp
+- Line 500-502, actual ET
+	- ep_day, calculate in [[pl_community.f90]], [[pl_waterup.f90]]
+	- es_day, calculate in [[et_act.f90]]
+	- canev, canopy evaporation
+- Line 504-507, gwflow ep
+- Line 509-519, pesticide movement
+- Line 524-540, organic carbon and nitrogen in runoff
+- Line 542-543, add nitrate in rainfall to soil profile
+- Line 545-546, loss of nitrate via surface runoff, lateral flow, tile flow, and percolation
+- Line 562-563, phosphorus movement
+- Line 565-572, salt movement
+- Line 574-580, cs movement
+- Lone 582-587, pathogen transport
+- Line 654, qdr = qday + latq + qtile
+	- qdr = water yield
+	- qday = daily runoff
+	- latq = lateral flow
+	- qtile = tile drainage
+- Line 886, hru_hyds
+	- ob(icmd)%hd(1) = hz          ! total HRU outflow hydrograph
+	- ob(icmd)%hd(2) = hz          ! recharge / percolation hydrograph
+	- ob(icmd)%hd(3) = hz          ! surface runoff hydrograph
+	- ob(icmd)%hd(4) = hz          ! lateral soil flow hydrograph
+	- ob(icmd)%hd(5) = hz          ! tile flow hydrograph
+
+
+
+
+
+
+
+
+
+
+
 <!-- USER-NOTES-END -->

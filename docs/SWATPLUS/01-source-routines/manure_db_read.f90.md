@@ -67,7 +67,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
-- Opens [[manure_db.frt]] and reads manure database records: record name plus cross-reference names (`org_min`, `pests`, `paths`, `hmets`, `salts`, `constit`) and description. The active implemented cross-reference maps `org_min` to [[fertilizer_data_module.f90#manure_om]] and stores the index in `manure_db(:)%iorg_min`.
+- open the file [[manure_db.frt]] and read the file. Data are file names.
 <!-- USER-NOTES-END -->

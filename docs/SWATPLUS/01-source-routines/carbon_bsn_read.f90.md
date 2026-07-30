@@ -108,15 +108,22 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - If Line 46, [[basin_module.f90#bsn_cc]] %cswat != 2, pass
 	- 0, static soil carbon, old mineralization routines
 	- 1, C-FARM one carbon pool model
 	- 2, dynamic CENTURY/SWAT-C model
 - Else
-	- Line 48-93, read [[carbon.bsn]]
-	- Line 95-165, read [[carbon_lyr.bsn]]
+	- Line 48-93, read [[carbon.bsn]] from `in_basin%carbon_bsn`
+		- Line 66-67 consumes two ignored records: title/comment and column header. They may be blank, but the records must exist.
+		- Line 69-81 reads one scalar data row with 28 values.
+		- Line 91 maps integer `mathers_method` to logical `org_frac%mathers_method`.
+	- Line 95-165, derive and read [[carbon_lyr.bsn]]
+		- Derived name rule: `carbon.bsn` -> `carbon_lyr.bsn`; `foo.bsn` -> `foo_lyr.bsn`; a name without an extension gets `_lyr.bsn` appended.
+		- Line 121-122 consumes two ignored records: title/comment and column header.
+		- Line 127-132 reads rows as `layer_id` plus 11 per-layer coefficients.
+		- Invalid layer ids are logged and skipped; valid rows assign `carbdb(layer_id)` and `org_allo(layer_id)`.
 	- The derived layer file currently expects two valid coefficient rows because `carbdb` and `org_allo` are `dimension(2)` in [[carbon_module.f90]].
 - End
 <!-- USER-NOTES-END -->

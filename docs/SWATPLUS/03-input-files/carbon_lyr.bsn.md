@@ -60,7 +60,7 @@ This two-row constraint applies to the carbon coefficient groups in `carbon_lyr.
 
 ## Ames_sub1 Example
 
-The Ames_sub1 demo provides two coefficient rows:
+The Ames_sub1 demo enables dynamic carbon with `codes.bsn` carbon = `2`, so this derived companion file is required alongside [[carbon.bsn]]. The demo file at `VSProj/SWAT/Ames_sub1/carbon_lyr.bsn` matches `SWATPLUS/swatplus/refdata/Ames_sub1/carbon_lyr.bsn` and provides the two coefficient rows required by the current `dimension(2)` declarations.
 
 ```text
 carbon_lyr.bsn: derived from carb_coefs.cbn (per-layer carbon coefficients)
@@ -73,3 +73,4 @@ carbon_lyr.bsn: derived from carb_coefs.cbn (per-layer carbon coefficients)
 - `carbon_lyr.bsn` is required together with [[carbon.bsn]] only for the dynamic CENTURY/SWAT-C carbon option (`codes.bsn` carbon = `2`).
 - If `carbon.bsn` is renamed through `file.cio`, this file must be renamed using the same derived-name rule.
 - Duplicate valid `layer_id` rows are not rejected explicitly; later rows overwrite earlier values for the same layer.
+- The model file name is `carbon_lyr.bsn` with an underscore; it is not `carbon.lyr.bsn`.

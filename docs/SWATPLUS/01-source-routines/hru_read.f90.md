@@ -112,7 +112,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 37, call [[allocate_parms.f90]], allocates array sizes
 - Line 39, check [[input_file_module.f90#in_hru]] %hru_data, [[hru-data.hru]]

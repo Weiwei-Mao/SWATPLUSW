@@ -65,7 +65,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 13-17: write exactly time in cmd and [[simulation.out]] (unit 9003)
 - Line 19-22, call [[cli_petmeas.f90]], potential evapotranspiration

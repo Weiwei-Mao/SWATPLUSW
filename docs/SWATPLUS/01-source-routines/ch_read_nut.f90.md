@@ -73,7 +73,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - From [[input_file_module.f90#in_cha]] %nut, read [[nutrient.cha]]
 - Define at [[channel_data_module.f90#ch_nut]], 

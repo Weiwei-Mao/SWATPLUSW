@@ -118,7 +118,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 18: call [[ch_read_temp.f90]], read channel temperature parameter/input file: [[temperature.cha]]
 - Line 19: call [[cli_read_atmodep.f90]], read atmospheric deposition input for nutrients/standard constituents: [[atmodep.cli]]
@@ -151,10 +151,11 @@ Use this section for line notes, key variables, and interpretation.
 - Line 52: call [[topo_read.f90]], read [[input_file_module.f90#in_hyd]], %topogr_hyd
 - Line 53: call [[field_read.f90]], read [[input_file_module.f90#in_hyd]] %field_fld
 - Line 54: call [[hydrol_read.f90]], read [[input_file_module.f90#in_hyd]] %hydrol_hyd (hydrology.hyd)
-- Line 56: [[shade_factor_read.f90]] reads `in_shf%ssff_shf`. This filename is not `file.cio`-controlled; it defaults to `shade_factor.shf` in [[input_file_module.f90#in_shf]]. If that file is absent, the reader allocates an empty `shf_db(0:0)` and leaves `db_mx%shf` at 0.
+- Line 56: [[shade_factor_read.f90]] reads `in_shf%ssff_shf` — but this is **dead code**. Nothing ever puts a filename in `in_shf` (not in file.cio, not set by any routine), so the reader always thinks the file is missing and skips. Shade factors never load; looks unfinished/optional.
 - Line 58: call [[snowdb_read.f90]], read [[input_file_module.f90#in_parmdb]] %snow
 - Line 59: call [[soil_db_read.f90]], read [[input_file_module.f90#in_sol]] %soils_sol
 - Line 60: call [[soil_lte_db_read.f90]], read [[input_file_module.f90#in_sol]] %lte_sol
 - End
 - How files are opened here: names listed in file.cio are looked up via the in_* vars (e.g. soil_plant.ini, nutrients.sol, temperature.cha); the salt_/cs_ names are hardwired in the reader itself (e.g. salt_hru.ini). Full picture: [[01-input-file-system]].
+- (Fixed 2026-07-16) Generator used to skip input files with no extension (like salt_plants) — patched, notes now exist.
 <!-- USER-NOTES-END -->

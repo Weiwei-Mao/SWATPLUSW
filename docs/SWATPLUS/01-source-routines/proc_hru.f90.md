@@ -127,7 +127,7 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Line 24: call [[hru_allo.f90]], allocation HRU related runtime arrays
 - Line 25: call [[hru_read.f90]], read [[hru-data.hru]] and resolve text names to database indexes

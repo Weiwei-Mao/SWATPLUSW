@@ -231,10 +231,10 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
 
 - Beginning-187, allocation and initiation
-- line 189, check [[input_file_module.f90#in_cha]], file [[channel_lte.cha]]
+- line 189, check [[input_file_module.f90#in_cha]], file [[channel-lte.cha]]
 - read into [[sd_channel_module.f90#sd_dat]]
 	- name
 	- initc, initial

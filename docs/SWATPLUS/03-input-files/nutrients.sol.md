@@ -32,17 +32,17 @@ purpose: ""
 - [[solt_db_read.f90]] source line 47: reads `solt_db(isolt)`
 
 ## Parameters
-| Parameter | Type | Units | Meaning | Source | Reader line |
-|---|---|---|---|---|---:|
-| `solt_db%name` | `character(len=16)` |  |  | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
-| `solt_db%exp_co` | `real` |  | depth coefficient to adjust concentrations for depth | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
-| `solt_db%lab_p` | `real` | ppm | labile P in soil surface | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
-| `solt_db%nitrate` | `real` | ppm | nitrate N in soil surface | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
-| `solt_db%fr_hum_act` | `real` | 0-1 | fraction of soil humus that is active | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
-| `solt_db%hum_c_n` | `real` | ratio | humus C:N ratio (range 8-12) | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
-| `solt_db%hum_c_p` | `real` | ratio | humus C:P ratio (range 70-90) | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
-| `solt_db%inorgp` | `real` | ppm | inorganic P in soil surface - not currently used | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
-| `solt_db%watersol_p` | `real` | ppm | water soluble P in soil surface - not currently used | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
-| `solt_db%h3a_p` | `real` | ppm | h3a P in soil surface - not currently used | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
-| `solt_db%mehlich_p` | `real` | ppm | Mehlich P in soil surface - not currently used | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
-| `solt_db%bray_strong_p` | `real` | ppm | Bray P in soil surface - not currently used | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| Parameter               | Type                | Units | Meaning                                              | Source                           |             Reader line |
+| ----------------------- | ------------------- | ----- | ---------------------------------------------------- | -------------------------------- | ----------------------: |
+| `solt_db%name`          | `character(len=16)` |       |                                                      | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| `solt_db%exp_co`        | `real`              |       | depth coefficient to adjust concentrations for depth | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| `solt_db%lab_p`         | `real`              | ppm   | labile P in soil surface                             | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| `solt_db%nitrate`       | `real`              | mg/kg | nitrate N in soil surface                            | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| `solt_db%fr_hum_act`    | `real`              | 0-1   | fraction of soil humus that is active                | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| `solt_db%hum_c_n`       | `real`              | ratio | humus C:N ratio (range 8-12)                         | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| `solt_db%hum_c_p`       | `real`              | ratio | humus C:P ratio (range 70-90)                        | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| `solt_db%inorgp`        | `real`              | ppm   | inorganic P in soil surface - not currently used     | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| `solt_db%watersol_p`    | `real`              | ppm   | water soluble P in soil surface - not currently used | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| `solt_db%h3a_p`         | `real`              | ppm   | h3a P in soil surface - not currently used           | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| `solt_db%mehlich_p`     | `real`              | ppm   | Mehlich P in soil surface - not currently used       | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |
+| `solt_db%bray_strong_p` | `real`              | ppm   | Bray P in soil surface - not currently used          | [[soil_data_module.f90#solt_db]] | [[solt_db_read.f90]]:47 |

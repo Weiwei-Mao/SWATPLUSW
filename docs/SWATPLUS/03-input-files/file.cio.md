@@ -62,8 +62,8 @@ purpose: "Control file that declares SWAT+ input files and the output path"
 - **hyd**: hydrology.cha
 - **sed**: sediment.cha
 - **nut**: nutrient.cha
-- **chan_ez**: channel_lte.cha
-- **hyd_sed**: hyd_sed_lte.cha
+- **chan_ez**: channel-lte.cha
+- **hyd_sed**: hyd-sed-lte.cha
 - **temp**: temperature.cha
 
 ### Line 7: in_res
@@ -108,7 +108,7 @@ purpose: "Control file that declares SWAT+ input files and the output path"
 - **om**: dr_om.del
 - **pest**: dr_pest.del
 - **path**: dr_path.del
-- **hmet**:: dr_hmet.del
+- **hmet**: dr_hmet.del
 - **salt**: dr_salt.del
 
 ### Line 13: in_aqu
@@ -202,7 +202,7 @@ purpose: "Control file that declares SWAT+ input files and the output path"
 - **hmet_water**: hmet_water.ini
 - **salt_soil**: salt_hru.ini
 - **salt_water**: salt_water.ini
-- NOTE: these two salt slots are declared but **ignored** — [[salt_hru_read.f90]] / [[salt_aqu_read.f90]] hardcode `salt_hru.ini` / `salt_aqu.ini` and never dereference `in_init%salt_soil`. The `rtb salt`/`rtb cs` module bypasses file.cio entirely; see [[01-input-file-system]] (Hardcoded Files).
+- NOTE: these two salt slots are declared but **ignored** by the current salt readers: [[salt_hru_read.f90]] and [[salt_aqu_read.f90]] hardcode `salt_hru.ini` and `salt_aqu.ini` instead of dereferencing `in_init%salt_soil` or `in_init%salt_water`. The `rtb salt`/`rtb cs` module bypasses `file.cio` for its data filenames; see [[01-input-file-system]].
 
 ### Line 24: in_sol
 - soils
@@ -246,9 +246,6 @@ purpose: "Control file that declares SWAT+ input files and the output path"
 
 
 ### Line 32: out_path_value
-
-
-
 
 
 

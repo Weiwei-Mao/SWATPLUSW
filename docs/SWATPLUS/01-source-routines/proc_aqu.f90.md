@@ -57,5 +57,11 @@ WHERE type = "source" AND contains(calls, this.subroutine)
 
 <!-- USER-NOTES-START -->
 ## Notes
-Use this section for line notes, key variables, and interpretation.
+Use this section for line notes, key variables, and interpretation. This section is preserved when the generator is rerun.
+
+- Line 9: call [[aqu_read.f90]], read [[aquifer.aqu]]
+- Line 10: call [[aqu_initial.f90]]
+- Line 11: call [[aqu_read_init.f90]], read [[initial.aqu]]
+- Line 12: call [[aqu_read_init_cs.f90]]
+
 <!-- USER-NOTES-END -->
