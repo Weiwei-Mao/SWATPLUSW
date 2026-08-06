@@ -499,11 +499,10 @@ So this routine is used for dynamic soil carbon, nitrogen, and phosphorus pool t
 
 In `cbn_zhang2.f90`, organic carbon and nitrogen are stored in several pools:
 
-![[Figure1.png|650]]
+![[06-Figure1.png|600]]
 
 The organic pools transform into each other. Because each pool has its own C:N ratio, a C transfer can either release N or require extra N.
-
-![[Figure2.png|650]]
+![[06-Figure2.png|600]]
 
 The following are the C/N reactions between organic pools. The C/N transformation logic is controlled by supply and demand:
 
