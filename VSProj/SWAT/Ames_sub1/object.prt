@@ -1,0 +1,3 @@
+object.prt: Ames_sub1 daily soil layer nutrient output
+id          obtyp      obtypno     hydtyp               filename
+1           hru        1           solnut_ly            obj_solnut_ly_day1.txt

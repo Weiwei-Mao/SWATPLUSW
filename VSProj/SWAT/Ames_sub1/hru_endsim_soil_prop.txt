@@ -1,0 +1,2 @@
+ demo                      SWAT+ 2026-07-13        MODULAR Rev 2026.cb442f7c05fc3bfc34349c446010f452d2737c
+ freq   soil_name           soil_lyr  soil_depth        jday         mon         day          yr        unit                gis_id    name                  bd            awc         soil_k         carbon           clay           silt           sand           rock            alb         usle_k             ec          caco3             ph

@@ -246,16 +246,16 @@ spatial object.
 
 ### Regular Channel vs SWAT-DEG Channel
 
-| Focus | Regular channel | SWAT-DEG channel |
-|---|---|---|
-| Spatial object | `sp_ob%chan` | `sp_ob%chandeg` |
-| Input path | `channel.con` -> `channel.cha` | `chandeg.con` -> `channel-lte.cha` -> `initial.cha`, `hyd-sed-lte.cha`, `nutrients.cha` |
-| Entry routine | `channel_control` branch is commented | Active `sd_channel_control3.f90` |
-| Main function | Older regular channel input family | Active simplified channel routing and degradation |
-| Stored/process data | Hydrology, sediment, nutrients, temperature | Routing, floodplain/wetland exchange, erosion, deposition |
-| Special routines | Old control path not active here | `sd_channel_sediment3.f90`, `ch_rtmusk.f90` |
-| Hydrograph flow | Three slots defined: total, recharge, overbank | `ob(icmd)%hin` -> `ht1` -> `ht2` -> `ob(icmd)%hd(1)` |
-| Key point | Useful for documenting legacy channel files | Use for current routed channel behavior |
+| Focus               | Regular channel                                | SWAT-DEG channel                                                                        |
+| ------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Spatial object      | `sp_ob%chan`                                   | `sp_ob%chandeg`                                                                         |
+| Input path          | `channel.con` -> `channel.cha`                 | `chandeg.con` -> `channel-lte.cha` -> `initial.cha`, `hyd-sed-lte.cha`, `nutrients.cha` |
+| Entry routine       | `channel_control` branch is commented          | Active `sd_channel_control3.f90`                                                        |
+| Main function       | Older regular channel input family             | Active simplified channel routing and degradation                                       |
+| Stored/process data | Hydrology, sediment, nutrients, temperature    | Routing, floodplain/wetland exchange, erosion, deposition                               |
+| Special routines    | Old control path not active here               | `sd_channel_sediment3.f90`, `ch_rtmusk.f90`                                             |
+| Hydrograph flow     | Three slots defined: total, recharge, overbank | `ob(icmd)%hin` -> `ht1` -> `ht2` -> `ob(icmd)%hd(1)`                                    |
+| Key point           | Useful for documenting legacy channel files    | Use for current routed channel behavior                                                 |
 
 ## Semantic Roles
 

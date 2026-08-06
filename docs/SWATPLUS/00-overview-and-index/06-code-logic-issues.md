@@ -16,24 +16,24 @@ source_revision: "SWAT+ Revision 62; SWATPLUS/swatplus cb442f7c05fc3bfc34349c446
 
 ## Quick List
 
-| File | What looks strange |
-|---|---|
-| `sd_channel_sediment3.f90` | Floodplain deposition uses `flo_time = 2 * ht1%flo / ave_rate`, which becomes constant. |
-| `sd_channel_sediment3.f90` | `florate = 2 * ht1%flo - ave_rate` mixes volume and rate. |
-| `sd_channel_sediment3.f90` | Bed erosion nutrient conversion is not consistent with bank erosion. |
-| `sd_channel_sediment3.f90` | Bed erosion is calculated, but the line adding it to `ht1` is commented. |
-| `ch_rtmusk.f90` | Daily branch resets Muskingum `nsteps` and `substeps`, even though `sd_hydsed_init.f90` already calculated them. |
-| `ch_rtmusk.f90` | `inflo_rate = inflo / 86400.` seems wrong for subdaily/substep routing. |
-| `ch_watqual4.f90` | Final nutrient masses are calculated with `ht1%flo`, not `ht2%flo`. |
-| `ch_watqual4.f90` | Algae calculation uses `alg_m` as `term_m`, but `alg_m` is a concentration. |
-| `ch_watqual4.f90` | `bc1_k` and `bc3_k` are multiplied by `2` without a clear reason. |
-| `ch_watqual4.f90` | Organic N misses the algae respiration/death source shown in the theory docs. |
-| `ch_watqual4.f90` | `alg_m_o2` is calculated but does not appear in the dissolved oxygen update. |
-| `cbn_zhang2.f90` | Net C/N transformation balance changes NO3/NH4 balance instead of updating total mineral N. |
+| Section                                              | File                       | What looks strange                                                                                                    |
+| ---------------------------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| 1.1 Floodplain Deposition, Logic Error               | `sd_channel_sediment3.f90` | Flood duration appears to become constant, and `florate = 2 * ht1%flo - ave_rate` mixes volume and rate.              |
+| 1.2 Bed Erosion Nutrients, Unit Error                | `sd_channel_sediment3.f90` | Bed erosion nutrient conversion is not consistent with bank erosion and may miss `/ 1000.`.                           |
+| 1.3 Bed Erosion Not Added                            | `sd_channel_sediment3.f90` | Bed erosion is calculated, but the line adding it to `ht1` is commented out.                                          |
+| 2.1 Muskingum Substeps                               | `ch_rtmusk.f90`            | Daily routing resets Muskingum `nsteps` and `substeps`, even though `sd_hydsed_init.f90` already calculated them.     |
+| 2.2 Inflow Rate Under Substeps                       | `ch_rtmusk.f90`            | `inflo_rate = inflo / 86400.` seems wrong for subdaily or Muskingum substep routing.                                  |
+| 3.1 Converting Concentration Back To Mass            | `ch_watqual4.f90`          | Final nutrient masses are calculated with `ht1%flo`, not `ht2%flo`.                                                   |
+| 3.2 Algae Calculation                                | `ch_watqual4.f90`          | `alg_m` is used like a change or source term, but `wq_semianalyt` returns a final concentration.                      |
+| 3.3 Algae Uptake Of NO3, NH4, And P                  | `ch_watqual4.f90`          | Algal nutrient uptake terms are calculated, but NO3 and NH4 updates do not consistently include those sinks.          |
+| 3.4 Nitrogen Rates Multiplied By 2                   | `ch_watqual4.f90`          | `bc1_k` and `bc3_k` are multiplied by `2` after time-step scaling and temperature correction, without a clear reason. |
+| 3.5 Organic N Missing Algae Respiration/Death Source | `ch_watqual4.f90`          | Organic N misses the algae respiration/death source shown in the theory docs.                                         |
+| 3.6 Dissolved Oxygen And Algae                       | `ch_watqual4.f90`          | `alg_m_o2` is calculated but not used in the dissolved oxygen update; other DO source/sink terms look inconsistent.   |
+| 4.1 Mineral N Pool Update After C/N Transformations  | `cbn_zhang2.f90`           | Net C/N transformation balance changes NO3/NH4 partitioning instead of updating total mineral N.                      |
 
-These notes collect possible logic issues found while tracing SWAT+ source code. Most current items are in the SWAT-DEG channel path, but this file can also include issues from other object controllers, such as `hru_control.f90`.
+These notes collect possible logic issues found while tracing SWAT+ source code. Most current items are in the SWAT-DEG channel path.
 
-The daily execution path starts as:
+The code execution path starts as:
 
 ```text
 main.f90 -> time_control.f90 -> command.f90
@@ -41,14 +41,16 @@ main.f90 -> time_control.f90 -> command.f90
 
 In `command.f90`, SWAT+ dispatches by spatial object type, such as `hru`, `hru_lte`, `ru`, `aqu`, and `chandeg`. For an HRU object, the model enters `hru_control.f90`. For a SWAT-DEG channel object (`chandeg`), the model enters `sd_channel_control3.f90`.
 
-In this note, each numbered main section is a Fortran file or subroutine. Each subsection describes one possible logic issue found in that file. Sections 1-3 are connected to the `sd_channel_control3.f90` channel-control path. Later sections can cover other object paths, including HRU logic.
+In this note, each numbered main section is a Fortran file or subroutine. Each subsection describes one possible logic issue found in that file. Sections 1-3 are connected to the `sd_channel_control3.f90` channel-control path. Section 4 is connected to `hru_control.f90`.
+
+In the following routine, `ht1` is the incoming hydrograph for a spatial object, `ht2` is the outgoing hydrograph. For `swat-deg` object, `ht3` is used as a temporary concentration state for the water quality reactions.
 
 ## 1. sd_channel_sediment3.f90
 
 Call path:
 
 ```text
-command.f90 -> sd_channel_control3.f90 -> sd_channel_sediment3.f90
+command.f90 -> if spatial object is 'swat-deg' -> sd_channel_control3.f90 -> sd_channel_sediment3.f90
 ```
 
 `sd_channel_sediment3.f90` is called in `sd_channel_control3.f90` before channel routing. It calculates floodplain deposition, bank erosion, and bed erosion. The result should affect the incoming channel hydrograph (`ht1`) (mainly flow and erosion) before `ch_rtmusk.f90` routes water through the channel.
@@ -70,12 +72,12 @@ Then, if overbank flow exists:
 But since `ave_rate = ht1%flo / 86400`, this becomes:
 
 ```text
-flo_time = 2 * 86400
+flo_time = 2 * ht1%flo / ave_rate = 2 * ht1%flo / (ht1%flo / 86400.) = 2 * 86400
 ```
 
 So `flo_time` is constant whenever `ht1%flo > 0`. That does not look like a real flood duration.
 
-Plugging in `ave_rate`, `flo_time` works out to `2 * 86400 = 172800` s, so it looks like a constant (about 2 days) regardless of the hydrograph. If that's right, `flo_time` is always `>= 86400`, the test `if (flo_time < 86400.)` at line 116 would never be true, and the "flood over within the day" branch would never run; only the `else` branch below would run.
+`flo_time` works out to `2 * 86400 = 172800` s, so it looks like a constant (about 2 days) regardless of the hydrograph. If that's right, `flo_time` is always `>= 86400`, the test `if (flo_time < 86400.)` at line 116 would never be true, and the "flood over within the day" branch would never run; only the `else` branch below would run.
 
 Another line in the same block:
 
@@ -83,7 +85,7 @@ Another line in the same block:
 121    florate = 2. * ht1%flo - ave_rate
 ```
 
-This looks worse because `ht1%flo` is volume with unit m3, while `ave_rate` is m3/s. So this is probably a unit problem unless one of the variable meanings is different from the comments.
+This looks worse because `ht1%flo` is volume with unit m3, while `ave_rate` is m3/s. So this is probably a unit problem.
 
 ### 1.2 Bed Erosion Nutrients, Unit Error
 
@@ -105,7 +107,7 @@ For bank erosion, the same file does include `/ 1000.`:
 
 So the bed erosion conversion is not consistent with the bank erosion conversion.
 
-If `n_conc`/`p_conc` are in mg/kg (as the inline comment assumes) and the nutrient fields are stored in kg, then `sed [t] * conc [mg/kg]` gives grams, and the missing `/1000` would leave `bed_ero%orgn`/`%sedp`/`%solp` about 1000x too large. This and 1.3 are worth reading together, since `bed_ero` does not appear to be added to the hydrograph.
+This and 1.3 are worth reading together, since `bed_ero` does not appear to be added to the hydrograph.
 
 ### 1.3 Bed Erosion Not Added
 
@@ -117,11 +119,11 @@ The bed erosion block ends with:
 280    !ht1 = ht1 + bed_ero
 ```
 
-So bed erosion is calculated, but it is not added to the channel hydrograph. Bank erosion and floodplain deposition do change `ht1`, but bed erosion does not. It also seems that no deposition happens for bed erosion.
+So bed erosion is calculated, but it is not added to the channel hydrograph. Bank erosion and floodplain deposition do change `ht1`, but bed erosion does not. 
 
 `bed_ero%flo` does not seem to be assigned anywhere, so `rto = bed_ero%flo / ht1%flo` at line 278 may always be 0.
 
-For bank erosion, deposition is calculated as a constant percentage of the eroded amount:
+It also seems that no deposition happens for bed erosion. For bank erosion, deposition is calculated as a constant percentage of the eroded amount:
 ```fortran
 250    ch_dep%sed = sd_ch(ich)%wash_bed_fr * bank_ero%sed
 ```
@@ -131,11 +133,10 @@ For bank erosion, deposition is calculated as a constant percentage of the erode
 Call path:
 
 ```text
-command.f90 -> sd_channel_control3.f90 -> ch_rtmusk.f90
+command.f90 -> if spatial object is 'swat-deg' -> sd_channel_control3.f90 -> ch_rtmusk.f90
 ```
 
 `ch_rtmusk.f90` is called after `sd_channel_sediment3.f90`. Its job is to route channel water from the incoming hydrograph (`ht1`) to the outgoing hydrograph (`ht2`) using Muskingum or variable-storage routing. It also updates channel and floodplain storage variables used during routing.
-
 
 ### 2.1 Muskingum Substeps
 
@@ -147,7 +148,7 @@ The Muskingum stability condition is:
 
 Example from the `Osu_1hru` demo:
 
-- Set `rte_cha = 1` in `codes.bsn` to use Muskingum channel routing. `rte_cha = 0` uses the variable-storage method (default).
+- ==Set `rte_cha = 1` in `codes.bsn`== to use Muskingum channel routing. `rte_cha = 0` uses the variable-storage method (default).
 - During initialization, the path `main.f90 -> proc_cha.f90 -> sd_hydsed_init.f90` calculates the Muskingum parameters.
 - In this example, `sd_hydsed_init.f90` needs 11 Muskingum substeps per day. That means each routing substep is about 2.18 hours.
 - Later, when `ch_rtmusk.f90` runs, the block at lines 90-94 resets `nsteps` and `substeps` back to 1. That removes the 11 substeps calculated for stability.
@@ -219,14 +220,12 @@ Using `/ 86400.` only makes sense if `inflo` is daily volume. Under subdaily or 
 Call path:
 
 ```text
-command.f90 -> sd_channel_control3.f90 -> ch_watqual4.f90
+command.f90 -> if spatial object is 'swat-deg' -> sd_channel_control3.f90 -> ch_watqual4.f90
 ```
 
-`ch_watqual4.f90` is called inside `sd_channel_control3.f90` after flow routing, when there is channel inflow (`ht1%flo > 1.e-6`). It computes in-stream water-quality reactions for nutrients, algae, CBOD, and dissolved oxygen. The routine converts hydrograph masses to concentrations, updates reaction concentrations, then writes masses back to the outgoing hydrograph (`ht2`).
+`ch_watqual4.f90` is called inside `sd_channel_control3.f90` after flow routing, when there is channel inflow (`ht1%flo > 1.e-6`). It computes in-stream water quality reactions for nutrients, algae, CBOD, and dissolved oxygen. The routine converts hydrograph masses to concentrations, updates reaction concentrations, then writes masses back to the outgoing hydrograph (`ht2`).
 
 ### 3.1 Converting Concentration Back To Mass
-
-In this routine, `ht1` is the incoming hydrograph for the channel segment, `ht2` is the outgoing hydrograph, and `ht3` is used as a temporary concentration state for the water-quality reactions.
 
 At the beginning of the routine, incoming constituent mass is converted to concentration using the inflow volume:
 
@@ -244,7 +243,7 @@ At the end of the routine, the updated concentration is converted back to mass a
 ...
 ```
 
-The questionable part is that the output mass is still scaled by `ht1%flo`. If `ht3` is the final concentration after channel reactions, and `ht2` is the routed output hydrograph, then the final load should normally be tied to the output water volume:
+The questionable part is that the output mass is still scaled by `ht1%flo`. If `ht3` is the final concentration after channel reactions, and `ht2` is the routed output hydrograph, then the final load should normally be tied to the output water volume (`ht2`), instead of (`ht1`):
 
 ```fortran
 ht2%orgn = ht3%orgn * ht2%flo / 1000.
@@ -300,7 +299,7 @@ The same issue appears in the settling calculation:
 220    algcon_out = wq_semianalyt(tday, rt_delt, alg_m, -alg_set, algcon, algin)
 ```
 
-In `wq_semianalyt`, the third argument is the zero-order source/sink term. Passing `alg_m` there only makes sense if `alg_m` is a delta or rate. In the current code, it is still a final concentration.
+In `wq_semianalyt`, the third argument is the zero-order source/sink term. Passing `alg_m` there only makes sense if `alg_m` is a 0-order item, not the final concentration. 
 
 ### 3.3 Algae Uptake Of NO3, NH4, And P
 
@@ -319,33 +318,25 @@ If `alg_m` really means algae change during this time step (algae growth minus a
 - `ai2` converts algae biomass demand to phosphorus demand.
 - the negative sign makes uptake a loss from the dissolved nutrient pools.
 
-The real problem is in the later nutrient updates. The code computes possible algae uptake terms, but the final NO3, NH4, and soluble-P updates do not consistently include algae growth uptake.
+The real problem is in the later nutrient updates. The code computes possible algae uptake terms, but the final NO3 and NH4 updates do not consistently include algae growth uptake. `ht3nh3` and `ht3%no3` are final concentrations.
 
 ```fortran
-281    ht3%nh3 = wq_semianalyt(tday, rt_delt, factm, 0., ht3%nh3, ammoin)
+281    ht3%nh3 = wq_semianalyt(tday, rt_delt, factm, 0., ht3%nh3, ammoin)    ! factm here is (organic N -> NH3) - (NH3 -> NO2), 0 order 
 
-293    ht3%no3 = wq_semianalyt(tday, rt_delt, factm, 0., ht3%no3, ht3%no3)
+293    ht3%no3 = wq_semianalyt(tday, rt_delt, factm, 0., ht3%no3, ht3%no3)   ! factm here is NO2 -> NO3, 0 order
 ```
 
 The ammonia and nitrate equations include nitrification/mineralization terms, but they do not subtract algal N uptake from `ht3%nh3` or `ht3%no3`. If algae growth consumes inorganic N, these updates should include that sink somewhere.
 
-For soluble P, the update does include an algae-growth sink, but it is calculated separately:
-
-```fortran
-321    zz = ch_nut(jnut)%ai2 * Theta(gra, thgra, wtmp) * algin
-322    ht3%solp = ht3%solp + (xx + yy - zz) * tday
-```
-
-So soluble P has an algae uptake term (`zz`), while NO3 and NH4 do not appear to have matching algae uptake sinks. The earlier `alg_no3_m`, `alg_nh4_m`, and `alg_P_m` calculations make the intended uptake logic visible, but the final nutrient concentration updates do not use that logic consistently.
-
+For soluble P, the update does include an algae-growth sink, but it is calculated separately.
 
 ### 3.4 Nitrogen Rates Multiplied By 2
 
 The nitrogen block first temperature-corrects two reaction rates:
 
 ```fortran
-248    bc1_k = Theta(ch_nut(jnut)%bc1, thbc1, wtmp) ! NH3 -> NO2
-249    bc3_k = Theta(ch_nut(jnut)%bc3, thbc3, wtmp) ! Organic N -> ammonia
+248    bc1_k = Theta(ch_nut(jnut)%bc1, thbc1, wtmp) ! NH3 -> NO2, temperature correction
+249    bc3_k = Theta(ch_nut(jnut)%bc3, thbc3, wtmp) ! Organic N -> ammonia, temperature correction
 250    bc1_k = bc1_k * 2.
 251    bc3_k = bc3_k * 2.
 ```
@@ -364,7 +355,6 @@ So the code already includes:
 - time-step scaling in `ch_read_nut.f90`
 - temperature correction through `Theta(...)`
 - then an extra hard-coded `* 2.` in `ch_watqual4.f90`
-
 
 ### 3.5 Organic N Missing Algae Respiration/Death Source
 
@@ -410,15 +400,15 @@ Here `c1` is the initial concentration, `c2` is the incoming concentration, `t1`
 
 So `wq_k2m` changes a first-order term (`tk * C`) into an equivalent zero-order term (`tm`) for this one step. It first solves the equation with `tk`, gets the final concentration, then calculates the `tm` that would give the same final concentration when `prock = 0`.
 
-This explains what the function does, but it also raises a question. In many places it may be clearer to add all first-order terms into one `prock`, add all zero-order terms into one `term_m`, and solve once with `wq_semianalyt`. The current code sometimes converts one first-order process into `tm` using `wq_k2m`, then solves again with another first-order process. That is not necessarily the same as solving all first-order processes together in one equation.
+This explains what the function does, but it also raises a question. In many places it may be clearer to add all first-order terms into one `prock`, add all zero-order terms into one `term_m`, and solve once with `wq_semianalyt`. The current code sometimes converts one first-order process into `tm` using `wq_k2m`, then solves again with another first-order process. 
 
-The positive algae respiration/death source is not included in this update. Conceptually, that source would be something like:
+Back to the problem, the positive algae respiration/death source is not included in this update. Conceptually, that source would be something like:
 
 ```text
 orgn_from_algae = ch_nut(jnut)%ai1 * Theta(ch_nut(jnut)%rhoq, thrho, wtmp) * algcon
 ```
 
-This is not a proposed code fix yet, because the exact algae concentration and units still need checking. The logic issue is simpler: in this block, organic N loses mass to ammonia and settling, but does not receive organic N from algae respiration/death.
+This is not a proposed code fix yet.
 
 ### 3.6 Dissolved Oxygen And Algae
 
@@ -432,6 +422,7 @@ d(DO)/dt = reaeration rate * (O2 saturation concentration - current O2 concentra
            - oxygen uptake by NH4 oxidation to NO2
            - oxygen uptake by NO2 oxidation to NO3
 ```
+Well, the code for solving this equation looks a bit messy.
 
 The code calculates an algal oxygen term:
 
@@ -481,10 +472,10 @@ The confusing parts are:
 
 ## 4. cbn_zhang2.f90
 
-This is an HRU-side issue, not a SWAT-DEG channel issue. The call path is:
+This is an HRU-side issue. The call path is:
 
 ```text
-command.f90 -> hru_control.f90 -> cbn_zhang2.f90
+command.f90 -> if spatial object is 'hru' -> hru_control.f90 -> cbn_zhang2.f90
 ```
 
 In `hru_control.f90`, `cbn_zhang2` is called only when `bsn_cc%cswat == 2`, after surface residue decomposition and residue transfer:
@@ -514,13 +505,13 @@ The organic pools transform into each other. Because each pool has its own C:N r
 
 ![[Figure2.png|650]]
 
-The C/N transformation logic is controlled by supply and demand:
+The following are the C/N reactions between organic pools. The C/N transformation logic is controlled by supply and demand:
 
 - N supply is released from the source organic pool.
 - N demand is the N required by the receiving organic pool.
 - If supply is larger than demand, extra N should be released to the mineral N pool.
 - If demand is larger than supply, extra N should be immobilized from mineral N.
-- If total available N is not enough, the C transformation rate is reduced.
+- If total available N is not enough, the ==C transformation rate== is reduced. (Note, the C transformation is based on N balance. And after calculation of C transformation, N transformation is calculated based on C:N ratio.)
 
 The reduction factor is:
 
@@ -547,7 +538,7 @@ So `rnmn` is the net N balance after the actual transformations:
 - `rnmn > 0`: organic transformations release mineral N.
 - `rnmn < 0`: organic transformations need mineral N immobilization.
 
-But the update block is:
+Then we need update mineral N pools based on mineralization and immobilization. But the update block is:
 
 ```fortran
 685    !     update
@@ -559,7 +550,7 @@ But the update block is:
 691    end if
 ```
 
-This does not look like mineralization or immobilization. If `rnmn > 0`, the code should add the released N to a mineral N pool. Instead, it calculates `min_n` from the existing NO3 pool, adds that amount to NH4, and subtracts the same amount from NO3.
+This does not look like mineralization or immobilization. If `rnmn > 0`, the code should add the released N to a mineral N pool, that is an extra source. Instead, it calculates `min_n` from the existing NO3 pool, adds that amount to NH4, and subtracts the same amount from NO3.
 
 For example, if `NO3 = 10`, `NH4 = 1`, and `rnmn = 2`, the code gives:
 
@@ -569,8 +560,7 @@ NO3 = 10 - 8 = 2
 NH4 = 1 + 8 = 9
 ```
 
-Total mineral N stays 11. No new mineral N is added, even though `rnmn > 0` means the organic transformations released N. Also, when `rnmn < 0`, there is no matching branch here to subtract immobilized N from the mineral pools.
-
+The new mineral N (NO3 + NH4) should be 10 + 1 + 2 = 13. But under current method, total mineral N stays 11. No new mineral N is added, even though `rnmn > 0` means the organic transformations released N. Also, when `rnmn < 0`, there is no matching branch here to subtract immobilized N from the mineral pools.
 
 
 ## Still Reading
